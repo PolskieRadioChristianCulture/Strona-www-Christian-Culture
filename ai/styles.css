@@ -777,6 +777,57 @@ a:focus-visible {
   color: #ffffff;
 }
 
+.sidebar-model-wrap {
+  display: none;
+  width: 100%;
+  margin-bottom: 4px;
+}
+
+.sidebar-model-pill {
+  width: 100%;
+  justify-content: space-between;
+  min-height: 40px;
+}
+
+.sidebar-model-wrap .dropdown-menu {
+  z-index: 95;
+  width: 100%;
+  min-width: 240px;
+}
+
+.sidebar-privacy-toggle {
+  width: 100%;
+  justify-content: flex-start;
+  min-height: 38px;
+  padding: 6px 10px;
+}
+
+.sidebar-privacy-toggle .switch-track {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.sidebar-footer-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sidebar-footer-row .footer-item {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.sidebar-help-btn {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+}
+
+.sidebar-voice-item svg {
+  color: var(--cc-btn-orange);
+}
+
 /* =================== ŚRODKOWA PRZESTRZEŃ =================== */
 .main-workspace {
   position: relative;
@@ -3419,7 +3470,7 @@ a:focus-visible {
 
 .toast {
   position: fixed;
-  bottom: 24px;
+  bottom: 72px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 120;
@@ -3680,6 +3731,19 @@ a:focus-visible {
     flex-shrink: 0;
   }
 
+  .sidebar-model-wrap {
+    display: block;
+  }
+
+  .sidebar-help-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .toast {
+    bottom: calc(74px + env(safe-area-inset-bottom, 0px));
+  }
+
   .privacy-pill {
     padding: 0 6px;
     min-width: 44px;
@@ -3687,12 +3751,7 @@ a:focus-visible {
     gap: 0;
   }
 
-  .circle-help-btn {
-    display: none;
-  }
-
   .voice-chat-text,
-  .privacy-text,
   .topbar-divider {
     display: none;
   }

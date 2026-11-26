@@ -97,7 +97,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
   <style>html,body{background:#0a0a0a;color:#f4f2ec;margin:0}</style>
-  <link rel="stylesheet" href="/ai/styles.css?v=20261126_ai22_p0">
+  <link rel="stylesheet" href="/ai/styles.css?v=20261126_ai23_p0">
 </head>
 <body>
   <a class="skip-link" href="#prompt">Przejdź do rozmowy</a>
@@ -161,6 +161,10 @@
           </button>
 
           <div id="navMoreGroup" class="nav-more-group" hidden>
+            <button type="button" id="voiceChatBtn" class="nav-item sidebar-voice-item" aria-label="Czat głosowy na żywo z asystentem" title="Rozmowa głosowa na żywo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M8 7v10M16 7v10M4 10v4M20 10v4"/></svg>
+              <span>Czat głosowy</span>
+            </button>
             <button type="button" class="nav-item" data-nav="Deep Research">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
               <span>Deep Research</span>
@@ -221,10 +225,33 @@
       </div>
 
       <div class="sidebar-footer">
-        <button type="button" class="footer-item" data-nav="Ustawienia">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.85 1 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
-          <span>Ustawienia</span>
+        <div class="dropdown-wrap sidebar-model-wrap">
+          <button type="button" id="modelPickerBtn" class="model-pill sidebar-model-pill" aria-haspopup="listbox" aria-expanded="false">
+            <svg class="gold-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m11 3 1.8 4.7L17.5 9.5l-4.7 1.8L11 16l-1.8-4.7L4.5 9.5l4.7-1.8L11 3Z"/><path d="M18.5 14.5 19.3 16.7 21.5 17.5 19.3 18.3 18.5 20.5 17.7 18.3 15.5 17.5 17.7 16.7 18.5 14.5Z"/></svg>
+            <span id="activeModelLabel">CC Auto</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div id="modelMenu" class="dropdown-menu dropdown-up" role="listbox" aria-label="Wybór silnika AI" hidden>
+            <button type="button" role="option" class="dropdown-option active" data-model="CC Auto">CC Auto <span>Inteligentny dobór</span></button>
+            <button type="button" role="option" class="dropdown-option" data-model="Studium Biblijne">Studium Biblijne <span>Kontekst UBG</span></button>
+            <button type="button" role="option" class="dropdown-option" data-model="Twórczość CC">Twórczość CC <span>Redakcja i media</span></button>
+            <button type="button" role="option" class="dropdown-option" data-model="Deep Research">Deep Research <span>Analiza źródeł</span></button>
+          </div>
+        </div>
+        <button type="button" id="privacyToggleBtn" class="footer-item privacy-toggle sidebar-privacy-toggle" role="switch" aria-checked="false">
+          <svg class="shield-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6.5v5.5c0 4.7 3.4 8.7 8 10 4.6-1.3 8-5.3 8-10V6.5L12 3Z"/><path d="m9.5 12 1.8 1.8 3.5-3.8"/></svg>
+          <span class="privacy-text">Tryb prywatny</span>
+          <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
         </button>
+        <div class="sidebar-footer-row">
+          <button type="button" class="footer-item" data-nav="Ustawienia">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.85 1 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
+            <span>Ustawienia</span>
+          </button>
+          <button type="button" id="helpBtn" class="circle-help-btn sidebar-help-btn" aria-label="Informacje o aplikacji i pomoc" title="Informacje o aplikacji i pomoc">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 4.9.8c0 1.6-2.4 2.1-2.4 3.4"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></svg>
+          </button>
+        </div>
         <button type="button" class="footer-item" data-nav="Mój profil">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>
           <span>Mój profil</span>
@@ -245,40 +272,9 @@
           <button type="button" id="openLeftDrawer" class="icon-btn panel-toggle-btn" aria-controls="leftSidebar" aria-label="Ukryj lewy panel" aria-expanded="true" title="Ukryj / pokaż lewy panel (Ctrl+B)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg>
           </button>
-
-          <div class="dropdown-wrap">
-            <button type="button" id="modelPickerBtn" class="model-pill" aria-haspopup="listbox" aria-expanded="false">
-              <svg class="gold-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m11 3 1.8 4.7L17.5 9.5l-4.7 1.8L11 16l-1.8-4.7L4.5 9.5l4.7-1.8L11 3Z"/><path d="M18.5 14.5 19.3 16.7 21.5 17.5 19.3 18.3 18.5 20.5 17.7 18.3 15.5 17.5 17.7 16.7 18.5 14.5Z"/></svg>
-              <span id="activeModelLabel">CC Auto</span>
-              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-            </button>
-            <div id="modelMenu" class="dropdown-menu" role="listbox" aria-label="Wybór silnika AI" hidden>
-              <button type="button" role="option" class="dropdown-option active" data-model="CC Auto">CC Auto <span>Inteligentny dobór</span></button>
-              <button type="button" role="option" class="dropdown-option" data-model="Studium Biblijne">Studium Biblijne <span>Kontekst UBG</span></button>
-              <button type="button" role="option" class="dropdown-option" data-model="Twórczość CC">Twórczość CC <span>Redakcja i media</span></button>
-              <button type="button" role="option" class="dropdown-option" data-model="Deep Research">Deep Research <span>Analiza źródeł</span></button>
-            </div>
-          </div>
         </div>
 
         <div class="topbar-right">
-          <button type="button" id="voiceChatBtn" class="voice-chat-pill" aria-label="Czat głosowy na żywo z asystentem" title="Rozmowa głosowa na żywo">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M8 7v10M16 7v10M4 10v4M20 10v4"/></svg>
-            <span class="voice-chat-text">Czat głosowy</span>
-          </button>
-
-          <button type="button" id="privacyToggleBtn" class="privacy-toggle" role="switch" aria-checked="false">
-            <svg class="shield-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6.5v5.5c0 4.7 3.4 8.7 8 10 4.6-1.3 8-5.3 8-10V6.5L12 3Z"/><path d="m9.5 12 1.8 1.8 3.5-3.8"/></svg>
-            <span class="privacy-text">Tryb prywatny</span>
-            <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
-          </button>
-
-          <span class="topbar-divider" aria-hidden="true"></span>
-
-          <button type="button" id="helpBtn" class="circle-help-btn" aria-label="Informacje o wersji makiety">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 4.9.8c0 1.6-2.4 2.1-2.4 3.4"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></svg>
-          </button>
-
           <button type="button" id="openRightDrawer" class="icon-btn panel-toggle-btn" aria-controls="rightSidebar" aria-label="Ukryj prawy panel" aria-expanded="true" title="Ukryj / pokaż prawy panel (Ctrl+Shift+B)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16"/></svg>
           </button>
@@ -631,6 +627,6 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
-  <script defer src="/ai/app.js?v=20261126_ai22_p0"></script>
+  <script defer src="/ai/app.js?v=20261126_ai23_p0"></script>
 </body>
 </html>

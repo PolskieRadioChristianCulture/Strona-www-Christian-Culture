@@ -1287,11 +1287,43 @@ function closeRightPanel() {
   syncPanelButtons();
 }
 
+function closeAllSidePanels() {
+  const leftOverlay = isLeftOverlayMode();
+  const rightOverlay = isRightOverlayMode();
+  const hadOverlay =
+    document.body.classList.contains('left-drawer-open') ||
+    document.body.classList.contains('right-drawer-open');
+  if (hadOverlay) {
+    document.body.classList.remove('left-drawer-open', 'right-drawer-open');
+    if (scrim) scrim.hidden = true;
+  }
+  let desktopChanged = false;
+  if (!leftOverlay && !state.leftCollapsed) {
+    state.leftCollapsed = true;
+    desktopChanged = true;
+  }
+  if (!rightOverlay && !state.rightCollapsed) {
+    state.rightCollapsed = true;
+    desktopChanged = true;
+  }
+  if (desktopChanged) saveState();
+  if (hadOverlay || desktopChanged) syncPanelButtons();
+}
+
 openLeftBtn?.addEventListener('click', toggleLeftPanel);
 closeLeftBtn?.addEventListener('click', closeLeftPanel);
 openRightBtn?.addEventListener('click', toggleRightPanel);
 closeRightBtn?.addEventListener('click', closeRightPanel);
 scrim?.addEventListener('click', closeDrawers);
+mainWorkspace?.addEventListener('click', (e) => {
+  if (window.getSelection?.()?.toString()?.trim()) return;
+  const target = e.target;
+  if (!(target instanceof Element)) return;
+  if (target.closest('button, a, input, textarea, select, label, [role="button"], [role="option"], [role="menuitem"], .composer-box, .prompt-card, .assistant-strip, .msg-bubble, .msg-card, .media-card, .module-card, .dropdown-menu, .composer-cmd-popup, .workspace-footer, video, audio, iframe')) {
+    return;
+  }
+  closeAllSidePanels();
+});
 window.addEventListener('resize', () => {
   if (!isLeftOverlayMode()) document.body.classList.remove('left-drawer-open');
   if (!isRightOverlayMode()) document.body.classList.remove('right-drawer-open');
@@ -5009,6 +5041,7 @@ function listenForVoiceCallTurn() {
 }
 
 function openVoiceCall() {
+  closeDrawers();
   if (privateMode) {
     showToast('Wyłącz tryb prywatny, aby użyć mikrofonu.');
     return;
