@@ -829,6 +829,7 @@ function loadState(uid = currentUser?.uid) {
     chats: [],
     notes: [],
     memory: [],
+    reminders: [],
     projects: [...DEFAULT_PROJECTS],
     preferredModel: 'auto',
     leftCollapsed: false,
@@ -841,6 +842,7 @@ function loadState(uid = currentUser?.uid) {
       chats: Array.isArray(raw.chats) ? raw.chats.slice(0, 40) : [],
       notes: Array.isArray(raw.notes) ? raw.notes.slice(0, 60) : [],
       memory: Array.isArray(raw.memory) ? raw.memory.slice(0, 20) : [],
+      reminders: Array.isArray(raw.reminders) ? raw.reminders.slice(0, 40) : [],
       projects: Array.isArray(raw.projects) && raw.projects.length ? raw.projects.slice(0, 20) : [...DEFAULT_PROJECTS],
       assistantId: typeof raw.assistantId === 'string' && AI_PERSONAS[raw.assistantId] ? raw.assistantId : DEFAULT_ASSISTANT_ID,
       preferredModel: typeof raw.preferredModel === 'string' && raw.preferredModel.trim() ? raw.preferredModel.trim() : 'auto',
@@ -1353,6 +1355,376 @@ function stopStreamReveal() {
   }
 }
 
+function stripMarkdownPlain(text) {
+  return String(text || '')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1')
+    .replace(/^#{1,6}\s*/gm, '')
+    .replace(/^>\s*/gm, '')
+    .replace(/[*_`~]+/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function hasInteractiveQuestion(assistantText, userText = '') {
+  const cleanAi = String(assistantText || '').replace(/https?:\/\/\S+/gi, '');
+  const cleanUser = String(userText || '').replace(/https?:\/\/\S+/gi, '');
+  return cleanAi.includes('?') || cleanUser.includes('?');
+}
+
+function buildMessageTitle(msg, prevUserText = '') {
+  const u = stripMarkdownPlain(prevUserText);
+  if (u && u.length > 3) return u.slice(0, 68);
+  const plain = stripMarkdownPlain(msg?.text || '');
+  return (plain.split(/[.!?\n]/)[0] || 'Notatka AI dla Jezusa').slice(0, 68);
+}
+
+function saveMessageToNotes(msg, prevUserText = '', { savedLater = false } = {}) {
+  if (!Array.isArray(state.notes)) state.notes = [];
+  const existing = state.notes.find((n) => n.id === msg.id);
+  if (existing) {
+    if (savedLater && !existing.savedLater) {
+      existing.savedLater = true;
+      existing.updatedAt = new Date().toISOString();
+      saveState();
+      return 'later';
+    }
+    return 'exists';
+  }
+  state.notes.unshift({
+    id: msg.id,
+    title: buildMessageTitle(msg, prevUserText),
+    text: msg.text,
+    sources: msg.sources || [],
+    savedLater: Boolean(savedLater),
+    savedAt: new Date().toISOString()
+  });
+  saveState();
+  if (currentNav === 'Notatniki') renderModule('Notatniki');
+  return savedLater ? 'later' : 'saved';
+}
+
+function rememberMessageInMemory(msg, prevUserText = '') {
+  if (!Array.isArray(state.memory)) state.memory = [];
+  const plain = stripMarkdownPlain(msg?.text || '');
+  const title = buildMessageTitle(msg, prevUserText);
+  const snippet = (plain.length > 140 ? `${plain.slice(0, 140)}…` : plain) || title;
+  const entryText = (title && !snippet.startsWith(title.slice(0, 20))
+    ? `${title}: ${snippet}`
+    : snippet).slice(0, 200);
+  if (!entryText) return false;
+  if (state.memory.some((m) => m.msgId === msg.id || m.text === entryText)) return false;
+  state.memory.unshift({
+    id: 'mem-' + Date.now(),
+    msgId: msg.id,
+    text: entryText,
+    createdAt: new Date().toISOString()
+  });
+  state.memory = state.memory.slice(0, 20);
+  saveState();
+  if (currentNav === 'Pamięć') renderModule('Pamięć');
+  return true;
+}
+
+function formatCalendarUtc(date) {
+  const d = date instanceof Date && !Number.isNaN(date.getTime()) ? date : new Date();
+  const pad = (n) => String(n).padStart(2, '0');
+  return (
+    String(d.getUTCFullYear()) +
+    pad(d.getUTCMonth() + 1) +
+    pad(d.getUTCDate()) +
+    'T' +
+    pad(d.getUTCHours()) +
+    pad(d.getUTCMinutes()) +
+    pad(d.getUTCSeconds()) +
+    'Z'
+  );
+}
+
+function toLocalDateTimeValue(date) {
+  const d = date instanceof Date && !Number.isNaN(date.getTime()) ? date : new Date();
+  const pad = (n) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+function getDefaultFutureDate({ hoursAhead = 1, morningHour = null } = {}) {
+  const d = new Date();
+  if (typeof morningHour === 'number') {
+    if (d.getHours() >= morningHour) d.setDate(d.getDate() + 1);
+    d.setHours(morningHour, 0, 0, 0);
+    return d;
+  }
+  d.setTime(d.getTime() + hoursAhead * 3600000);
+  d.setSeconds(0, 0);
+  return d;
+}
+
+function buildGoogleCalendarUrl({ title, details, startDate, durationMinutes = 30 }) {
+  const start = startDate instanceof Date && !Number.isNaN(startDate.getTime()) ? startDate : getDefaultFutureDate({ morningHour: 8 });
+  const end = new Date(start.getTime() + durationMinutes * 60000);
+  const url = new URL('https://calendar.google.com/calendar/render');
+  url.searchParams.set('action', 'TEMPLATE');
+  url.searchParams.set('text', String(title || 'Czas z Bogiem — AI dla Jezusa').slice(0, 120));
+  url.searchParams.set('dates', `${formatCalendarUtc(start)}/${formatCalendarUtc(end)}`);
+  url.searchParams.set('details', String(details || '').slice(0, 1400));
+  return url.toString();
+}
+
+function escapeIcsText(val) {
+  return String(val || '')
+    .replace(/\\/g, '\\\\')
+    .replace(/\r?\n/g, '\\n')
+    .replace(/;/g, '\\;')
+    .replace(/,/g, '\\,');
+}
+
+function downloadIcsFile({ title, details, startDate, durationMinutes = 30 }) {
+  const start = startDate instanceof Date && !Number.isNaN(startDate.getTime()) ? startDate : getDefaultFutureDate({ morningHour: 8 });
+  const end = new Date(start.getTime() + durationMinutes * 60000);
+  const ics = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Christian Culture//AI dla Jezusa//PL',
+    'CALSCALE:GREGORIAN',
+    'BEGIN:VEVENT',
+    `UID:cc-ai-${Date.now()}@polskieradio.cc`,
+    `DTSTAMP:${formatCalendarUtc(new Date())}`,
+    `DTSTART:${formatCalendarUtc(start)}`,
+    `DTEND:${formatCalendarUtc(end)}`,
+    `SUMMARY:${escapeIcsText(title || 'Spotkanie ze Słowem Bożym — AI dla Jezusa')}`,
+    `DESCRIPTION:${escapeIcsText(details || '')}`,
+    'URL:https://polskieradio.cc/ai/aplikacja',
+    'BEGIN:VALARM',
+    'ACTION:DISPLAY',
+    'DESCRIPTION:Przypomnienie z AI dla Jezusa',
+    'TRIGGER:-PT15M',
+    'END:VALARM',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\r\n');
+
+  const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+  const href = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = href;
+  a.download = 'ai-dla-jezusa-kalendarz.ics';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(href), 2000);
+}
+
+function openCalendarModal(msg, prevUserText = '') {
+  const defaultTitle = buildMessageTitle(msg, prevUserText);
+  const defaultDetails = `${stripMarkdownPlain(msg?.text || '').slice(0, 900)}\n\nŹródło: https://polskieradio.cc/ai/aplikacja`;
+  const defaultStart = getDefaultFutureDate({ morningHour: 8 });
+
+  infoDialogTitle.textContent = 'Dodaj do mojego kalendarza';
+  infoDialogBody.replaceChildren();
+
+  const intro = document.createElement('p');
+  intro.textContent = 'Zaplanuj to słowo, modlitwę lub zadanie w swoim kalendarzu (Google Calendar albo plik .ics do Apple / Outlook / Android).';
+
+  const form = document.createElement('form');
+  form.className = 'dialog-form';
+
+  const titleInput = document.createElement('input');
+  titleInput.type = 'text';
+  titleInput.className = 'dialog-input';
+  titleInput.required = true;
+  titleInput.value = defaultTitle;
+  titleInput.setAttribute('aria-label', 'Tytuł wydarzenia w kalendarzu');
+
+  const dtInput = document.createElement('input');
+  dtInput.type = 'datetime-local';
+  dtInput.className = 'dialog-input';
+  dtInput.value = toLocalDateTimeValue(defaultStart);
+  dtInput.setAttribute('aria-label', 'Data i godzina wydarzenia');
+
+  const notesInput = document.createElement('textarea');
+  notesInput.className = 'dialog-input';
+  notesInput.rows = 4;
+  notesInput.value = defaultDetails;
+  notesInput.setAttribute('aria-label', 'Opis wydarzenia');
+
+  const btnRow = document.createElement('div');
+  btnRow.className = 'dialog-actions-row';
+
+  const googleLink = document.createElement('a');
+  googleLink.className = 'connect-btn';
+  googleLink.target = '_blank';
+  googleLink.rel = 'noopener noreferrer';
+  googleLink.textContent = 'Otwórz w Google Calendar ↗';
+
+  const syncGoogleHref = () => {
+    const startDate = dtInput.value ? new Date(dtInput.value) : defaultStart;
+    googleLink.href = buildGoogleCalendarUrl({
+      title: titleInput.value.trim() || defaultTitle,
+      details: notesInput.value.trim(),
+      startDate
+    });
+  };
+  titleInput.addEventListener('input', syncGoogleHref);
+  dtInput.addEventListener('change', syncGoogleHref);
+  notesInput.addEventListener('input', syncGoogleHref);
+  syncGoogleHref();
+
+  googleLink.addEventListener('click', () => {
+    trackAiEvent('ai_calendar_add', { channel: 'google_calendar' });
+    showToast('Otwieram formularz w Google Calendar.');
+  });
+
+  const icsBtn = document.createElement('button');
+  icsBtn.type = 'button';
+  icsBtn.className = 'dialog-btn-secondary';
+  icsBtn.textContent = 'Pobierz plik (.ics)';
+  icsBtn.onclick = () => {
+    const startDate = dtInput.value ? new Date(dtInput.value) : defaultStart;
+    downloadIcsFile({
+      title: titleInput.value.trim() || defaultTitle,
+      details: notesInput.value.trim(),
+      startDate
+    });
+    trackAiEvent('ai_calendar_add', { channel: 'ics' });
+    showToast('Pobrano plik .ics do Twojego kalendarza.');
+    infoDialog.close();
+  };
+
+  btnRow.append(googleLink, icsBtn);
+  form.append(titleInput, dtInput, notesInput, btnRow);
+  infoDialogBody.append(intro, form);
+  infoDialog.showModal();
+}
+
+function checkDueReminders() {
+  if (!Array.isArray(state.reminders) || !state.reminders.length) return;
+  const nowMs = Date.now();
+  let changed = false;
+  for (const rem of state.reminders) {
+    if (!rem || rem.done || rem.notified) continue;
+    const dueMs = new Date(rem.dueAt).getTime();
+    if (!Number.isFinite(dueMs) || dueMs > nowMs) continue;
+    rem.notified = true;
+    changed = true;
+    showToast(`🔔 Przypomnienie: ${rem.title}`);
+    try {
+      if (typeof Notification === 'function' && Notification.permission === 'granted') {
+        new Notification(`AI dla Jezusa — Przypomnienie`, {
+          body: rem.title,
+          icon: '/ai/assets/icon-192.png'
+        });
+      }
+    } catch {}
+  }
+  if (changed) {
+    saveState();
+    if (currentNav === 'Automatyzacje') renderModule('Automatyzacje');
+  }
+}
+
+function openReminderModal(msg, prevUserText = '') {
+  const defaultTitle = buildMessageTitle(msg, prevUserText);
+  const summaryText = stripMarkdownPlain(msg?.text || '').slice(0, 260);
+  const defaultDue = getDefaultFutureDate({ hoursAhead: 1 });
+
+  infoDialogTitle.textContent = 'Przypomnij mi';
+  infoDialogBody.replaceChildren();
+
+  const intro = document.createElement('p');
+  intro.textContent = 'Ustaw przypomnienie o tym słowie, modlitwie lub zadaniu. Powiadomimy Cię w aplikacji, a jednym kliknięciem dodasz je też do kalendarza.';
+
+  const form = document.createElement('form');
+  form.className = 'dialog-form';
+
+  const titleInput = document.createElement('input');
+  titleInput.type = 'text';
+  titleInput.className = 'dialog-input';
+  titleInput.required = true;
+  titleInput.value = defaultTitle;
+  titleInput.setAttribute('aria-label', 'Temat przypomnienia');
+
+  const dtInput = document.createElement('input');
+  dtInput.type = 'datetime-local';
+  dtInput.className = 'dialog-input';
+  dtInput.required = true;
+  dtInput.value = toLocalDateTimeValue(defaultDue);
+  dtInput.setAttribute('aria-label', 'Czas przypomnienia');
+
+  const presets = document.createElement('div');
+  presets.className = 'reminder-presets';
+  const presetItems = [
+    ['Za 30 min', () => new Date(Date.now() + 30 * 60000)],
+    ['Za 2 godz.', () => new Date(Date.now() + 120 * 60000)],
+    ['Dziś o 20:00', () => getDefaultFutureDate({ morningHour: 20 })],
+    ['Jutro o 08:00', () => getDefaultFutureDate({ morningHour: 8 })]
+  ];
+  for (const [label, makeDate] of presetItems) {
+    const pBtn = document.createElement('button');
+    pBtn.type = 'button';
+    pBtn.className = 'msg-action-btn';
+    pBtn.textContent = label;
+    pBtn.onclick = () => {
+      dtInput.value = toLocalDateTimeValue(makeDate());
+    };
+    presets.appendChild(pBtn);
+  }
+
+  const btnRow = document.createElement('div');
+  btnRow.className = 'dialog-actions-row';
+
+  const saveRemBtn = document.createElement('button');
+  saveRemBtn.type = 'submit';
+  saveRemBtn.className = 'connect-btn';
+  saveRemBtn.textContent = 'Zapisz przypomnienie';
+
+  const calLink = document.createElement('a');
+  calLink.className = 'gold-card-link';
+  calLink.target = '_blank';
+  calLink.rel = 'noopener noreferrer';
+  calLink.textContent = 'Dodaj też do Google Calendar ↗';
+  const syncCalHref = () => {
+    const d = dtInput.value ? new Date(dtInput.value) : defaultDue;
+    calLink.href = buildGoogleCalendarUrl({
+      title: `Przypomnienie: ${titleInput.value.trim() || defaultTitle}`,
+      details: summaryText,
+      startDate: d
+    });
+  };
+  titleInput.addEventListener('input', syncCalHref);
+  dtInput.addEventListener('change', syncCalHref);
+  syncCalHref();
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const dueDate = dtInput.value ? new Date(dtInput.value) : defaultDue;
+    if (!Array.isArray(state.reminders)) state.reminders = [];
+    state.reminders.unshift({
+      id: 'rem-' + Date.now(),
+      title: (titleInput.value.trim() || defaultTitle).slice(0, 120),
+      text: summaryText,
+      dueAt: dueDate.toISOString(),
+      done: false,
+      notified: false,
+      createdAt: new Date().toISOString()
+    });
+    state.reminders = state.reminders.slice(0, 40);
+    saveState();
+    try {
+      if (typeof Notification === 'function' && Notification.permission === 'default') {
+        Notification.requestPermission().catch(() => {});
+      }
+    } catch {}
+    trackAiEvent('ai_reminder_create', { status: 'saved' });
+    if (currentNav === 'Automatyzacje') renderModule('Automatyzacje');
+    showToast(`⏰ Przypomnienie ustawione na ${dueDate.toLocaleString('pl-PL', { dateStyle: 'short', timeStyle: 'short' })}.`);
+    infoDialog.close();
+  });
+
+  btnRow.append(saveRemBtn, calLink);
+  form.append(titleInput, presets, dtInput, btnRow);
+  infoDialogBody.append(intro, form);
+  infoDialog.showModal();
+}
+
 function renderMediaDeck(mediaItems) {
   if (!Array.isArray(mediaItems) || !mediaItems.length) return null;
   const deck = document.createElement('div');
@@ -1808,6 +2180,79 @@ function renderConversation(animateMsgId = '') {
         }
       }
 
+      const syncBubbleSaveButtons = (savedLater = false) => {
+        if (saveNoteBtn) {
+          saveNoteBtn.textContent = savedLater ? 'Zapisano (na później) ✓' : 'Zapisano ✓';
+          saveNoteBtn.classList.add('is-done');
+        }
+        if (quickSaveBtn) {
+          quickSaveBtn.textContent = 'Zapisano ✓';
+          quickSaveBtn.classList.add('is-done');
+        }
+        if (quickLaterBtn && savedLater) {
+          quickLaterBtn.textContent = 'Na później ✓';
+          quickLaterBtn.classList.add('is-done');
+        }
+      };
+
+      const existingNote = (state.notes || []).find((n) => n.id === msg.id);
+      const isQuestionReply = hasInteractiveQuestion(msg.text, prevUserMsg?.text);
+      let quickSaveBtn = null;
+      let quickLaterBtn = null;
+
+      if (isQuestionReply) {
+        const quickBar = document.createElement('div');
+        quickBar.className = 'quick-reply-bar' + (isStreamingThisMsg ? ' stream-reveal-deferred' : '');
+        quickBar.setAttribute('role', 'group');
+        quickBar.setAttribute('aria-label', 'Szybkie odpowiedzi i zapis');
+        if (isStreamingThisMsg) deferred.push(quickBar);
+
+        const yesBtn = document.createElement('button');
+        yesBtn.type = 'button';
+        yesBtn.className = 'quick-reply-btn is-yes';
+        yesBtn.dataset.quickReply = 'yes';
+        yesBtn.textContent = 'Tak';
+        yesBtn.onclick = () => {
+          if (busy) return;
+          sendChatMessage('Tak');
+        };
+
+        const noBtn = document.createElement('button');
+        noBtn.type = 'button';
+        noBtn.className = 'quick-reply-btn is-no';
+        noBtn.dataset.quickReply = 'no';
+        noBtn.textContent = 'Nie';
+        noBtn.onclick = () => {
+          if (busy) return;
+          sendChatMessage('Nie');
+        };
+
+        quickSaveBtn = document.createElement('button');
+        quickSaveBtn.type = 'button';
+        quickSaveBtn.className = 'quick-reply-btn is-save' + (existingNote ? ' is-done' : '');
+        quickSaveBtn.dataset.quickReply = 'save';
+        quickSaveBtn.textContent = existingNote ? 'Zapisano ✓' : 'Zapisz';
+        quickSaveBtn.onclick = () => {
+          const res = saveMessageToNotes(msg, prevUserMsg?.text || '', { savedLater: false });
+          syncBubbleSaveButtons(Boolean(existingNote?.savedLater));
+          showToast(res === 'exists' ? 'Ta odpowiedź jest już zapisana w Notatnikach.' : 'Zapisano w Notatnikach.');
+        };
+
+        quickLaterBtn = document.createElement('button');
+        quickLaterBtn.type = 'button';
+        quickLaterBtn.className = 'quick-reply-btn is-later' + (existingNote?.savedLater ? ' is-done' : '');
+        quickLaterBtn.dataset.quickReply = 'later';
+        quickLaterBtn.textContent = existingNote?.savedLater ? 'Na później ✓' : 'Zapisz na później';
+        quickLaterBtn.onclick = () => {
+          const res = saveMessageToNotes(msg, prevUserMsg?.text || '', { savedLater: true });
+          syncBubbleSaveButtons(true);
+          showToast(res === 'exists' ? 'Już oznaczone jako zapisane na później.' : 'Zapisano na później w Notatnikach.');
+        };
+
+        quickBar.append(yesBtn, noBtn, quickSaveBtn, quickLaterBtn);
+        aiBubble.appendChild(quickBar);
+      }
+
       const actions = document.createElement('div');
       actions.className = 'msg-actions' + (isStreamingThisMsg ? ' stream-reveal-deferred' : '');
       if (isStreamingThisMsg) deferred.push(actions);
@@ -1834,30 +2279,47 @@ function renderConversation(animateMsgId = '') {
         }
       };
 
-      const saveNoteBtn = document.createElement('button');
-      saveNoteBtn.type = 'button';
-      saveNoteBtn.className = 'msg-action-btn';
-      const alreadySaved = state.notes.some((n) => n.id === msg.id);
-      saveNoteBtn.textContent = alreadySaved ? 'W Notatnikach ✓' : 'Zapisz w Notatnikach';
-      saveNoteBtn.onclick = () => {
-        if (state.notes.some((n) => n.id === msg.id)) {
-          showToast('Ta odpowiedź jest już w Notatnikach.');
-          return;
-        }
-        const prevUser = thread.messages[i - 1]?.text || 'Notatka AI dla Jezusa';
-        state.notes.unshift({
-          id: msg.id,
-          title: prevUser.slice(0, 64),
-          text: msg.text,
-          sources: msg.sources || [],
-          savedAt: new Date().toISOString()
-        });
-        saveState();
-        saveNoteBtn.textContent = 'W Notatnikach ✓';
-        showToast('Zapisano odpowiedź w Notatnikach.');
+      const alreadyRemembered = (state.memory || []).some((m) => m.msgId === msg.id);
+      const rememberBtn = document.createElement('button');
+      rememberBtn.type = 'button';
+      rememberBtn.className = 'msg-action-btn' + (alreadyRemembered ? ' is-done' : '');
+      rememberBtn.dataset.action = 'remember';
+      rememberBtn.textContent = alreadyRemembered ? 'Zapamiętano ✓' : 'Zapamiętaj';
+      rememberBtn.onclick = () => {
+        const added = rememberMessageInMemory(msg, prevUserMsg?.text || '');
+        rememberBtn.textContent = 'Zapamiętano ✓';
+        rememberBtn.classList.add('is-done');
+        showToast(added ? 'Zapamiętano w Twojej pamięci kontekstowej AI.' : 'Już zapisano w Pamięci.');
       };
 
-      actions.append(speakBtn, copyBtn, saveNoteBtn);
+      var saveNoteBtn = document.createElement('button');
+      saveNoteBtn.type = 'button';
+      saveNoteBtn.className = 'msg-action-btn' + (existingNote ? ' is-done' : '');
+      saveNoteBtn.dataset.action = 'save';
+      saveNoteBtn.textContent = existingNote
+        ? (existingNote.savedLater ? 'Zapisano (na później) ✓' : 'Zapisano ✓')
+        : 'Zapisz';
+      saveNoteBtn.onclick = () => {
+        const res = saveMessageToNotes(msg, prevUserMsg?.text || '', { savedLater: false });
+        syncBubbleSaveButtons(Boolean(existingNote?.savedLater));
+        showToast(res === 'exists' ? 'Ta odpowiedź jest już w Notatnikach.' : 'Zapisano odpowiedź w Notatnikach.');
+      };
+
+      const calendarBtn = document.createElement('button');
+      calendarBtn.type = 'button';
+      calendarBtn.className = 'msg-action-btn';
+      calendarBtn.dataset.action = 'calendar';
+      calendarBtn.textContent = 'Dodaj do mojego kalendarza';
+      calendarBtn.onclick = () => openCalendarModal(msg, prevUserMsg?.text || '');
+
+      const reminderBtn = document.createElement('button');
+      reminderBtn.type = 'button';
+      reminderBtn.className = 'msg-action-btn';
+      reminderBtn.dataset.action = 'reminder';
+      reminderBtn.textContent = 'Przypomnij mi';
+      reminderBtn.onclick = () => openReminderModal(msg, prevUserMsg?.text || '');
+
+      actions.append(speakBtn, copyBtn, rememberBtn, saveNoteBtn, calendarBtn, reminderBtn);
 
       if (i === thread.messages.length - 1 && thread.messages[i - 1]?.role === 'user') {
         const retryBtn = document.createElement('button');
@@ -2315,25 +2777,36 @@ function renderModule(name) {
   }
 
   if (name === 'Notatniki') {
-    sub.textContent = 'Odpowiedzi AI zapisane przyciskiem „Zapisz w Notatnikach” podczas Twoich rozmów.';
+    sub.textContent = 'Odpowiedzi AI zapisane przyciskiem „Zapisz” lub „Zapisz na później” podczas Twoich rozmów.';
     const grid = document.createElement('div');
     grid.className = 'module-grid';
     if (!state.notes.length) {
       const empty = document.createElement('p');
       empty.className = 'module-empty';
-      empty.textContent = 'Brak zapisanych notatek. Po rozmowie z AI kliknij „Zapisz w Notatnikach”, aby zachować odpowiedź na później.';
+      empty.textContent = 'Brak zapisanych notatek. Po rozmowie z AI kliknij „Zapisz” lub „Zapisz na później”, aby zachować odpowiedź.';
       moduleStage.appendChild(empty);
       return;
     }
     for (const note of state.notes) {
       const card = document.createElement('article');
       card.className = 'module-card';
+      if (note.savedLater) {
+        const laterTag = document.createElement('span');
+        laterTag.className = 'note-later-badge';
+        laterTag.textContent = '⏳ Na później';
+        card.appendChild(laterTag);
+      }
       const strong = document.createElement('strong');
       strong.textContent = note.title;
       const preview = document.createElement('p');
       preview.textContent = note.text.slice(0, 260) + (note.text.length > 260 ? '...' : '');
       const foot = document.createElement('div');
       foot.className = 'module-card-foot';
+      const resumeBtn = document.createElement('button');
+      resumeBtn.type = 'button';
+      resumeBtn.className = 'media-play-btn';
+      resumeBtn.textContent = 'Wróć do tematu →';
+      resumeBtn.onclick = () => startPromptDirectly(`Wróćmy do zapisanego tematu „${note.title}” i pomóż mi podjąć kolejny krok.`, note.title);
       const copyBtn = document.createElement('button');
       copyBtn.type = 'button';
       copyBtn.className = 'connect-btn';
@@ -2351,7 +2824,7 @@ function renderModule(name) {
         saveState();
         renderModule('Notatniki');
       };
-      foot.append(copyBtn, delBtn);
+      foot.append(resumeBtn, copyBtn, delBtn);
       card.append(strong, preview, foot);
       grid.appendChild(card);
     }
@@ -2636,6 +3109,61 @@ function renderModule(name) {
     }
     moduleStage.appendChild(grid);
     return;
+  }
+
+  if (name === 'Automatyzacje') {
+    const remWrap = document.createElement('section');
+    remWrap.className = 'reminders-section';
+    const remHeading = document.createElement('h3');
+    remHeading.className = 'reminders-heading';
+    remHeading.textContent = `Twoje przypomnienia (${(state.reminders || []).length})`;
+    remWrap.appendChild(remHeading);
+    if (Array.isArray(state.reminders) && state.reminders.length) {
+      const remGrid = document.createElement('div');
+      remGrid.className = 'module-grid';
+      for (const rem of state.reminders) {
+        const card = document.createElement('article');
+        card.className = 'module-card';
+        const badge = document.createElement('span');
+        badge.className = 'note-later-badge';
+        const dtLabel = new Date(rem.dueAt).toLocaleString('pl-PL', { dateStyle: 'short', timeStyle: 'short' });
+        badge.textContent = rem.done ? `✓ Wykonane · ${dtLabel}` : `⏰ ${dtLabel}`;
+        const strong = document.createElement('strong');
+        strong.textContent = rem.title;
+        const p = document.createElement('p');
+        p.textContent = rem.text || '';
+        const foot = document.createElement('div');
+        foot.className = 'module-card-foot';
+        const doneBtn = document.createElement('button');
+        doneBtn.type = 'button';
+        doneBtn.className = 'connect-btn';
+        doneBtn.textContent = rem.done ? 'Przywróć' : '✓ Gotowe';
+        doneBtn.onclick = () => {
+          rem.done = !rem.done;
+          saveState();
+          renderModule('Automatyzacje');
+        };
+        const delBtn = document.createElement('button');
+        delBtn.type = 'button';
+        delBtn.className = 'msg-action-btn';
+        delBtn.textContent = 'Usuń';
+        delBtn.onclick = () => {
+          state.reminders = state.reminders.filter((x) => x.id !== rem.id);
+          saveState();
+          renderModule('Automatyzacje');
+        };
+        foot.append(doneBtn, delBtn);
+        card.append(badge, strong, p, foot);
+        remGrid.appendChild(card);
+      }
+      remWrap.appendChild(remGrid);
+    } else {
+      const remEmpty = document.createElement('p');
+      remEmpty.className = 'module-empty';
+      remEmpty.textContent = 'Brak zapisanych przypomnień. Kliknij „Przypomnij mi” pod dowolną odpowiedzią AI w czacie.';
+      remWrap.appendChild(remEmpty);
+    }
+    moduleStage.appendChild(remWrap);
   }
 
   if (name === 'Automatyzacje' && ownerSession?.isOwner) {
@@ -3865,6 +4393,8 @@ syncProBadge();
 updatePersonalizedHero();
 renderRecentChats();
 renderRightProjects();
+checkDueReminders();
+setInterval(checkDueReminders, 30000);
 hydrateDailyVerse();
 initLuminaAuthConnector();
 initAmbientCanvas();

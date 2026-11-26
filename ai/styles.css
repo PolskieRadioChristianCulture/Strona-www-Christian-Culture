@@ -2043,6 +2043,102 @@ a:focus-visible {
   background: rgba(230, 184, 76, 0.14);
 }
 
+.quick-reply-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(196, 163, 90, 0.18);
+}
+
+.quick-reply-btn {
+  min-height: 36px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid #353127;
+  background: #181714;
+  color: #f3eee2;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 140ms ease, border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+}
+
+.quick-reply-btn:hover {
+  border-color: var(--gold);
+  background: #242016;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.quick-reply-btn:focus-visible,
+.msg-action-btn:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.quick-reply-btn.is-yes {
+  border-color: var(--cc-btn-orange);
+  background: var(--cc-btn-orange);
+  color: #ffffff;
+}
+
+.quick-reply-btn.is-yes:hover {
+  border-color: var(--cc-btn-orange-hover);
+  background: var(--cc-btn-orange-hover);
+}
+
+.quick-reply-btn.is-yes:active {
+  background: var(--cc-btn-orange-active);
+}
+
+.quick-reply-btn.is-later {
+  border-color: rgba(196, 163, 90, 0.42);
+  color: #f3e0b0;
+}
+
+.quick-reply-btn.is-done,
+.msg-action-btn.is-done {
+  border-color: rgba(196, 163, 90, 0.65);
+  background: rgba(196, 163, 90, 0.14);
+  color: #f6e7be;
+}
+
+.reminder-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.note-later-badge {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #f6e7be;
+  background: rgba(196, 163, 90, 0.14);
+  border: 1px solid rgba(196, 163, 90, 0.35);
+}
+
+.reminders-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.reminders-heading {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gold);
+}
+
 .msg-actions {
   display: flex;
   flex-wrap: wrap;
@@ -3040,7 +3136,9 @@ a:focus-visible {
   .assistant-pill,
   .media-play-btn,
   .provider-badge-btn,
-  .badge-model-opt {
+  .badge-model-opt,
+  .quick-reply-btn,
+  .msg-action-btn {
     min-height: 44px;
   }
 

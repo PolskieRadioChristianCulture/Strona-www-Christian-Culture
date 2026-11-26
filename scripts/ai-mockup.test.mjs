@@ -194,8 +194,8 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai16/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai16/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai17/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai17/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
@@ -641,4 +641,30 @@ test('All 5 assistants embody the Christocentric brother/sister mentor ethos in 
   assert.match(femaleFb.reply, /Przygotowałam/);
   assert.match(femaleFb.reply, /kondycja emocjonalna/);
   assert.match(femaleFb.reply, /Chwała Panu/);
+});
+
+test('Interactive chat actions (Zapamiętaj, Zapisz, Kalendarz, Przypomnij mi) and question quick replies (Tak, Nie, Zapisz, Zapisz na później) work cleanly', () => {
+  const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
+  const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
+
+  for (const label of [
+    'Zapamiętaj',
+    'Dodaj do mojego kalendarza',
+    'Przypomnij mi',
+    'Zapisz na później',
+    'hasInteractiveQuestion',
+    'buildGoogleCalendarUrl',
+    'downloadIcsFile',
+    'openReminderModal',
+    'checkDueReminders',
+    'quick-reply-bar'
+  ]) {
+    assert.ok(appJs.includes(label), `Missing interactive feature in ai/app.js: ${label}`);
+  }
+  assert.match(appJs, /textContent\s*=\s*'Tak'/);
+  assert.match(appJs, /textContent\s*=\s*'Nie'/);
+  assert.match(appJs, /:\s*'Zapisz'/);
+  assert.match(css, /\.quick-reply-bar\b/);
+  assert.match(css, /\.quick-reply-btn\.is-yes\b/);
+  assert.match(css, /\.quick-reply-btn,\s*\n\s*\.msg-action-btn\s*\{\s*\n\s*min-height:\s*44px;/);
 });
