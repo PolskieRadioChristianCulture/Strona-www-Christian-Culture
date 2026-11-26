@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-26",
+      "topic": "AI dla Jezusa (/ai/aplikacja) — uproszczona nawigacja, zwijane paski ikon po obu stronach oraz zintegrowany panel ustawień",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-26",
       "topic": "Strategiczny Audyt CC Guardian 360 (22:00) — skan 36 widoków (12 serwisów × 3 ekrany, 0 P0–P3), weryfikacja LUMINA & LUMI MESS, naprawa trwałości rekomendacji /ai/aplikacja w silniku @w oraz 100% PASS testów Zero-QA",
       "agent": "A"
     },
