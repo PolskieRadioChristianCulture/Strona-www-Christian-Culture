@@ -101,6 +101,24 @@
           "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PLN" }
         },
         {
+          "@type": "BreadcrumbList",
+          "@id": "https://polskieradio.cc/vod#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Strona główna",
+              "item": "https://polskieradio.cc/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Kino VOD",
+              "item": "https://polskieradio.cc/vod"
+            }
+          ]
+        },
+        {
           "@type": "BroadcastEvent",
           "@id": "https://polskieradio.cc/vod#broadcastevent",
           "name": "Dobre Kino Chrześcijańskie 24/7",
@@ -123,6 +141,7 @@
           "@id": "https://polskieradio.cc/vod#movielist",
           "name": "Filmy Chrześcijańskie z Lektorem PL Za Darmo — Repertuar VOD",
           "description": "Katalog pełnometrażowych filmów chrześcijańskich i biblijnych z polskim lektorem dostępnych bezpłatnie w Kinie VOD Christian Culture.",
+          "numberOfItems": 12,
           "itemListElement": [
             {
               "@type": "ListItem",
@@ -130,7 +149,11 @@
               "item": {
                 "@type": "Movie",
                 "name": "Sprawa Chrystusa (The Case for Christ) — Lektor PL",
-                "url": "https://polskieradio.cc/vod",
+                "url": "https://polskieradio.cc/vod?film=sprawa-chrystusa",
+                "image": "https://i.ytimg.com/vi/LnnlqaQ19_0/maxresdefault.jpg",
+                "dateCreated": "2017",
+                "duration": "PT112M",
+                "director": { "@type": "Person", "name": "Jon Gunn" },
                 "inLanguage": "pl",
                 "isAccessibleForFree": true,
                 "description": "Dziennikarz śledczy Lee Strobel bada historyczne dowody zmartwychwstania Jezusa Chrystusa."
@@ -142,7 +165,11 @@
               "item": {
                 "@type": "Movie",
                 "name": "Przełęcz ocalonych (Hacksaw Ridge) — Lektor PL",
-                "url": "https://polskieradio.cc/vod",
+                "url": "https://polskieradio.cc/vod?film=przelecz-ocalonych-hacksaw-ridge",
+                "image": "https://image.tmdb.org/t/p/w780/rshlQ6LfPRSWFhpGL4s5ZkIPR51.jpg",
+                "dateCreated": "2016",
+                "duration": "PT139M",
+                "director": { "@type": "Person", "name": "Mel Gibson" },
                 "inLanguage": "pl",
                 "isAccessibleForFree": true,
                 "description": "Prawdziwa historia Desmonda Dossa, sanitariusza wiernego Bożym przykazaniom, który uratował 75 żołnierzy bez broni w ręku."
@@ -154,7 +181,11 @@
               "item": {
                 "@type": "Movie",
                 "name": "Chata (The Shack) — Lektor PL",
-                "url": "https://polskieradio.cc/vod",
+                "url": "https://polskieradio.cc/vod?film=chata-the-shack",
+                "image": "https://image.tmdb.org/t/p/w780/bAup7FGUlmNVOuhZFlLgmDPo0Eg.jpg",
+                "dateCreated": "2017",
+                "duration": "PT132M",
+                "director": { "@type": "Person", "name": "Stuart Hazeldine" },
                 "inLanguage": "pl",
                 "isAccessibleForFree": true,
                 "description": "Poruszająca opowieść o uzdrowieniu serca, przebaczeniu i spotkaniu z Bożą miłością pośród cierpienia."
@@ -165,11 +196,15 @@
               "position": 4,
               "item": {
                 "@type": "Movie",
-                "name": "JEZUS (Ewangelia według św. Łukasza) — Lektor PL",
-                "url": "https://polskieradio.cc/vod",
+                "name": "Próba Ogniowa (Fireproof) — Lektor PL",
+                "url": "https://polskieradio.cc/vod?film=proba-ogniowa-fireproof",
+                "image": "https://polskieradio.cc/poster_proba_ogniowa.jpg",
+                "dateCreated": "2008",
+                "duration": "PT117M",
+                "director": { "@type": "Person", "name": "Alex Kendrick" },
                 "inLanguage": "pl",
                 "isAccessibleForFree": true,
-                "description": "Wierna biblijna ekranizacja życia, nauczania, śmierci i zmartwychwstania Jezusa Chrystusa."
+                "description": "Kapitan straży pożarnej Caleb Holt podejmuje 40-dniowe wyzwanie wiary i bezwarunkowej miłości, aby uratować swoje małżeństwo."
               }
             },
             {
@@ -177,11 +212,15 @@
               "position": 5,
               "item": {
                 "@type": "Movie",
-                "name": "Bóg nie umarł (God's Not Dead) — Lektor PL",
-                "url": "https://polskieradio.cc/vod",
+                "name": "JEZUS (Ewangelia według św. Łukasza) — Lektor PL",
+                "url": "https://polskieradio.cc/vod?film=film-jezus-ewangelia-lukasza",
+                "image": "https://i.ytimg.com/vi/GMdQIwKh22A/hqdefault.jpg",
+                "dateCreated": "1979",
+                "duration": "PT128M",
+                "director": { "@type": "Person", "name": "Peter Sykes, John Krish" },
                 "inLanguage": "pl",
                 "isAccessibleForFree": true,
-                "description": "Młody chrześcijański student staje w obronie wiary w Boga przed obliczem uniwersyteckiego profesora filozofii."
+                "description": "Wierna biblijna ekranizacja życia, nauczania, śmierci i zmartwychwstania Jezusa Chrystusa."
               }
             },
             {
@@ -189,11 +228,165 @@
               "position": 6,
               "item": {
                 "@type": "Movie",
-                "name": "Luter (Luther) — Lektor PL",
-                "url": "https://polskieradio.cc/vod",
+                "name": "Bóg nie umarł (God's Not Dead) — Lektor PL",
+                "url": "https://polskieradio.cc/vod?film=bog-nie-umar-1",
+                "image": "https://i.ytimg.com/vi/Mxlw-eQFh-c/hqdefault.jpg",
+                "dateCreated": "2014",
+                "duration": "PT113M",
+                "director": { "@type": "Person", "name": "Harold Cronk" },
+                "inLanguage": "pl",
+                "isAccessibleForFree": true,
+                "description": "Młody chrześcijański student staje w obronie wiary w Boga przed obliczem uniwersyteckiego profesora filozofii."
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 7,
+              "item": {
+                "@type": "Movie",
+                "name": "Bóg nie umarł 2 (God's Not Dead 2) — Lektor PL",
+                "url": "https://polskieradio.cc/vod?film=bog-nie-umar-2",
+                "image": "https://i.ytimg.com/vi/-_BPQcptdW8/hqdefault.jpg",
+                "dateCreated": "2016",
+                "duration": "PT120M",
+                "director": { "@type": "Person", "name": "Harold Cronk" },
+                "inLanguage": "pl",
+                "isAccessibleForFree": true,
+                "description": "Nauczycielka historii Grace Wesley broni przed sądem prawa do mówienia o Jezusie Chrystusie i Pismie Świętym."
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 8,
+              "item": {
+                "@type": "Movie",
+                "name": "Luter — człowiek, który zmienił oblicze Kościoła — Lektor PL",
+                "url": "https://polskieradio.cc/vod?film=luter-czlowiek-ktory-zmienil-oblicze-kosciola",
+                "image": "https://i.ytimg.com/vi/lug1BNspb8k/hqdefault.jpg",
+                "dateCreated": "2003",
+                "duration": "PT123M",
+                "director": { "@type": "Person", "name": "Eric Till" },
                 "inLanguage": "pl",
                 "isAccessibleForFree": true,
                 "description": "Dramat historyczny o Marcinie Lutrze, odkryciu zbawienia z łaski przez wiarę i powrocie do Pisma Świętego."
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 9,
+              "item": {
+                "@type": "Movie",
+                "name": "Spotkanie (The Encounter) — Lektor PL",
+                "url": "https://polskieradio.cc/vod?film=spotkanie-2010",
+                "image": "https://i.ytimg.com/vi/xJjFe-ALYNI/hqdefault.jpg",
+                "dateCreated": "2010",
+                "duration": "PT85M",
+                "director": { "@type": "Person", "name": "David A.R. White" },
+                "inLanguage": "pl",
+                "isAccessibleForFree": true,
+                "description": "Pięcioro nieznajomych uwięzionych przez burzę w przydrożnej knajpce spotyka tajemniczego gospodarza oferującego przebaczenie."
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 10,
+              "item": {
+                "@type": "Movie",
+                "name": "Spotkanie 2: Raj utracony — Lektor PL",
+                "url": "https://polskieradio.cc/vod?film=spotkanie-2-raj-utracony",
+                "image": "https://i.ytimg.com/vi/L-6S8MZqLj4/hqdefault.jpg",
+                "dateCreated": "2012",
+                "duration": "PT90M",
+                "director": { "@type": "Person", "name": "Bobby Smyth" },
+                "inLanguage": "pl",
+                "isAccessibleForFree": true,
+                "description": "W obliczu śmiertelnego zagrożenia na tropikalnej wyspie tajemniczy Nieznajomy ponownie niesie nadzieję i ocalenie."
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 11,
+              "item": {
+                "@type": "Movie",
+                "name": "I stanie się światło (Let There Be Light) — Lektor PL",
+                "url": "https://polskieradio.cc/vod?film=i-stanie-sie-swiatlo",
+                "image": "https://i.ytimg.com/vi/AZ_Idt4VhrA/hqdefault.jpg",
+                "dateCreated": "2017",
+                "duration": "PT100M",
+                "director": { "@type": "Person", "name": "Kevin Sorbo" },
+                "inLanguage": "pl",
+                "isAccessibleForFree": true,
+                "description": "Znany ateistyczny publicysta po wypadku i doświadczeniu bliskim śmierci przechodzi głęboką przemianę serca."
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 12,
+              "item": {
+                "@type": "Movie",
+                "name": "Od Ateisty do Kreacjonisty — Świadectwo Naukowca (Walter Veith)",
+                "url": "https://polskieradio.cc/vod?film=od-ateisty-do-kreacjonisty-veith",
+                "image": "https://i.ytimg.com/vi/E6QNg3uDbWc/hqdefault.jpg",
+                "dateCreated": "2024",
+                "duration": "PT105M",
+                "director": { "@type": "Person", "name": "Prof. Walter Veith" },
+                "inLanguage": "pl",
+                "isAccessibleForFree": true,
+                "description": "Prawdziwe świadectwo profesora zoologii, który przeszedł drogę od ateizmu do wiary w biblijne stworzenie."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://polskieradio.cc/vod#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Czy filmy są w 100% bezpłatne i nie wymagają rejestracji?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Tak, cały katalog VOD Christian Culture jest w 100% bezpłatny. Nie pobieramy żadnych opłat, nie wymagamy rejestracji, logowania ani podawania kart płatniczych."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Czy filmy posiadają polską wersję językową (Lektor PL)?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Tak. Wszystkie filmy fabularne w naszym katalogu emitowane są z polskim lektorem (Lektor PL) lub polskimi napisami."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Jak działa Kino 24/7 i jak wybrać konkretny film na żądanie?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Wystarczy kliknąć plakat dowolnego filmu w karuzeli kategorii lub skorzystać z wyszukiwarki. Seans rozpoczyna się z oficjalną zapowiedzią misyjną CC, po czym płynnie przechodzi do filmu głównego."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Jak oglądać filmy VOD na telewizorze Smart TV?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Możesz otworzyć portal polskieradio.cc/tv z obsługą pilota, wejść bezpośrednio na polskieradio.cc/vod w przeglądarce Smart TV albo przesłać obraz przez Chromecast lub AirPlay."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Jakie hity kina chrześcijańskiego znajdę w repertuarze?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "W repertuarze znajdują się m.in. Sprawa Chrystusa, Przełęcz ocalonych, Chata, Próba Ogniowa, JEZUS wg Ewangelii św. Łukasza, Bóg nie umarł 1 i 2, Luter, Spotkanie 1 i 2 oraz I stanie się światło."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Jak mogę wesprzeć rozwój kina chrześcijańskiego?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Projekt rozwija się dzięki modlitwie i dobrowolnemu wsparciu darczyńców przez WspieramTO (polskieradio.cc/wspieramto) oraz profil Patronite Osobowość Plus."
               }
             }
           ]
@@ -2516,11 +2709,29 @@
             }
         }
 
+        function trackVodEvent(eventName, extra) {
+            const payload = Object.assign({ page_path: location.pathname }, extra || {});
+            try {
+                if (typeof window.ccTrack === 'function') {
+                    window.ccTrack(eventName, payload);
+                    return;
+                }
+                if (typeof window.gtag === 'function') {
+                    window.gtag('event', eventName, Object.assign({ transport_type: 'beacon' }, payload));
+                }
+            } catch (e) {}
+        }
+
         // Otwarcie Odtwarzacza Kinowego - ZAWSZE z oficjalnym zwiastunem CC
         window.openCinemaPlayer = function(movieId) {
             const movie = window.VodDB.getMovieById(movieId);
             if (!movie) return;
             currentMovie = movie;
+            trackVodEvent('vod_movie_select', {
+                movie_id: movie.id,
+                movie_title: movie.title,
+                movie_category: movie.category || ''
+            });
 
             document.getElementById('playerModalTitle').textContent = movie.title;
             document.getElementById('playerModalMeta').textContent = movie.year + ' • ' + movie.duration + ' • ' + movie.category;
@@ -2566,6 +2777,7 @@
 
         window.skipPrerollIntro = function() {
             if (window.prerollAutoAdvanceTimer) clearTimeout(window.prerollAutoAdvanceTimer);
+            trackVodEvent('vod_preroll_skip', { movie_id: currentMovie ? currentMovie.id : '' });
             startMainMoviePlayback();
         };
 
@@ -2576,9 +2788,16 @@
             document.getElementById('btnSkipPreroll').classList.remove('show');
 
             if (!currentMovie) return;
+            const embedType = (currentMovie.embedType === 'iframe' && currentMovie.embedUrl) ? 'iframe' : 'youtube';
+            trackVodEvent('vod_play', {
+                movie_id: currentMovie.id,
+                movie_title: currentMovie.title,
+                movie_category: currentMovie.category || '',
+                embed_type: embedType
+            });
 
             // Uruchomienie właściwego filmu (zewnętrzny iframe Vider lub YouTube)
-            if (currentMovie.embedType === 'iframe' && currentMovie.embedUrl) {
+            if (embedType === 'iframe') {
                 loadVideoToIframe(currentMovie.embedUrl, true);
             } else if (currentMovie.youtubeId) {
                 loadVideoToIframe(currentMovie.youtubeId, false);
@@ -2613,6 +2832,10 @@
             const m = window.VodDB.getMovieById(movieId);
             if (!m) return;
             detailMovie = m;
+            trackVodEvent('vod_detail_view', {
+                movie_id: m.id,
+                movie_title: m.title
+            });
 
             document.getElementById('detailBanner').style.backgroundImage = 'url(' + m.thumbnail + ')';
             document.getElementById('detailTitle').textContent = m.title;
@@ -2640,6 +2863,8 @@
             const m = window.VodDB.getMovieById(movieId);
             if (!m) return;
             const url = window.location.origin + '/vod?film=' + m.id;
+            const shareMethod = navigator.share ? 'native' : 'clipboard';
+            trackVodEvent('vod_share', { movie_id: m.id, method: shareMethod });
             if (navigator.share) {
                 navigator.share({ title: m.title + ' — VOD Christian Culture', url: url });
             } else {
@@ -2659,14 +2884,17 @@
         window.shareMovieToLumina = function(movieId) {
             const m = window.VodDB.getMovieById(movieId);
             if (!m) return;
+            trackVodEvent('vod_share', { movie_id: m.id, method: 'lumina' });
             const url = window.location.origin + '/vod?film=' + m.id;
-            const text = `Polecam wartościowy seans w kinie Christian Culture:\n\n🎬 „${m.title}” (${m.year || 2026})\n${m.desc || ''}\n\nOglądaj bezpłatnie na kanale VOD CC:`;
+            const summaryText = m.description || m.desc || '';
+            const shareImg = m.thumbnail || m.cover || m.backdrop || '';
+            const text = `Polecam wartościowy seans w kinie Christian Culture:\n\n🎬 „${m.title}” (${m.year || 2026})\n${summaryText}\n\nOglądaj bezpłatnie na kanale VOD CC:`;
             if (typeof window.shareToLumina === 'function') {
                 window.shareToLumina({
                     title: `🎬 Kino VOD: ${m.title}`,
                     text: text,
                     url: url,
-                    imageUrl: m.cover || m.backdrop || '',
+                    imageUrl: shareImg,
                     videoUrl: m.videoUrl || m.youtubeUrl || ''
                 });
             } else {
@@ -2674,7 +2902,7 @@
                 sp.set('share_title', `🎬 Kino VOD: ${m.title}`);
                 sp.set('share_text', text);
                 sp.set('share_url', url);
-                if (m.cover) sp.set('share_img', m.cover);
+                if (shareImg) sp.set('share_img', shareImg);
                 window.location.href = 'lumina-tablica.html?' + sp.toString();
             }
         };
@@ -2692,6 +2920,7 @@
     <!-- Christian Culture & LUMINA Universal Google Auth Connector -->
     <script src="js/cc-global-auth.js?v=20261007_auth_v2" defer></script>
     <script src="js/lumina-share.js" defer></script>
+  <script src="/components/cc-wspieramto-modal.js?v=20261124_funnel1" defer></script>
   <script src="/components/cc-support-footer.js?v=20261119_gold2" defer></script>
   <!-- CC Media Mutex & Smart TV Controller -->
   <script src="/components/cc-media-mutex.js" defer></script>

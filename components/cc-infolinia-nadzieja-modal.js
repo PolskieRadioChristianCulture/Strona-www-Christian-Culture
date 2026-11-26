@@ -30,6 +30,19 @@
   const STYLE_ID = 'cc-infolinia-nadzieja-styles';
   const MODAL_ID = 'ccInfoliniaNadziejaOverlay';
 
+  function trackInfolinia(eventName, extra) {
+    const payload = Object.assign({ page_path: location.pathname }, extra || {});
+    try {
+      if (typeof window.ccTrack === 'function') {
+        window.ccTrack(eventName, payload);
+        return;
+      }
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', eventName, Object.assign({ transport_type: 'beacon' }, payload));
+      }
+    } catch (e) {}
+  }
+
   let overlayEl = null;
   let dialogEl = null;
   let titleEl = null;
@@ -405,6 +418,7 @@
 
     videoTriggerBtn.addEventListener('click', () => {
       if (!videoStageEl || !videoPlayerWrap || !videoRow) return;
+      trackInfolinia('infolinia_video_play', { video_id: YT_VIDEO_ID });
       videoStageEl.textContent = '';
       const iframe = document.createElement('iframe');
       iframe.src = YT_EMBED_URL;
@@ -438,6 +452,7 @@
     copyBtn.type = 'button';
     copyBtn.setAttribute('aria-label', 'Skopiuj numer telefonu +48 730 958 583');
     copyBtn.addEventListener('click', () => {
+      trackInfolinia('infolinia_phone_copy', {});
       if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
         navigator.clipboard.writeText(PHONE_DISPLAY).then(() => {
           copyBtn.textContent = 'Skopiowano ✓';
@@ -602,6 +617,7 @@
     overlayEl.hidden = false;
     overlayEl.setAttribute('aria-hidden', 'false');
     setBackgroundInert(true);
+    trackInfolinia('infolinia_modal_open', { channel: pendingAction.kind || 'tel' });
 
     document.addEventListener('keydown', onDialogKeyDown, true);
 
@@ -615,6 +631,9 @@
 
   function closeModal(restoreFocus) {
     if (!overlayEl || overlayEl.hidden) return;
+    if (restoreFocus) {
+      trackInfolinia('infolinia_modal_dismiss', { channel: (pendingAction && pendingAction.kind) || 'tel' });
+    }
     resetModalVideo();
     overlayEl.hidden = true;
     overlayEl.setAttribute('aria-hidden', 'true');
@@ -637,11 +656,7 @@
     const target = pendingAction || { href: `tel:${PHONE_E164}`, isExternal: false };
     closeModal(false);
 
-    if (typeof window.gtag === 'function') {
-      try {
-        window.gtag('event', 'infolinia_nadzieja_confirmed', { channel: target.kind || 'tel' });
-      } catch (e) {}
-    }
+    trackInfolinia('infolinia_nadzieja_confirmed', { channel: target.kind || 'tel' });
 
     if (target.isExternal) {
       window.open(target.href, '_blank', 'noopener,noreferrer');

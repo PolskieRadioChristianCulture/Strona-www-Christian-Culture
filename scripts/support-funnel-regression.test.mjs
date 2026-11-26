@@ -122,3 +122,46 @@ test('ensureYoutubeSupportFooter dopisuje stopkę wsparcia PL/EN, jest idempoten
   assert.ok(huge.length <= 5000);
   assert.equal(huge.includes('https://zrzutka.pl/z/ChristianCulture'), true);
 });
+
+test('/vod posiada bogate Schema.org (12+ filmów z ?film=, FAQPage z 6 pytaniami, BreadcrumbList), modal WspieramTO oraz pełną telemetrię GA4 VOD', () => {
+  const vod = read('vod.html');
+  assert.equal(vod.includes('/components/cc-wspieramto-modal.js'), true, 'vod.html musi ładować modal 1-Click WspieramTO');
+
+  const ldMatch = vod.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+  assert.ok(ldMatch, 'vod.html musi zawierać JSON-LD');
+  const schema = JSON.parse(ldMatch[1]);
+  assert.ok(Array.isArray(schema['@graph']), '@graph musi być tablicą');
+
+  const breadcrumb = schema['@graph'].find((n) => n['@type'] === 'BreadcrumbList');
+  assert.ok(breadcrumb && Array.isArray(breadcrumb.itemListElement) && breadcrumb.itemListElement.length >= 2, 'wymagany BreadcrumbList');
+
+  const faq = schema['@graph'].find((n) => n['@type'] === 'FAQPage');
+  assert.ok(faq && Array.isArray(faq.mainEntity) && faq.mainEntity.length === 6, 'FAQPage musi mieć dokładnie 6 pytań Q&A');
+
+  const movieList = schema['@graph'].find((n) => n['@type'] === 'ItemList');
+  assert.ok(movieList && Array.isArray(movieList.itemListElement) && movieList.itemListElement.length >= 12, 'ItemList musi mieć min. 12 filmów');
+  const movieUrls = new Set();
+  for (const li of movieList.itemListElement) {
+    assert.ok(li.item && li.item['@type'] === 'Movie');
+    assert.match(li.item.url, /^https:\/\/polskieradio\.cc\/vod\?film=[a-z0-9-]+$/);
+    assert.match(li.item.image, /^https:\/\//);
+    assert.ok(li.item.director && li.item.director.name);
+    movieUrls.add(li.item.url);
+  }
+  assert.equal(movieUrls.size, movieList.itemListElement.length, 'każdy film w ItemList musi mieć unikalny URL ?film=');
+
+  for (const ev of ['vod_movie_select', 'vod_preroll_skip', 'vod_play', 'vod_detail_view', 'vod_share']) {
+    assert.equal(vod.includes(`'${ev}'`), true, `vod.html musi raportować zdarzenie GA4 ${ev}`);
+  }
+  assert.equal(vod.includes('m.description || m.desc'), true, 'shareMovieToLumina musi korzystać z pola description z vod-db.js');
+  assert.equal(vod.includes('m.thumbnail || m.cover'), true, 'shareMovieToLumina musi korzystać z pola thumbnail z vod-db.js');
+});
+
+test('modal Infolinii NADZIEJA raportuje pełny lejek GA4 przez ccTrack/gtag bez parametru source', () => {
+  const modal = read('components/cc-infolinia-nadzieja-modal.js');
+  for (const ev of ['infolinia_modal_open', 'infolinia_video_play', 'infolinia_phone_copy', 'infolinia_nadzieja_confirmed', 'infolinia_modal_dismiss']) {
+    assert.equal(modal.includes(`'${ev}'`), true, `cc-infolinia-nadzieja-modal.js musi raportować ${ev}`);
+  }
+  assert.equal(modal.includes('window.ccTrack'), true, 'lejki powinny preferować window.ccTrack');
+  assert.doesNotMatch(modal, /\bsource\s*:/, 'nie wolno przekazywać zarezerwowanego klucza source do GA4');
+});
