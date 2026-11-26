@@ -613,22 +613,92 @@ function openProModal() {
   infoDialog.showModal();
 }
 
+const LAST_GREETING_STORAGE_KEY = 'aiDlaJezusa:lastGreetingIdx';
+
+const HERO_GREETINGS = [
+  {
+    guest: 'Co dobrego dziś chcesz zrobić dla Jezusa?',
+    named: (n) => `${n}, co dobrego dziś zrobisz dla Jezusa?`
+  },
+  {
+    guest: 'Jak rozświetlimy dziś dzień dla Jezusa?',
+    named: (n) => `${n}, jak rozświetlimy dziś dzień dla Jezusa?`
+  },
+  {
+    guest: 'Od czego zaczniemy dziś drogę z Jezusem?',
+    named: (n) => `${n}, od czego zaczniemy dziś drogę z Jezusem?`
+  },
+  {
+    guest: 'Z czym przychodzisz dziś do Ojca w niebie?',
+    named: (n) => `${n}, z czym przychodzisz dziś do Ojca w niebie?`
+  },
+  {
+    guest: 'Jakie Słowo ma dziś umocnić Twoje serce?',
+    named: (n) => `${n}, jakie Słowo ma dziś umocnić Twoje serce?`
+  },
+  {
+    guest: 'W czym mogę Ci dziś pomóc dla Chrystusa?',
+    named: (n) => `${n}, w czym mogę Ci dziś pomóc dla Chrystusa?`
+  },
+  {
+    guest: 'O czym chcesz dziś porozmawiać z Jezusem?',
+    named: (n) => `${n}, o czym chcesz dziś porozmawiać z Jezusem?`
+  },
+  {
+    guest: 'Jaką dobrą myśl zaniesiemy dziś światu?',
+    named: (n) => `${n}, jaką dobrą myśl zaniesiemy dziś światu?`
+  },
+  {
+    guest: 'Co dziś kładziesz przed naszym Zbawicielem?',
+    named: (n) => `${n}, co dziś kładziesz przed Zbawicielem?`
+  },
+  {
+    guest: 'Który rozdział Słowa otworzymy dziś razem?',
+    named: (n) => `${n}, który rozdział Słowa otworzymy dziś razem?`
+  },
+  {
+    guest: 'Kogo możemy dziś pobłogosławić w imię Jezusa?',
+    named: (n) => `${n}, kogo pobłogosławimy dziś w imię Jezusa?`
+  },
+  {
+    guest: 'Czego Twoje serce dziś potrzebuje od Boga?',
+    named: (n) => `${n}, czego Twoje serce dziś potrzebuje od Boga?`
+  },
+  {
+    guest: 'Nad czym chcesz dziś popracować z Duchem Bożym?',
+    named: (n) => `${n}, nad czym popracujemy dziś z Duchem Bożym?`
+  },
+  {
+    guest: 'Z jaką modlitwą wchodzisz w dzisiejszy dzień?',
+    named: (n) => `${n}, z jaką modlitwą wchodzisz w ten dzień?`
+  }
+];
+
+function pickVisitGreetingIndex() {
+  const total = HERO_GREETINGS.length;
+  let lastIdx = -1;
+  try {
+    const raw = localStorage.getItem(LAST_GREETING_STORAGE_KEY);
+    if (raw !== null && /^\d+$/.test(raw)) lastIdx = Number(raw);
+  } catch {}
+  let nextIdx = Math.floor(Math.random() * total);
+  if (total > 1 && nextIdx === lastIdx) {
+    nextIdx = (lastIdx + 1 + Math.floor(Math.random() * (total - 1))) % total;
+  }
+  try {
+    localStorage.setItem(LAST_GREETING_STORAGE_KEY, String(nextIdx));
+  } catch {}
+  return nextIdx;
+}
+
+const visitGreetingIndex = pickVisitGreetingIndex();
+
 function getPersonalizedHeroCopy() {
   const rawName = (currentUser && !currentUser.isAnonymous && (currentUser.displayName || '').trim()) || '';
   const firstName = rawName ? rawName.split(/\s+/)[0].slice(0, 24) : '';
-  const hour = new Date().getHours();
   const persona = getPersona(getActiveAssistantId());
-
-  let title = 'Co dobrego dziś chcesz zrobić dla Jezusa?';
-  if (firstName) {
-    if (hour >= 5 && hour < 12) title = `Dzień dobry, ${firstName}! Co dobrego dziś chcesz zrobić dla Jezusa?`;
-    else if (hour >= 18 || hour < 5) title = `Dobry wieczór, ${firstName}! Czym dziś uwielbimy Jezusa?`;
-    else title = `${firstName}, co dobrego dziś chcesz zrobić dla Jezusa?`;
-  } else if (hour >= 5 && hour < 11) {
-    title = 'Błogosławionego poranka! Co dobrego dziś chcesz zrobić dla Jezusa?';
-  } else if (hour >= 19 || hour < 5) {
-    title = 'Spokojnego wieczoru — co dobrego dziś chcesz zrobić dla Jezusa?';
-  }
+  const variant = HERO_GREETINGS[visitGreetingIndex % HERO_GREETINGS.length] || HERO_GREETINGS[0];
+  const title = firstName ? variant.named(firstName) : variant.guest;
 
   const subtitles = {
     'ai-dla-jezusa': 'Technologia w służbie dobra. Jezus w centrum.',
@@ -5055,7 +5125,24 @@ setTimeout(() => {
   document.body.classList.add('ai-ready');
 }, 3000);
 
+function bindFallbackImages() {
+  for (const img of document.querySelectorAll('img[data-fallback-src]')) {
+    const fallbackSrc = img.dataset.fallbackSrc;
+    if (!fallbackSrc) continue;
+    const applyFallback = () => {
+      if (img.dataset.fallbackApplied) return;
+      img.dataset.fallbackApplied = '1';
+      img.src = fallbackSrc;
+    };
+    img.addEventListener('error', applyFallback, { once: true });
+    if (img.complete && img.naturalWidth === 0) {
+      applyFallback();
+    }
+  }
+}
+
 // Inicjalizacja
+bindFallbackImages();
 syncAssistantButtons();
 syncPanelButtons();
 syncModelMenu();

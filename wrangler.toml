@@ -23,6 +23,12 @@ database_name = "topten-db"
 database_id = "0d572992-dbe0-443f-9146-aa60b35dd058"
 migrations_dir = "migrations/topten"
 
+[[d1_databases]]
+binding = "AI_COST_DB"
+database_name = "ai-cost-db"
+database_id = "a116cdf2-ac1c-4922-949c-f69dcb585c60"
+migrations_dir = "migrations/ai-cost"
+
 [vars]
 FIREBASE_PROJECT_ID = "lumina-cc"
 
@@ -49,3 +55,9 @@ binding = "topten_db"
 database_name = "topten-db"
 database_id = "0d572992-dbe0-443f-9146-aa60b35dd058"
 migrations_dir = "migrations/topten"
+
+[[env.production.d1_databases]]
+binding = "AI_COST_DB"
+database_name = "ai-cost-db"
+database_id = "a116cdf2-ac1c-4922-949c-f69dcb585c60"
+migrations_dir = "migrations/ai-cost"
