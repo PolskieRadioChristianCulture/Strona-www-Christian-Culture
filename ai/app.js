@@ -5,6 +5,12 @@ const STORAGE_PREFIX = 'cc_ai_dla_jezusa_v2';
 const DEFAULT_ASSISTANT_ID = 'ai-dla-jezusa';
 const ALLOWED_MODES = new Set(['CC Auto', 'Studium Biblijne', 'Twórczość CC', 'Deep Research']);
 const ALLOWED_BYOK_PROVIDERS = new Set(['openrouter', 'openai', 'gemini', 'groq']);
+const ALLOWED_DEPTHS = new Set(['fast', 'balanced', 'deep']);
+const DEPTH_META = {
+  fast: { label: 'Turbo', note: 'Szybka, konkretna odpowiedź' },
+  balanced: { label: 'Standard', note: 'Zbalansowana z wersetami UBG' },
+  deep: { label: 'Głęboki', note: 'Pogłębiona analiza i kroki' }
+};
 const AI_PERSONAS = {
   'ai-dla-jezusa': {
     id: 'ai-dla-jezusa',
@@ -99,17 +105,15 @@ function formatBadgeModelLabel(msg) {
 }
 
 function updateTopbarModelLabel() {
-  if (!activeModelLabel) return;
   const pref = getPreferredModelId();
+  let labelText = currentMode;
   if (pref === 'byok') {
-    activeModelLabel.textContent = `${currentMode} · Własne API`;
-    return;
+    labelText = `${currentMode} · Własne API`;
+  } else if (pref !== 'auto') {
+    labelText = `${getModelMeta(pref).shortLabel} · ${currentMode}`;
   }
-  if (pref !== 'auto') {
-    activeModelLabel.textContent = `${getModelMeta(pref).shortLabel} · ${currentMode}`;
-    return;
-  }
-  activeModelLabel.textContent = currentMode;
+  if (activeModelLabel) activeModelLabel.textContent = labelText;
+  if (composerModelLabel) composerModelLabel.textContent = labelText;
 }
 
 function closeAllBadgeModelMenus() {
@@ -168,12 +172,39 @@ async function getAuthHeaders() {
   return {};
 }
 
-function syncModelMenu() {
-  if (!modelMenu) return;
-  modelMenu.querySelectorAll('.owner-model-opt, .model-menu-dynamic').forEach((el) => el.remove());
+function populateDynamicModelOptions(menuEl, triggerBtn, { includeStaticModes = false } = {}) {
+  if (!menuEl) return;
+  menuEl.querySelectorAll('.owner-model-opt, .model-menu-dynamic, .composer-mode-opt').forEach((el) => el.remove());
+
+  if (includeStaticModes) {
+    const modePresets = [
+      ['CC Auto', 'Inteligentny dobór'],
+      ['Studium Biblijne', 'Kontekst UBG'],
+      ['Twórczość CC', 'Redakcja i media'],
+      ['Deep Research', 'Analiza źródeł']
+    ];
+    for (const [mName, mNote] of modePresets) {
+      const mBtn = document.createElement('button');
+      mBtn.type = 'button';
+      mBtn.role = 'option';
+      const isModeActive = currentMode === mName;
+      mBtn.className = 'dropdown-option composer-mode-opt' + (isModeActive ? ' active' : '');
+      mBtn.dataset.model = mName;
+      mBtn.setAttribute('aria-selected', String(isModeActive));
+      const noteSpan = document.createElement('span');
+      noteSpan.textContent = mNote;
+      mBtn.append(document.createTextNode(`${mName} `), noteSpan);
+      mBtn.addEventListener('click', () => {
+        setMode(mName);
+        menuEl.hidden = true;
+        triggerBtn?.setAttribute('aria-expanded', 'false');
+        showToast(`Aktywny tryb: ${currentMode}`);
+      });
+      menuEl.appendChild(mBtn);
+    }
+  }
 
   const activePref = getPreferredModelId();
-
   const divider = document.createElement('div');
   divider.className = 'model-menu-divider model-menu-dynamic';
   divider.setAttribute('role', 'separator');
@@ -182,7 +213,7 @@ function syncModelMenu() {
   groupLabel.className = 'model-menu-group-label model-menu-dynamic';
   groupLabel.textContent = 'Silnik AI (darmowe modele CC)';
 
-  modelMenu.append(divider, groupLabel);
+  menuEl.append(divider, groupLabel);
 
   for (const m of availableFreeModels) {
     const opt = document.createElement('button');
@@ -197,10 +228,10 @@ function syncModelMenu() {
     opt.append(document.createTextNode(`${m.label} `), span);
     opt.addEventListener('click', () => {
       setPreferredModel(m.id);
-      modelMenu.hidden = true;
-      modelPickerBtn?.setAttribute('aria-expanded', 'false');
+      menuEl.hidden = true;
+      triggerBtn?.setAttribute('aria-expanded', 'false');
     });
-    modelMenu.appendChild(opt);
+    menuEl.appendChild(opt);
   }
 
   const byokBtn = document.createElement('button');
@@ -212,11 +243,16 @@ function syncModelMenu() {
     : 'Podłącz swój klucz';
   byokBtn.append(document.createTextNode('Własne API (BYOK)… '), byokNote);
   byokBtn.addEventListener('click', () => {
-    modelMenu.hidden = true;
-    modelPickerBtn?.setAttribute('aria-expanded', 'false');
+    menuEl.hidden = true;
+    triggerBtn?.setAttribute('aria-expanded', 'false');
     openSettingsModal();
   });
-  modelMenu.appendChild(byokBtn);
+  menuEl.appendChild(byokBtn);
+}
+
+function syncModelMenu() {
+  populateDynamicModelOptions(modelMenu, modelPickerBtn, { includeStaticModes: false });
+  populateDynamicModelOptions(composerModelMenu, composerModelBtn, { includeStaticModes: true });
 }
 
 async function refreshOwnerSession() {
@@ -364,6 +400,13 @@ const closeRightBtn = $('#closeRightDrawer');
 const modelPickerBtn = $('#modelPickerBtn');
 const modelMenu = $('#modelMenu');
 const activeModelLabel = $('#activeModelLabel');
+const composerModelBtn = $('#composerModelBtn');
+const composerModelMenu = $('#composerModelMenu');
+const composerModelLabel = $('#composerModelLabel');
+const composerCommandPopup = $('#composerCommandPopup');
+const depthBtn = $('#depthBtn');
+const depthMenu = $('#depthMenu');
+const depthLabel = $('#depthLabel');
 const toolsBtn = $('#toolsBtn');
 const toolsMenu = $('#toolsMenu');
 const webSearchBtn = $('#webSearchBtn');
@@ -960,6 +1003,7 @@ function loadState(uid = currentUser?.uid) {
     assistantId: DEFAULT_ASSISTANT_ID,
     preferredModel: 'auto',
     mode: 'CC Auto',
+    responseDepth: 'balanced',
     autoReadEnabled: false,
     webSearchEnabled: false,
     selectedTools: [],
@@ -974,6 +1018,7 @@ function loadState(uid = currentUser?.uid) {
     const raw = JSON.parse(localStorage.getItem(getStorageKey(uid)) || 'null');
     if (!raw || typeof raw !== 'object') return empty;
     const rawMode = typeof raw.mode === 'string' ? raw.mode.trim() : '';
+    const rawDepth = typeof raw.responseDepth === 'string' ? raw.responseDepth.trim().toLowerCase() : '';
     const rawByokProvider = typeof raw.byokProvider === 'string' ? raw.byokProvider.trim().toLowerCase() : '';
     return {
       chats: Array.isArray(raw.chats) ? raw.chats.slice(0, 40) : [],
@@ -984,6 +1029,7 @@ function loadState(uid = currentUser?.uid) {
       assistantId: typeof raw.assistantId === 'string' && AI_PERSONAS[raw.assistantId] ? raw.assistantId : DEFAULT_ASSISTANT_ID,
       preferredModel: typeof raw.preferredModel === 'string' && raw.preferredModel.trim() ? raw.preferredModel.trim() : 'auto',
       mode: ALLOWED_MODES.has(rawMode) ? rawMode : 'CC Auto',
+      responseDepth: ALLOWED_DEPTHS.has(rawDepth) ? rawDepth : 'balanced',
       autoReadEnabled: Boolean(raw.autoReadEnabled),
       webSearchEnabled: Boolean(raw.webSearchEnabled),
       selectedTools: Array.isArray(raw.selectedTools)
@@ -1009,10 +1055,39 @@ function saveState() {
   }
 }
 
+function syncDepthUI() {
+  const raw = typeof state?.responseDepth === 'string' ? state.responseDepth.trim().toLowerCase() : 'balanced';
+  const depth = ALLOWED_DEPTHS.has(raw) ? raw : 'balanced';
+  const meta = DEPTH_META[depth] || DEPTH_META.balanced;
+  if (depthLabel) depthLabel.textContent = meta.label;
+  if (depthBtn) {
+    depthBtn.classList.toggle('is-fast', depth === 'fast');
+    depthBtn.classList.toggle('is-deep', depth === 'deep');
+    depthBtn.setAttribute('aria-label', `Poziom odpowiedzi: ${meta.label} (${meta.note})`);
+  }
+  $$('#depthMenu .dropdown-option[data-depth]').forEach((opt) => {
+    const active = opt.dataset.depth === depth;
+    opt.classList.toggle('active', active);
+    opt.setAttribute('aria-selected', String(active));
+  });
+}
+
+function setResponseDepth(depth, { announce = true } = {}) {
+  const clean = typeof depth === 'string' ? depth.trim().toLowerCase() : '';
+  const next = ALLOWED_DEPTHS.has(clean) ? clean : 'balanced';
+  state.responseDepth = next;
+  saveState();
+  syncDepthUI();
+  if (announce) {
+    const meta = DEPTH_META[next] || DEPTH_META.balanced;
+    showToast(`Styl odpowiedzi: ${meta.label} (${meta.note})`);
+  }
+}
+
 function applyPreferencesFromState() {
   const modeFromState = typeof state?.mode === 'string' && ALLOWED_MODES.has(state.mode) ? state.mode : 'CC Auto';
   currentMode = modeFromState;
-  $$('#modelMenu .dropdown-option[data-model]').forEach((o) => {
+  $$('#modelMenu .dropdown-option[data-model], #composerModelMenu .dropdown-option[data-model]').forEach((o) => {
     o.classList.toggle('active', o.dataset.model === currentMode);
   });
 
@@ -1049,7 +1124,9 @@ function applyPreferencesFromState() {
   syncAssistantButtons();
   syncPanelButtons();
   syncModelMenu();
+  syncDepthUI();
   updateTopbarModelLabel();
+  syncSendButtonMode();
 }
 
 function clearLegacyByok() {
@@ -2710,6 +2787,7 @@ async function sendChatMessage(textOverride, titleHint = '', chatOpts = {}) {
     promptInput.value = '';
     clearAttachment();
     resizeTextarea();
+    syncSendButtonMode();
   }
 
   busy = true;
@@ -2722,6 +2800,16 @@ async function sendChatMessage(textOverride, titleHint = '', chatOpts = {}) {
   try {
     const activeTools = [...selectedTools];
     if (webSearchEnabled) activeTools.push('Przeszukiwanie CC');
+    if (/@(Notatniki|Notatki)\b/i.test(rawText) && state.notes?.length) activeTools.push('Notatniki użytkownika');
+    if (/@(Projekty)\b/i.test(rawText) && state.projects?.length) activeTools.push('Projekty użytkownika');
+
+    const extraNotesContext = [];
+    if (!requestPrivate && /@(Notatniki|Notatki)\b/i.test(rawText) && Array.isArray(state.notes) && state.notes.length) {
+      extraNotesContext.push(...state.notes.slice(0, 3).map((n) => `Notatka „${n.title}”: ${String(n.body || '').slice(0, 120)}`));
+    }
+    if (!requestPrivate && /@Projekty\b/i.test(rawText) && Array.isArray(state.projects) && state.projects.length) {
+      extraNotesContext.push(`Aktywne projekty użytkownika: ${state.projects.slice(0, 6).join(', ')}`);
+    }
 
     const authHeaders = await getAuthHeaders();
     const headers = { 'Content-Type': 'application/json', ...authHeaders };
@@ -2738,12 +2826,13 @@ async function sendChatMessage(textOverride, titleHint = '', chatOpts = {}) {
         message: rawText || `Opowiedz o przesłanym pliku (${currentAttName}) w kontekście Christian Culture.`,
         history: historySnapshot,
         mode: currentMode,
+        responseDepth: state?.responseDepth || 'balanced',
         module: currentNav,
         assistantId: activeAsst.id,
         attachmentName: requestPrivate ? '' : currentAttName,
         attachmentText: requestPrivate ? '' : currentAttText,
         tools: activeTools,
-        memoryNotes: requestPrivate ? [] : state.memory.map((m) => m.text),
+        memoryNotes: requestPrivate ? [] : [...state.memory.map((m) => m.text), ...extraNotesContext],
         privateMode: requestPrivate,
         voiceConversation: Boolean(chatOpts?.voiceConversation),
         preferredModel: model,
@@ -3535,19 +3624,66 @@ async function hydrateDailyVerse() {
 }
 
 // ================= ZDARZENIA KONTROLEK UI =================
+function closeAllComposerMenus({ keepPopup = false } = {}) {
+  if (modelMenu && !modelMenu.hidden) {
+    modelMenu.hidden = true;
+    modelPickerBtn?.setAttribute('aria-expanded', 'false');
+  }
+  if (composerModelMenu && !composerModelMenu.hidden) {
+    composerModelMenu.hidden = true;
+    composerModelBtn?.setAttribute('aria-expanded', 'false');
+  }
+  if (toolsMenu && !toolsMenu.hidden) {
+    toolsMenu.hidden = true;
+    toolsBtn?.setAttribute('aria-expanded', 'false');
+  }
+  if (depthMenu && !depthMenu.hidden) {
+    depthMenu.hidden = true;
+    depthBtn?.setAttribute('aria-expanded', 'false');
+  }
+  if (!keepPopup) {
+    closeComposerCommandPopup();
+  }
+  closeAllBadgeModelMenus();
+}
+
 modelPickerBtn?.addEventListener('click', (e) => {
   e.stopPropagation();
   const next = modelMenu.hidden;
-  toolsMenu.hidden = true;
+  closeAllComposerMenus();
   modelMenu.hidden = !next;
   modelPickerBtn.setAttribute('aria-expanded', String(next));
+});
+
+composerModelBtn?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (!composerModelMenu) return;
+  const next = composerModelMenu.hidden;
+  closeAllComposerMenus();
+  composerModelMenu.hidden = !next;
+  composerModelBtn.setAttribute('aria-expanded', String(next));
+});
+
+depthBtn?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (!depthMenu) return;
+  const next = depthMenu.hidden;
+  closeAllComposerMenus();
+  depthMenu.hidden = !next;
+  depthBtn.setAttribute('aria-expanded', String(next));
+});
+
+$$('#depthMenu .dropdown-option[data-depth]').forEach((opt) => {
+  opt.addEventListener('click', () => {
+    setResponseDepth(opt.dataset.depth || 'balanced');
+    closeAllComposerMenus();
+  });
 });
 
 $$('#modelMenu .dropdown-option[data-model]').forEach((opt) => {
   opt.addEventListener('click', () => {
     setMode(opt.dataset.model || 'CC Auto');
-    modelMenu.hidden = true;
-    modelPickerBtn.setAttribute('aria-expanded', 'false');
+    closeAllComposerMenus();
     showToast(`Aktywny tryb: ${currentMode}`);
   });
 });
@@ -3555,7 +3691,7 @@ $$('#modelMenu .dropdown-option[data-model]').forEach((opt) => {
 toolsBtn?.addEventListener('click', (e) => {
   e.stopPropagation();
   const next = toolsMenu.hidden;
-  modelMenu.hidden = true;
+  closeAllComposerMenus();
   toolsMenu.hidden = !next;
   toolsBtn.setAttribute('aria-expanded', String(next));
 });
@@ -3576,16 +3712,9 @@ $$('#toolsMenu .dropdown-option').forEach((opt) => {
   });
 });
 
-document.addEventListener('click', () => {
-  if (!modelMenu.hidden) {
-    modelMenu.hidden = true;
-    modelPickerBtn?.setAttribute('aria-expanded', 'false');
-  }
-  if (!toolsMenu.hidden) {
-    toolsMenu.hidden = true;
-    toolsBtn?.setAttribute('aria-expanded', 'false');
-  }
-  closeAllBadgeModelMenus();
+document.addEventListener('click', (e) => {
+  const insidePopup = composerCommandPopup && !composerCommandPopup.hidden && composerCommandPopup.contains(e.target);
+  closeAllComposerMenus({ keepPopup: Boolean(insidePopup) });
 });
 
 document.addEventListener('keydown', (e) => {
@@ -3594,15 +3723,7 @@ document.addEventListener('keydown', (e) => {
       closeVoiceCall();
       return;
     }
-    if (modelMenu && !modelMenu.hidden) {
-      modelMenu.hidden = true;
-      modelPickerBtn?.setAttribute('aria-expanded', 'false');
-    }
-    if (toolsMenu && !toolsMenu.hidden) {
-      toolsMenu.hidden = true;
-      toolsBtn?.setAttribute('aria-expanded', 'false');
-    }
-    closeAllBadgeModelMenus();
+    closeAllComposerMenus();
   }
 });
 
@@ -3680,9 +3801,7 @@ function updateProfileFooterButton() {
   const labelSpan = profileBtn.querySelector('span');
   const existingAvatar = profileBtn.querySelector('.footer-avatar');
   if (currentUser && !currentUser.isAnonymous) {
-    const label = ownerSession?.isOwner
-      ? `👑 ${currentUser.displayName || 'Właściciel CC'}`
-      : (currentUser.displayName || currentUser.email || 'Konto LUMINA');
+    const label = currentUser.displayName || currentUser.email || (ownerSession?.isOwner ? 'Właściciel CC' : 'Konto LUMINA');
     if (labelSpan) labelSpan.textContent = label;
     if (currentUser.photoURL && !existingAvatar) {
       const img = document.createElement('img');
@@ -3866,7 +3985,7 @@ function openProfileModal() {
   if (currentUser && !currentUser.isAnonymous) {
     const info = document.createElement('p');
     info.textContent = ownerSession?.isOwner
-      ? `👑 Zalogowano jako właściciel: ${currentUser.displayName || 'Cezary Rogowski'} (${currentUser.email}). Odblokowano pulę ${ownerSession.apiPool?.geminiKeys || 0}× kluczy Google AI, YouTube API v3, 18 umiejętności Antigravity oraz integracje chmury CC.`
+      ? `Zalogowano jako właściciel: ${currentUser.displayName || 'Cezary Rogowski'} (${currentUser.email}). Odblokowano pulę ${ownerSession.apiPool?.geminiKeys || 0}× kluczy Google AI, YouTube API v3, 18 umiejętności Antigravity oraz integracje chmury CC.`
       : `Zalogowano jako: ${currentUser.displayName || 'Użytkownik LUMINA'} (${currentUser.email || 'konto Google'}). Twoja historia, notatki, projekty i pamięć są odizolowane dla tego konta.`;
 
     const btnRow = document.createElement('div');
@@ -3950,6 +4069,7 @@ function exportLocalUserDataJson() {
       assistantId: state.assistantId || DEFAULT_ASSISTANT_ID,
       preferredModel: state.preferredModel || 'auto',
       mode: state.mode || 'CC Auto',
+      responseDepth: state.responseDepth || 'balanced',
       autoReadEnabled: Boolean(state.autoReadEnabled),
       webSearchEnabled: Boolean(state.webSearchEnabled),
       selectedTools: Array.isArray(state.selectedTools) ? state.selectedTools : [],
@@ -3983,6 +4103,7 @@ function clearAllLocalUserData() {
     assistantId: DEFAULT_ASSISTANT_ID,
     preferredModel: 'auto',
     mode: 'CC Auto',
+    responseDepth: 'balanced',
     autoReadEnabled: false,
     webSearchEnabled: false,
     selectedTools: [],
@@ -4172,6 +4293,7 @@ async function handleAttachedFile(f) {
   removeBtn.onclick = clearAttachment;
   attachmentChip.append(label, removeBtn);
   attachmentChip.hidden = false;
+  syncSendButtonMode();
 }
 
 attachBtn?.addEventListener('click', () => fileInput?.click());
@@ -4212,6 +4334,7 @@ function clearAttachment() {
   if (fileInput) fileInput.value = '';
   attachmentChip.hidden = true;
   attachmentChip.replaceChildren();
+  syncSendButtonMode();
 }
 
 assistantStrip?.querySelectorAll('.assistant-pill').forEach((btn) => {
@@ -4960,14 +5083,224 @@ voiceStopBtn?.addEventListener('click', () => {
   promptInput?.focus();
 });
 
+const AT_MENTIONS = [
+  { id: 'Biblia', label: '@Biblia', hint: 'Pismo Święte UBG i egzegeza', insert: '@Biblia ' },
+  { id: 'Kurs', label: '@Kurs', hint: 'Kurs Codzienny „Z Biblią za Pan Brat”', insert: '@Kurs ' },
+  { id: 'Rozważanie', label: '@Rozważanie', hint: 'Dzisiejsze słowo Christian Culture', insert: '@Rozważanie ' },
+  { id: 'Notatniki', label: '@Notatniki', hint: 'Twoje zapisane notatki jako kontekst', insert: '@Notatniki ' },
+  { id: 'Pamięć', label: '@Pamięć', hint: 'Zapamiętane wskazówki i intencje', insert: '@Pamięć ' },
+  { id: 'Projekty', label: '@Projekty', hint: 'Aktywne projekty w Twojej przestrzeni', insert: '@Projekty ' },
+  { id: 'Radio', label: '@Radio', hint: 'Radio Biblia Audio 24/7 i audycje', insert: '@Radio ' },
+  { id: 'VOD', label: '@VOD', hint: 'Chrześcijańskie kino VOD i SDS', insert: '@VOD ' },
+  { id: 'AI', label: '@AI', hint: 'Główny asystent AI dla Jezusa', assistant: 'ai-dla-jezusa' },
+  { id: 'Rut', label: '@Rut', hint: 'Gospodyni CC · Radio, VOD i Społeczność', assistant: 'rut' },
+  { id: 'Lea', label: '@Lea', hint: 'Planistka · Kurs Codzienny i Akademia', assistant: 'lea' },
+  { id: 'Noemi', label: '@Noemi', hint: 'Doradczyni Biblijna · Słowo i Modlitwa', assistant: 'noemi' },
+  { id: 'Miriam', label: '@Miriam', hint: 'Psalmy, Biblia Śpiewana i Uwielbienie', assistant: 'miriam' }
+];
+
+const SLASH_COMMANDS = [
+  { id: '/studium', label: '/studium', hint: 'Studium fragmentu w przekładzie UBG', mode: 'Studium Biblijne', text: 'Przygotuj głębokie studium biblijne (UBG) na temat: ' },
+  { id: '/plan', label: '/plan', hint: 'Krok po kroku: plan działania z Jezusem', mode: 'CC Auto', text: 'Ułóż konkretny plan krok po kroku w duchu Słowa Bożego dla: ' },
+  { id: '/poranek', label: '/poranek', hint: 'Dzisiejsze słowo i modlitwa poranna', mode: 'Studium Biblijne', autoSend: 'Poprowadź mój dzisiejszy poranek z Jezusem w oparciu o dzisiejsze rozważanie i werset UBG.' },
+  { id: '/modlitwa', label: '/modlitwa', hint: 'Szczera modlitwa oparta o obietnice Boże', mode: 'CC Auto', text: 'Napisz modlitwę płynącą z serca i Słowa Bożego (UBG) w sprawie: ' },
+  { id: '/sprawdz', label: '/sprawdz', hint: 'Weryfikacja biblijna w świetle UBG i Dekalogu', mode: 'Deep Research', text: 'Sprawdź dokładnie w świetle Pisma Świętego (UBG) i Dekalogu: ' },
+  { id: '/streszczenie', label: '/streszczenie', hint: 'Zwięzłe podsumowanie i 3 główne wnioski', mode: 'CC Auto', text: 'Streść przejrzyście w punktach i wskaż 3 praktyczne wnioski: ' },
+  { id: '/przypomnij', label: '/przypomnij', hint: 'Ustaw przypomnienie w aplikacji', action: 'reminder' },
+  { id: '/notatka', label: '/notatka', hint: 'Otwórz Notatniki i zapisz myśl', action: 'notes' },
+  { id: '/glos', label: '/glos', hint: 'Uruchom dwukierunkowy czat głosowy', action: 'voice' }
+];
+
+let cmdPopupItems = [];
+let cmdPopupIndex = 0;
+let cmdPopupContext = null;
+
+function closeComposerCommandPopup() {
+  cmdPopupItems = [];
+  cmdPopupIndex = 0;
+  cmdPopupContext = null;
+  if (composerCommandPopup) {
+    composerCommandPopup.hidden = true;
+    composerCommandPopup.replaceChildren();
+  }
+}
+
+function getComposerTriggerContext() {
+  if (!promptInput) return null;
+  const val = promptInput.value || '';
+  const caret = typeof promptInput.selectionStart === 'number' ? promptInput.selectionStart : val.length;
+  const before = val.slice(0, caret);
+
+  if (/^\/\S*$/.test(before)) {
+    return { type: 'slash', query: before.slice(1).toLowerCase(), start: 0, end: caret };
+  }
+  const atMatch = before.match(/(?:^|\s)@([A-Za-z0-9_żźćńółęąśŻŹĆĄŚĘŁÓŃ-]*)$/);
+  if (atMatch) {
+    const tokenLen = atMatch[1].length + 1;
+    return { type: 'at', query: atMatch[1].toLowerCase(), start: caret - tokenLen, end: caret };
+  }
+  return null;
+}
+
+function applyCommandPopupItem(item) {
+  const ctx = cmdPopupContext;
+  closeComposerCommandPopup();
+  if (!item || !promptInput) return;
+
+  if (ctx?.type === 'at') {
+    const val = promptInput.value || '';
+    const before = val.slice(0, ctx.start);
+    const after = val.slice(ctx.end);
+    if (item.assistant) {
+      setActiveAssistant(item.assistant);
+      promptInput.value = `${before}${after}`.replace(/^\s+/, '');
+    } else {
+      promptInput.value = `${before}${item.insert || `${item.label} `}${after}`;
+    }
+    resizeTextarea();
+    promptInput.focus();
+    return;
+  }
+
+  if (item.action === 'voice') {
+    promptInput.value = '';
+    resizeTextarea();
+    openVoiceCall();
+    return;
+  }
+  if (item.action === 'notes') {
+    promptInput.value = '';
+    resizeTextarea();
+    showModuleView('Notatniki');
+    return;
+  }
+  if (item.action === 'reminder') {
+    promptInput.value = '';
+    resizeTextarea();
+    openReminderModal('Przypomnienie modlitewne lub zadaniowe z AI dla Jezusa');
+    return;
+  }
+  if (item.mode) {
+    setMode(item.mode);
+  }
+  if (item.autoSend) {
+    promptInput.value = '';
+    resizeTextarea();
+    startPromptDirectly(item.autoSend, item.label, item.mode || '');
+    return;
+  }
+  promptInput.value = item.text || '';
+  resizeTextarea();
+  promptInput.focus();
+}
+
+function renderComposerCommandPopup() {
+  if (!composerCommandPopup) return;
+  if (!cmdPopupItems.length || !cmdPopupContext) {
+    closeComposerCommandPopup();
+    return;
+  }
+  composerCommandPopup.replaceChildren();
+  const head = document.createElement('div');
+  head.className = 'composer-cmd-head';
+  head.textContent = cmdPopupContext.type === 'slash'
+    ? 'Akcje szybkie (/) · Enter aby użyć'
+    : 'Przywołaj kontekst lub asystenta (@)';
+  composerCommandPopup.appendChild(head);
+
+  cmdPopupItems.forEach((item, idx) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.role = 'option';
+    const isSel = idx === cmdPopupIndex;
+    btn.className = 'composer-cmd-item' + (isSel ? ' is-selected' : '');
+    btn.setAttribute('aria-selected', String(isSel));
+    const title = document.createElement('strong');
+    title.textContent = item.label;
+    const hint = document.createElement('span');
+    hint.textContent = item.hint;
+    btn.append(title, hint);
+    btn.addEventListener('mousedown', (ev) => {
+      ev.preventDefault();
+      applyCommandPopupItem(item);
+    });
+    composerCommandPopup.appendChild(btn);
+  });
+  composerCommandPopup.hidden = false;
+}
+
+function updateComposerCommandPopup() {
+  const ctx = getComposerTriggerContext();
+  if (!ctx) {
+    closeComposerCommandPopup();
+    return;
+  }
+  const source = ctx.type === 'slash' ? SLASH_COMMANDS : AT_MENTIONS;
+  const filtered = source.filter((item) =>
+    item.label.toLowerCase().includes(ctx.query) || item.hint.toLowerCase().includes(ctx.query)
+  );
+  if (!filtered.length) {
+    closeComposerCommandPopup();
+    return;
+  }
+  cmdPopupContext = ctx;
+  cmdPopupItems = filtered.slice(0, 8);
+  cmdPopupIndex = Math.min(cmdPopupIndex, cmdPopupItems.length - 1);
+  renderComposerCommandPopup();
+}
+
+function syncSendButtonMode() {
+  if (!sendBtn) return;
+  const hasText = Boolean((promptInput?.value || '').trim());
+  const hasAtt = Boolean(attachmentText || attachmentMediaUrl || attachmentName);
+  const voiceReady = !hasText && !hasAtt;
+  sendBtn.classList.toggle('is-voice-ready', voiceReady);
+  sendBtn.setAttribute(
+    'aria-label',
+    voiceReady ? 'Rozpocznij rozmowę głosową na żywo' : 'Wyślij wiadomość'
+  );
+  sendBtn.setAttribute(
+    'title',
+    voiceReady ? 'Czat głosowy na żywo (pole puste)' : 'Wyślij wiadomość (Enter)'
+  );
+}
+
 function resizeTextarea() {
   if (!promptInput) return;
   promptInput.style.height = 'auto';
   promptInput.style.height = `${Math.min(promptInput.scrollHeight, 170)}px`;
+  syncSendButtonMode();
 }
 
-promptInput?.addEventListener('input', resizeTextarea);
+promptInput?.addEventListener('input', () => {
+  resizeTextarea();
+  updateComposerCommandPopup();
+});
 promptInput?.addEventListener('keydown', (e) => {
+  if (composerCommandPopup && !composerCommandPopup.hidden && cmdPopupItems.length) {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      cmdPopupIndex = (cmdPopupIndex + 1) % cmdPopupItems.length;
+      renderComposerCommandPopup();
+      return;
+    }
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      cmdPopupIndex = (cmdPopupIndex - 1 + cmdPopupItems.length) % cmdPopupItems.length;
+      renderComposerCommandPopup();
+      return;
+    }
+    if (e.key === 'Tab' || (e.key === 'Enter' && !e.shiftKey)) {
+      e.preventDefault();
+      applyCommandPopupItem(cmdPopupItems[cmdPopupIndex]);
+      return;
+    }
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closeComposerCommandPopup();
+      return;
+    }
+  }
   if (e.key === 'Enter' && !e.shiftKey) {
     e.preventDefault();
     composerForm.requestSubmit();
@@ -4977,6 +5310,11 @@ promptInput?.addEventListener('keydown', (e) => {
 composerForm?.addEventListener('submit', (e) => {
   e.preventDefault();
   if (isListening) stopDictation();
+  const hasContent = Boolean((promptInput?.value || '').trim() || attachmentText || attachmentMediaUrl || attachmentName);
+  if (!hasContent) {
+    openVoiceCall();
+    return;
+  }
   sendChatMessage();
 });
 

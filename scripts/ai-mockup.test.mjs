@@ -203,8 +203,8 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai19c_p0/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai20b_p0/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai21_p0/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai21_p0/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
@@ -702,6 +702,18 @@ test('Simplified 5-item sidebar + PRO More group, contextual media only, mobile 
   assert.match(appJs, /ALLOWED_MODES/);
   assert.ok(appJs.indexOf('const ALLOWED_MODES') < appJs.indexOf("let state = loadState('guest')"), 'ALLOWED_MODES must be declared before initial loadState()');
   assert.ok(appJs.indexOf('const ALLOWED_BYOK_PROVIDERS') < appJs.indexOf("let state = loadState('guest')"), 'ALLOWED_BYOK_PROVIDERS must be declared before initial loadState()');
+  assert.ok(appJs.indexOf('const ALLOWED_DEPTHS') < appJs.indexOf("let state = loadState('guest')"), 'ALLOWED_DEPTHS must be declared before initial loadState()');
+  assert.doesNotMatch(appJs, /👑\s*\$\{currentUser\.displayName/);
+  for (const proPiece of ['id="composerCommandPopup"', 'id="composerModelBtn"', 'id="depthBtn"']) {
+    assert.ok(html.includes(proPiece), `Missing pro composer element in ai/index.html: ${proPiece}`);
+  }
+  for (const sym of ['AT_MENTIONS', 'SLASH_COMMANDS', 'syncSendButtonMode']) {
+    assert.ok(appJs.includes(sym), `Missing pro composer symbol in ai/app.js: ${sym}`);
+  }
+  const fastRes = await processAiChat({ message: 'J 3:16', responseDepth: 'fast' }, {}, {});
+  assert.equal(fastRes.responseDepth, 'fast');
+  const deepRes = await processAiChat({ message: 'J 3:16', responseDepth: 'deep' }, {}, {});
+  assert.equal(deepRes.responseDepth, 'deep');
   assert.match(appJs, /state\.mode\s*=/);
   assert.match(appJs, /state\.autoReadEnabled\s*=/);
   assert.match(appJs, /state\.webSearchEnabled\s*=/);

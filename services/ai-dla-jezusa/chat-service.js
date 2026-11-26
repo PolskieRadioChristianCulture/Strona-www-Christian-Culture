@@ -132,7 +132,12 @@ function sanitizeHistory(history) {
     .slice(-8);
 }
 
-function buildSystemInstruction({ assistant, mode, moduleName, sources, scriptureHits, contextGuides, todayReflection, media, memoryNotes, privateMode, tools, voiceConversation = false }) {
+function normalizeResponseDepth(raw) {
+  const val = typeof raw === 'string' ? raw.trim().toLowerCase() : '';
+  return val === 'fast' || val === 'deep' ? val : 'balanced';
+}
+
+function buildSystemInstruction({ assistant, mode, moduleName, sources, scriptureHits, contextGuides, todayReflection, media, memoryNotes, privateMode, tools, voiceConversation = false, responseDepth = 'balanced' }) {
   const modeNote = MODE_INSTRUCTIONS[mode] || MODE_INSTRUCTIONS['CC Auto'];
   const isFemale = assistant?.gender === 'female';
   const hasMedia = Array.isArray(media) && media.length > 0;
@@ -168,6 +173,10 @@ function buildSystemInstruction({ assistant, mode, moduleName, sources, scriptur
 
   if (voiceConversation) {
     lines.push('8. TRYB ROZMOWY GŁOSOWEJ NA ŻYWO: Odpowiadaj naturalnym, ciepłym językiem mówionym (3–6 zwięzłych zdań + 1 konkretne pytanie podtrzymujące żywy dialog). Unikaj tabel, długich wypunktowań i surowych adresów URL.');
+  } else if (responseDepth === 'fast') {
+    lines.push('8. TRYB TURBO (SZYBKI I KONKRETNY): Odpowiadaj zwięźle i od razu do rzeczy (2–4 krótkie akapity lub lista punktowana z 1 kluczowym wersetem UBG).');
+  } else if (responseDepth === 'deep') {
+    lines.push('8. TRYB GŁĘBOKI (PEŁNA ANALIZA): Przedstaw wyczerpujące opracowanie: teologiczne tło i kontekst biblijny (UBG), praktyczne kroki zastosowania na co dzień oraz pytania do osobistej refleksji i modlitwy.');
   }
 
   if (Array.isArray(tools) && tools.length) {
@@ -234,12 +243,13 @@ function buildUserMessageWithAttachment(message, attachmentName, attachmentText)
   return `${message}\n\n---\nTreść ${safeName} do analizy:\n${attachmentText}`;
 }
 
-async function callGeminiChat(apiKeyOrPool, preferredModel, systemInstruction, history, userPrompt, fetchImpl = fetch, diagnostics = []) {
+async function callGeminiChat(apiKeyOrPool, preferredModel, systemInstruction, history, userPrompt, fetchImpl = fetch, diagnostics = [], opts = {}) {
   const keys = Array.isArray(apiKeyOrPool)
     ? apiKeyOrPool.filter(Boolean).slice(0, 5)
     : (apiKeyOrPool ? [String(apiKeyOrPool)] : []);
   if (!keys.length) return null;
 
+  const maxOutputTokens = Number(opts?.maxOutputTokens) > 0 ? Number(opts.maxOutputTokens) : 1400;
   const models = [preferredModel];
 
   const contents = history.map((h) => ({
@@ -265,7 +275,7 @@ async function callGeminiChat(apiKeyOrPool, preferredModel, systemInstruction, h
             contents,
             generationConfig: {
               temperature: 0.5,
-              maxOutputTokens: 1400
+              maxOutputTokens
             }
           })
         });
@@ -522,6 +532,8 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
   if (scriptureHits.length) toolsUsed.push('cc_find_scripture');
   if (media.length) toolsUsed.push('cc_media_hub');
 
+  const responseDepth = normalizeResponseDepth(payload.responseDepth);
+  const maxOutputTokens = responseDepth === 'fast' ? 700 : responseDepth === 'deep' ? 2200 : 1400;
   const systemInstruction = buildSystemInstruction({
     assistant,
     mode,
@@ -534,7 +546,8 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
     memoryNotes,
     privateMode,
     tools: toolsUsed,
-    voiceConversation: Boolean(payload.voiceConversation)
+    voiceConversation: Boolean(payload.voiceConversation),
+    responseDepth
   });
   const userPrompt = buildUserMessageWithAttachment(effectiveMessage, attachmentName, attachmentText);
   const fetchImpl = deps.fetch || fetch;
@@ -564,7 +577,7 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
       (requestedModel === 'auto' || requestedModel === SHARED_MODEL) &&
       await reserveSharedAiAttempt(env)) {
     providerAttempted = true;
-    aiResult = await callGeminiChat(geminiPool, SHARED_MODEL, systemInstruction, history, userPrompt, fetchImpl, diagnostics);
+    aiResult = await callGeminiChat(geminiPool, SHARED_MODEL, systemInstruction, history, userPrompt, fetchImpl, diagnostics, { maxOutputTokens });
   }
 
   if (aiResult && aiResult.reply) {
@@ -575,6 +588,7 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
       modelUsed: aiResult.model || preferGeminiModel || 'gemini-3.5-flash-lite',
       modelRequested: requestedModel,
       modelSelectionMode: requestedModel === 'auto' ? 'auto' : 'preferred',
+      responseDepth,
       ownerActive: Boolean(ownerSession?.isOwner),
       assistant: assistantMeta,
       mode,
@@ -603,6 +617,7 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
     modelUsed: 'cc-knowledge-hub',
     modelRequested: requestedModel,
     modelSelectionMode: requestedModel === 'auto' ? 'auto' : 'preferred',
+    responseDepth,
     providerDiagnostic: requestedModel === 'cc-knowledge-hub'
       ? 'selected:cc-knowledge-hub'
       : (diagnostics.length ? diagnostics.join(',') : (geminiPool.length ? 'gemini:unavailable' : 'no_key')),
