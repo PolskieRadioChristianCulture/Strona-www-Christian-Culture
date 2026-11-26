@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#070707">
+  <meta name="description" content="AI dla Jezusa — Christian Culture. Technologia w służbie dobra. Jezus w centrum.">
+  <title>AI dla Jezusa — Christian Culture</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="/ai/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#prompt">Przejdź do rozmowy</a>
+  <div id="scrim" class="scrim" hidden></div>
+
+  <div class="app-shell">
+    <!-- LEWY PANEL NAWIGACYJNY -->
+    <aside id="leftSidebar" class="sidebar-left" aria-label="Nawigacja i rozmowy">
+      <div class="brand-block">
+        <div class="brand-logo-wrap">
+          <img src="/ai/assets/logo-ai-dla-jezusa.webp" alt="ai dla Jezusa" width="480" height="89" class="brand-logo">
+          <button type="button" id="closeLeftDrawer" class="icon-btn drawer-close" aria-label="Zamknij menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div class="brand-subrow">
+          <span class="brand-cc">CHRISTIAN CULTURE</span>
+          <span class="beta-pill">BETA</span>
+        </div>
+      </div>
+
+      <button type="button" id="newChatBtn" class="new-chat-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        <span>Nowa rozmowa</span>
+      </button>
+
+      <label class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="chatSearchInput" placeholder="Szukaj rozmów" aria-label="Szukaj rozmów">
+      </label>
+
+      <div class="sidebar-scroll">
+        <nav class="nav-list" aria-label="Moduły AI dla Jezusa">
+          <button type="button" class="nav-item active" data-nav="Czat" aria-current="page">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8Z"/></svg>
+            <span>Czat</span>
+          </button>
+          <button type="button" class="nav-item" data-nav="Biblia">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5.5v15m0-15C9.5 3.8 5.5 3.8 2.5 5v14.5c3-1.1 7-1.1 9.5.5m0-14.5c2.5-1.7 6.5-1.7 9.5-.5V19.5c-3-1.1-7-1.1-9.5.5"/></svg>
+            <span>Biblia</span>
+          </button>
+          <button type="button" class="nav-item" data-nav="Deep Research">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <span>Deep Research</span>
+          </button>
+          <button type="button" class="nav-item" data-nav="Projekty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4.2a2 2 0 0 1 1.6.8l1.1 1.4a2 2 0 0 0 1.6.8H19a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/></svg>
+            <span>Projekty</span>
+          </button>
+          <button type="button" class="nav-item" data-nav="Notatniki">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>
+            <span>Notatniki</span>
+          </button>
+          <button type="button" class="nav-item" data-nav="Pracownia">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18c1.4 0 2.3-1 2.3-2.2 0-.6-.2-1.1-.6-1.5-.4-.4-.6-.9-.6-1.5 0-1.2 1-2.2 2.2-2.2H17a4 4 0 0 0 4-4c0-4.7-4-8.6-9-8.6Z"/><circle cx="8.5" cy="10" r="1"/><circle cx="12" cy="7.5" r="1"/><circle cx="16" cy="10" r="1"/></svg>
+            <span>Pracownia</span>
+          </button>
+          <button type="button" class="nav-item" data-nav="Kod">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>
+            <span>Kod</span>
+          </button>
+          <button type="button" class="nav-item" data-nav="Agenci">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M12 3v4M9 12v.01M15 12v.01M9 16h6M2 13h2M20 13h2"/></svg>
+            <span>Agenci</span>
+          </button>
+          <button type="button" class="nav-item" data-nav="Umiejętności">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 4.5-9 4.5-9-4.5L12 3Z"/><path d="m3 12 9 4.5 9-4.5"/><path d="m3 16.5 9 4.5 9-4.5"/></svg>
+            <span>Umiejętności</span>
+          </button>
+          <button type="button" class="nav-item" data-nav="Połączenia">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2M15 8V2"/><path d="M18 8v5a6 6 0 0 1-12 0V8Z"/></svg>
+            <span>Połączenia</span>
+          </button>
+          <button type="button" class="nav-item" data-nav="Automatyzacje">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8.2 7.5 11 15.7M15.8 7.5 13 15.7M8.5 6h7"/></svg>
+            <span>Automatyzacje</span>
+          </button>
+          <button type="button" class="nav-item" data-nav="Pamięć">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 4.5a3 3 0 0 0-3 3v.5a2.5 2.5 0 0 0-2 2.5 2.5 2.5 0 0 0 1 2 2.5 2.5 0 0 0-.5 1.5 3 3 0 0 0 3 3h1a2.5 2.5 0 0 0 3 2.5V4.5a2.5 2.5 0 0 0-2.5 0Z"/><path d="M14.5 4.5a3 3 0 0 1 3 3v.5a2.5 2.5 0 0 1 2 2.5 2.5 2.5 0 0 1-1 2 2.5 2.5 0 0 1 .5 1.5 3 3 0 0 1-3 3h-1a2.5 2.5 0 0 1-3 2.5V4.5a2.5 2.5 0 0 1 2.5 0Z"/></svg>
+            <span>Pamięć</span>
+          </button>
+        </nav>
+
+        <div class="recent-section">
+          <div class="recent-label">OSTATNIE ROZMOWY</div>
+          <ul id="recentChats" class="recent-list">
+            <li>
+              <button type="button" class="recent-item" data-chat="Studium Listu do Rzymian">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8Z"/></svg>
+                <span>Studium Listu do Rzymian</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="recent-item" data-chat="Plan tygodnia">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8Z"/></svg>
+                <span>Plan tygodnia</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="recent-item" data-chat="Scenariusz filmu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8Z"/></svg>
+                <span>Scenariusz filmu</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <button type="button" class="footer-item" data-nav="Ustawienia">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.85 1 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
+          <span>Ustawienia</span>
+        </button>
+        <button type="button" class="footer-item" data-nav="Mój profil">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>
+          <span>Mój profil</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ŚRODKOWA PRZESTRZEŃ ROBOCZA -->
+    <main class="main-workspace">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button type="button" id="openLeftDrawer" class="icon-btn mobile-only" aria-label="Otwórz nawigację" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+
+          <div class="dropdown-wrap">
+            <button type="button" id="modelPickerBtn" class="model-pill" aria-haspopup="listbox" aria-expanded="false">
+              <svg class="gold-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m11 3 1.8 4.7L17.5 9.5l-4.7 1.8L11 16l-1.8-4.7L4.5 9.5l4.7-1.8L11 3Z"/><path d="M18.5 14.5 19.3 16.7 21.5 17.5 19.3 18.3 18.5 20.5 17.7 18.3 15.5 17.5 17.7 16.7 18.5 14.5Z"/></svg>
+              <span id="activeModelLabel">CC Auto</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div id="modelMenu" class="dropdown-menu" role="listbox" aria-label="Wybór silnika AI" hidden>
+              <button type="button" role="option" class="dropdown-option active" data-model="CC Auto">CC Auto <span>Inteligentny dobór</span></button>
+              <button type="button" role="option" class="dropdown-option" data-model="Studium Biblijne">Studium Biblijne <span>Kontekst UBG</span></button>
+              <button type="button" role="option" class="dropdown-option" data-model="Twórczość CC">Twórczość CC <span>Redakcja i media</span></button>
+              <button type="button" role="option" class="dropdown-option" data-model="Deep Research">Deep Research <span>Analiza źródeł</span></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <button type="button" id="privacyToggleBtn" class="privacy-toggle" role="switch" aria-checked="false">
+            <svg class="shield-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6.5v5.5c0 4.7 3.4 8.7 8 10 4.6-1.3 8-5.3 8-10V6.5L12 3Z"/><path d="m9.5 12 1.8 1.8 3.5-3.8"/></svg>
+            <span class="privacy-text">Tryb prywatny</span>
+            <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
+          </button>
+
+          <span class="topbar-divider" aria-hidden="true"></span>
+
+          <button type="button" id="helpBtn" class="circle-help-btn" aria-label="Informacje o wersji makiety">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 4.9.8c0 1.6-2.4 2.1-2.4 3.4"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></svg>
+          </button>
+
+          <button type="button" id="openRightDrawer" class="icon-btn tablet-only" aria-label="Otwórz panel Twoja przestrzeń" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="stage-scroll">
+        <!-- WIDOK POWITALNY (1:1 z makiety) -->
+        <section id="welcomeStage" class="welcome-stage" aria-label="Ekran główny AI dla Jezusa">
+          <div class="hero-emblem-wrap">
+            <img src="/ai/assets/icon-ai-halo.webp" alt="AI dla Jezusa" width="256" height="256" class="hero-emblem">
+          </div>
+
+          <h1 class="hero-title">Co dobrego dziś stworzymy?</h1>
+          <p class="hero-subtitle">Technologia w służbie dobra. Jezus w centrum.</p>
+
+          <!-- KOMPOZYTOR WIADOMOŚCI -->
+          <div class="composer-box">
+            <div id="attachmentChip" class="attachment-chip" hidden></div>
+            <form id="composerForm">
+              <label class="sr-only" for="prompt">Zapytaj o cokolwiek</label>
+              <textarea id="prompt" rows="2" placeholder="Zapytaj o cokolwiek..." maxlength="6000"></textarea>
+
+              <div class="composer-bar">
+                <div class="composer-bar-left">
+                  <button type="button" id="attachBtn" class="composer-circle-btn" aria-label="Dodaj załącznik">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                  </button>
+                  <input type="file" id="fileInput" accept=".txt,.md,.pdf,text/plain,text/markdown" hidden>
+
+                  <button type="button" id="webSearchBtn" class="composer-circle-btn" aria-pressed="false" aria-label="Przeszukuj zasoby sieci">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+                  </button>
+
+                  <div class="dropdown-wrap">
+                    <button type="button" id="toolsBtn" class="tools-pill" aria-expanded="false" aria-haspopup="menu">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76Z"/></svg>
+                      <span>Narzędzia</span>
+                      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                    <div id="toolsMenu" class="dropdown-menu dropdown-up" role="menu" hidden>
+                      <button type="button" role="menuitem" class="dropdown-option" data-tool="Cytaty UBG">Cytaty biblijne (UBG) <span>Weryfikacja</span></button>
+                      <button type="button" role="menuitem" class="dropdown-option" data-tool="Notatnik">Zapisz do notatnika <span>Szkic</span></button>
+                      <button type="button" role="menuitem" class="dropdown-option" data-tool="Deep Research">Deep Research <span>Źródła CC</span></button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="composer-bar-right">
+                  <button type="button" id="micBtn" class="composer-plain-btn" aria-label="Dyktowanie głosowe">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></svg>
+                  </button>
+                  <button type="submit" id="sendBtn" class="send-gold-btn" aria-label="Wyślij wiadomość">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4Z"/></svg>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- SIATKA 6 KART SZYBKIEGO STARTU (2x3) -->
+          <div class="prompt-grid" aria-label="Proponowane zadania">
+            <button type="button" class="prompt-card" data-prompt="Pomóż mi przestudiować ten fragment Pisma Świętego — wyjaśnij kontekst historyczny, główne przesłanie i zastosowanie dziś.">
+              <span class="prompt-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5.5v15m0-15C9.5 3.8 5.5 3.8 2.5 5v14.5c3-1.1 7-1.1 9.5.5m0-14.5c2.5-1.7 6.5-1.7 9.5-.5V19.5c-3-1.1-7-1.1-9.5.5"/></svg>
+              </span>
+              <span class="prompt-card-body">
+                <strong>Studiuj Biblię</strong>
+                <span>Zrozum Pismo Święte, kontekst i przesłanie.</span>
+              </span>
+            </button>
+
+            <button type="button" class="prompt-card" data-prompt="Potrzebuję słowa otuchy, modlitwy i biblijnej obietnicy nadziei na dzisiejszy dzień.">
+              <span class="prompt-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.4 4.9a5.2 5.2 0 0 0-7.4 0L12 5.9l-1-1a5.2 5.2 0 0 0-7.4 7.4l1 1L12 20.5l7.4-7.2 1-1a5.2 5.2 0 0 0 0-7.4Z"/></svg>
+              </span>
+              <span class="prompt-card-body">
+                <strong>Znajdź nadzieję</strong>
+                <span>Wsparcie, zachęta i słowo na dziś.</span>
+              </span>
+            </button>
+
+            <button type="button" class="prompt-card" data-prompt="Pomóż mi przygotować wartościowy artykuł, kazanie lub scenariusz filmu z wyraźnym przesłaniem Ewangelii.">
+              <span class="prompt-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m16.5 3.5 4 4L7 21H3v-4L16.5 3.5Z"/></svg>
+              </span>
+              <span class="prompt-card-body">
+                <strong>Twórz treści</strong>
+                <span>Artykuły, kazania, scenariusze, media i więcej.</span>
+              </span>
+            </button>
+
+            <button type="button" class="prompt-card" data-prompt="Przygotuj pogłębione opracowanie na temat wiary, życia chrześcijańskiego i służby.">
+              <span class="prompt-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+              </span>
+              <span class="prompt-card-body">
+                <strong>Odkrywaj wiedzę</strong>
+                <span>Pogłębiaj tematy wiary, życia i służby.</span>
+              </span>
+            </button>
+
+            <button type="button" class="prompt-card" data-prompt="Pomóż mi przeanalizować dokument, podsumować kluczowe wnioski i stworzyć przejrzyste opracowanie.">
+              <span class="prompt-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>
+              </span>
+              <span class="prompt-card-body">
+                <strong>Pracuj z dokumentami</strong>
+                <span>Analizuj, podsumowuj i twórz opracowania.</span>
+              </span>
+            </button>
+
+            <button type="button" class="prompt-card" data-prompt="Dobierz wyspecjalizowanego agenta AI do mojego zadania w misji Christian Culture.">
+              <span class="prompt-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M12 3v4M9 12v.01M15 12v.01M9 16h6M2 13h2M20 13h2"/></svg>
+              </span>
+              <span class="prompt-card-body">
+                <strong>Uruchom agenta</strong>
+                <span>Skorzystaj ze specjalistycznych agentów AI.</span>
+              </span>
+            </button>
+          </div>
+        </section>
+
+        <!-- WIDOK AKTYWNEJ ROZMOWY / MODUŁU (pokazywany po interakcji) -->
+        <section id="conversationStage" class="conversation-stage" aria-label="Podgląd rozmowy" hidden>
+          <div id="conversationLog" class="conversation-log"></div>
+        </section>
+      </div>
+
+      <footer class="workspace-footer">
+        <p class="disclaimer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <span>AI może się mylić. Weryfikuj ważne informacje i cytaty biblijne.</span>
+        </p>
+      </footer>
+    </main>
+
+    <!-- PRAWY PANEL KONTEKSTOWY: TWOJA PRZESTRZEŃ -->
+    <aside id="rightSidebar" class="sidebar-right" aria-label="Twoja przestrzeń">
+      <div class="right-header">
+        <h2>Twoja przestrzeń</h2>
+        <button type="button" id="closeRightDrawer" class="icon-btn drawer-close" aria-label="Zamknij panel Twoja przestrzeń">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="space-cards">
+        <!-- KARTA 1: WERSET DNIA -->
+        <section class="space-card">
+          <div class="space-card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5.5v15m0-15C9.5 3.8 5.5 3.8 2.5 5v14.5c3-1.1 7-1.1 9.5.5m0-14.5c2.5-1.7 6.5-1.7 9.5-.5V19.5c-3-1.1-7-1.1-9.5.5"/></svg>
+            <h3>Werset dnia</h3>
+          </div>
+          <blockquote class="daily-verse">„Zaufaj Panu z całego swego serca i nie polegaj na swoim rozumie.”</blockquote>
+          <p class="verse-ref">Przysłów 3,5</p>
+        </section>
+
+        <!-- KARTA 2: AKTYWNE PROJEKTY -->
+        <section class="space-card">
+          <div class="space-card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4.2a2 2 0 0 1 1.6.8l1.1 1.4a2 2 0 0 0 1.6.8H19a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/></svg>
+            <h3>Aktywne projekty</h3>
+          </div>
+          <ul class="project-list">
+            <li>
+              <button type="button" class="project-link" data-project="Studium Listu do Rzymian">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>
+                <span>Studium Listu do Rzymian</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="project-link" data-project="Plan treści – grudzień">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>
+                <span>Plan treści – grudzień</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="project-link" data-project="Cykl: Nadzieja w Piśmie">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>
+                <span>Cykl: Nadzieja w Piśmie</span>
+              </button>
+            </li>
+          </ul>
+          <button type="button" id="allProjectsLink" class="gold-card-link">Zobacz wszystkie projekty →</button>
+        </section>
+
+        <!-- KARTA 3: POŁĄCZONE APLIKACJE -->
+        <section class="space-card">
+          <div class="space-card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2M15 8V2"/><path d="M18 8v5a6 6 0 0 1-12 0V8Z"/></svg>
+            <h3>Połączone aplikacje</h3>
+          </div>
+          <ul class="integrations-list">
+            <li class="integration-row">
+              <div class="integration-badge integration-biblia" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z"/><path d="M8 7h7M8 11h5"/></svg>
+              </div>
+              <div class="integration-meta">
+                <strong>Biblia Audio CC</strong>
+                <small>Biblia w wersji audio</small>
+              </div>
+              <button type="button" class="connect-btn" data-app="Biblia Audio CC">Połącz</button>
+            </li>
+
+            <li class="integration-row">
+              <div class="integration-badge integration-gcal" aria-hidden="true">
+                <span>31</span>
+              </div>
+              <div class="integration-meta">
+                <strong>Google Calendar</strong>
+                <small>Kalendarz i wydarzenia</small>
+              </div>
+              <button type="button" class="connect-btn" data-app="Google Calendar">Połącz</button>
+            </li>
+
+            <li class="integration-row">
+              <div class="integration-badge integration-github" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7C6.73 19.91 6.14 18 6.14 18c-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.03A9.56 9.56 0 0 1 12 6.84c.85 0 1.7.11 2.5.34 1.91-1.3 2.75-1.03 2.75-1.03.55 1.38.2 2.4.1 2.65.64.7 1.03 1.6 1.03 2.69 0 3.85-2.34 4.7-4.57 4.95.36.31.68.92.68 1.85v2.75c0 .26.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+              </div>
+              <div class="integration-meta">
+                <strong>GitHub</strong>
+                <small>Kod, projekty i dokumentacja</small>
+              </div>
+              <button type="button" class="connect-btn" data-app="GitHub">Połącz</button>
+            </li>
+          </ul>
+          <button type="button" id="moreIntegrationsLink" class="gold-card-link">Zobacz więcej integracji →</button>
+        </section>
+      </div>
+    </aside>
+  </div>
+
+  <!-- MODAL INFORMACYJNY -->
+  <dialog id="infoDialog" class="ai-dialog" aria-labelledby="infoDialogTitle">
+    <div class="dialog-head">
+      <h2 id="infoDialogTitle">O makiecie AI dla Jezusa</h2>
+      <button type="button" id="closeDialogBtn" class="icon-btn" aria-label="Zamknij okno">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="infoDialogBody" class="dialog-body"></div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script defer src="/ai/app.js"></script>
+</body>
+</html>
