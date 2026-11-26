@@ -714,8 +714,30 @@ function getPersonalizedHeroCopy() {
   };
 }
 
+let heroSubtitleHideTimer = null;
+let lastHeroSubtitleText = '';
+
+function scheduleHeroSubtitleAutoHide(subtitleText, assistantId) {
+  if (!heroSubtitle) return;
+  if (heroSubtitleHideTimer) {
+    clearTimeout(heroSubtitleHideTimer);
+    heroSubtitleHideTimer = null;
+  }
+  heroSubtitle.classList.remove('is-faded-out');
+  heroSubtitle.removeAttribute('aria-hidden');
+
+  if (assistantId === 'ai-dla-jezusa') {
+    heroSubtitleHideTimer = setTimeout(() => {
+      heroSubtitle.classList.add('is-faded-out');
+      heroSubtitle.setAttribute('aria-hidden', 'true');
+    }, 4500);
+  }
+  lastHeroSubtitleText = subtitleText;
+}
+
 function updatePersonalizedHero() {
   const copy = getPersonalizedHeroCopy();
+  const activeId = getActiveAssistantId();
   if (heroTitle && heroTitle.textContent !== copy.title) {
     heroTitle.textContent = copy.title;
     heroTitle.classList.remove('is-greeting-swap');
@@ -723,7 +745,12 @@ function updatePersonalizedHero() {
     heroTitle.classList.add('is-greeting-swap');
   }
   if (heroSubtitle) {
-    heroSubtitle.textContent = copy.subtitle;
+    if (heroSubtitle.textContent !== copy.subtitle) {
+      heroSubtitle.textContent = copy.subtitle;
+    }
+    if (!lastHeroSubtitleText || lastHeroSubtitleText !== copy.subtitle) {
+      scheduleHeroSubtitleAutoHide(copy.subtitle, activeId);
+    }
   }
 }
 

@@ -1136,7 +1136,18 @@ a:focus-visible {
   font-size: 15px;
   font-weight: 400;
   color: #a8a6a0;
+  max-height: 96px;
+  overflow: hidden;
+  transition: opacity 650ms ease, max-height 650ms ease, margin-bottom 650ms ease, transform 650ms ease;
   animation: aiFadeUp 0.28s cubic-bezier(0.22, 1, 0.36, 1) 0ms both;
+}
+
+.hero-subtitle.is-faded-out {
+  opacity: 0;
+  max-height: 0;
+  margin-bottom: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
 }
 
 /* WYBÓR ASYSTENTA (DOMYŚLNIE AI DLA JEZUSA + 4 ASYSTENTKI CC) */
@@ -3658,7 +3669,7 @@ a:focus-visible {
 /* Zabezpieczenie widoczności po 3 s + biblioteka animacji AI dla Jezusa */
 .ai-ready .hero-emblem-wrap,
 .ai-ready .hero-title,
-.ai-ready .hero-subtitle,
+.ai-ready .hero-subtitle:not(.is-faded-out),
 .ai-ready .composer-box,
 .ai-ready .prompt-grid:not(.is-cascade-ready) .prompt-card,
 .ai-ready .space-card,

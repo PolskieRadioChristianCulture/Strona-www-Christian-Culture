@@ -203,8 +203,8 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai19_p0/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai19_p0/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai19b_p0/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai19b_p0/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
@@ -697,6 +697,9 @@ test('Simplified 5-item sidebar + PRO More group, contextual media only, mobile 
   assert.doesNotMatch(html, /\bonerror\s*=/i, 'ai/index.html must avoid inline onerror handlers blocked by strict CSP');
   assert.match(appJs, /HERO_GREETINGS/);
   assert.match(appJs, /pickVisitGreetingIndex/);
+  assert.match(appJs, /scheduleHeroSubtitleAutoHide/);
+  assert.match(css, /\.hero-subtitle\.is-faded-out\s*\{/);
+  assert.match(css, /\.ai-ready \.hero-subtitle:not\(\.is-faded-out\),/);
   assert.match(css, /\.topbar\s*\{[^}]*z-index:\s*35;/s);
   assert.match(css, /@media\s*\(max-width:\s*560px\)[\s\S]*\.model-pill\s*\{[^}]*white-space:\s*nowrap/s);
   assert.match(css, /@media\s*\(max-width:\s*560px\)[\s\S]*\.composer-bar\s*\{[^}]*flex-wrap:\s*nowrap/s);
