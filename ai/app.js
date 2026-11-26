@@ -4843,14 +4843,6 @@ webSearchBtn?.addEventListener('click', () => {
   showToast(webSearchEnabled ? 'Przeszukiwanie zasobów Christian Culture włączone.' : 'Przeszukiwanie zasobów wyłączone.');
 });
 
-$('#helpBtn')?.addEventListener('click', () => {
-  openDialog('AI dla Jezusa — Christian Culture', [
-    'Asystent AI połączony z Bazą Wiedzy Christian Culture (700+ zweryfikowanych dokumentów, Kurs Codzienny, MojaBiblia UBG).',
-    'Tryb prywatny blokuje zapis historii w przeglądarce oraz odczyt zapisanych wskazówek pamięci.',
-    'Odpowiedzi biblijne weryfikuj bezpośrednio w Piśmie Świętym (Uwspółcześniona Biblia Gdańska).'
-  ]);
-});
-
 $$('.nav-item').forEach((btn) => {
   btn.addEventListener('click', () => {
     const label = btn.dataset.nav || 'Czat';
@@ -5079,7 +5071,30 @@ function openSettingsModal() {
     infoDialog.close();
   });
 
-  infoDialogBody.append(summary, proLine, byokIntro, form);
+  const help = document.createElement('details');
+  help.className = 'settings-help';
+  const helpTitle = document.createElement('summary');
+  helpTitle.textContent = 'Informacje o aplikacji i pomoc';
+  help.appendChild(helpTitle);
+  const helpLines = [
+    'Asystent AI połączony z Bazą Wiedzy Christian Culture (700+ zweryfikowanych dokumentów, Kurs Codzienny, MojaBiblia UBG).',
+    'Tryb prywatny blokuje zapis historii w przeglądarce oraz odczyt zapisanych wskazówek pamięci.',
+    'Odpowiedzi biblijne weryfikuj bezpośrednio w Piśmie Świętym (Uwspółcześniona Biblia Gdańska).'
+  ];
+  for (const line of helpLines) {
+    const paragraph = document.createElement('p');
+    paragraph.textContent = line;
+    help.appendChild(paragraph);
+  }
+
+  const localPrivacyBtn = document.createElement('button');
+  localPrivacyBtn.type = 'button';
+  localPrivacyBtn.className = 'dialog-btn-secondary';
+  localPrivacyBtn.textContent = 'Lokalnie · RODO';
+  localPrivacyBtn.title = 'Rozmowy zapisywane lokalnie w Twojej przeglądarce';
+  localPrivacyBtn.onclick = openPrivacyModal;
+
+  infoDialogBody.append(summary, proLine, byokIntro, form, localPrivacyBtn, help);
   showInfoDialog();
 }
 
@@ -5340,8 +5355,6 @@ function openPrivacyModal() {
   infoDialogBody.append(intro, list, gaRow, row);
   showInfoDialog();
 }
-
-$('.recent-local-badge')?.addEventListener('click', openPrivacyModal);
 
 $$('.footer-item:not(#shareAppBtn)').forEach((btn) => {
   btn.addEventListener('click', () => {

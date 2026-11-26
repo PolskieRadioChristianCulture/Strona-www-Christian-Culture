@@ -97,7 +97,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
   <style>html,body{background:#0a0a0a;color:#f4f2ec;margin:0}</style>
-  <link rel="stylesheet" href="/ai/styles.css?v=20261126_ai30_ui">
+  <link rel="stylesheet" href="/ai/styles.css?v=20261126_ai31_panels">
 </head>
 <body>
   <a class="skip-link" href="#prompt">Przejdź do rozmowy</a>
@@ -131,10 +131,7 @@
 
       <div class="sidebar-scroll">
         <div class="recent-section">
-          <div class="recent-head">
-            <div class="recent-label">OSTATNIE ROZMOWY</div>
-            <button type="button" class="recent-local-badge" title="Rozmowy zapisywane lokalnie w Twojej przeglądarce">Lokalnie · RODO</button>
-          </div>
+          <h3 class="recent-label">Ostatnie rozmowy</h3>
           <ul id="recentChats" class="recent-list">
             <li>
               <button type="button" class="recent-item" data-chat="Studium Listu do Rzymian">
@@ -242,15 +239,10 @@
           <span class="privacy-text">Tryb prywatny</span>
           <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
         </button>
-        <div class="sidebar-footer-row">
-          <button type="button" class="footer-item" data-nav="Ustawienia">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.85 1 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
-            <span>Ustawienia</span>
-          </button>
-          <button type="button" id="helpBtn" class="circle-help-btn sidebar-help-btn" aria-label="Informacje o aplikacji i pomoc" title="Informacje o aplikacji i pomoc">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 4.9.8c0 1.6-2.4 2.1-2.4 3.4"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></svg>
-          </button>
-        </div>
+        <button type="button" class="footer-item" data-nav="Ustawienia">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.85 1 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
+          <span>Ustawienia</span>
+        </button>
         <button type="button" class="footer-item" data-nav="Mój profil">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>
           <span>Mój profil</span>
@@ -675,6 +667,6 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
-  <script defer src="/ai/app.js?v=20261126_ai30_ui"></script>
+  <script defer src="/ai/app.js?v=20261126_ai31_panels"></script>
 </body>
 </html>
