@@ -128,6 +128,7 @@ async function refreshOwnerSession() {
     ownerSession = null;
   }
   syncOwnerModelMenu();
+  syncProBadge();
   updateProfileFooterButton();
   if (['Umiejętności', 'Połączenia', 'Automatyzacje'].includes(currentNav)) {
     renderModule(currentNav);
@@ -260,10 +261,17 @@ const assistantStrip = $('#assistantStrip');
 const voiceAutoReadBtn = $('#voiceAutoReadBtn');
 const micBtn = $('#micBtn');
 const sendBtn = $('#sendBtn');
+const heroTitle = $('#heroTitle');
+const heroSubtitle = $('#heroSubtitle');
+const proBadgeBtn = $('#proBadgeBtn');
 const infoDialog = $('#infoDialog');
 const infoDialogTitle = $('#infoDialogTitle');
 const infoDialogBody = $('#infoDialogBody');
 const toastEl = $('#toast');
+
+const PRO_TRIAL_STORAGE_KEY = 'cc_ai_pro_trial_start_v1';
+const PRO_PATRON_STORAGE_KEY = 'cc_ai_pro_patron_v1';
+const PRO_TRIAL_DAYS = 7;
 
 // Dynamiczny slot dla zadokowanego kompozytora w widoku aktywnej rozmowy + kontener modułów
 const dockedComposerSlot = document.createElement('div');
@@ -301,17 +309,220 @@ let activeAudioEl = null;
 let toastTimer = null;
 let recognition = null;
 let isListening = false;
-let dictationBaseText = '';
-let dictationFinalText = '';
+let dictationCommittedText = '';
+let dictationLastInterim = '';
+let dictationManualStop = false;
+let dictationRestartTimer = null;
 let dictationStartedAt = 0;
 let dictationTimerId = null;
 let voiceRafId = 0;
-let audioCtx = null;
-let analyser = null;
-let micStream = null;
 let speechEnergy = 0;
 let streamRevealTimer = null;
+let typingStatusTimer = null;
 const waveBars = voiceWave ? Array.from(voiceWave.querySelectorAll('span')) : [];
+
+function trackAiEvent(name, params = {}) {
+  try {
+    if (typeof window.ccTrack === 'function') {
+      window.ccTrack(name, params);
+    } else if (typeof window.gtag === 'function') {
+      window.gtag('event', name, params);
+    }
+  } catch {}
+}
+
+function getProStatus() {
+  if (ownerSession?.isOwner) {
+    return { active: true, tier: 'owner', label: 'PRO · WŁAŚCICIEL', daysLeft: null, percent: 100 };
+  }
+  try {
+    if (localStorage.getItem(PRO_PATRON_STORAGE_KEY) === '1') {
+      return { active: true, tier: 'patron', label: 'PRO · PATRON', daysLeft: null, percent: 100 };
+    }
+  } catch {}
+
+  let startedAt = Date.now();
+  try {
+    const raw = Number(localStorage.getItem(PRO_TRIAL_STORAGE_KEY));
+    if (Number.isFinite(raw) && raw > 0) {
+      startedAt = raw;
+    } else {
+      localStorage.setItem(PRO_TRIAL_STORAGE_KEY, String(startedAt));
+    }
+  } catch {}
+
+  const totalMs = PRO_TRIAL_DAYS * 86400000;
+  const elapsedMs = Math.max(0, Date.now() - startedAt);
+  const remainingMs = totalMs - elapsedMs;
+  if (remainingMs > 0) {
+    const daysLeft = Math.max(1, Math.min(PRO_TRIAL_DAYS, Math.ceil(remainingMs / 86400000)));
+    return {
+      active: true,
+      tier: 'trial',
+      label: `PRO · ${daysLeft}d`,
+      daysLeft,
+      percent: Math.round((daysLeft / PRO_TRIAL_DAYS) * 100)
+    };
+  }
+  return { active: false, tier: 'free', label: 'PRO', daysLeft: 0, percent: 0 };
+}
+
+function syncProBadge() {
+  if (!proBadgeBtn) return;
+  const st = getProStatus();
+  proBadgeBtn.textContent = st.label;
+  proBadgeBtn.classList.toggle('is-free-tier', !st.active);
+  proBadgeBtn.classList.toggle('is-patron', st.tier === 'patron' || st.tier === 'owner');
+  if (st.tier === 'trial') {
+    proBadgeBtn.title = `Wersja PRO aktywna przez jeszcze ${st.daysLeft} dni (7 dni na start bez opłat)`;
+  } else if (st.active) {
+    proBadgeBtn.title = 'Pełna wersja PRO Christian Culture aktywna';
+  } else {
+    proBadgeBtn.title = 'Kliknij, aby aktywować wersję PRO dla Patronów i Mecenasów Christian Culture';
+  }
+}
+
+function openProModal() {
+  const st = getProStatus();
+  trackAiEvent('ai_pro_modal_open', { pro_tier: st.tier });
+  infoDialogTitle.textContent = st.active
+    ? 'Wersja PRO — Christian Culture'
+    : 'Przejdź na wersję PRO — Patroni i Mecenasi';
+  infoDialogBody.replaceChildren();
+
+  const box = document.createElement('div');
+  box.className = 'pro-modal-box';
+
+  const badge = document.createElement('span');
+  badge.className = 'pro-modal-badge';
+  if (st.tier === 'owner') {
+    badge.textContent = '★ Pełna wersja PRO Właściciela aktywna';
+  } else if (st.tier === 'patron') {
+    badge.textContent = '★ Wersja PRO Patrona / Mecenasa CC aktywna';
+  } else if (st.tier === 'trial') {
+    badge.textContent = `★ Twój darmowy start PRO: pozostało ${st.daysLeft} z ${PRO_TRIAL_DAYS} dni`;
+  } else {
+    badge.textContent = '7-dniowy okres próbny PRO dobiegł końca';
+  }
+  box.appendChild(badge);
+
+  if (st.tier === 'trial' || !st.active) {
+    const meter = document.createElement('div');
+    meter.className = 'pro-trial-meter';
+    const fill = document.createElement('div');
+    fill.className = 'pro-trial-fill';
+    fill.style.width = `${st.percent}%`;
+    meter.appendChild(fill);
+    box.appendChild(meter);
+  }
+
+  const intro = document.createElement('p');
+  intro.textContent = st.tier === 'trial'
+    ? 'Każdy nowy użytkownik otrzymuje 7 dni pełnej wersji PRO na start bez zobowiązań. Po tym czasie wspierający Patroni i Mecenasi misji Christian Culture zachowują status PRO na stałe.'
+    : st.active
+      ? 'Dziękujemy za współtworzenie i wsparcie misji Christian Culture. Twoje przywileje wersji PRO są aktywne.'
+      : 'Podstawowy czat z Biblią UBG i mediami CC pozostaje bezpłatny. Zostań Patronem lub Mecenasem Christian Culture, aby zachować pełną wersję PRO i współtworzyć ewangelizację.';
+
+  const list = document.createElement('ul');
+  list.className = 'pro-feature-list';
+  for (const item of [
+    'Priorytetowy dostęp do szybkich modeli AI (CC Auto + Gemini)',
+    'Wszystkie 4 asystentki głosowe (Rut, Lea, Noemi, Miriam) + AI dla Jezusa',
+    'Pełne multimedia w czacie (Radio 24/7, Biblia Audio, YouTube, Spotify)',
+    'Większe limity rozmów, własne projekty i podpinanie własnych kluczy API'
+  ]) {
+    const li = document.createElement('li');
+    li.textContent = item;
+    list.appendChild(li);
+  }
+
+  const row = document.createElement('div');
+  row.className = 'pro-cta-row';
+
+  const patronLink = document.createElement('a');
+  patronLink.className = 'pro-cta-primary';
+  patronLink.href = 'https://patronite.pl/ChristianCulture';
+  patronLink.target = '_blank';
+  patronLink.rel = 'noopener noreferrer';
+  patronLink.textContent = 'Zostań Patronem (Patronite) →';
+  patronLink.addEventListener('click', () => trackAiEvent('donate_click', { method: 'patronite', place: 'ai_pro_modal' }));
+
+  const wspieramLink = document.createElement('a');
+  wspieramLink.className = 'pro-cta-secondary';
+  wspieramLink.href = '/wspieramto';
+  wspieramLink.target = '_blank';
+  wspieramLink.rel = 'noopener noreferrer';
+  wspieramLink.textContent = 'Mecenas CC (WspieramTO)';
+  wspieramLink.addEventListener('click', () => trackAiEvent('donate_click', { method: 'wspieramto', place: 'ai_pro_modal' }));
+
+  row.append(patronLink, wspieramLink);
+
+  if (st.tier !== 'owner') {
+    const togglePatronBtn = document.createElement('button');
+    togglePatronBtn.type = 'button';
+    togglePatronBtn.className = 'pro-cta-secondary';
+    const isPatronLocal = st.tier === 'patron';
+    togglePatronBtn.textContent = isPatronLocal ? 'Wyłącz lokalną deklarację Patrona' : 'Jestem Patronem / Mecenasem CC';
+    togglePatronBtn.addEventListener('click', () => {
+      try {
+        if (isPatronLocal) localStorage.removeItem(PRO_PATRON_STORAGE_KEY);
+        else localStorage.setItem(PRO_PATRON_STORAGE_KEY, '1');
+      } catch {}
+      syncProBadge();
+      openProModal();
+      showToast(isPatronLocal ? 'Przywrócono standardowe rozliczanie PRO.' : 'Dziękujemy za wsparcie misji! Oznaczono status Patrona PRO.');
+    });
+    row.appendChild(togglePatronBtn);
+  }
+
+  box.append(intro, list, row);
+  infoDialogBody.appendChild(box);
+  infoDialog.showModal();
+}
+
+function getPersonalizedHeroCopy() {
+  const rawName = (currentUser && !currentUser.isAnonymous && (currentUser.displayName || '').trim()) || '';
+  const firstName = rawName ? rawName.split(/\s+/)[0].slice(0, 24) : '';
+  const hour = new Date().getHours();
+  const persona = getPersona(getActiveAssistantId());
+
+  let title = 'Co dobrego dziś chcesz zrobić dla Jezusa?';
+  if (firstName) {
+    if (hour >= 5 && hour < 12) title = `Dzień dobry, ${firstName}! Co dobrego dziś chcesz zrobić dla Jezusa?`;
+    else if (hour >= 18 || hour < 5) title = `Dobry wieczór, ${firstName}! Czym dziś uwielbimy Jezusa?`;
+    else title = `${firstName}, co dobrego dziś chcesz zrobić dla Jezusa?`;
+  } else if (hour >= 5 && hour < 11) {
+    title = 'Błogosławionego poranka! Co dobrego dziś chcesz zrobić dla Jezusa?';
+  } else if (hour >= 19 || hour < 5) {
+    title = 'Spokojnego wieczoru — co dobrego dziś chcesz zrobić dla Jezusa?';
+  }
+
+  const subtitles = {
+    'ai-dla-jezusa': 'Technologia w służbie dobra. Jezus w centrum.',
+    rut: 'Tu Rut — Twoja gospodyni Christian Culture. Chętnie puszczę radio 24/7, VOD lub polecę rozmowę.',
+    lea: 'Tu Lea — Twoja planistka Słowa. Ułożymy razem plan Biblii, Kursu Codziennego i Akademii.',
+    noemi: 'Tu Noemi — doradczyni biblijna. Przyniosę Ci otuchę w Piśmie Świętym (UBG) i cichą modlitwę.',
+    miriam: 'Tu Miriam — zapraszam Cię do Psalmów, Biblii Śpiewanej i Spiritual Sounds 24/7.'
+  };
+
+  return {
+    title,
+    subtitle: subtitles[persona.id] || subtitles['ai-dla-jezusa']
+  };
+}
+
+function updatePersonalizedHero() {
+  const copy = getPersonalizedHeroCopy();
+  if (heroTitle && heroTitle.textContent !== copy.title) {
+    heroTitle.textContent = copy.title;
+    heroTitle.classList.remove('is-greeting-swap');
+    void heroTitle.offsetWidth;
+    heroTitle.classList.add('is-greeting-swap');
+  }
+  if (heroSubtitle) {
+    heroSubtitle.textContent = copy.subtitle;
+  }
+}
 
 function getActiveAssistantId() {
   return AI_PERSONAS[state?.assistantId] ? state.assistantId : DEFAULT_ASSISTANT_ID;
@@ -322,7 +533,9 @@ function setActiveAssistant(id, { announce = true } = {}) {
   state.assistantId = persona.id;
   saveState();
   syncAssistantButtons();
+  updatePersonalizedHero();
   if (announce) {
+    trackAiEvent('ai_assistant_select', { assistant_id: persona.id });
     showToast(`${persona.gender === 'female' ? 'Aktywna asystentka' : 'Aktywny asystent'}: ${persona.name} (${persona.role})`);
   }
 }
@@ -335,6 +548,8 @@ function syncAssistantButtons() {
     btn.setAttribute('aria-checked', String(match));
   });
 }
+
+proBadgeBtn?.addEventListener('click', openProModal);
 
 function buildAssistantBar(className = 'chat-assistant-bar') {
   const bar = document.createElement('div');
@@ -1014,6 +1229,10 @@ function stopStreamReveal() {
     clearInterval(streamRevealTimer);
     streamRevealTimer = null;
   }
+  if (typingStatusTimer) {
+    clearInterval(typingStatusTimer);
+    typingStatusTimer = null;
+  }
 }
 
 function renderMediaDeck(mediaItems) {
@@ -1216,6 +1435,8 @@ function renderConversation(animateMsgId = '') {
   let revealFullText = '';
   let revealBubble = null;
   let revealSpeakBtn = null;
+  let revealSkipBtn = null;
+  let revealDeferredNodes = [];
   let revealAssistantId = getActiveAssistantId();
 
   for (let i = 0; i < thread.messages.length; i += 1) {
@@ -1253,8 +1474,9 @@ function renderConversation(animateMsgId = '') {
       conversationLog.appendChild(userBubble);
     } else {
       const persona = getPersona(msg.assistant?.id || DEFAULT_ASSISTANT_ID);
+      const isStreamingThisMsg = Boolean(animateMsgId && msg.id === animateMsgId && typeof msg.text === 'string' && msg.text.length > 0);
       const aiBubble = document.createElement('article');
-      aiBubble.className = 'chat-bubble-ai';
+      aiBubble.className = 'chat-bubble-ai' + (isStreamingThisMsg ? ' is-streaming' : '');
 
       const head = document.createElement('div');
       head.className = 'chat-bubble-ai-head';
@@ -1286,12 +1508,18 @@ function renderConversation(animateMsgId = '') {
 
       const mdSlot = document.createElement('div');
       mdSlot.className = 'ai-md-slot';
-      if (animateMsgId && msg.id === animateMsgId && typeof msg.text === 'string' && msg.text.length > 24) {
+      const deferred = [];
+      if (isStreamingThisMsg) {
         revealTarget = mdSlot;
         revealFullText = msg.text;
         revealBubble = aiBubble;
         revealAssistantId = persona.id;
-        mdSlot.appendChild(renderMarkdownSafe(msg.text.slice(0, 12)));
+        const initRendered = renderMarkdownSafe(msg.text.slice(0, Math.min(4, msg.text.length)));
+        const initCaret = document.createElement('span');
+        initCaret.className = 'ai-stream-cursor';
+        initCaret.setAttribute('aria-hidden', 'true');
+        (initRendered.lastElementChild || initRendered).appendChild(initCaret);
+        mdSlot.appendChild(initRendered);
       } else {
         mdSlot.appendChild(renderMarkdownSafe(msg.text));
       }
@@ -1299,6 +1527,10 @@ function renderConversation(animateMsgId = '') {
 
       const mediaDeck = renderMediaDeck(msg.media);
       if (mediaDeck) {
+        if (isStreamingThisMsg) {
+          mediaDeck.classList.add('stream-reveal-deferred');
+          deferred.push(mediaDeck);
+        }
         aiBubble.appendChild(mediaDeck);
       }
 
@@ -1315,18 +1547,25 @@ function renderConversation(animateMsgId = '') {
           a.textContent = `↗ ${s.title}`;
           srcWrap.appendChild(a);
         }
-        if (srcWrap.children.length) aiBubble.appendChild(srcWrap);
+        if (srcWrap.children.length) {
+          if (isStreamingThisMsg) {
+            srcWrap.classList.add('stream-reveal-deferred');
+            deferred.push(srcWrap);
+          }
+          aiBubble.appendChild(srcWrap);
+        }
       }
 
       const actions = document.createElement('div');
-      actions.className = 'msg-actions';
+      actions.className = 'msg-actions' + (isStreamingThisMsg ? ' stream-reveal-deferred' : '');
+      if (isStreamingThisMsg) deferred.push(actions);
 
       const speakBtn = document.createElement('button');
       speakBtn.type = 'button';
       speakBtn.className = 'msg-action-btn';
       speakBtn.textContent = '🔊 Odsłuchaj';
       speakBtn.onclick = () => speakReply(msg.text, persona.id, aiBubble, speakBtn);
-      if (animateMsgId && msg.id === animateMsgId) {
+      if (isStreamingThisMsg) {
         revealSpeakBtn = speakBtn;
       }
 
@@ -1383,6 +1622,15 @@ function renderConversation(animateMsgId = '') {
         actions.appendChild(retryBtn);
       }
 
+      if (isStreamingThisMsg) {
+        revealSkipBtn = document.createElement('button');
+        revealSkipBtn.type = 'button';
+        revealSkipBtn.className = 'stream-skip-btn';
+        revealSkipBtn.textContent = 'Pomiń pisanie ⏭';
+        aiBubble.appendChild(revealSkipBtn);
+        revealDeferredNodes = deferred;
+      }
+
       aiBubble.appendChild(actions);
       conversationLog.appendChild(aiBubble);
     }
@@ -1405,40 +1653,92 @@ function renderConversation(animateMsgId = '') {
     sp.textContent = activeP.name;
     const bdg = document.createElement('span');
     bdg.className = 'provider-badge';
-    bdg.textContent = 'Analiza CC';
+    bdg.textContent = activeP.gender === 'female' ? 'Analizuje · CC' : 'Analiza CC';
     head.append(av, sp, bdg);
 
     const pLine = document.createElement('p');
     pLine.className = 'typing-line';
-    pLine.innerHTML = '<span class="typing-dots" aria-hidden="true"><i></i><i></i><i></i></span> Przeszukuję indeks Christian Culture i dobieram multimedia...';
+    const dots = document.createElement('span');
+    dots.className = 'typing-dots';
+    dots.setAttribute('aria-hidden', 'true');
+    dots.append(document.createElement('i'), document.createElement('i'), document.createElement('i'));
+    const statusText = document.createElement('span');
+    const phases = [
+      `${activeP.name} przeszukuje indeks Christian Culture…`,
+      'Dobiera wersety Biblii (UBG) i multimedia…',
+      'Przygotowuje odpowiedź w czasie rzeczywistym…'
+    ];
+    let phaseIdx = 0;
+    statusText.textContent = phases[0];
+    pLine.append(dots, document.createTextNode(' '), statusText);
     loading.append(head, pLine);
     conversationLog.appendChild(loading);
+
+    typingStatusTimer = setInterval(() => {
+      if (!busy || !statusText.isConnected) {
+        clearInterval(typingStatusTimer);
+        typingStatusTimer = null;
+        return;
+      }
+      phaseIdx = (phaseIdx + 1) % phases.length;
+      statusText.textContent = phases[phaseIdx];
+    }, 950);
   }
 
   const scroller = $('.stage-scroll');
   if (scroller) scroller.scrollTop = scroller.scrollHeight;
 
   if (revealTarget && revealFullText) {
-    let cursor = Math.min(24, revealFullText.length);
-    const step = Math.max(18, Math.ceil(revealFullText.length / 26));
-    streamRevealTimer = setInterval(() => {
-      cursor = Math.min(revealFullText.length, cursor + step);
-      const rendered = renderMarkdownSafe(revealFullText.slice(0, cursor));
-      if (cursor < revealFullText.length) {
-        const caret = document.createElement('span');
-        caret.className = 'ai-stream-cursor';
-        caret.setAttribute('aria-hidden', 'true');
-        (rendered.lastElementChild || rendered).appendChild(caret);
+    let cursor = Math.min(4, revealFullText.length);
+    const totalLen = revealFullText.length;
+    const baseStep = totalLen > 900 ? 7 : totalLen > 400 ? 5 : 3;
+
+    const finishStreamReveal = () => {
+      stopStreamReveal();
+      revealBubble?.classList.remove('is-streaming');
+      revealSkipBtn?.remove();
+      revealTarget.replaceChildren(renderMarkdownSafe(revealFullText));
+      for (const node of revealDeferredNodes) {
+        node.classList.add('is-revealed');
       }
-      revealTarget.replaceChildren(rendered);
-      if (scroller) scroller.scrollTop = scroller.scrollHeight;
-      if (cursor >= revealFullText.length) {
-        stopStreamReveal();
-        if (autoReadEnabled && revealBubble) {
-          speakReply(revealFullText, revealAssistantId, revealBubble, revealSpeakBtn);
+      if (scroller && scroller.scrollHeight - scroller.scrollTop - scroller.clientHeight < 180) {
+        scroller.scrollTop = scroller.scrollHeight;
+      }
+      if (autoReadEnabled && revealBubble) {
+        speakReply(revealFullText, revealAssistantId, revealBubble, revealSpeakBtn);
+      }
+    };
+
+    if (revealSkipBtn) {
+      revealSkipBtn.addEventListener('click', finishStreamReveal);
+    }
+
+    if (cursor >= totalLen) {
+      finishStreamReveal();
+    } else {
+      streamRevealTimer = setInterval(() => {
+        let nextCursor = Math.min(totalLen, cursor + baseStep);
+        // Wyrównuj koniec porcji do najbliższej spacji/końca linii, aby słowa pojawiały się naturalnie
+        while (nextCursor < totalLen && nextCursor - cursor < baseStep + 5 && !/\s/.test(revealFullText[nextCursor])) {
+          nextCursor += 1;
         }
-      }
-    }, 34);
+        cursor = nextCursor;
+        const rendered = renderMarkdownSafe(revealFullText.slice(0, cursor));
+        if (cursor < totalLen) {
+          const caret = document.createElement('span');
+          caret.className = 'ai-stream-cursor';
+          caret.setAttribute('aria-hidden', 'true');
+          (rendered.lastElementChild || rendered).appendChild(caret);
+        }
+        revealTarget.replaceChildren(rendered);
+        if (scroller && scroller.scrollHeight - scroller.scrollTop - scroller.clientHeight < 140) {
+          scroller.scrollTop = scroller.scrollHeight;
+        }
+        if (cursor >= totalLen) {
+          finishStreamReveal();
+        }
+      }, 26);
+    }
   } else if (autoReadEnabled && animateMsgId) {
     const last = thread.messages[thread.messages.length - 1];
     if (last && last.id === animateMsgId && last.role === 'assistant') {
@@ -1504,6 +1804,7 @@ async function sendChatMessage(textOverride, titleHint = '') {
 
   busy = true;
   sendBtn.disabled = true;
+  trackAiEvent('ai_chat_send', { mode: currentMode, assistant_id: activeAsst.id, pro_tier: getProStatus().tier });
   showConversationView();
 
   let revealMsgId = '';
@@ -2377,6 +2678,8 @@ function handleAuthUpdate(user) {
     else renderModule(currentNav);
   }
   updateProfileFooterButton();
+  syncProBadge();
+  updatePersonalizedHero();
   refreshOwnerSession();
 }
 
@@ -2417,6 +2720,14 @@ function openSettingsModal() {
 
   const summary = document.createElement('p');
   summary.textContent = `Aktywny tryb: ${currentMode} · Tryb prywatny: ${privateMode ? 'Włączony' : 'Wyłączony'} · Wątki: ${state.chats.length} · Notatki: ${state.notes.length} · Pamięć: ${state.memory.length}.`;
+
+  const proSt = getProStatus();
+  const proLine = document.createElement('p');
+  proLine.textContent = proSt.tier === 'trial'
+    ? `Status aplikacji: Wersja PRO aktywna (darmowy start — pozostało ${proSt.daysLeft} z ${PRO_TRIAL_DAYS} dni).`
+    : proSt.active
+      ? `Status aplikacji: ${proSt.label} aktywny.`
+      : 'Status aplikacji: Wersja podstawowa (okres próbny PRO zakończony — wsparcie Patronów i Mecenasów odblokowuje PRO).';
 
   const byokIntro = document.createElement('p');
   byokIntro.textContent = ownerSession?.isOwner
@@ -2492,7 +2803,7 @@ function openSettingsModal() {
     infoDialog.close();
   });
 
-  infoDialogBody.append(summary, byokIntro, form);
+  infoDialogBody.append(summary, proLine, byokIntro, form);
   infoDialog.showModal();
 }
 
@@ -2528,7 +2839,13 @@ function openProfileModal() {
       showToast('Wylogowano z konta Google.');
     };
 
-    btnRow.append(luminaLink, logoutBtn);
+    const proBtn = document.createElement('button');
+    proBtn.type = 'button';
+    proBtn.className = 'connect-btn';
+    proBtn.textContent = `Status: ${getProStatus().label}`;
+    proBtn.onclick = openProModal;
+
+    btnRow.append(proBtn, luminaLink, logoutBtn);
     infoDialogBody.append(info, btnRow);
   } else {
     const desc = document.createElement('p');
@@ -2729,17 +3046,10 @@ function releaseAudioResources() {
     cancelAnimationFrame(voiceRafId);
     voiceRafId = 0;
   }
-  if (micStream) {
-    micStream.getTracks().forEach((t) => {
-      try { t.stop(); } catch {}
-    });
-    micStream = null;
+  if (dictationRestartTimer) {
+    clearTimeout(dictationRestartTimer);
+    dictationRestartTimer = null;
   }
-  if (audioCtx) {
-    try { audioCtx.close().catch(() => {}); } catch {}
-    audioCtx = null;
-  }
-  analyser = null;
   speechEnergy = 0;
   for (const bar of waveBars) {
     bar.style.transform = 'scaleY(0.24)';
@@ -2749,34 +3059,16 @@ function releaseAudioResources() {
 function runWaveAnimation() {
   const count = waveBars.length;
   if (!count || !isListening) return;
-  const freqData = analyser ? new Uint8Array(analyser.frequencyBinCount) : null;
 
   const tick = (now) => {
     if (!isListening) return;
-    speechEnergy *= 0.92;
-    let hasSignal = false;
-    if (analyser && freqData) {
-      analyser.getByteFrequencyData(freqData);
-      for (let k = 0; k < Math.min(freqData.length, 24); k += 1) {
-        if (freqData[k] > 8) {
-          hasSignal = true;
-          break;
-        }
-      }
-    }
-
+    speechEnergy *= 0.91;
     const t = now * 0.0085;
     for (let i = 0; i < count; i += 1) {
-      let amp;
-      if (analyser && freqData && hasSignal) {
-        const bin = Math.min(freqData.length - 1, 1 + Math.floor((i / count) * 20));
-        amp = Math.min(1, freqData[bin] / 195);
-      } else {
-        const centerDist = Math.abs(i - (count - 1) / 2) / ((count - 1) / 2);
-        const envelope = 1 - centerDist * 0.42;
-        const baseWave = 0.28 + 0.22 * Math.sin(t + i * 0.65) + 0.14 * Math.cos(t * 1.45 - i * 0.9);
-        amp = Math.min(1, baseWave * envelope + speechEnergy * (0.45 + 0.35 * Math.sin(t * 1.9 + i)));
-      }
+      const centerDist = Math.abs(i - (count - 1) / 2) / ((count - 1) / 2);
+      const envelope = 1 - centerDist * 0.42;
+      const baseWave = 0.28 + 0.22 * Math.sin(t + i * 0.65) + 0.14 * Math.cos(t * 1.45 - i * 0.9);
+      const amp = Math.min(1, baseWave * envelope + speechEnergy * (0.45 + 0.35 * Math.sin(t * 1.9 + i)));
       const scale = Math.max(0.22, Math.min(1.08, 0.22 + amp * 0.86));
       waveBars[i].style.transform = `scaleY(${scale.toFixed(3)})`;
     }
@@ -2786,37 +3078,22 @@ function runWaveAnimation() {
   voiceRafId = requestAnimationFrame(tick);
 }
 
-async function startAudioWaveform() {
+function startAudioWaveform() {
+  // Nie przejmujemy mikrofonu przez równoległy strumień audio obok SpeechRecognition (unikamy blokady na Androidzie/Windows)
   runWaveAnimation();
-  if (!navigator.mediaDevices?.getUserMedia) return;
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      audio: { echoCancellation: true, noiseSuppression: true }
-    });
-    if (!isListening) {
-      stream.getTracks().forEach((t) => {
-        try { t.stop(); } catch {}
-      });
-      return;
-    }
-    micStream = stream;
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    if (!AudioCtx) return;
-    audioCtx = new AudioCtx();
-    const source = audioCtx.createMediaStreamSource(stream);
-    analyser = audioCtx.createAnalyser();
-    analyser.fftSize = 64;
-    analyser.smoothingTimeConstant = 0.72;
-    source.connect(analyser);
-  } catch {
-    // Brak bezpośredniego strumienia audio nie blokuje Web Speech API — działa animacja reaktywna
-  }
 }
 
 function stopDictation({ fromEnd = false } = {}) {
+  dictationManualStop = true;
   const activeRec = recognition;
   recognition = null;
   if (!isListening && !activeRec) return;
+
+  if (promptInput && dictationLastInterim) {
+    dictationCommittedText = [dictationCommittedText, dictationLastInterim].filter(Boolean).join(' ').trim();
+    promptInput.value = dictationCommittedText;
+  }
+  dictationLastInterim = '';
 
   isListening = false;
   clearInterval(dictationTimerId);
@@ -2839,6 +3116,7 @@ function stopDictation({ fromEnd = false } = {}) {
   if (promptInput) {
     promptInput.value = promptInput.value.replace(/\s+$/, '');
     resizeTextarea();
+    promptInput.dispatchEvent(new Event('input', { bubbles: true }));
     if (fromEnd) promptInput.focus();
   }
 }
@@ -2855,10 +3133,12 @@ function startDictation() {
     return;
   }
 
-  dictationBaseText = promptInput ? promptInput.value.trim() : '';
-  dictationFinalText = '';
+  dictationManualStop = false;
+  dictationCommittedText = promptInput ? promptInput.value.trim() : '';
+  dictationLastInterim = '';
   dictationStartedAt = Date.now();
   isListening = true;
+  trackAiEvent('ai_dictation_start', { assistant_id: getActiveAssistantId() });
 
   composerBox?.classList.add('is-dictating');
   micBtn?.classList.add('mic-listening');
@@ -2878,94 +3158,131 @@ function startDictation() {
     }
   }, 250);
 
-  const rec = new SR();
-  recognition = rec;
-  rec.lang = 'pl-PL';
-  rec.continuous = true;
-  rec.interimResults = true;
-  rec.maxAlternatives = 1;
+  const isAndroid = /Android/i.test(navigator.userAgent || '');
 
-  rec.onstart = () => {
-    if (recognition !== rec) return;
-    if (voiceStatusLabel) voiceStatusLabel.textContent = 'Słucham… Mów teraz';
-  };
+  const launchRecognitionSession = () => {
+    if (!isListening || dictationManualStop) return;
+    const rec = new SR();
+    recognition = rec;
+    rec.lang = 'pl-PL';
+    rec.continuous = !isAndroid;
+    rec.interimResults = true;
+    rec.maxAlternatives = 1;
 
-  rec.onsoundstart = () => {
-    speechEnergy = 0.8;
-  };
+    rec.onstart = () => {
+      if (recognition !== rec) return;
+      if (voiceStatusLabel) voiceStatusLabel.textContent = 'Słucham… Mów teraz';
+    };
 
-  rec.onspeechstart = () => {
-    speechEnergy = 1;
-    if (voiceStatusLabel) voiceStatusLabel.textContent = 'Rozpoznaję mowę na żywo…';
-  };
+    rec.onsoundstart = () => {
+      speechEnergy = 0.85;
+    };
 
-  rec.onresult = (event) => {
-    if (recognition !== rec || !isListening) return;
-    speechEnergy = 1;
+    rec.onspeechstart = () => {
+      speechEnergy = 1;
+      if (voiceStatusLabel) voiceStatusLabel.textContent = 'Rozpoznaję mowę na żywo…';
+    };
 
-    let finalPart = '';
-    let interimPart = '';
-    for (let i = 0; i < event.results.length; i += 1) {
-      const result = event.results[i];
-      const text = String(result?.[0]?.transcript || '').trim();
-      if (!text) continue;
-      if (result.isFinal) finalPart += (finalPart ? ' ' : '') + text;
-      else interimPart += (interimPart ? ' ' : '') + text;
-    }
+    rec.onresult = (event) => {
+      if (recognition !== rec || !isListening) return;
+      speechEnergy = 1;
 
-    dictationFinalText = finalPart;
-    const combined = [dictationBaseText, dictationFinalText, interimPart].filter(Boolean).join(' ');
-    if (promptInput) {
-      promptInput.value = combined;
-      resizeTextarea();
-      promptInput.scrollTop = promptInput.scrollHeight;
-    }
-
-    if (voiceStatusLabel) {
-      voiceStatusLabel.textContent = interimPart ? 'Mówisz — zapisuję na żywo…' : 'Słucham… Mów teraz';
-    }
-    if (voiceInterimEl) {
-      if (interimPart) {
-        const preview = interimPart.length > 34 ? `…${interimPart.slice(-33)}` : interimPart;
-        voiceInterimEl.textContent = `„${preview}”`;
-        voiceInterimEl.hidden = false;
-      } else {
-        voiceInterimEl.textContent = '';
-        voiceInterimEl.hidden = true;
+      let newlyFinal = '';
+      let liveInterim = '';
+      const startIdx = Number.isInteger(event?.resultIndex) ? event.resultIndex : 0;
+      for (let i = startIdx; i < event.results.length; i += 1) {
+        const result = event.results[i];
+        const text = String(result?.[0]?.transcript || '').trim();
+        if (!text) continue;
+        if (result.isFinal) {
+          newlyFinal += (newlyFinal ? ' ' : '') + text;
+        } else {
+          liveInterim += (liveInterim ? ' ' : '') + text;
+        }
       }
+
+      if (newlyFinal) {
+        dictationCommittedText = [dictationCommittedText, newlyFinal].filter(Boolean).join(' ');
+      }
+      dictationLastInterim = liveInterim;
+
+      const combined = [dictationCommittedText, liveInterim].filter(Boolean).join(' ');
+      if (promptInput) {
+        promptInput.value = combined;
+        resizeTextarea();
+        promptInput.dispatchEvent(new Event('input', { bubbles: true }));
+        promptInput.scrollTop = promptInput.scrollHeight;
+      }
+
+      if (voiceStatusLabel) {
+        voiceStatusLabel.textContent = liveInterim || newlyFinal ? 'Mówisz — zapisuję na żywo…' : 'Słucham… Mów teraz';
+      }
+      if (voiceInterimEl) {
+        const previewSource = liveInterim || newlyFinal;
+        if (previewSource) {
+          const preview = previewSource.length > 34 ? `…${previewSource.slice(-33)}` : previewSource;
+          voiceInterimEl.textContent = `„${preview}”`;
+          voiceInterimEl.hidden = false;
+        } else {
+          voiceInterimEl.textContent = '';
+          voiceInterimEl.hidden = true;
+        }
+      }
+    };
+
+    rec.onerror = (event) => {
+      if (recognition !== rec) return;
+      const code = event?.error || '';
+      if (code === 'not-allowed' || code === 'service-not-allowed') {
+        dictationManualStop = true;
+        showToast('Zezwól przeglądarce na dostęp do mikrofonu, aby dyktować.');
+        stopDictation({ fromEnd: true });
+      } else if (code === 'audio-capture') {
+        dictationManualStop = true;
+        showToast('Nie wykryto aktywnego mikrofonu.');
+        stopDictation({ fromEnd: true });
+      } else if (code === 'network') {
+        dictationManualStop = true;
+        showToast('Błąd sieci podczas rozpoznawania mowy.');
+        stopDictation({ fromEnd: true });
+      } else if (code === 'no-speech') {
+        if (voiceStatusLabel) voiceStatusLabel.textContent = 'Nie słychać mowy — mów wyraźnie bliżej mikrofonu…';
+      } else if (code !== 'aborted') {
+        dictationManualStop = true;
+        showToast('Przerwano dyktowanie głosowe.');
+        stopDictation({ fromEnd: true });
+      }
+    };
+
+    rec.onend = () => {
+      if (recognition !== rec) return;
+      if (dictationLastInterim) {
+        dictationCommittedText = [dictationCommittedText, dictationLastInterim].filter(Boolean).join(' ').trim();
+        dictationLastInterim = '';
+        if (promptInput) {
+          promptInput.value = dictationCommittedText;
+          resizeTextarea();
+        }
+      }
+      if (isListening && !dictationManualStop) {
+        clearTimeout(dictationRestartTimer);
+        dictationRestartTimer = setTimeout(launchRecognitionSession, 120);
+        return;
+      }
+      stopDictation({ fromEnd: true });
+    };
+
+    try {
+      rec.start();
+    } catch {
+      dictationManualStop = true;
+      stopDictation({ fromEnd: true });
+      showToast('Nie udało się uruchomić dyktowania głosowego.');
     }
   };
 
-  rec.onerror = (event) => {
-    if (recognition !== rec) return;
-    const code = event?.error || '';
-    if (code === 'not-allowed' || code === 'service-not-allowed') {
-      showToast('Zezwól przeglądarce na dostęp do mikrofonu, aby dyktować.');
-      stopDictation({ fromEnd: true });
-    } else if (code === 'audio-capture') {
-      showToast('Nie wykryto aktywnego mikrofonu.');
-      stopDictation({ fromEnd: true });
-    } else if (code === 'network') {
-      showToast('Błąd sieci podczas rozpoznawania mowy.');
-      stopDictation({ fromEnd: true });
-    } else if (code !== 'aborted' && code !== 'no-speech') {
-      showToast('Przerwano dyktowanie głosowe.');
-      stopDictation({ fromEnd: true });
-    }
-  };
-
-  rec.onend = () => {
-    if (recognition !== rec) return;
-    stopDictation({ fromEnd: true });
-  };
-
-  try {
-    rec.start();
-    startAudioWaveform();
-  } catch {
-    stopDictation({ fromEnd: true });
-    showToast('Nie udało się uruchomić dyktowania głosowego.');
-  }
+  launchRecognitionSession();
+  startAudioWaveform();
 }
 
 micBtn?.addEventListener('click', () => {
@@ -3269,6 +3586,8 @@ setTimeout(() => {
 // Inicjalizacja
 syncAssistantButtons();
 syncPanelButtons();
+syncProBadge();
+updatePersonalizedHero();
 renderRecentChats();
 renderRightProjects();
 hydrateDailyVerse();

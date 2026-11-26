@@ -2446,7 +2446,8 @@ export default {
       const assetRes = await env.ASSETS.fetch(new Request(targetUrl, request));
       const res = new Response(assetRes.body, assetRes);
       res.headers.set('Cache-Control', 'public, max-age=0, must-revalidate');
-      res.headers.set('X-Robots-Tag', 'noindex, nofollow');
+      res.headers.set('X-Robots-Tag', 'index, follow, max-image-preview:large');
+      res.headers.set('Link', '<https://polskieradio.cc/ai/aplikacja>; rel="canonical"');
       return res;
     }
 

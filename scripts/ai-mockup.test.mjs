@@ -39,10 +39,15 @@ test('AI dla Jezusa (/ai/) preserves 1:1 mockup structure and is exempt from glo
   const html = fs.readFileSync(path.join(ROOT, 'ai/index.html'), 'utf8');
 
   assert.equal(applyPageStandard('ai/index.html', html), html, 'ai/index.html must not receive global overlays');
-  assert.match(html, /<meta name="robots" content="noindex,nofollow">/);
+  assert.match(html, /<meta name="robots" content="index, follow/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/polskieradio\.cc\/ai\/aplikacja">/);
+  assert.match(html, /application\/ld\+json/);
+  assert.match(html, /G-Y4EFTVBPE3/);
+  assert.match(html, /\/js\/cc-analytics\.js\?v=20261026_1/);
   assert.match(html, /CHRISTIAN CULTURE/);
-  assert.match(html, /BETA/);
-  assert.match(html, /Co dobrego dziś stworzymy\?/);
+  assert.match(html, /id="proBadgeBtn"/);
+  assert.match(html, />PRO</);
+  assert.match(html, /Co dobrego dziś chcesz zrobić dla Jezusa\?/);
   assert.match(html, /Technologia w służbie dobra\. Jezus w centrum\./);
   assert.match(html, /Twoja przestrzeń/);
   assert.match(html, /Werset dnia/);
@@ -189,11 +194,18 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai12/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai12/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai13/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai13/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
+
+  const worker = fs.readFileSync(path.join(ROOT, '_worker.js'), 'utf8');
+  assert.match(worker, /index, follow, max-image-preview:large/);
+  const llmsTxt = fs.readFileSync(path.join(ROOT, 'llms.txt'), 'utf8');
+  assert.match(llmsTxt, /https:\/\/polskieradio\.cc\/ai\/aplikacja/);
+  const pagesSitemap = fs.readFileSync(path.join(ROOT, 'sitemaps/pages.xml'), 'utf8');
+  assert.match(pagesSitemap, /https:\/\/polskieradio\.cc\/ai\/aplikacja/);
 
   const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, 'manifest-ai.json'), 'utf8'));
   assert.equal(manifest.start_url, '/ai/aplikacja');
@@ -227,8 +239,12 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   assert.match(html, /id="aiAmbientCanvas"/);
 
   assert.match(appJs, /interimResults\s*=\s*true/);
-  assert.match(appJs, /continuous\s*=\s*true/);
-  assert.match(appJs, /AudioContext/);
+  assert.match(appJs, /dictationCommittedText/);
+  assert.doesNotMatch(appJs, /getUserMedia/, 'Dictation must not open parallel getUserMedia that steals microphone from SpeechRecognition');
+  assert.match(appJs, /getProStatus/);
+  assert.match(appJs, /PRO_TRIAL_DAYS\s*=\s*7/);
+  assert.match(appJs, /updatePersonalizedHero/);
+  assert.match(appJs, /stream-reveal-deferred/);
   assert.match(appJs, /initAmbientCanvas/);
   assert.match(appJs, /stopDictation/);
   assert.match(appJs, /renderMediaDeck/);
