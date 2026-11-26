@@ -1278,7 +1278,9 @@ function applyPreferencesFromState() {
   const modeFromState = typeof state?.mode === 'string' && ALLOWED_MODES.has(state.mode) ? state.mode : 'CC Auto';
   currentMode = modeFromState;
   $$('#modelMenu .dropdown-option[data-model], #composerModelMenu .dropdown-option[data-model]').forEach((o) => {
-    o.classList.toggle('active', o.dataset.model === currentMode);
+    const selected = o.dataset.model === currentMode;
+    o.classList.toggle('active', selected);
+    o.setAttribute('aria-selected', String(selected));
   });
 
   autoReadEnabled = Boolean(state?.autoReadEnabled);
@@ -2751,29 +2753,31 @@ function renderMediaDeck(mediaItems) {
 
       const foot = document.createElement('div');
       foot.className = 'media-card-foot';
-      const playBtn = document.createElement('button');
-      playBtn.type = 'button';
-      playBtn.className = 'media-play-btn';
-      playBtn.textContent = item.kind === 'radio' ? '▶ Słuchaj na żywo' : '▶ Odtwórz audio';
-      playBtn.onclick = () => {
-        if (audio.paused) {
-          pauseActiveAudio(audio);
-          activeAudioEl = audio;
-          audio.play().catch(() => showToast('Kliknij odtwarzacz powyżej, aby uruchomić dźwięk.'));
+      if (item.kind !== 'radio') {
+        const playBtn = document.createElement('button');
+        playBtn.type = 'button';
+        playBtn.className = 'media-play-btn';
+        playBtn.textContent = '▶ Odtwórz audio';
+        playBtn.onclick = () => {
+          if (audio.paused) {
+            pauseActiveAudio(audio);
+            activeAudioEl = audio;
+            audio.play().catch(() => showToast('Kliknij odtwarzacz powyżej, aby uruchomić dźwięk.'));
+            playBtn.textContent = '⏸ Pauza';
+          } else {
+            audio.pause();
+            playBtn.textContent = '▶ Odtwórz audio';
+          }
+        };
+        audio.addEventListener('pause', () => {
+          playBtn.textContent = '▶ Odtwórz audio';
+        });
+        audio.addEventListener('play', () => {
           playBtn.textContent = '⏸ Pauza';
-        } else {
-          audio.pause();
-          playBtn.textContent = item.kind === 'radio' ? '▶ Słuchaj na żywo' : '▶ Odtwórz audio';
-        }
-      };
-      audio.addEventListener('pause', () => {
-        playBtn.textContent = item.kind === 'radio' ? '▶ Słuchaj na żywo' : '▶ Odtwórz audio';
-      });
-      audio.addEventListener('play', () => {
-        playBtn.textContent = '⏸ Pauza';
-      });
+        });
 
-      foot.appendChild(playBtn);
+        foot.appendChild(playBtn);
+      }
       if (item.url) {
         const ext = document.createElement('a');
         ext.className = 'media-ext-link';
@@ -2783,7 +2787,8 @@ function renderMediaDeck(mediaItems) {
         ext.textContent = 'Otwórz stronę ↗';
         foot.appendChild(ext);
       }
-      card.append(audio, foot);
+      card.appendChild(audio);
+      if (foot.hasChildNodes()) card.appendChild(foot);
     } else if (item.kind === 'spotify' && item.embedUrl) {
       const spotifySlot = document.createElement('div');
       const foot = document.createElement('div');
@@ -3721,7 +3726,9 @@ function setMode(modeName, { persist = true } = {}) {
   if (persist) saveState();
   updateTopbarModelLabel();
   $$('#modelMenu .dropdown-option[data-model]').forEach((o) => {
-    o.classList.toggle('active', o.dataset.model === currentMode);
+    const selected = o.dataset.model === currentMode;
+    o.classList.toggle('active', selected);
+    o.setAttribute('aria-selected', String(selected));
   });
 }
 
@@ -4857,6 +4864,25 @@ $$('.nav-item').forEach((btn) => {
   });
 });
 
+$('#shareAppBtn')?.addEventListener('click', async () => {
+  const url = 'https://polskieradio.cc/ai/aplikacja';
+  const shareData = { url };
+  if (navigator.share && (!navigator.canShare || navigator.canShare(shareData))) {
+    try {
+      await navigator.share(shareData);
+      return;
+    } catch (error) {
+      if (error.name === 'AbortError') return;
+    }
+  }
+  try {
+    await navigator.clipboard.writeText(url);
+    showToast('Skopiowano link do aplikacji.');
+  } catch {
+    openDialog('Udostępnij aplikację', ['Skopiuj adres aplikacji:', url]);
+  }
+});
+
 $('#newChatBtn')?.addEventListener('click', () => {
   if (busy) return;
   if (isListening) stopDictation();
@@ -5317,7 +5343,7 @@ function openPrivacyModal() {
 
 $('.recent-local-badge')?.addEventListener('click', openPrivacyModal);
 
-$$('.footer-item').forEach((btn) => {
+$$('.footer-item:not(#shareAppBtn)').forEach((btn) => {
   btn.addEventListener('click', () => {
     const name = btn.dataset.nav || 'Opcje';
     if (name === 'Ustawienia') openSettingsModal();

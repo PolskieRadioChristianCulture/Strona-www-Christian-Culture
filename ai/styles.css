@@ -111,7 +111,7 @@ a:focus-visible {
 
 /* =================== LEWY PANEL =================== */
 .sidebar-left {
-  background: var(--bg-sidebar);
+  background: #222326;
   border-right: 1px solid var(--border-subtle);
   display: flex;
   flex-direction: column;
@@ -197,59 +197,28 @@ a:focus-visible {
 }
 
 .new-chat-btn {
-  position: relative;
-  overflow: hidden;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
-  min-height: 40px;
-  border-radius: 9px;
-  border: 1px solid #967732;
-  background: linear-gradient(180deg, rgba(230, 184, 76, 0.14), rgba(230, 184, 76, 0.04));
-  color: #ffffff;
+  min-height: 44px;
+  padding: 0 10px;
+  border-radius: 8px;
+  background: #303136;
+  color: #fff;
   font-size: 13.5px;
   font-weight: 600;
-  margin-bottom: 10px;
-  transition: border-color 180ms ease, background 180ms ease, transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 220ms ease;
-}
-
-.new-chat-btn::after {
-  content: "";
-  position: absolute;
-  inset: -40% auto -40% -60%;
-  width: 45%;
-  background: linear-gradient(110deg, transparent 20%, rgba(255, 233, 166, 0.24) 50%, transparent 80%);
-  transform: translateX(-120%) skewX(-18deg);
-  transition: transform 640ms cubic-bezier(0.22, 1, 0.36, 1);
-  pointer-events: none;
+  margin-bottom: 6px;
 }
 
 .new-chat-btn svg {
   width: 16px;
   height: 16px;
-  color: var(--gold);
-  transition: transform 240ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  color: #ffa454;
 }
 
 .new-chat-btn:hover {
-  border-color: var(--gold);
-  background: linear-gradient(180deg, rgba(230, 184, 76, 0.22), rgba(230, 184, 76, 0.08));
-  box-shadow: 0 0 22px rgba(230, 184, 76, 0.2);
-  transform: translateY(-1px);
-}
-
-.new-chat-btn:hover::after {
-  transform: translateX(360%) skewX(-18deg);
-}
-
-.new-chat-btn:hover svg {
-  transform: rotate(90deg);
-}
-
-.new-chat-btn:active {
-  transform: scale(0.975);
+  background: #393a40;
 }
 
 .search-box {
@@ -257,11 +226,11 @@ a:focus-visible {
   align-items: center;
   gap: 8px;
   width: 100%;
-  min-height: 36px;
+  min-height: 44px;
   padding: 0 11px;
   border-radius: 8px;
-  background: var(--bg-input);
-  border: 1px solid #242424;
+  background: #292a2e;
+  border: 0;
   color: var(--text-muted);
   margin-bottom: 10px;
 }
@@ -270,6 +239,10 @@ a:focus-visible {
   width: 15px;
   height: 15px;
   flex-shrink: 0;
+}
+
+.search-box:focus-within {
+  outline: 1px solid #ffa454;
 }
 
 .search-box input {
@@ -283,7 +256,7 @@ a:focus-visible {
 }
 
 .search-box input::placeholder {
-  color: #777570;
+  color: #aaa9a5;
 }
 
 .sidebar-scroll {
@@ -317,20 +290,6 @@ a:focus-visible {
   transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
 }
 
-.nav-item::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 22%;
-  bottom: 22%;
-  width: 3px;
-  border-radius: 999px;
-  background: var(--gold);
-  opacity: 0;
-  transform: scaleY(0.4);
-  transition: opacity 200ms ease, transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
 .nav-item svg {
   width: 16px;
   height: 16px;
@@ -358,19 +317,18 @@ a:focus-visible {
   margin-top: 6px;
   padding: 6px 10px;
   border-radius: 8px;
-  border: 1px dashed rgba(196, 163, 90, 0.28);
-  background: rgba(196, 163, 90, 0.05);
+  border: 0;
+  background: transparent;
   color: #e2d8bd;
   font-size: 12.5px;
   font-weight: 600;
   text-align: left;
   cursor: pointer;
-  transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+  transition: background-color 160ms ease, color 160ms ease;
 }
 
 .nav-more-toggle:hover {
-  border-color: rgba(196, 163, 90, 0.55);
-  background: rgba(196, 163, 90, 0.12);
+  background: #303136;
   color: #ffffff;
 }
 
@@ -675,19 +633,14 @@ a:focus-visible {
   color: #ffffff;
 }
 
-.nav-item.active {
-  background: linear-gradient(90deg, rgba(200, 156, 56, 0.25), rgba(200, 156, 56, 0.09));
-  border: 1px solid rgba(230, 184, 76, 0.22);
-  color: #ffffff;
-}
-
-.nav-item.active::before {
-  opacity: 1;
-  transform: scaleY(1);
+.nav-item.active,
+.recent-item.active {
+  background: #34353a;
+  color: #fff;
 }
 
 .nav-item.active svg {
-  color: var(--gold);
+  color: #ffa454;
 }
 
 .recent-section {
@@ -784,6 +737,8 @@ a:focus-visible {
 }
 
 .sidebar-model-pill {
+  background: transparent;
+  border: 0;
   width: 100%;
   justify-content: space-between;
   min-height: 40px;
@@ -902,13 +857,6 @@ a:focus-visible {
 
 .model-pill:hover {
   border-color: #4a4230;
-}
-
-.gold-spark {
-  width: 16px;
-  height: 16px;
-  color: var(--gold);
-  animation: aiSparkTwinkle 4.5s ease-in-out infinite;
 }
 
 .chevron {
@@ -1255,9 +1203,8 @@ a:focus-visible {
 
 .assistant-pill.active {
   border-color: var(--cc-btn-orange);
-  background: linear-gradient(135deg, rgba(255, 122, 0, 0.22), rgba(230, 184, 76, 0.1));
+  background: #34353a;
   color: #ffffff;
-  box-shadow: 0 0 18px var(--cc-orange-glow);
 }
 
 .assistant-pill.active img {
@@ -3287,11 +3234,6 @@ a:focus-visible {
   min-width: 0;
 }
 
-.recent-item.active {
-  background: #181611;
-  color: #ffffff;
-}
-
 .recent-del-btn {
   width: 28px;
   height: 28px;
@@ -4698,17 +4640,6 @@ a:focus-visible {
   50% {
     border-color: rgba(230, 184, 76, 0.85);
     box-shadow: 0 0 12px rgba(230, 184, 76, 0.25);
-  }
-}
-
-@keyframes aiSparkTwinkle {
-  0%, 100% {
-    transform: scale(1) rotate(0deg);
-    opacity: 0.92;
-  }
-  50% {
-    transform: scale(1.12) rotate(8deg);
-    opacity: 1;
   }
 }
 
