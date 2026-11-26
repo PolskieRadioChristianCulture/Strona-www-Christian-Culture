@@ -218,7 +218,9 @@ function syncModelMenu() {
 }
 
 async function refreshOwnerSession() {
+  const generation = conversationGeneration;
   const authHeaders = await getAuthHeaders();
+  if (generation !== conversationGeneration) return;
   if (!authHeaders.Authorization) {
     ownerSession = null;
     syncModelMenu();
@@ -230,10 +232,12 @@ async function refreshOwnerSession() {
       method: 'GET',
       headers: authHeaders
     });
+    if (generation !== conversationGeneration) return;
     if (!res.ok) {
       ownerSession = null;
     } else {
       const data = await res.json();
+      if (generation !== conversationGeneration) return;
       if (data?.isOwner) {
         ownerSession = data;
       } else {
@@ -241,6 +245,7 @@ async function refreshOwnerSession() {
       }
     }
   } catch {
+    if (generation !== conversationGeneration) return;
     ownerSession = null;
   }
   syncModelMenu();
@@ -3517,6 +3522,7 @@ function handleAuthUpdate(user) {
   const nextUid = getUidScope(validUser?.uid);
   currentUser = validUser;
   if (prevUid !== nextUid) {
+    ownerSession = null;
     activeThreadId = null;
     ephemeralThread = null;
     state = loadState(validUser?.uid);

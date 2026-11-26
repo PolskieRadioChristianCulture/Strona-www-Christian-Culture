@@ -9,6 +9,15 @@ import { handleAiChatRequest, processAiChat, resetAiChatRuntimeState } from '../
 
 const ROOT = process.cwd();
 
+function verifiedSharedFixture(key) {
+  return {
+    AI_SHARED_FREE_GEMINI_KEY: key,
+    AI_SHARED_FREE_PROJECT_VERIFIED: 'true',
+    AI_DAILY_ATTEMPT_LIMIT: '50',
+    AI_COST_DB: { prepare: () => ({ bind: () => ({ first: async () => ({ attempts: 1 }) }) }) }
+  };
+}
+
 test('AI dla Jezusa (/ai/) mockup files and optimized WebP assets exist with clean UTF-8', () => {
   const requiredFiles = [
     'ai/index.html',
@@ -42,8 +51,8 @@ test('AI dla Jezusa (/ai/) preserves 1:1 mockup structure and is exempt from glo
   assert.match(html, /<meta name="robots" content="index, follow/);
   assert.match(html, /<link rel="canonical" href="https:\/\/polskieradio\.cc\/ai\/aplikacja">/);
   assert.match(html, /application\/ld\+json/);
-  assert.match(html, /G-Y4EFTVBPE3/);
-  assert.match(html, /\/js\/cc-analytics\.js\?v=20261026_1/);
+  assert.doesNotMatch(html, /googletagmanager|G-Y4EFTVBPE3/);
+  assert.doesNotMatch(html, /cc-analytics\.js/);
   assert.match(html, /CHRISTIAN CULTURE/);
   assert.match(html, /id="proBadgeBtn"/);
   assert.match(html, />PRO</);
@@ -117,7 +126,7 @@ test('AI chat service uses grounded Knowledge Hub RAG + Gemini mock and falls ba
       memoryNotes: ['Cytuj UBG'],
       privateMode: false
     },
-    { GEMINI_API_KEY: 'test-key-only' },
+    verifiedSharedFixture('test-key-only'),
     { fetch: mockFetch }
   );
 
@@ -150,7 +159,7 @@ test('AI chat service enforces prompt injection, payload size, rate limits, and 
   // GET /api/ai-dla-jezusa/v1/chat via api-v1 router
   const getRes = await handleAiDlaJezusaApi(
     new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/chat', { method: 'GET' }),
-    { GEMINI_API_KEY: 'configured' }
+    verifiedSharedFixture('configured')
   );
   assert.equal(getRes.status, 200);
   const getJson = await getRes.json();
@@ -163,7 +172,7 @@ test('AI chat service enforces prompt injection, payload size, rate limits, and 
   const bigRes = await handleAiChatRequest(
     new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/chat', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'cf-connecting-ip': '198.51.100.2' },
+      headers: { Origin: 'https://polskieradio.cc', 'Content-Type': 'application/json', 'cf-connecting-ip': '198.51.100.2' },
       body: bigBody
     })
   );
@@ -175,7 +184,7 @@ test('AI chat service enforces prompt injection, payload size, rate limits, and 
     const r = await handleAiChatRequest(
       new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/chat', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'cf-connecting-ip': '198.51.100.99' },
+        headers: { Origin: 'https://polskieradio.cc', 'Content-Type': 'application/json', 'cf-connecting-ip': '198.51.100.99' },
         body: JSON.stringify({ message: 'Pokój' })
       }),
       {}
@@ -188,14 +197,14 @@ test('AI chat service enforces prompt injection, payload size, rate limits, and 
   assert.equal(hit429, true, 'Expected HTTP 429 after 20 requests from one IP');
 });
 
-test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth with per-UID isolation, and supports BYOK + multi-model Gemini fallback', async () => {
+test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth with per-UID isolation, and supports BYOK and quota-bound Gemini', async () => {
   resetAiChatRuntimeState();
   const html = fs.readFileSync(path.join(ROOT, 'ai/index.html'), 'utf8');
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
   assert.match(html, /\/ai\/styles\.css\?v=20261126_ai18/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai18/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_security_p0/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
@@ -284,14 +293,14 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
   };
-  const fbRes = await processAiChat({ message: 'Nadzieja' }, { GEMINI_API_KEY: 'test-key' }, { fetch: fallbackFetch });
+  const fbRes = await processAiChat({ message: 'Nadzieja' }, verifiedSharedFixture('test-key'), { fetch: fallbackFetch });
   assert.equal(fbRes.ok, true);
-  assert.equal(fbRes.provider, 'gemini');
-  assert.equal(geminiCalls, 2);
+  assert.equal(fbRes.provider, 'cc-knowledge-hub');
+  assert.equal(geminiCalls, 1);
 
   // All Gemini models fail 429 -> safe non-secret providerDiagnostic returned
   const fail429Fetch = async () => new Response('quota exhausted', { status: 429 });
-  const diagRes = await processAiChat({ message: 'Nadzieja' }, { GEMINI_API_KEY: 'secret-never-leaked' }, { fetch: fail429Fetch });
+  const diagRes = await processAiChat({ message: 'Nadzieja' }, verifiedSharedFixture('secret-never-leaked'), { fetch: fail429Fetch });
   assert.equal(diagRes.provider, 'cc-knowledge-hub');
   assert.match(diagRes.providerDiagnostic, /^gemini:429/);
   assert.ok(!diagRes.providerDiagnostic.includes('secret-never-leaked'));
@@ -310,11 +319,12 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Origin: 'https://polskieradio.cc',
         'X-User-AI-Provider': 'openrouter',
         'X-User-AI-Key': 'or-user-test',
         'cf-connecting-ip': '198.51.100.77'
       },
-      body: JSON.stringify({ message: 'Pokój Boży', userModel: 'meta-llama/llama-3.3-70b-instruct:free' })
+      body: JSON.stringify({ message: 'Pokój Boży', preferredModel: 'byok', byokConsent: true, userModel: 'meta-llama/llama-3.3-70b-instruct:free' })
     }),
     {},
     { fetch: openRouterFetch }
@@ -356,30 +366,18 @@ test('AI chat returns default AI halo avatar, supports switching 4 female assist
   assert.ok(getJson.hubs.socialHub.length >= 5);
 });
 
-test('Server-side GEMINI_API_KEYS pool failover + RS256 owner workspace (nazirczarek@gmail.com) gates secrets & unlocks 18 skills', async () => {
+test('Legacy Gemini pool stays inactive and owner workspace (nazirczarek@gmail.com) gates secrets & unlocks 18 skills', async () => {
   resetAiChatRuntimeState();
   const fakePoolEnv = {
     GEMINI_API_KEYS: 'AIzaPoolKeyAlpha1111, AIzaPoolKeyBeta2222',
     YT_API_KEY: 'AIzaYouTubeTestKey9999'
   };
 
-  // 1. Multi-key pool rotation: Key 1 hits 429 -> Key 2 succeeds on gemini-3.5-flash-lite
-  const seenUrls = [];
-  const poolFetch = async (url) => {
-    const u = String(url);
-    seenUrls.push(u);
-    if (u.includes('AIzaPoolKeyAlpha1111')) return new Response('rate limit', { status: 429 });
-    return new Response(
-      JSON.stringify({ candidates: [{ content: { parts: [{ text: 'Odpowiedź z rotującej puli kluczy Gemini 3.5.' }] } }] }),
-      { status: 200, headers: { 'Content-Type': 'application/json' } }
-    );
-  };
-  const poolRes = await processAiChat({ message: 'Nadzieja' }, fakePoolEnv, { fetch: poolFetch });
+  const poolRes = await processAiChat({ message: 'Nadzieja' }, fakePoolEnv, {
+    fetch: () => assert.fail('Legacy pool must remain inactive')
+  });
   assert.equal(poolRes.ok, true);
-  assert.equal(poolRes.provider, 'gemini');
-  assert.match(poolRes.modelUsed, /gemini-3\.5-flash-lite/);
-  assert.ok(seenUrls.some((u) => u.includes('AIzaPoolKeyAlpha1111')));
-  assert.ok(seenUrls.some((u) => u.includes('AIzaPoolKeyBeta2222')));
+  assert.equal(poolRes.provider, 'cc-knowledge-hub');
 
   // 2. Owner session endpoint: 401 without token, 403 for non-owner, 200 for nazirczarek@gmail.com with zero leaked secrets
   const verifyMock = async (tok) => {
@@ -478,12 +476,12 @@ test('Female assistants enforce feminine Polish grammar & voice while default as
     return new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: 'Przygotowałam odpowiedź.' }] } }] }), { status: 200 });
   };
 
-  await processAiChat({ assistantId: 'noemi', message: 'Pomóż mi' }, { GEMINI_API_KEY: 'AIzaTestGenderKey1' }, { fetch: captureFetch });
+  await processAiChat({ assistantId: 'noemi', message: 'Pomóż mi' }, verifiedSharedFixture('AIzaTestGenderKey1'), { fetch: captureFetch });
   assert.match(capturedSystem, /Doradczyni Biblijna/);
   assert.match(capturedSystem, /rodzaju żeńskim/);
   assert.match(capturedSystem, /przygotowałam/);
 
-  await processAiChat({ assistantId: 'ai-dla-jezusa', message: 'Pomóż mi' }, { GEMINI_API_KEY: 'AIzaTestGenderKey1' }, { fetch: captureFetch });
+  await processAiChat({ assistantId: 'ai-dla-jezusa', message: 'Pomóż mi' }, verifiedSharedFixture('AIzaTestGenderKey1'), { fetch: captureFetch });
   assert.match(capturedSystem, /rodzaju męskim/);
   assert.match(capturedSystem, /przygotowałem/);
 });
@@ -530,12 +528,12 @@ test('All users can choose Auto or preferred free AI models via API, topbar menu
   // 1. GET returns availableModels for all visitors
   const getRes = await handleAiChatRequest(
     new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/chat', { method: 'GET' }),
-    { GEMINI_API_KEY: 'key-1' }
+    verifiedSharedFixture('key-1')
   );
   assert.equal(getRes.status, 200);
   const getJson = await getRes.json();
   assert.ok(Array.isArray(getJson.availableModels));
-  for (const id of ['auto', 'gemini-3.5-flash-lite', 'gemini-3.1-flash-lite', 'cc-knowledge-hub']) {
+  for (const id of ['auto', 'gemini-3.1-flash-lite', 'cc-knowledge-hub']) {
     assert.ok(getJson.availableModels.some((m) => m.id === id), `Missing availableModels entry: ${id}`);
   }
 
@@ -551,7 +549,7 @@ test('All users can choose Auto or preferred free AI models via API, topbar menu
   };
   const prefRes = await processAiChat(
     { message: 'Kim jest Jezus?', preferredModel: 'gemini-3.1-flash-lite' },
-    { GEMINI_API_KEY: 'guest-free-pool-key' },
+    verifiedSharedFixture('guest-free-pool-key'),
     { fetch: prefFetch }
   );
   assert.equal(prefRes.ok, true);
@@ -564,7 +562,7 @@ test('All users can choose Auto or preferred free AI models via API, topbar menu
   let fetchCalledForHub = false;
   const hubRes = await processAiChat(
     { message: 'Nadzieja', preferredModel: 'cc-knowledge-hub' },
-    { GEMINI_API_KEY: 'guest-free-pool-key' },
+    verifiedSharedFixture('guest-free-pool-key'),
     { fetch: async () => { fetchCalledForHub = true; throw new Error('Should not fetch'); } }
   );
   assert.equal(fetchCalledForHub, false);
@@ -585,13 +583,14 @@ test('All users can choose Auto or preferred free AI models via API, topbar menu
   };
   const autoRes = await processAiChat(
     { message: 'Pokój Boży', preferredModel: 'auto' },
-    { GEMINI_API_KEY: 'guest-free-pool-key' },
+    verifiedSharedFixture('guest-free-pool-key'),
     { fetch: autoFetch }
   );
   assert.equal(autoRes.ok, true);
-  assert.equal(autoRes.provider, 'gemini');
+  assert.equal(autoRes.provider, 'cc-knowledge-hub');
+  assert.equal(calls, 1);
   assert.equal(autoRes.modelSelectionMode, 'auto');
-  assert.equal(autoRes.modelUsed, 'gemini-3.1-flash-lite');
+  assert.equal(autoRes.modelUsed, 'cc-knowledge-hub');
 });
 
 test('All 5 assistants embody the Christocentric brother/sister mentor ethos in systemPrompt, fallback, and UI greetings', async () => {
@@ -611,7 +610,7 @@ test('All 5 assistants embody the Christocentric brother/sister mentor ethos in 
 
     const res = await processAiChat(
       { assistantId: id, message: 'Walczę dziś ze zniechęceniem i pokusą' },
-      { GEMINI_API_KEY: 'test-mentor-key' },
+      verifiedSharedFixture('test-mentor-key'),
       { fetch: captureFetch }
     );
     assert.equal(res.ok, true);
@@ -715,16 +714,16 @@ test('Simplified 5-item sidebar + PRO More group, contextual media only, mobile 
     capturedSys = body?.systemInstruction?.parts?.[0]?.text || '';
     return new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: 'Chwała Panu! Słyszę Cię bracie.' }] } }] }), { status: 200 });
   };
-  await processAiChat({ message: 'Cześć', voiceConversation: true }, { GEMINI_API_KEY: 'test-voice' }, { fetch: voiceFetch });
+  await processAiChat({ message: 'Cześć', voiceConversation: true }, verifiedSharedFixture('test-voice'), { fetch: voiceFetch });
   assert.match(capturedSys, /TRYB ROZMOWY GŁOSOWEJ NA ŻYWO/);
 
   const trRes = await handleAiDlaJezusaApi(
     new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/transcribe', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'cf-connecting-ip': '198.51.100.55' },
+      headers: { Origin: 'https://polskieradio.cc', 'Content-Type': 'application/json', 'cf-connecting-ip': '198.51.100.55' },
       body: JSON.stringify({ audioBase64: 'UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA=', mimeType: 'audio/webm' })
     }),
-    { GEMINI_API_KEY: 'test-tr-key' },
+    verifiedSharedFixture('test-tr-key'),
     {
       fetch: async () => new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: 'Panie Jezu pomóż mi dziś' }] } }] }), { status: 200 })
     }
