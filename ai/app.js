@@ -948,6 +948,9 @@ function getStorageKey(uid) {
   return `${STORAGE_PREFIX}:${getUidScope(uid)}`;
 }
 
+const ALLOWED_MODES = new Set(['CC Auto', 'Studium Biblijne', 'Twórczość CC', 'Deep Research']);
+const ALLOWED_BYOK_PROVIDERS = new Set(['openrouter', 'openai', 'gemini', 'groq']);
+
 function loadState(uid = currentUser?.uid) {
   const empty = {
     chats: [],
@@ -955,13 +958,24 @@ function loadState(uid = currentUser?.uid) {
     memory: [],
     reminders: [],
     projects: [...DEFAULT_PROJECTS],
+    assistantId: DEFAULT_ASSISTANT_ID,
     preferredModel: 'auto',
+    mode: 'CC Auto',
+    autoReadEnabled: false,
+    webSearchEnabled: false,
+    selectedTools: [],
+    privateMode: false,
+    navMoreOpen: false,
+    byokProvider: '',
+    byokModel: '',
     leftCollapsed: false,
     rightCollapsed: false
   };
   try {
     const raw = JSON.parse(localStorage.getItem(getStorageKey(uid)) || 'null');
     if (!raw || typeof raw !== 'object') return empty;
+    const rawMode = typeof raw.mode === 'string' ? raw.mode.trim() : '';
+    const rawByokProvider = typeof raw.byokProvider === 'string' ? raw.byokProvider.trim().toLowerCase() : '';
     return {
       chats: Array.isArray(raw.chats) ? raw.chats.slice(0, 40) : [],
       notes: Array.isArray(raw.notes) ? raw.notes.slice(0, 60) : [],
@@ -970,11 +984,21 @@ function loadState(uid = currentUser?.uid) {
       projects: Array.isArray(raw.projects) && raw.projects.length ? raw.projects.slice(0, 20) : [...DEFAULT_PROJECTS],
       assistantId: typeof raw.assistantId === 'string' && AI_PERSONAS[raw.assistantId] ? raw.assistantId : DEFAULT_ASSISTANT_ID,
       preferredModel: typeof raw.preferredModel === 'string' && raw.preferredModel.trim() ? raw.preferredModel.trim() : 'auto',
+      mode: ALLOWED_MODES.has(rawMode) ? rawMode : 'CC Auto',
+      autoReadEnabled: Boolean(raw.autoReadEnabled),
+      webSearchEnabled: Boolean(raw.webSearchEnabled),
+      selectedTools: Array.isArray(raw.selectedTools)
+        ? [...new Set(raw.selectedTools.filter((t) => typeof t === 'string' && t.trim()).map((t) => t.trim()))].slice(0, 10)
+        : [],
+      privateMode: Boolean(raw.privateMode),
+      navMoreOpen: Boolean(raw.navMoreOpen),
+      byokProvider: ALLOWED_BYOK_PROVIDERS.has(rawByokProvider) ? rawByokProvider : '',
+      byokModel: typeof raw.byokModel === 'string' ? raw.byokModel.trim().slice(0, 80) : '',
       leftCollapsed: Boolean(raw.leftCollapsed),
       rightCollapsed: Boolean(raw.rightCollapsed)
     };
   } catch {
-    return { ...empty, assistantId: DEFAULT_ASSISTANT_ID };
+    return empty;
   }
 }
 
@@ -984,6 +1008,49 @@ function saveState() {
   } catch {
     showToast('Pamięć przeglądarki jest pełna — historia działa tylko w tej sesji.');
   }
+}
+
+function applyPreferencesFromState() {
+  const modeFromState = typeof state?.mode === 'string' && ALLOWED_MODES.has(state.mode) ? state.mode : 'CC Auto';
+  currentMode = modeFromState;
+  $$('#modelMenu .dropdown-option[data-model]').forEach((o) => {
+    o.classList.toggle('active', o.dataset.model === currentMode);
+  });
+
+  autoReadEnabled = Boolean(state?.autoReadEnabled);
+  voiceAutoReadBtn?.setAttribute('aria-pressed', String(autoReadEnabled));
+
+  webSearchEnabled = Boolean(state?.webSearchEnabled);
+  webSearchBtn?.setAttribute('aria-pressed', String(webSearchEnabled));
+
+  const toolsArr = Array.isArray(state?.selectedTools) ? state.selectedTools : [];
+  selectedTools = new Set(toolsArr);
+  $$('#toolsMenu .dropdown-option').forEach((opt) => {
+    const t = opt.dataset.tool || '';
+    opt.classList.toggle('active', Boolean(t && selectedTools.has(t)));
+  });
+
+  privateMode = Boolean(state?.privateMode);
+  privacyToggleBtn?.setAttribute('aria-checked', String(privateMode));
+
+  const moreOpen = Boolean(state?.navMoreOpen);
+  if (navMoreGroup) navMoreGroup.hidden = !moreOpen;
+  navMoreToggle?.setAttribute('aria-expanded', String(moreOpen));
+
+  byokConfig = {
+    provider: typeof state?.byokProvider === 'string' && ALLOWED_BYOK_PROVIDERS.has(state.byokProvider) ? state.byokProvider : '',
+    apiKey: byokConfig?.apiKey || '',
+    model: typeof state?.byokModel === 'string' ? state.byokModel.trim().slice(0, 80) : ''
+  };
+  if (!byokConfig.apiKey) byokSelected = false;
+
+  const pref = typeof state?.preferredModel === 'string' ? state.preferredModel.trim() : 'auto';
+  selectedOwnerModel = pref === 'auto' || pref === 'byok' ? '' : pref;
+
+  syncAssistantButtons();
+  syncPanelButtons();
+  syncModelMenu();
+  updateTopbarModelLabel();
 }
 
 function clearLegacyByok() {
@@ -997,12 +1064,18 @@ function clearLegacyByok() {
 }
 
 function saveByokConfig(nextCfg) {
+  const providerRaw = String(nextCfg?.provider || '').trim().toLowerCase();
+  const provider = ALLOWED_BYOK_PROVIDERS.has(providerRaw) ? providerRaw : '';
+  const model = String(nextCfg?.model || '').trim().slice(0, 80);
   byokConfig = {
-    provider: String(nextCfg?.provider || '').trim(),
+    provider,
     apiKey: String(nextCfg?.apiKey || '').trim(),
-    model: String(nextCfg?.model || '').trim()
+    model
   };
   byokSelected = Boolean(byokConfig.provider && byokConfig.apiKey);
+  state.byokProvider = provider;
+  state.byokModel = model;
+  saveState();
   syncModelMenu();
   updateTopbarModelLabel();
 }
@@ -2738,8 +2811,11 @@ function startPromptDirectly(promptText, titleHint = '', modeOverride = '') {
   sendChatMessage(promptText, titleHint);
 }
 
-function setMode(modeName) {
-  currentMode = modeName || 'CC Auto';
+function setMode(modeName, { persist = true } = {}) {
+  const next = modeName && ALLOWED_MODES.has(modeName) ? modeName : 'CC Auto';
+  currentMode = next;
+  state.mode = next;
+  if (persist) saveState();
   updateTopbarModelLabel();
   $$('#modelMenu .dropdown-option[data-model]').forEach((o) => {
     o.classList.toggle('active', o.dataset.model === currentMode);
@@ -3492,6 +3568,8 @@ $$('#toolsMenu .dropdown-option').forEach((opt) => {
       if (selectedTools.has(tool)) selectedTools.delete(tool);
       else selectedTools.add(tool);
       opt.classList.toggle('active', selectedTools.has(tool));
+      state.selectedTools = [...selectedTools];
+      saveState();
       showToast(selectedTools.has(tool) ? `Włączono narzędzie: ${tool}` : `Wyłączono narzędzie: ${tool}`);
     }
     toolsMenu.hidden = true;
@@ -3534,6 +3612,8 @@ navMoreToggle?.addEventListener('click', () => {
   const willOpen = navMoreGroup.hidden;
   navMoreGroup.hidden = !willOpen;
   navMoreToggle.setAttribute('aria-expanded', String(willOpen));
+  state.navMoreOpen = willOpen;
+  saveState();
 });
 
 privacyToggleBtn?.addEventListener('click', () => {
@@ -3544,12 +3624,16 @@ privacyToggleBtn?.addEventListener('click', () => {
     stopSpeaking();
   }
   privacyToggleBtn.setAttribute('aria-checked', String(privateMode));
+  state.privateMode = privateMode;
+  saveState();
   showToast(privateMode ? 'Tryb prywatny: bez zapisu i zewnętrznych modeli. Pytanie obsłuży Baza Wiedzy CC.' : 'Tryb prywatny wyłączony.');
 });
 
 webSearchBtn?.addEventListener('click', () => {
   webSearchEnabled = !webSearchEnabled;
   webSearchBtn.setAttribute('aria-pressed', String(webSearchEnabled));
+  state.webSearchEnabled = webSearchEnabled;
+  saveState();
   showToast(webSearchEnabled ? 'Przeszukiwanie zasobów Christian Culture włączone.' : 'Przeszukiwanie zasobów wyłączone.');
 });
 
@@ -3633,10 +3717,7 @@ function handleAuthUpdate(user) {
     conversationGeneration++;
     renderRecentChats();
     renderRightProjects();
-    syncAssistantButtons();
-    syncPanelButtons();
-    syncModelMenu();
-    updateTopbarModelLabel();
+    applyPreferencesFromState();
     if (currentNav === 'Czat') showWelcomeView();
     else renderModule(currentNav);
   }
@@ -3868,7 +3949,15 @@ function exportLocalUserDataJson() {
       reminders: state.reminders || [],
       projects: state.projects || [],
       assistantId: state.assistantId || DEFAULT_ASSISTANT_ID,
-      preferredModel: state.preferredModel || 'auto'
+      preferredModel: state.preferredModel || 'auto',
+      mode: state.mode || 'CC Auto',
+      autoReadEnabled: Boolean(state.autoReadEnabled),
+      webSearchEnabled: Boolean(state.webSearchEnabled),
+      selectedTools: Array.isArray(state.selectedTools) ? state.selectedTools : [],
+      privateMode: Boolean(state.privateMode),
+      navMoreOpen: Boolean(state.navMoreOpen),
+      byokProvider: state.byokProvider || '',
+      byokModel: state.byokModel || ''
     }
   };
   const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json;charset=utf-8' });
@@ -3894,6 +3983,14 @@ function clearAllLocalUserData() {
     projects: [...DEFAULT_PROJECTS],
     assistantId: DEFAULT_ASSISTANT_ID,
     preferredModel: 'auto',
+    mode: 'CC Auto',
+    autoReadEnabled: false,
+    webSearchEnabled: false,
+    selectedTools: [],
+    privateMode: false,
+    navMoreOpen: false,
+    byokProvider: '',
+    byokModel: '',
     leftCollapsed: state.leftCollapsed,
     rightCollapsed: state.rightCollapsed
   };
@@ -3913,9 +4010,7 @@ function clearAllLocalUserData() {
   byokSelected = false;
   renderRecentChats();
   renderRightProjects();
-  syncAssistantButtons();
-  syncModelMenu();
-  updateTopbarModelLabel();
+  applyPreferencesFromState();
   updatePersonalizedHero();
   showWelcomeView();
   trackAiEvent('ai_gdpr_erase', { status: 'cleared' });
@@ -4129,6 +4224,8 @@ assistantStrip?.querySelectorAll('.assistant-pill').forEach((btn) => {
 voiceAutoReadBtn?.addEventListener('click', () => {
   autoReadEnabled = !autoReadEnabled;
   voiceAutoReadBtn.setAttribute('aria-pressed', String(autoReadEnabled));
+  state.autoReadEnabled = autoReadEnabled;
+  saveState();
   if (!autoReadEnabled) stopSpeaking();
   showToast(autoReadEnabled ? 'Czytanie odpowiedzi głosem włączone.' : 'Czytanie odpowiedzi głosem wyłączone.');
 });
@@ -5170,10 +5267,7 @@ function bindFallbackImages() {
 
 // Inicjalizacja
 bindFallbackImages();
-syncAssistantButtons();
-syncPanelButtons();
-syncModelMenu();
-updateTopbarModelLabel();
+applyPreferencesFromState();
 hydrateAvailableModels();
 syncProBadge();
 updatePersonalizedHero();
