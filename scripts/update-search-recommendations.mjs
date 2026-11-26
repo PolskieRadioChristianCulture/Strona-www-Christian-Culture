@@ -71,9 +71,18 @@ export async function updateSearchRecommendations() {
   };
 
   // 3. Przygotuj 4 tętniące życiem pule propozycji (16 różnorodnych, świeżych modułów)
+  const aiDlaJezusaRec = {
+    tag: 'Nowość • 7 dni PRO na start',
+    title: 'AI dla Jezusa — Chrześcijańska Aplikacja AI',
+    desc: 'Rozmowy oparte na Biblii (UBG), 5 asystentów głosowych, multimedia CC i 7 dni PRO na start.',
+    url: '/ai/aplikacja',
+    icon: 'sparkle'
+  };
+
   const pools = [
-    // Slot 0: Inspiracje & Słowo Boże & Modlitwa
+    // Slot 0: Inspiracje & Słowo Boże & Modlitwa & AI
     [
+      aiDlaJezusaRec,
       {
         tag: 'Inspiracja na Dziś',
         title: `Rozważanie „Dobrze, że jesteś” • Dzień ${dayOfMonth}`,
@@ -94,13 +103,6 @@ export async function updateSearchRecommendations() {
         desc: 'Wspólna modlitwa narodu o pokój, Boże prowadzenie i przebudzenie.',
         url: '/modlitwa',
         icon: 'shield'
-      },
-      {
-        tag: 'Słuchowisko Biblijne',
-        title: 'Biblia Audio — Nowy Testament UBG',
-        desc: 'Żywe Słowo Boże z profesjonalną muzyką i udźwiękowieniem radiowym.',
-        url: '/player',
-        icon: 'volume'
       }
     ],
     // Slot 1: Akademia Biblijna & Narzędzia Pisma Świętego & Autopromocja Wyszukiwarki
@@ -198,8 +200,20 @@ export async function updateSearchRecommendations() {
     ]
   ];
 
-  // 4 Wyjściowe filary na dziś (Set 0)
-  const todayPillars = [pools[0][0], pools[1][0], pools[2][0], pools[3][0]];
+  // Wyjściowe filary na dziś (AI dla Jezusa + 4 filary z pul)
+  const todayPillars = [
+    aiDlaJezusaRec,
+    {
+      tag: 'Inspiracja na Dziś',
+      title: `Rozważanie „Dobrze, że jesteś” • Dzień ${dayOfMonth}`,
+      desc: `Codzienne słowo umocnienia, modlitwa i Boży pokój na ${dateFormattedPL}.`,
+      url: '/player',
+      icon: 'heart'
+    },
+    pools[1][0],
+    pools[2][0],
+    pools[3][0]
+  ];
 
   const recommendationsPayload = {
     updatedAt: now.toISOString(),
