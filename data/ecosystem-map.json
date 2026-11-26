@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-26",
+      "topic": "Najpilniejsze naprawy ze statystyk: eliminacja fałszywych błędów audio_error (app.js, player.html, cc-analytics.js), auto-detekcja klucza IndexNow i wysyłka kolejki SEO oraz 44px ergonomia dotyku na cclite.pl",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-26",
       "topic": "Kurs Codzienny „Z Biblią za Pan Brat” — nocna publikacja i aktywacja Dnia 57 (Wj 27:1–21: Ołtarz całopalenia, Dziedziniec Przybytku i Oliwa do Świecznika), synchronizacja Akademii, Discovery/SEO, @w i @m",
       "agent": "A"
     },

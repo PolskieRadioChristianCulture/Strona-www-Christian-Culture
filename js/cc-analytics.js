@@ -439,8 +439,13 @@
     });
 
     el.addEventListener('error', function () {
-      var info = state.info || classifyMedia(el);
       var errCode = (el.error && el.error.code) ? Number(el.error.code) : 0;
+      if (errCode === 1) return;
+      var hasSrcAttr = (typeof el.getAttribute === 'function' && Boolean(el.getAttribute('src'))) ||
+        (typeof el.querySelector === 'function' && Boolean(el.querySelector('source[src]')));
+      if (!hasSrcAttr) return;
+      if (el.currentSrc && typeof location !== 'undefined' && el.currentSrc === location.href) return;
+      var info = state.info || classifyMedia(el);
       ccTrack(info.isVideo ? 'video_error' : 'audio_error', {
         stream_host: info.host,
         stream: info.stream,

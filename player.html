@@ -1899,7 +1899,8 @@
         function switchEngine(newEngine) {
             if (activeEngine === 'native' && newEngine === 'youtube') {
                 nativeAudio.pause();
-                nativeAudio.src = '';
+                nativeAudio.removeAttribute('src');
+                nativeAudio.load();
                 document.getElementById('stream-engine-badge').textContent = '• YOUTUBE AUDIO';
             } else if (activeEngine === 'youtube' && newEngine === 'native') {
                 if (ytReady && ytPlayer && ytPlayer.pauseVideo) {
@@ -1932,7 +1933,7 @@
         function resumeCurrent() {
             if (activeEngine === 'native') {
                 spectrum?.prepare();
-                if (!nativeAudio.src || nativeAudio.src === '') {
+                if (!nativeAudio.getAttribute('src')) {
                     playStation('biblia');
                 } else {
                     playbackStatus('Ładowanie radia…');

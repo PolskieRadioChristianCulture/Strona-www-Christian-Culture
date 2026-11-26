@@ -18,7 +18,7 @@ import {
   toCanonicalUrl,
   validateRenderedHtmlSeo,
 } from './cc-seo-engine.mjs';
-import { createIndexNowQueueManager, validateIndexNowKey } from './cc-indexnow.mjs';
+import { createIndexNowQueueManager, resolveIndexNowKey, validateIndexNowKey } from './cc-indexnow.mjs';
 import { loadCourses, sitemapPath } from './rozwiaz-problem/build.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -777,10 +777,19 @@ export function buildAllDiscoverySignals() {
     { url: `${PRIMARY_ORIGIN}/misje/wojna-ukraina-jezus-pokoj-znaki-czasow`, section: 'misje', publishedAt: '2026-10-17T08:00:00Z' },
     { url: `${PRIMARY_ORIGIN}/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow`, section: 'spoleczenstwo', publishedAt: '2026-10-17T08:00:00Z' },
     { url: `${PRIMARY_ORIGIN}/akademia/dzien-17`, section: 'akademia', publishedAt: '2026-10-17T04:00:00Z' },
+    { url: `${PRIMARY_ORIGIN}/infolinia-nadzieja/`, section: 'pages', publishedAt: '2026-11-25T15:00:00Z' },
+    { url: `${PRIMARY_ORIGIN}/kartki/`, section: 'pages', publishedAt: '2026-11-25T06:00:00Z' },
+    { url: `${PRIMARY_ORIGIN}/holos`, section: 'pages', publishedAt: '2026-11-25T04:00:00Z' },
+    { url: `${PRIMARY_ORIGIN}/vod`, section: 'pages', publishedAt: '2026-11-26T00:00:00Z' },
+    { url: `${PRIMARY_ORIGIN}/akademia/kurscodzienny/dzien-57`, section: 'akademia', publishedAt: '2026-11-26T05:00:00Z' },
   ];
   queueManager.enqueue(candidatesForQueue);
+  const resolvedKey = resolveIndexNowKey({ rootDir: ROOT });
+  const keyStatus = validateIndexNowKey(resolvedKey);
+  if (keyStatus.valid && process.env.CC_INDEXNOW_SKIP_FLUSH !== '1' && !process.argv.includes('--no-flush')) {
+    await queueManager.flush({ key: resolvedKey, rootDir: ROOT });
+  }
   const queueState = queueManager.getState();
-  const keyStatus = validateIndexNowKey(process.env.INDEXNOW_KEY);
 
   // 14. Zapis rzeczywistego stanu dla panelu CCN SEO CONTROL (data/cc-seo-control-state.json)
   const targetFiles = [

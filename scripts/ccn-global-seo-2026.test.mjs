@@ -15,6 +15,7 @@ import {
   createPublicationRegistry,
 } from './cc-seo-engine.mjs';
 import {
+  resolveIndexNowKey,
   validateIndexNowKey,
   assertGoogleIndexingApiEligibility,
   createIndexNowQueueManager,
@@ -202,6 +203,10 @@ test('Etap 3 & 6: Kolejka IndexNow odrzuca adresy prywatne/noindex/szkice, obsł
     /Google Indexing API nie służy do zwykłych artykułów/
   );
   assert.equal(assertGoogleIndexingApiEligibility({ type: 'JobPosting' }), true);
+
+  const resolved = resolveIndexNowKey({ rootDir: ROOT, key: '' });
+  assert.equal(validateIndexNowKey(resolved).valid, true, 'resolveIndexNowKey must auto-detect verified root key file');
+  assert.equal(resolved, 'cc777b1b11a94e82938a1928df05c28e');
 });
 
 test('Etap 4 & 6: Wielojęzyczność (dwustronny hreflang) oraz ochrona prywatnych ścieżek i rozróżnienie botów AI w robots.txt', () => {

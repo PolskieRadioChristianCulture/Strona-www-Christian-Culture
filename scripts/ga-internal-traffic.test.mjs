@@ -139,3 +139,42 @@ test('404 przekierowuje na adres bezwzględny (koniec pętli w podfolderach)', (
   assert.match(html, /window\.location\.href = '\/';/);
   assert.doesNotMatch(html, /location\.href = 'index\.html'/);
 });
+
+test('cc-analytics ignoruje puste/przerwane audio_error i odtwarzacze czyszczą src przez removeAttribute', () => {
+  const { events, HTMLAudioElement } = runAnalytics('/player');
+  const el = new HTMLAudioElement();
+  el.listeners = {};
+  el.addEventListener = (t, fn) => { (el.listeners[t] = el.listeners[t] || []).push(fn); };
+  el.getAttribute = (name) => (name === 'src' ? el._srcAttr || null : null);
+  el.querySelector = () => null;
+  el.dataset = {};
+  el._srcAttr = 'https://stream.zeno.fm/imo45hqnshyuv';
+  el.src = 'https://stream.zeno.fm/imo45hqnshyuv';
+  el.play();
+
+  // 1) MEDIA_ERR_ABORTED (code 1) -> ignorowany
+  el.error = { code: 1 };
+  el.listeners.error.forEach(fn => fn());
+  assert.equal(events.filter(e => e.name === 'audio_error').length, 0);
+
+  // 2) Wyczyszczone src przez removeAttribute('src') -> ignorowany
+  el._srcAttr = null;
+  el.error = { code: 4 };
+  el.listeners.error.forEach(fn => fn());
+  assert.equal(events.filter(e => e.name === 'audio_error').length, 0);
+
+  // 3) Realny błąd przy ustawionym src (np. code 2) -> raportowany
+  el._srcAttr = 'https://stream.zeno.fm/imo45hqnshyuv';
+  el.error = { code: 2 };
+  el.listeners.error.forEach(fn => fn());
+  const errs = events.filter(e => e.name === 'audio_error');
+  assert.equal(errs.length, 1);
+  assert.equal(errs[0].params.error_code, 2);
+
+  const appSrc = readFileSync('app.js', 'utf8');
+  const playerHtml = readFileSync('player.html', 'utf8');
+  assert.match(appSrc, /audio\.removeAttribute\("src"\)/);
+  assert.doesNotMatch(appSrc, /audio\.src\s*=\s*["']["']/);
+  assert.match(playerHtml, /nativeAudio\.removeAttribute\('src'\)/);
+  assert.doesNotMatch(playerHtml, /nativeAudio\.src\s*=\s*''/);
+});

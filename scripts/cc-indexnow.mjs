@@ -36,6 +36,38 @@ export function validateIndexNowKey(key) {
 }
 
 /**
+ * Rozpoznaje klucz IndexNow z podanej opcji, zmiennej INDEXNOW_KEY
+ * lub zweryfikowanego publicznego pliku `<32-hex>.txt` w katalogu głównym.
+ */
+export function resolveIndexNowKey(options = {}) {
+  const direct = options.key ?? process.env.INDEXNOW_KEY;
+  if (validateIndexNowKey(direct).valid) {
+    return String(direct).trim();
+  }
+  const rootDir = options.rootDir || process.cwd();
+  const preferred = 'cc777b1b11a94e82938a1928df05c28e.txt';
+  let entries = [];
+  try {
+    entries = fs.readdirSync(rootDir, { withFileTypes: true })
+      .filter((d) => d.isFile() && /^[a-f0-9]{32}\.txt$/i.test(d.name))
+      .map((d) => d.name)
+      .sort((a, b) => (a === preferred ? -1 : b === preferred ? 1 : a.localeCompare(b)));
+  } catch {
+    return '';
+  }
+  for (const name of entries) {
+    try {
+      const stem = name.replace(/\.txt$/i, '');
+      const content = fs.readFileSync(path.join(rootDir, name), 'utf8').trim();
+      if (content === stem && validateIndexNowKey(content).valid) {
+        return content;
+      }
+    } catch {}
+  }
+  return '';
+}
+
+/**
  * Blokada zgodna z Sekcją 5 Standardu:
  * Google Indexing API NIE służy do zwykłych artykułów (wyłącznie JobPosting lub BroadcastEvent w VideoObject).
  */
@@ -162,7 +194,7 @@ export function createIndexNowQueueManager(options = {}) {
      * Wysyła oczekujące adresy z kolejki do protokołu IndexNow (lub rejestruje oczekiwanie na klucz).
      */
     async flush(options = {}) {
-      const key = options.key ?? process.env.INDEXNOW_KEY;
+      const key = options.key !== undefined ? options.key : resolveIndexNowKey({ rootDir: options.rootDir });
       const fetchImpl = options.fetchImpl || globalThis.fetch;
       const state = readJson(queueFile, { updatedAt: null, items: [] });
       const pending = state.items.filter(

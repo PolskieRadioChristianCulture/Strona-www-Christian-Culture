@@ -1489,7 +1489,8 @@ function pauseRadio() {
     
     // Clear audio source on pause only for live streams so they don't buffer outdated content
     if (activeStation && activeStation.id !== "instrumental_worship" && activeStation.id !== "biblia_spiewana" && activeStation.id !== "global_biblia" && activeStation.id !== "pozytywne_audio") {
-        audio.src = "";
+        audio.removeAttribute("src");
+        audio.load();
         currentAudioUrl = "";
     }
 }
@@ -1561,6 +1562,7 @@ audio.addEventListener("stalled", () => {
 
 audio.addEventListener("error", (e) => {
     const err = audio.error;
+    if (!audio.getAttribute("src")) return;
     if (err && err.code === 1) {
         // MEDIA_ERR_ABORTED: Previous request aborted during track change, ignore safely
         return;

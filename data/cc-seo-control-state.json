@@ -91,10 +91,10 @@
   ],
   "indexNow": {
     "keyConfigured": true,
-    "keyNote": "Brak klucza INDEXNOW_KEY w zmiennych środowiskowych.",
-    "totalQueued": 57,
-    "pendingCount": 57,
-    "submittedCount": 0,
+    "keyNote": "Skonfigurowany (cc77...8e)",
+    "totalQueued": 62,
+    "pendingCount": 0,
+    "submittedCount": 62,
     "failedCount": 0,
     "recentItems": [
       {
@@ -102,291 +102,294 @@
         "section": "news",
         "publishedAt": "2026-10-17T08:00:00Z",
         "queuedAt": "2026-10-17T10:13:02.460Z",
-        "attempts": 0,
+        "attempts": 1,
         "maxRetries": 3,
-        "lastAttemptAt": null,
-        "lastHttpStatus": null,
+        "lastAttemptAt": "2026-11-26T06:52:44.421Z",
+        "lastHttpStatus": 200,
         "lastError": null,
         "lifecycle": {
           "published": true,
           "queuedIndexNow": true,
-          "submittedIndexNow": false,
+          "submittedIndexNow": true,
           "discoveredByBot": null,
           "indexedInSearch": null
         },
-        "status": "PENDING"
+        "status": "SUBMITTED"
       },
       {
         "url": "https://polskieradio.cc/news/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "news",
         "publishedAt": "2026-10-17T08:15:00Z",
         "queuedAt": "2026-10-17T10:13:02.460Z",
-        "attempts": 0,
+        "attempts": 1,
         "maxRetries": 3,
-        "lastAttemptAt": null,
-        "lastHttpStatus": null,
+        "lastAttemptAt": "2026-11-26T06:52:44.421Z",
+        "lastHttpStatus": 200,
         "lastError": null,
         "lifecycle": {
           "published": true,
           "queuedIndexNow": true,
-          "submittedIndexNow": false,
+          "submittedIndexNow": true,
           "discoveredByBot": null,
           "indexedInSearch": null
         },
-        "status": "PENDING"
+        "status": "SUBMITTED"
       },
       {
         "url": "https://polskieradio.cc/news/czy-swiat-potrzebuje-przebudzenia-duchowego",
         "section": "news",
         "publishedAt": "2026-10-15T09:00:00Z",
         "queuedAt": "2026-10-17T10:13:02.460Z",
-        "attempts": 0,
+        "attempts": 1,
         "maxRetries": 3,
-        "lastAttemptAt": null,
-        "lastHttpStatus": null,
+        "lastAttemptAt": "2026-11-26T06:52:44.421Z",
+        "lastHttpStatus": 200,
         "lastError": null,
         "lifecycle": {
           "published": true,
           "queuedIndexNow": true,
-          "submittedIndexNow": false,
+          "submittedIndexNow": true,
           "discoveredByBot": null,
           "indexedInSearch": null
         },
-        "status": "PENDING"
+        "status": "SUBMITTED"
       },
       {
         "url": "https://polskieradio.cc/news/czy-jezus-istnial-dowody-historyczne",
         "section": "news",
         "publishedAt": "2026-10-15T09:15:00Z",
         "queuedAt": "2026-10-17T10:13:02.460Z",
-        "attempts": 0,
+        "attempts": 1,
         "maxRetries": 3,
-        "lastAttemptAt": null,
-        "lastHttpStatus": null,
+        "lastAttemptAt": "2026-11-26T06:52:44.421Z",
+        "lastHttpStatus": 200,
         "lastError": null,
         "lifecycle": {
           "published": true,
           "queuedIndexNow": true,
-          "submittedIndexNow": false,
+          "submittedIndexNow": true,
           "discoveredByBot": null,
           "indexedInSearch": null
         },
-        "status": "PENDING"
+        "status": "SUBMITTED"
       },
       {
         "url": "https://polskieradio.cc/news/czy-ai-zastapi-ludzka-madrosc",
         "section": "news",
         "publishedAt": "2026-10-15T09:30:00Z",
         "queuedAt": "2026-10-17T10:13:02.460Z",
-        "attempts": 0,
+        "attempts": 1,
         "maxRetries": 3,
-        "lastAttemptAt": null,
-        "lastHttpStatus": null,
+        "lastAttemptAt": "2026-11-26T06:52:44.421Z",
+        "lastHttpStatus": 200,
         "lastError": null,
         "lifecycle": {
           "published": true,
           "queuedIndexNow": true,
-          "submittedIndexNow": false,
+          "submittedIndexNow": true,
           "discoveredByBot": null,
           "indexedInSearch": null
         },
-        "status": "PENDING"
+        "status": "SUBMITTED"
       },
       {
         "url": "https://polskieradio.cc/news/dlaczego-czuje-sie-samotny-choc-mam-setki-znajomych",
         "section": "news",
         "publishedAt": "2026-10-15T09:30:00Z",
         "queuedAt": "2026-10-17T10:13:02.460Z",
-        "attempts": 0,
+        "attempts": 1,
         "maxRetries": 3,
-        "lastAttemptAt": null,
-        "lastHttpStatus": null,
+        "lastAttemptAt": "2026-11-26T06:52:44.421Z",
+        "lastHttpStatus": 200,
         "lastError": null,
         "lifecycle": {
           "published": true,
           "queuedIndexNow": true,
-          "submittedIndexNow": false,
+          "submittedIndexNow": true,
           "discoveredByBot": null,
           "indexedInSearch": null
         },
-        "status": "PENDING"
+        "status": "SUBMITTED"
       },
       {
         "url": "https://polskieradio.cc/news/dziesiec-przykazan-bozych-biblia-jakub-wujek-bjw-dekalog",
         "section": "news",
         "publishedAt": "2026-10-14T19:30:00Z",
         "queuedAt": "2026-10-17T10:13:02.460Z",
-        "attempts": 0,
+        "attempts": 1,
         "maxRetries": 3,
-        "lastAttemptAt": null,
-        "lastHttpStatus": null,
+        "lastAttemptAt": "2026-11-26T06:52:44.421Z",
+        "lastHttpStatus": 200,
         "lastError": null,
         "lifecycle": {
           "published": true,
           "queuedIndexNow": true,
-          "submittedIndexNow": false,
+          "submittedIndexNow": true,
           "discoveredByBot": null,
           "indexedInSearch": null
         },
-        "status": "PENDING"
+        "status": "SUBMITTED"
       },
       {
         "url": "https://polskieradio.cc/news/dlaczego-christian-culture-mowi-nie-kulturze-halloween-deklaracja-redakcyjna",
         "section": "news",
         "publishedAt": "2026-10-14",
         "queuedAt": "2026-10-17T10:13:02.460Z",
-        "attempts": 0,
+        "attempts": 1,
         "maxRetries": 3,
-        "lastAttemptAt": null,
-        "lastHttpStatus": null,
+        "lastAttemptAt": "2026-11-26T06:52:44.421Z",
+        "lastHttpStatus": 200,
         "lastError": null,
         "lifecycle": {
           "published": true,
           "queuedIndexNow": true,
-          "submittedIndexNow": false,
+          "submittedIndexNow": true,
           "discoveredByBot": null,
           "indexedInSearch": null
         },
-        "status": "PENDING"
+        "status": "SUBMITTED"
       },
       {
         "url": "https://polskieradio.cc/news/kultura-zycia-i-swiatlosci-kontra-komercyjny-kult-mroku-kultura-chrzescijanska",
         "section": "news",
         "publishedAt": "2026-10-14",
         "queuedAt": "2026-10-17T10:13:02.460Z",
-        "attempts": 0,
+        "attempts": 1,
         "maxRetries": 3,
-        "lastAttemptAt": null,
-        "lastHttpStatus": null,
+        "lastAttemptAt": "2026-11-26T06:52:44.421Z",
+        "lastHttpStatus": 200,
         "lastError": null,
         "lifecycle": {
           "published": true,
           "queuedIndexNow": true,
-          "submittedIndexNow": false,
+          "submittedIndexNow": true,
           "discoveredByBot": null,
           "indexedInSearch": null
         },
-        "status": "PENDING"
+        "status": "SUBMITTED"
       },
       {
         "url": "https://polskieradio.cc/news/od-celtyckiego-samhain-do-amerykanskiego-przemyslu-strachu-fakty-i-mity",
         "section": "news",
         "publishedAt": "2026-10-14",
         "queuedAt": "2026-10-17T08:51:09.461Z",
-        "attempts": 0,
+        "attempts": 1,
         "maxRetries": 3,
-        "lastAttemptAt": null,
-        "lastHttpStatus": null,
+        "lastAttemptAt": "2026-11-26T06:52:44.421Z",
+        "lastHttpStatus": 200,
         "lastError": null,
         "lifecycle": {
           "published": true,
           "queuedIndexNow": true,
-          "submittedIndexNow": false,
+          "submittedIndexNow": true,
           "discoveredByBot": null,
           "indexedInSearch": null
         },
-        "status": "PENDING"
+        "status": "SUBMITTED"
       },
       {
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
         "queuedAt": "2026-11-26T05:05:43.955Z",
-        "attempts": 0,
+        "attempts": 1,
         "maxRetries": 3,
-        "lastAttemptAt": null,
-        "lastHttpStatus": null,
+        "lastAttemptAt": "2026-11-26T06:52:44.421Z",
+        "lastHttpStatus": 200,
         "lastError": null,
         "lifecycle": {
           "published": true,
           "queuedIndexNow": true,
-          "submittedIndexNow": false,
+          "submittedIndexNow": true,
           "discoveredByBot": null,
           "indexedInSearch": null
         },
-        "status": "PENDING"
+        "status": "SUBMITTED"
       },
       {
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
         "queuedAt": "2026-11-26T05:05:43.955Z",
-        "attempts": 0,
+        "attempts": 1,
         "maxRetries": 3,
-        "lastAttemptAt": null,
-        "lastHttpStatus": null,
+        "lastAttemptAt": "2026-11-26T06:52:44.421Z",
+        "lastHttpStatus": 200,
         "lastError": null,
         "lifecycle": {
           "published": true,
           "queuedIndexNow": true,
-          "submittedIndexNow": false,
+          "submittedIndexNow": true,
           "discoveredByBot": null,
           "indexedInSearch": null
         },
-        "status": "PENDING"
+        "status": "SUBMITTED"
       },
       {
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
         "queuedAt": "2026-11-26T05:05:43.955Z",
-        "attempts": 0,
+        "attempts": 1,
         "maxRetries": 3,
-        "lastAttemptAt": null,
-        "lastHttpStatus": null,
+        "lastAttemptAt": "2026-11-26T06:52:44.421Z",
+        "lastHttpStatus": 200,
         "lastError": null,
         "lifecycle": {
           "published": true,
           "queuedIndexNow": true,
-          "submittedIndexNow": false,
+          "submittedIndexNow": true,
           "discoveredByBot": null,
           "indexedInSearch": null
         },
-        "status": "PENDING"
+        "status": "SUBMITTED"
       },
       {
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
         "queuedAt": "2026-11-26T05:05:43.955Z",
-        "attempts": 0,
+        "attempts": 1,
         "maxRetries": 3,
-        "lastAttemptAt": null,
-        "lastHttpStatus": null,
+        "lastAttemptAt": "2026-11-26T06:52:44.421Z",
+        "lastHttpStatus": 200,
         "lastError": null,
         "lifecycle": {
           "published": true,
           "queuedIndexNow": true,
-          "submittedIndexNow": false,
+          "submittedIndexNow": true,
           "discoveredByBot": null,
           "indexedInSearch": null
         },
-        "status": "PENDING"
+        "status": "SUBMITTED"
       },
       {
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
         "queuedAt": "2026-11-26T05:05:43.955Z",
-        "attempts": 0,
+        "attempts": 1,
         "maxRetries": 3,
-        "lastAttemptAt": null,
-        "lastHttpStatus": null,
+        "lastAttemptAt": "2026-11-26T06:52:44.421Z",
+        "lastHttpStatus": 200,
         "lastError": null,
         "lifecycle": {
           "published": true,
           "queuedIndexNow": true,
-          "submittedIndexNow": false,
+          "submittedIndexNow": true,
           "discoveredByBot": null,
           "indexedInSearch": null
         },
-        "status": "PENDING"
+        "status": "SUBMITTED"
       }
     ],
     "keyMasked": "cc777b...c28e",
     "totalIndexedUrls": 509,
     "lastSubmittedCount": 509,
-    "lastSubmittedAt": "2026-11-26T05:05:45.397Z"
+    "lastSubmittedAt": "2026-11-26T05:05:45.397Z",
+    "lastFlushAt": "2026-11-26T06:52:45.223Z",
+    "lastFlushStatus": "SUBMITTED",
+    "lastHttpStatus": 200
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
