@@ -203,8 +203,8 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai23_p0/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai23_p0/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai24_p0/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai24_p0/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
@@ -821,4 +821,17 @@ test('AI dla Jezusa declutters topbar into sidebar, closes panels on empty works
   assert.match(appJs, /function closeAllSidePanels\(\)/);
   assert.match(appJs, /mainWorkspace\?\.addEventListener\('click'/);
   assert.match(css, /\.toast\s*\{[^}]*bottom:\s*72px;/s);
+});
+
+test('AI dla Jezusa renders a minimalist 3-icon mobile composer, unified + sheet, collapsible assistant pill, and anti-clipping popups (ai24)', () => {
+  const html = fs.readFileSync(path.join(ROOT, 'ai/index.html'), 'utf8');
+  const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
+  const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
+
+  assert.ok(html.includes('id="mobileComposerMenuBtn"'));
+  assert.ok(html.includes('id="mobileComposerSheet"'));
+  assert.match(appJs, /function syncMobileComposerSheet\(\)/);
+  assert.match(appJs, /assistantStrip\.classList\.contains\('is-mobile-expanded'\)/);
+  assert.match(css, /@media\s*\(max-width:\s*560px\)[\s\S]*\.composer-box\s+\.dropdown-menu,\s*\.mobile-composer-sheet\s*\{[^}]*position:\s*fixed;[^}]*left:\s*12px;[^}]*right:\s*12px;/s);
+  assert.match(css, /@media\s*\(max-width:\s*560px\)[\s\S]*\.assistant-strip:not\(\.is-mobile-expanded\)\s+\.assistant-pill:not\(\.active\)\s*\{[^}]*display:\s*none;/s);
 });

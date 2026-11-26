@@ -97,7 +97,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
   <style>html,body{background:#0a0a0a;color:#f4f2ec;margin:0}</style>
-  <link rel="stylesheet" href="/ai/styles.css?v=20261126_ai23_p0">
+  <link rel="stylesheet" href="/ai/styles.css?v=20261126_ai24_p0">
 </head>
 <body>
   <a class="skip-link" href="#prompt">Przejdź do rozmowy</a>
@@ -336,12 +336,45 @@
               </div>
             </div>
             <div id="composerCommandPopup" class="composer-cmd-popup" role="listbox" aria-label="Podpowiedzi komend i kontekstu" hidden></div>
+            <div id="mobileComposerSheet" class="mobile-composer-sheet" role="dialog" aria-label="Funkcje i ustawienia rozmowy" hidden>
+              <div class="mcs-head">
+                <span>Funkcje czatu</span>
+                <button type="button" id="closeMobileComposerSheet" class="mcs-close" aria-label="Zamknij menu funkcji">✕</button>
+              </div>
+              <div class="mcs-group">
+                <button type="button" class="mcs-row-btn" data-mcs-action="attach">📎 Dodaj plik lub obraz</button>
+                <button type="button" class="mcs-row-btn" data-mcs-action="model">✨ Tryb i silnik AI <strong id="mcsModelValue">CC Auto</strong></button>
+              </div>
+              <div class="mcs-label">Szybkość i głębia odpowiedzi</div>
+              <div class="mcs-seg" role="radiogroup" aria-label="Poziom głębi odpowiedzi">
+                <button type="button" class="mcs-seg-btn" data-mcs-depth="fast">Turbo</button>
+                <button type="button" class="mcs-seg-btn active" data-mcs-depth="balanced">Standard</button>
+                <button type="button" class="mcs-seg-btn" data-mcs-depth="deep">Głęboki</button>
+              </div>
+              <div class="mcs-label">Opcje i narzędzia</div>
+              <div class="mcs-chips">
+                <button type="button" class="mcs-chip" data-mcs-toggle="web">🌐 Szukaj w sieci</button>
+                <button type="button" class="mcs-chip" data-mcs-toggle="autoread">🔊 Czytaj głosem</button>
+                <button type="button" class="mcs-chip" data-mcs-tool="Cytaty UBG">📖 Cytaty UBG</button>
+                <button type="button" class="mcs-chip" data-mcs-tool="Notatnik">📝 Notatnik</button>
+                <button type="button" class="mcs-chip" data-mcs-tool="Deep Research">🔎 Deep Research</button>
+              </div>
+              <div class="mcs-label">Szybkie skróty</div>
+              <div class="mcs-chips">
+                <button type="button" class="mcs-chip" data-mcs-insert="@">@ Kontekst / Asystent</button>
+                <button type="button" class="mcs-chip" data-mcs-insert="/">/ Szybkie akcje</button>
+              </div>
+            </div>
             <form id="composerForm">
               <label class="sr-only" for="prompt">Zapytaj o cokolwiek</label>
               <textarea id="prompt" rows="2" placeholder="Zapytaj o cokolwiek… @ aby przywołać kontekst, / aby wybrać akcję" maxlength="6000"></textarea>
 
               <div class="composer-bar">
                 <div class="composer-bar-left">
+                  <button type="button" id="mobileComposerMenuBtn" class="composer-circle-btn mobile-composer-plus" aria-haspopup="dialog" aria-expanded="false" aria-label="Więcej funkcji i ustawień czatu" title="Więcej funkcji">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                    <span id="mobileComposerDot" class="mobile-composer-dot" hidden aria-hidden="true"></span>
+                  </button>
                   <button type="button" id="attachBtn" class="composer-circle-btn" aria-label="Dodaj załącznik">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
                   </button>
@@ -627,6 +660,6 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
-  <script defer src="/ai/app.js?v=20261126_ai23_p0"></script>
+  <script defer src="/ai/app.js?v=20261126_ai24_p0"></script>
 </body>
 </html>

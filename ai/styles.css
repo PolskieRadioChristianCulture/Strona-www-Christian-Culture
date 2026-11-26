@@ -1638,6 +1638,153 @@ a:focus-visible {
   height: 19px;
 }
 
+.mobile-composer-plus {
+  display: none;
+  position: relative;
+}
+
+.mobile-composer-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--cc-btn-orange);
+  box-shadow: 0 0 0 2px #141414;
+}
+
+.mobile-composer-sheet {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+  z-index: 112;
+  padding: 14px;
+  border-radius: 18px;
+  background: #151515;
+  border: 1px solid #2e2e2e;
+  box-shadow: 0 22px 64px rgba(0, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 66dvh;
+  overflow-y: auto;
+  animation: aiPopIn 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.mobile-composer-sheet[hidden] {
+  display: none;
+}
+
+.mcs-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.mcs-close {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  color: #cfcdc7;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mcs-close:hover {
+  background: #232018;
+  color: #ffffff;
+}
+
+.mcs-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mcs-row-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 11px;
+  background: #1b1b1b;
+  border: 1px solid #2c2c2c;
+  color: #f4f2ec;
+  font-size: 13px;
+  text-align: left;
+}
+
+.mcs-row-btn strong {
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.mcs-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #9b9992;
+  margin-top: 2px;
+}
+
+.mcs-seg {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.mcs-seg-btn {
+  min-height: 44px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  background: #1b1b1b;
+  border: 1px solid #2c2c2c;
+  color: #cfcdc7;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.mcs-seg-btn.active {
+  background: #232018;
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.mcs-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mcs-chip {
+  min-height: 40px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #1b1b1b;
+  border: 1px solid #2c2c2c;
+  color: #dedbd2;
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.mcs-chip.active {
+  background: rgba(255, 122, 0, 0.16);
+  border-color: var(--cc-btn-orange);
+  color: #ffbd73;
+}
+
 .composer-inline-pill,
 .composer-depth-pill {
   display: inline-flex;
@@ -3766,33 +3913,91 @@ a:focus-visible {
   }
 
   .hero-emblem-wrap {
-    width: 68px;
-    height: 68px;
+    width: 58px;
+    height: 58px;
+    border-radius: 15px;
   }
 
   .hero-title {
-    font-size: 1.24rem;
+    font-size: 1.16rem;
     line-height: 1.28;
-    margin: 16px 0 6px;
+    margin: 12px 0 6px;
   }
 
   .hero-subtitle {
-    font-size: 13.5px;
-    margin-bottom: 18px;
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+
+  .assistant-strip {
+    margin-bottom: 14px;
+    gap: 6px;
+  }
+
+  .assistant-strip:not(.is-mobile-expanded) .assistant-pill:not(.active) {
+    display: none;
+  }
+
+  .assistant-strip:not(.is-mobile-expanded) .assistant-pill.active::after {
+    content: "▾";
+    font-size: 11px;
+    color: var(--gold);
+    margin-left: 2px;
+  }
+
+  .composer-box {
+    border-radius: 20px;
+  }
+
+  .prompt-cascade-dots {
+    display: none !important;
   }
 
   .prompt-grid,
   .prompt-grid.is-cascade-ready {
-    grid-template-columns: 1fr;
-    gap: 9px;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    gap: 8px;
+    width: 100%;
+    min-height: 0;
+    padding: 2px 0;
+    justify-content: flex-start;
   }
 
-  .prompt-grid.is-cascade-ready {
-    min-height: 168px;
+  .prompt-grid::-webkit-scrollbar {
+    display: none;
   }
 
-  .prompt-card {
-    min-height: 76px;
+  .prompt-grid .prompt-card,
+  .prompt-grid.is-cascade-ready .prompt-card {
+    position: static;
+    flex: 0 0 auto;
+    width: auto;
+    min-height: 40px;
+    padding: 8px 13px;
+    border-radius: 999px;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: none !important;
+  }
+
+  .prompt-grid .prompt-card-body span {
+    display: none;
+  }
+
+  .prompt-grid .prompt-card-body strong {
+    font-size: 12.5px;
+    white-space: nowrap;
+  }
+
+  .prompt-grid .prompt-card-icon {
+    width: 20px;
+    height: 20px;
   }
 
   .docked-composer-slot {
@@ -3803,7 +4008,7 @@ a:focus-visible {
     flex-wrap: nowrap;
     align-items: center;
     justify-content: space-between;
-    gap: 4px;
+    gap: 6px;
     padding: 6px 8px 8px;
   }
 
@@ -3814,41 +4019,59 @@ a:focus-visible {
   }
 
   .composer-bar-right {
-    gap: 4px;
+    gap: 6px;
     margin-left: auto;
     flex-shrink: 0;
   }
 
+  .mobile-composer-plus {
+    display: inline-flex;
+    width: 44px;
+    height: 44px;
+  }
+
   .composer-circle-btn,
   .composer-plain-btn {
-    width: 40px;
-    height: 44px;
-  }
-
-  .tools-pill {
     width: 44px;
-    min-width: 44px;
     height: 44px;
-    padding: 0;
-    gap: 0;
-    justify-content: center;
   }
 
+  .composer-bar-left > .dropdown-wrap {
+    display: contents;
+  }
+
+  #attachBtn,
+  #composerModelBtn,
+  #webSearchBtn,
+  #toolsBtn,
+  .composer-depth-wrap,
+  #voiceAutoReadBtn,
   .tools-pill span,
   .tools-pill .chevron,
-  .composer-model-wrap,
   .composer-depth-pill span,
   .composer-depth-pill .chevron {
     display: none;
   }
 
-  .composer-depth-pill {
-    width: 40px;
-    min-width: 40px;
-    height: 44px;
-    padding: 0;
-    gap: 0;
-    justify-content: center;
+  .composer-box .dropdown-menu,
+  .mobile-composer-sheet {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+    top: auto;
+    width: auto;
+    min-width: 0;
+    max-width: none;
+    max-height: 64dvh;
+    overflow-y: auto;
+    z-index: 112;
+  }
+
+  .composer-cmd-popup {
+    left: 0;
+    right: 0;
+    max-height: 44dvh;
   }
 
   .send-gold-btn,

@@ -114,6 +114,7 @@ function updateTopbarModelLabel() {
   }
   if (activeModelLabel) activeModelLabel.textContent = labelText;
   if (composerModelLabel) composerModelLabel.textContent = labelText;
+  if (typeof syncMobileComposerSheet === 'function') syncMobileComposerSheet();
 }
 
 function closeAllBadgeModelMenus() {
@@ -404,6 +405,11 @@ const composerModelBtn = $('#composerModelBtn');
 const composerModelMenu = $('#composerModelMenu');
 const composerModelLabel = $('#composerModelLabel');
 const composerCommandPopup = $('#composerCommandPopup');
+const mobileComposerMenuBtn = $('#mobileComposerMenuBtn');
+const mobileComposerDot = $('#mobileComposerDot');
+const mobileComposerSheet = $('#mobileComposerSheet');
+const closeMobileComposerSheet = $('#closeMobileComposerSheet');
+const mcsModelValue = $('#mcsModelValue');
 const depthBtn = $('#depthBtn');
 const depthMenu = $('#depthMenu');
 const depthLabel = $('#depthLabel');
@@ -1060,6 +1066,28 @@ function saveState() {
   }
 }
 
+function syncMobileComposerSheet() {
+  const depthRaw = typeof state?.responseDepth === 'string' ? state.responseDepth.trim().toLowerCase() : 'balanced';
+  const depth = ALLOWED_DEPTHS.has(depthRaw) ? depthRaw : 'balanced';
+  if (mcsModelValue) {
+    mcsModelValue.textContent = composerModelLabel?.textContent || activeModelLabel?.textContent || 'CC Auto';
+  }
+  $$('#mobileComposerSheet [data-mcs-depth]').forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.mcsDepth === depth);
+  });
+  const webChip = $('#mobileComposerSheet [data-mcs-toggle="web"]');
+  if (webChip) webChip.classList.toggle('active', Boolean(webSearchEnabled));
+  const readChip = $('#mobileComposerSheet [data-mcs-toggle="autoread"]');
+  if (readChip) readChip.classList.toggle('active', Boolean(autoReadEnabled));
+  $$('#mobileComposerSheet [data-mcs-tool]').forEach((btn) => {
+    btn.classList.toggle('active', Boolean(btn.dataset.mcsTool && selectedTools.has(btn.dataset.mcsTool)));
+  });
+  if (mobileComposerDot) {
+    const hasActiveOptions = Boolean(webSearchEnabled || autoReadEnabled || selectedTools.size > 0 || depth !== 'balanced');
+    mobileComposerDot.hidden = !hasActiveOptions;
+  }
+}
+
 function syncDepthUI() {
   const raw = typeof state?.responseDepth === 'string' ? state.responseDepth.trim().toLowerCase() : 'balanced';
   const depth = ALLOWED_DEPTHS.has(raw) ? raw : 'balanced';
@@ -1075,6 +1103,7 @@ function syncDepthUI() {
     opt.classList.toggle('active', active);
     opt.setAttribute('aria-selected', String(active));
   });
+  syncMobileComposerSheet();
 }
 
 function setResponseDepth(depth, { announce = true } = {}) {
@@ -3678,11 +3707,90 @@ function closeAllComposerMenus({ keepPopup = false } = {}) {
     depthMenu.hidden = true;
     depthBtn?.setAttribute('aria-expanded', 'false');
   }
+  if (mobileComposerSheet && !mobileComposerSheet.hidden) {
+    mobileComposerSheet.hidden = true;
+    mobileComposerMenuBtn?.setAttribute('aria-expanded', 'false');
+  }
   if (!keepPopup) {
     closeComposerCommandPopup();
   }
   closeAllBadgeModelMenus();
 }
+
+mobileComposerMenuBtn?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (!mobileComposerSheet) return;
+  const next = mobileComposerSheet.hidden;
+  closeAllComposerMenus();
+  if (next) syncMobileComposerSheet();
+  mobileComposerSheet.hidden = !next;
+  mobileComposerMenuBtn.setAttribute('aria-expanded', String(next));
+});
+
+closeMobileComposerSheet?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  closeAllComposerMenus();
+});
+
+mobileComposerSheet?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const target = e.target;
+  if (!(target instanceof Element)) return;
+
+  const actionBtn = target.closest('[data-mcs-action]');
+  if (actionBtn) {
+    const act = actionBtn.dataset.mcsAction;
+    if (act === 'attach') {
+      closeAllComposerMenus();
+      fileInput?.click();
+      return;
+    }
+    if (act === 'model') {
+      closeAllComposerMenus();
+      if (composerModelMenu) {
+        composerModelMenu.hidden = false;
+        composerModelBtn?.setAttribute('aria-expanded', 'true');
+      }
+      return;
+    }
+  }
+
+  const depthBtnEl = target.closest('[data-mcs-depth]');
+  if (depthBtnEl) {
+    setResponseDepth(depthBtnEl.dataset.mcsDepth || 'balanced');
+    return;
+  }
+
+  const toggleBtn = target.closest('[data-mcs-toggle]');
+  if (toggleBtn) {
+    const t = toggleBtn.dataset.mcsToggle;
+    if (t === 'web') webSearchBtn?.click();
+    else if (t === 'autoread') voiceAutoReadBtn?.click();
+    return;
+  }
+
+  const toolChip = target.closest('[data-mcs-tool]');
+  if (toolChip) {
+    const toolName = toolChip.dataset.mcsTool;
+    const realOpt = $(`#toolsMenu .dropdown-option[data-tool="${toolName}"]`);
+    realOpt?.click();
+    return;
+  }
+
+  const insertBtn = target.closest('[data-mcs-insert]');
+  if (insertBtn && promptInput) {
+    const ch = insertBtn.dataset.mcsInsert || '@';
+    closeAllComposerMenus();
+    const cur = promptInput.value || '';
+    if (!cur.trim().endsWith(ch)) {
+      const prefix = cur && !/\s$/.test(cur) ? ' ' : '';
+      promptInput.value = `${cur}${prefix}${ch}`;
+    }
+    promptInput.focus();
+    resizeTextarea();
+    if (typeof updateCommandPopup === 'function') updateCommandPopup();
+  }
+});
 
 modelPickerBtn?.addEventListener('click', (e) => {
   e.stopPropagation();
@@ -3742,6 +3850,7 @@ $$('#toolsMenu .dropdown-option').forEach((opt) => {
       opt.classList.toggle('active', selectedTools.has(tool));
       state.selectedTools = [...selectedTools];
       saveState();
+      syncMobileComposerSheet();
       showToast(selectedTools.has(tool) ? `Włączono narzędzie: ${tool}` : `Wyłączono narzędzie: ${tool}`);
     }
     toolsMenu.hidden = true;
@@ -3752,6 +3861,9 @@ $$('#toolsMenu .dropdown-option').forEach((opt) => {
 document.addEventListener('click', (e) => {
   const insidePopup = composerCommandPopup && !composerCommandPopup.hidden && composerCommandPopup.contains(e.target);
   closeAllComposerMenus({ keepPopup: Boolean(insidePopup) });
+  if (assistantStrip && !assistantStrip.contains(e.target)) {
+    assistantStrip.classList.remove('is-mobile-expanded');
+  }
 });
 
 document.addEventListener('keydown', (e) => {
@@ -3791,6 +3903,7 @@ webSearchBtn?.addEventListener('click', () => {
   webSearchBtn.setAttribute('aria-pressed', String(webSearchEnabled));
   state.webSearchEnabled = webSearchEnabled;
   saveState();
+  syncMobileComposerSheet();
   showToast(webSearchEnabled ? 'Przeszukiwanie zasobów Christian Culture włączone.' : 'Przeszukiwanie zasobów wyłączone.');
 });
 
@@ -4375,7 +4488,18 @@ function clearAttachment() {
 }
 
 assistantStrip?.querySelectorAll('.assistant-pill').forEach((btn) => {
-  btn.addEventListener('click', () => {
+  btn.addEventListener('click', (e) => {
+    if (window.innerWidth <= 560 && assistantStrip) {
+      e.stopPropagation();
+      const targetId = btn.dataset.assistant || DEFAULT_ASSISTANT_ID;
+      if (!assistantStrip.classList.contains('is-mobile-expanded') && btn.classList.contains('active')) {
+        assistantStrip.classList.add('is-mobile-expanded');
+        return;
+      }
+      setActiveAssistant(targetId);
+      assistantStrip.classList.remove('is-mobile-expanded');
+      return;
+    }
     setActiveAssistant(btn.dataset.assistant || DEFAULT_ASSISTANT_ID);
   });
 });
@@ -4385,6 +4509,7 @@ voiceAutoReadBtn?.addEventListener('click', () => {
   voiceAutoReadBtn.setAttribute('aria-pressed', String(autoReadEnabled));
   state.autoReadEnabled = autoReadEnabled;
   saveState();
+  syncMobileComposerSheet();
   if (!autoReadEnabled) stopSpeaking();
   showToast(autoReadEnabled ? 'Czytanie odpowiedzi głosem włączone.' : 'Czytanie odpowiedzi głosem wyłączone.');
 });
