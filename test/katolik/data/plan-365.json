@@ -1,0 +1,5259 @@
+{
+  "version": 1,
+  "method": "canonical",
+  "methodNote": "Prosty plan kanoniczny obejmujący 100% kanonu 66 ksiąg (1189 rozdziałów w 365 niepustych dniach, średnio 3–4 rozdziały dziennie).",
+  "totalDays": 365,
+  "totalChapters": 1189,
+  "translation": "UBG-2025",
+  "days": [
+    {
+      "day": 1,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "GEN",
+          "bookName": "Księga Rodzaju",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "Księga Rodzaju 1–3"
+    },
+    {
+      "day": 2,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "GEN",
+          "bookName": "Księga Rodzaju",
+          "chapterFrom": 4,
+          "chapterTo": 6
+        }
+      ],
+      "label": "Księga Rodzaju 4–6"
+    },
+    {
+      "day": 3,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "GEN",
+          "bookName": "Księga Rodzaju",
+          "chapterFrom": 7,
+          "chapterTo": 9
+        }
+      ],
+      "label": "Księga Rodzaju 7–9"
+    },
+    {
+      "day": 4,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "GEN",
+          "bookName": "Księga Rodzaju",
+          "chapterFrom": 10,
+          "chapterTo": 13
+        }
+      ],
+      "label": "Księga Rodzaju 10–13"
+    },
+    {
+      "day": 5,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "GEN",
+          "bookName": "Księga Rodzaju",
+          "chapterFrom": 14,
+          "chapterTo": 16
+        }
+      ],
+      "label": "Księga Rodzaju 14–16"
+    },
+    {
+      "day": 6,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "GEN",
+          "bookName": "Księga Rodzaju",
+          "chapterFrom": 17,
+          "chapterTo": 19
+        }
+      ],
+      "label": "Księga Rodzaju 17–19"
+    },
+    {
+      "day": 7,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "GEN",
+          "bookName": "Księga Rodzaju",
+          "chapterFrom": 20,
+          "chapterTo": 22
+        }
+      ],
+      "label": "Księga Rodzaju 20–22"
+    },
+    {
+      "day": 8,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "GEN",
+          "bookName": "Księga Rodzaju",
+          "chapterFrom": 23,
+          "chapterTo": 26
+        }
+      ],
+      "label": "Księga Rodzaju 23–26"
+    },
+    {
+      "day": 9,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "GEN",
+          "bookName": "Księga Rodzaju",
+          "chapterFrom": 27,
+          "chapterTo": 29
+        }
+      ],
+      "label": "Księga Rodzaju 27–29"
+    },
+    {
+      "day": 10,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "GEN",
+          "bookName": "Księga Rodzaju",
+          "chapterFrom": 30,
+          "chapterTo": 32
+        }
+      ],
+      "label": "Księga Rodzaju 30–32"
+    },
+    {
+      "day": 11,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "GEN",
+          "bookName": "Księga Rodzaju",
+          "chapterFrom": 33,
+          "chapterTo": 35
+        }
+      ],
+      "label": "Księga Rodzaju 33–35"
+    },
+    {
+      "day": 12,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "GEN",
+          "bookName": "Księga Rodzaju",
+          "chapterFrom": 36,
+          "chapterTo": 39
+        }
+      ],
+      "label": "Księga Rodzaju 36–39"
+    },
+    {
+      "day": 13,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "GEN",
+          "bookName": "Księga Rodzaju",
+          "chapterFrom": 40,
+          "chapterTo": 42
+        }
+      ],
+      "label": "Księga Rodzaju 40–42"
+    },
+    {
+      "day": 14,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "GEN",
+          "bookName": "Księga Rodzaju",
+          "chapterFrom": 43,
+          "chapterTo": 45
+        }
+      ],
+      "label": "Księga Rodzaju 43–45"
+    },
+    {
+      "day": 15,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "GEN",
+          "bookName": "Księga Rodzaju",
+          "chapterFrom": 46,
+          "chapterTo": 48
+        }
+      ],
+      "label": "Księga Rodzaju 46–48"
+    },
+    {
+      "day": 16,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "GEN",
+          "bookName": "Księga Rodzaju",
+          "chapterFrom": 49,
+          "chapterTo": 50
+        },
+        {
+          "bookId": "EXO",
+          "bookName": "Księga Wyjścia",
+          "chapterFrom": 1,
+          "chapterTo": 2
+        }
+      ],
+      "label": "Księga Rodzaju 49–50 · Księga Wyjścia 1–2"
+    },
+    {
+      "day": 17,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EXO",
+          "bookName": "Księga Wyjścia",
+          "chapterFrom": 3,
+          "chapterTo": 5
+        }
+      ],
+      "label": "Księga Wyjścia 3–5"
+    },
+    {
+      "day": 18,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EXO",
+          "bookName": "Księga Wyjścia",
+          "chapterFrom": 6,
+          "chapterTo": 8
+        }
+      ],
+      "label": "Księga Wyjścia 6–8"
+    },
+    {
+      "day": 19,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EXO",
+          "bookName": "Księga Wyjścia",
+          "chapterFrom": 9,
+          "chapterTo": 11
+        }
+      ],
+      "label": "Księga Wyjścia 9–11"
+    },
+    {
+      "day": 20,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "EXO",
+          "bookName": "Księga Wyjścia",
+          "chapterFrom": 12,
+          "chapterTo": 15
+        }
+      ],
+      "label": "Księga Wyjścia 12–15"
+    },
+    {
+      "day": 21,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EXO",
+          "bookName": "Księga Wyjścia",
+          "chapterFrom": 16,
+          "chapterTo": 18
+        }
+      ],
+      "label": "Księga Wyjścia 16–18"
+    },
+    {
+      "day": 22,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EXO",
+          "bookName": "Księga Wyjścia",
+          "chapterFrom": 19,
+          "chapterTo": 21
+        }
+      ],
+      "label": "Księga Wyjścia 19–21"
+    },
+    {
+      "day": 23,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EXO",
+          "bookName": "Księga Wyjścia",
+          "chapterFrom": 22,
+          "chapterTo": 24
+        }
+      ],
+      "label": "Księga Wyjścia 22–24"
+    },
+    {
+      "day": 24,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "EXO",
+          "bookName": "Księga Wyjścia",
+          "chapterFrom": 25,
+          "chapterTo": 28
+        }
+      ],
+      "label": "Księga Wyjścia 25–28"
+    },
+    {
+      "day": 25,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EXO",
+          "bookName": "Księga Wyjścia",
+          "chapterFrom": 29,
+          "chapterTo": 31
+        }
+      ],
+      "label": "Księga Wyjścia 29–31"
+    },
+    {
+      "day": 26,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EXO",
+          "bookName": "Księga Wyjścia",
+          "chapterFrom": 32,
+          "chapterTo": 34
+        }
+      ],
+      "label": "Księga Wyjścia 32–34"
+    },
+    {
+      "day": 27,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EXO",
+          "bookName": "Księga Wyjścia",
+          "chapterFrom": 35,
+          "chapterTo": 37
+        }
+      ],
+      "label": "Księga Wyjścia 35–37"
+    },
+    {
+      "day": 28,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "EXO",
+          "bookName": "Księga Wyjścia",
+          "chapterFrom": 38,
+          "chapterTo": 40
+        },
+        {
+          "bookId": "LEV",
+          "bookName": "Księga Kapłańska",
+          "chapterFrom": 1,
+          "chapterTo": 1
+        }
+      ],
+      "label": "Księga Wyjścia 38–40 · Księga Kapłańska 1"
+    },
+    {
+      "day": 29,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "LEV",
+          "bookName": "Księga Kapłańska",
+          "chapterFrom": 2,
+          "chapterTo": 4
+        }
+      ],
+      "label": "Księga Kapłańska 2–4"
+    },
+    {
+      "day": 30,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "LEV",
+          "bookName": "Księga Kapłańska",
+          "chapterFrom": 5,
+          "chapterTo": 7
+        }
+      ],
+      "label": "Księga Kapłańska 5–7"
+    },
+    {
+      "day": 31,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "LEV",
+          "bookName": "Księga Kapłańska",
+          "chapterFrom": 8,
+          "chapterTo": 10
+        }
+      ],
+      "label": "Księga Kapłańska 8–10"
+    },
+    {
+      "day": 32,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "LEV",
+          "bookName": "Księga Kapłańska",
+          "chapterFrom": 11,
+          "chapterTo": 14
+        }
+      ],
+      "label": "Księga Kapłańska 11–14"
+    },
+    {
+      "day": 33,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "LEV",
+          "bookName": "Księga Kapłańska",
+          "chapterFrom": 15,
+          "chapterTo": 17
+        }
+      ],
+      "label": "Księga Kapłańska 15–17"
+    },
+    {
+      "day": 34,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "LEV",
+          "bookName": "Księga Kapłańska",
+          "chapterFrom": 18,
+          "chapterTo": 20
+        }
+      ],
+      "label": "Księga Kapłańska 18–20"
+    },
+    {
+      "day": 35,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "LEV",
+          "bookName": "Księga Kapłańska",
+          "chapterFrom": 21,
+          "chapterTo": 24
+        }
+      ],
+      "label": "Księga Kapłańska 21–24"
+    },
+    {
+      "day": 36,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "LEV",
+          "bookName": "Księga Kapłańska",
+          "chapterFrom": 25,
+          "chapterTo": 27
+        }
+      ],
+      "label": "Księga Kapłańska 25–27"
+    },
+    {
+      "day": 37,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "NUM",
+          "bookName": "Księga Liczb",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "Księga Liczb 1–3"
+    },
+    {
+      "day": 38,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "NUM",
+          "bookName": "Księga Liczb",
+          "chapterFrom": 4,
+          "chapterTo": 6
+        }
+      ],
+      "label": "Księga Liczb 4–6"
+    },
+    {
+      "day": 39,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "NUM",
+          "bookName": "Księga Liczb",
+          "chapterFrom": 7,
+          "chapterTo": 10
+        }
+      ],
+      "label": "Księga Liczb 7–10"
+    },
+    {
+      "day": 40,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "NUM",
+          "bookName": "Księga Liczb",
+          "chapterFrom": 11,
+          "chapterTo": 13
+        }
+      ],
+      "label": "Księga Liczb 11–13"
+    },
+    {
+      "day": 41,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "NUM",
+          "bookName": "Księga Liczb",
+          "chapterFrom": 14,
+          "chapterTo": 16
+        }
+      ],
+      "label": "Księga Liczb 14–16"
+    },
+    {
+      "day": 42,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "NUM",
+          "bookName": "Księga Liczb",
+          "chapterFrom": 17,
+          "chapterTo": 19
+        }
+      ],
+      "label": "Księga Liczb 17–19"
+    },
+    {
+      "day": 43,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "NUM",
+          "bookName": "Księga Liczb",
+          "chapterFrom": 20,
+          "chapterTo": 23
+        }
+      ],
+      "label": "Księga Liczb 20–23"
+    },
+    {
+      "day": 44,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "NUM",
+          "bookName": "Księga Liczb",
+          "chapterFrom": 24,
+          "chapterTo": 26
+        }
+      ],
+      "label": "Księga Liczb 24–26"
+    },
+    {
+      "day": 45,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "NUM",
+          "bookName": "Księga Liczb",
+          "chapterFrom": 27,
+          "chapterTo": 29
+        }
+      ],
+      "label": "Księga Liczb 27–29"
+    },
+    {
+      "day": 46,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "NUM",
+          "bookName": "Księga Liczb",
+          "chapterFrom": 30,
+          "chapterTo": 32
+        }
+      ],
+      "label": "Księga Liczb 30–32"
+    },
+    {
+      "day": 47,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "NUM",
+          "bookName": "Księga Liczb",
+          "chapterFrom": 33,
+          "chapterTo": 36
+        }
+      ],
+      "label": "Księga Liczb 33–36"
+    },
+    {
+      "day": 48,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "DEU",
+          "bookName": "Księga Powtórzonego Prawa",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "Księga Powtórzonego Prawa 1–3"
+    },
+    {
+      "day": 49,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "DEU",
+          "bookName": "Księga Powtórzonego Prawa",
+          "chapterFrom": 4,
+          "chapterTo": 6
+        }
+      ],
+      "label": "Księga Powtórzonego Prawa 4–6"
+    },
+    {
+      "day": 50,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "DEU",
+          "bookName": "Księga Powtórzonego Prawa",
+          "chapterFrom": 7,
+          "chapterTo": 9
+        }
+      ],
+      "label": "Księga Powtórzonego Prawa 7–9"
+    },
+    {
+      "day": 51,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "DEU",
+          "bookName": "Księga Powtórzonego Prawa",
+          "chapterFrom": 10,
+          "chapterTo": 13
+        }
+      ],
+      "label": "Księga Powtórzonego Prawa 10–13"
+    },
+    {
+      "day": 52,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "DEU",
+          "bookName": "Księga Powtórzonego Prawa",
+          "chapterFrom": 14,
+          "chapterTo": 16
+        }
+      ],
+      "label": "Księga Powtórzonego Prawa 14–16"
+    },
+    {
+      "day": 53,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "DEU",
+          "bookName": "Księga Powtórzonego Prawa",
+          "chapterFrom": 17,
+          "chapterTo": 19
+        }
+      ],
+      "label": "Księga Powtórzonego Prawa 17–19"
+    },
+    {
+      "day": 54,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "DEU",
+          "bookName": "Księga Powtórzonego Prawa",
+          "chapterFrom": 20,
+          "chapterTo": 22
+        }
+      ],
+      "label": "Księga Powtórzonego Prawa 20–22"
+    },
+    {
+      "day": 55,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "DEU",
+          "bookName": "Księga Powtórzonego Prawa",
+          "chapterFrom": 23,
+          "chapterTo": 26
+        }
+      ],
+      "label": "Księga Powtórzonego Prawa 23–26"
+    },
+    {
+      "day": 56,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "DEU",
+          "bookName": "Księga Powtórzonego Prawa",
+          "chapterFrom": 27,
+          "chapterTo": 29
+        }
+      ],
+      "label": "Księga Powtórzonego Prawa 27–29"
+    },
+    {
+      "day": 57,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "DEU",
+          "bookName": "Księga Powtórzonego Prawa",
+          "chapterFrom": 30,
+          "chapterTo": 32
+        }
+      ],
+      "label": "Księga Powtórzonego Prawa 30–32"
+    },
+    {
+      "day": 58,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "DEU",
+          "bookName": "Księga Powtórzonego Prawa",
+          "chapterFrom": 33,
+          "chapterTo": 34
+        },
+        {
+          "bookId": "JOS",
+          "bookName": "Księga Jozuego",
+          "chapterFrom": 1,
+          "chapterTo": 1
+        }
+      ],
+      "label": "Księga Powtórzonego Prawa 33–34 · Księga Jozuego 1"
+    },
+    {
+      "day": 59,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "JOS",
+          "bookName": "Księga Jozuego",
+          "chapterFrom": 2,
+          "chapterTo": 5
+        }
+      ],
+      "label": "Księga Jozuego 2–5"
+    },
+    {
+      "day": 60,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JOS",
+          "bookName": "Księga Jozuego",
+          "chapterFrom": 6,
+          "chapterTo": 8
+        }
+      ],
+      "label": "Księga Jozuego 6–8"
+    },
+    {
+      "day": 61,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JOS",
+          "bookName": "Księga Jozuego",
+          "chapterFrom": 9,
+          "chapterTo": 11
+        }
+      ],
+      "label": "Księga Jozuego 9–11"
+    },
+    {
+      "day": 62,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JOS",
+          "bookName": "Księga Jozuego",
+          "chapterFrom": 12,
+          "chapterTo": 14
+        }
+      ],
+      "label": "Księga Jozuego 12–14"
+    },
+    {
+      "day": 63,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "JOS",
+          "bookName": "Księga Jozuego",
+          "chapterFrom": 15,
+          "chapterTo": 18
+        }
+      ],
+      "label": "Księga Jozuego 15–18"
+    },
+    {
+      "day": 64,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JOS",
+          "bookName": "Księga Jozuego",
+          "chapterFrom": 19,
+          "chapterTo": 21
+        }
+      ],
+      "label": "Księga Jozuego 19–21"
+    },
+    {
+      "day": 65,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JOS",
+          "bookName": "Księga Jozuego",
+          "chapterFrom": 22,
+          "chapterTo": 24
+        }
+      ],
+      "label": "Księga Jozuego 22–24"
+    },
+    {
+      "day": 66,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JDG",
+          "bookName": "Księga Sędziów",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "Księga Sędziów 1–3"
+    },
+    {
+      "day": 67,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "JDG",
+          "bookName": "Księga Sędziów",
+          "chapterFrom": 4,
+          "chapterTo": 7
+        }
+      ],
+      "label": "Księga Sędziów 4–7"
+    },
+    {
+      "day": 68,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JDG",
+          "bookName": "Księga Sędziów",
+          "chapterFrom": 8,
+          "chapterTo": 10
+        }
+      ],
+      "label": "Księga Sędziów 8–10"
+    },
+    {
+      "day": 69,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JDG",
+          "bookName": "Księga Sędziów",
+          "chapterFrom": 11,
+          "chapterTo": 13
+        }
+      ],
+      "label": "Księga Sędziów 11–13"
+    },
+    {
+      "day": 70,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "JDG",
+          "bookName": "Księga Sędziów",
+          "chapterFrom": 14,
+          "chapterTo": 17
+        }
+      ],
+      "label": "Księga Sędziów 14–17"
+    },
+    {
+      "day": 71,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JDG",
+          "bookName": "Księga Sędziów",
+          "chapterFrom": 18,
+          "chapterTo": 20
+        }
+      ],
+      "label": "Księga Sędziów 18–20"
+    },
+    {
+      "day": 72,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JDG",
+          "bookName": "Księga Sędziów",
+          "chapterFrom": 21,
+          "chapterTo": 21
+        },
+        {
+          "bookId": "RUT",
+          "bookName": "Księga Rut",
+          "chapterFrom": 1,
+          "chapterTo": 2
+        }
+      ],
+      "label": "Księga Sędziów 21 · Księga Rut 1–2"
+    },
+    {
+      "day": 73,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "RUT",
+          "bookName": "Księga Rut",
+          "chapterFrom": 3,
+          "chapterTo": 4
+        },
+        {
+          "bookId": "1SA",
+          "bookName": "1 Księga Samuela",
+          "chapterFrom": 1,
+          "chapterTo": 1
+        }
+      ],
+      "label": "Księga Rut 3–4 · 1 Księga Samuela 1"
+    },
+    {
+      "day": 74,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "1SA",
+          "bookName": "1 Księga Samuela",
+          "chapterFrom": 2,
+          "chapterTo": 5
+        }
+      ],
+      "label": "1 Księga Samuela 2–5"
+    },
+    {
+      "day": 75,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1SA",
+          "bookName": "1 Księga Samuela",
+          "chapterFrom": 6,
+          "chapterTo": 8
+        }
+      ],
+      "label": "1 Księga Samuela 6–8"
+    },
+    {
+      "day": 76,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1SA",
+          "bookName": "1 Księga Samuela",
+          "chapterFrom": 9,
+          "chapterTo": 11
+        }
+      ],
+      "label": "1 Księga Samuela 9–11"
+    },
+    {
+      "day": 77,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1SA",
+          "bookName": "1 Księga Samuela",
+          "chapterFrom": 12,
+          "chapterTo": 14
+        }
+      ],
+      "label": "1 Księga Samuela 12–14"
+    },
+    {
+      "day": 78,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "1SA",
+          "bookName": "1 Księga Samuela",
+          "chapterFrom": 15,
+          "chapterTo": 18
+        }
+      ],
+      "label": "1 Księga Samuela 15–18"
+    },
+    {
+      "day": 79,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1SA",
+          "bookName": "1 Księga Samuela",
+          "chapterFrom": 19,
+          "chapterTo": 21
+        }
+      ],
+      "label": "1 Księga Samuela 19–21"
+    },
+    {
+      "day": 80,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1SA",
+          "bookName": "1 Księga Samuela",
+          "chapterFrom": 22,
+          "chapterTo": 24
+        }
+      ],
+      "label": "1 Księga Samuela 22–24"
+    },
+    {
+      "day": 81,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1SA",
+          "bookName": "1 Księga Samuela",
+          "chapterFrom": 25,
+          "chapterTo": 27
+        }
+      ],
+      "label": "1 Księga Samuela 25–27"
+    },
+    {
+      "day": 82,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "1SA",
+          "bookName": "1 Księga Samuela",
+          "chapterFrom": 28,
+          "chapterTo": 31
+        }
+      ],
+      "label": "1 Księga Samuela 28–31"
+    },
+    {
+      "day": 83,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2SA",
+          "bookName": "2 Księga Samuela",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "2 Księga Samuela 1–3"
+    },
+    {
+      "day": 84,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2SA",
+          "bookName": "2 Księga Samuela",
+          "chapterFrom": 4,
+          "chapterTo": 6
+        }
+      ],
+      "label": "2 Księga Samuela 4–6"
+    },
+    {
+      "day": 85,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2SA",
+          "bookName": "2 Księga Samuela",
+          "chapterFrom": 7,
+          "chapterTo": 9
+        }
+      ],
+      "label": "2 Księga Samuela 7–9"
+    },
+    {
+      "day": 86,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "2SA",
+          "bookName": "2 Księga Samuela",
+          "chapterFrom": 10,
+          "chapterTo": 13
+        }
+      ],
+      "label": "2 Księga Samuela 10–13"
+    },
+    {
+      "day": 87,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2SA",
+          "bookName": "2 Księga Samuela",
+          "chapterFrom": 14,
+          "chapterTo": 16
+        }
+      ],
+      "label": "2 Księga Samuela 14–16"
+    },
+    {
+      "day": 88,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2SA",
+          "bookName": "2 Księga Samuela",
+          "chapterFrom": 17,
+          "chapterTo": 19
+        }
+      ],
+      "label": "2 Księga Samuela 17–19"
+    },
+    {
+      "day": 89,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2SA",
+          "bookName": "2 Księga Samuela",
+          "chapterFrom": 20,
+          "chapterTo": 22
+        }
+      ],
+      "label": "2 Księga Samuela 20–22"
+    },
+    {
+      "day": 90,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "2SA",
+          "bookName": "2 Księga Samuela",
+          "chapterFrom": 23,
+          "chapterTo": 24
+        },
+        {
+          "bookId": "1KI",
+          "bookName": "1 Księga Królewska",
+          "chapterFrom": 1,
+          "chapterTo": 2
+        }
+      ],
+      "label": "2 Księga Samuela 23–24 · 1 Księga Królewska 1–2"
+    },
+    {
+      "day": 91,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1KI",
+          "bookName": "1 Księga Królewska",
+          "chapterFrom": 3,
+          "chapterTo": 5
+        }
+      ],
+      "label": "1 Księga Królewska 3–5"
+    },
+    {
+      "day": 92,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1KI",
+          "bookName": "1 Księga Królewska",
+          "chapterFrom": 6,
+          "chapterTo": 8
+        }
+      ],
+      "label": "1 Księga Królewska 6–8"
+    },
+    {
+      "day": 93,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1KI",
+          "bookName": "1 Księga Królewska",
+          "chapterFrom": 9,
+          "chapterTo": 11
+        }
+      ],
+      "label": "1 Księga Królewska 9–11"
+    },
+    {
+      "day": 94,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "1KI",
+          "bookName": "1 Księga Królewska",
+          "chapterFrom": 12,
+          "chapterTo": 15
+        }
+      ],
+      "label": "1 Księga Królewska 12–15"
+    },
+    {
+      "day": 95,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1KI",
+          "bookName": "1 Księga Królewska",
+          "chapterFrom": 16,
+          "chapterTo": 18
+        }
+      ],
+      "label": "1 Księga Królewska 16–18"
+    },
+    {
+      "day": 96,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1KI",
+          "bookName": "1 Księga Królewska",
+          "chapterFrom": 19,
+          "chapterTo": 21
+        }
+      ],
+      "label": "1 Księga Królewska 19–21"
+    },
+    {
+      "day": 97,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1KI",
+          "bookName": "1 Księga Królewska",
+          "chapterFrom": 22,
+          "chapterTo": 22
+        },
+        {
+          "bookId": "2KI",
+          "bookName": "2 Księga Królewska",
+          "chapterFrom": 1,
+          "chapterTo": 2
+        }
+      ],
+      "label": "1 Księga Królewska 22 · 2 Księga Królewska 1–2"
+    },
+    {
+      "day": 98,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "2KI",
+          "bookName": "2 Księga Królewska",
+          "chapterFrom": 3,
+          "chapterTo": 6
+        }
+      ],
+      "label": "2 Księga Królewska 3–6"
+    },
+    {
+      "day": 99,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2KI",
+          "bookName": "2 Księga Królewska",
+          "chapterFrom": 7,
+          "chapterTo": 9
+        }
+      ],
+      "label": "2 Księga Królewska 7–9"
+    },
+    {
+      "day": 100,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2KI",
+          "bookName": "2 Księga Królewska",
+          "chapterFrom": 10,
+          "chapterTo": 12
+        }
+      ],
+      "label": "2 Księga Królewska 10–12"
+    },
+    {
+      "day": 101,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "2KI",
+          "bookName": "2 Księga Królewska",
+          "chapterFrom": 13,
+          "chapterTo": 16
+        }
+      ],
+      "label": "2 Księga Królewska 13–16"
+    },
+    {
+      "day": 102,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2KI",
+          "bookName": "2 Księga Królewska",
+          "chapterFrom": 17,
+          "chapterTo": 19
+        }
+      ],
+      "label": "2 Księga Królewska 17–19"
+    },
+    {
+      "day": 103,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2KI",
+          "bookName": "2 Księga Królewska",
+          "chapterFrom": 20,
+          "chapterTo": 22
+        }
+      ],
+      "label": "2 Księga Królewska 20–22"
+    },
+    {
+      "day": 104,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2KI",
+          "bookName": "2 Księga Królewska",
+          "chapterFrom": 23,
+          "chapterTo": 25
+        }
+      ],
+      "label": "2 Księga Królewska 23–25"
+    },
+    {
+      "day": 105,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "1CH",
+          "bookName": "1 Księga Kronik",
+          "chapterFrom": 1,
+          "chapterTo": 4
+        }
+      ],
+      "label": "1 Księga Kronik 1–4"
+    },
+    {
+      "day": 106,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1CH",
+          "bookName": "1 Księga Kronik",
+          "chapterFrom": 5,
+          "chapterTo": 7
+        }
+      ],
+      "label": "1 Księga Kronik 5–7"
+    },
+    {
+      "day": 107,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1CH",
+          "bookName": "1 Księga Kronik",
+          "chapterFrom": 8,
+          "chapterTo": 10
+        }
+      ],
+      "label": "1 Księga Kronik 8–10"
+    },
+    {
+      "day": 108,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1CH",
+          "bookName": "1 Księga Kronik",
+          "chapterFrom": 11,
+          "chapterTo": 13
+        }
+      ],
+      "label": "1 Księga Kronik 11–13"
+    },
+    {
+      "day": 109,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "1CH",
+          "bookName": "1 Księga Kronik",
+          "chapterFrom": 14,
+          "chapterTo": 17
+        }
+      ],
+      "label": "1 Księga Kronik 14–17"
+    },
+    {
+      "day": 110,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1CH",
+          "bookName": "1 Księga Kronik",
+          "chapterFrom": 18,
+          "chapterTo": 20
+        }
+      ],
+      "label": "1 Księga Kronik 18–20"
+    },
+    {
+      "day": 111,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1CH",
+          "bookName": "1 Księga Kronik",
+          "chapterFrom": 21,
+          "chapterTo": 23
+        }
+      ],
+      "label": "1 Księga Kronik 21–23"
+    },
+    {
+      "day": 112,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1CH",
+          "bookName": "1 Księga Kronik",
+          "chapterFrom": 24,
+          "chapterTo": 26
+        }
+      ],
+      "label": "1 Księga Kronik 24–26"
+    },
+    {
+      "day": 113,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "1CH",
+          "bookName": "1 Księga Kronik",
+          "chapterFrom": 27,
+          "chapterTo": 29
+        },
+        {
+          "bookId": "2CH",
+          "bookName": "2 Księga Kronik",
+          "chapterFrom": 1,
+          "chapterTo": 1
+        }
+      ],
+      "label": "1 Księga Kronik 27–29 · 2 Księga Kronik 1"
+    },
+    {
+      "day": 114,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2CH",
+          "bookName": "2 Księga Kronik",
+          "chapterFrom": 2,
+          "chapterTo": 4
+        }
+      ],
+      "label": "2 Księga Kronik 2–4"
+    },
+    {
+      "day": 115,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2CH",
+          "bookName": "2 Księga Kronik",
+          "chapterFrom": 5,
+          "chapterTo": 7
+        }
+      ],
+      "label": "2 Księga Kronik 5–7"
+    },
+    {
+      "day": 116,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2CH",
+          "bookName": "2 Księga Kronik",
+          "chapterFrom": 8,
+          "chapterTo": 10
+        }
+      ],
+      "label": "2 Księga Kronik 8–10"
+    },
+    {
+      "day": 117,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "2CH",
+          "bookName": "2 Księga Kronik",
+          "chapterFrom": 11,
+          "chapterTo": 14
+        }
+      ],
+      "label": "2 Księga Kronik 11–14"
+    },
+    {
+      "day": 118,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2CH",
+          "bookName": "2 Księga Kronik",
+          "chapterFrom": 15,
+          "chapterTo": 17
+        }
+      ],
+      "label": "2 Księga Kronik 15–17"
+    },
+    {
+      "day": 119,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2CH",
+          "bookName": "2 Księga Kronik",
+          "chapterFrom": 18,
+          "chapterTo": 20
+        }
+      ],
+      "label": "2 Księga Kronik 18–20"
+    },
+    {
+      "day": 120,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2CH",
+          "bookName": "2 Księga Kronik",
+          "chapterFrom": 21,
+          "chapterTo": 23
+        }
+      ],
+      "label": "2 Księga Kronik 21–23"
+    },
+    {
+      "day": 121,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "2CH",
+          "bookName": "2 Księga Kronik",
+          "chapterFrom": 24,
+          "chapterTo": 27
+        }
+      ],
+      "label": "2 Księga Kronik 24–27"
+    },
+    {
+      "day": 122,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2CH",
+          "bookName": "2 Księga Kronik",
+          "chapterFrom": 28,
+          "chapterTo": 30
+        }
+      ],
+      "label": "2 Księga Kronik 28–30"
+    },
+    {
+      "day": 123,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2CH",
+          "bookName": "2 Księga Kronik",
+          "chapterFrom": 31,
+          "chapterTo": 33
+        }
+      ],
+      "label": "2 Księga Kronik 31–33"
+    },
+    {
+      "day": 124,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2CH",
+          "bookName": "2 Księga Kronik",
+          "chapterFrom": 34,
+          "chapterTo": 36
+        }
+      ],
+      "label": "2 Księga Kronik 34–36"
+    },
+    {
+      "day": 125,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "EZR",
+          "bookName": "Księga Ezdrasza",
+          "chapterFrom": 1,
+          "chapterTo": 4
+        }
+      ],
+      "label": "Księga Ezdrasza 1–4"
+    },
+    {
+      "day": 126,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EZR",
+          "bookName": "Księga Ezdrasza",
+          "chapterFrom": 5,
+          "chapterTo": 7
+        }
+      ],
+      "label": "Księga Ezdrasza 5–7"
+    },
+    {
+      "day": 127,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EZR",
+          "bookName": "Księga Ezdrasza",
+          "chapterFrom": 8,
+          "chapterTo": 10
+        }
+      ],
+      "label": "Księga Ezdrasza 8–10"
+    },
+    {
+      "day": 128,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "NEH",
+          "bookName": "Księga Nehemiasza",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "Księga Nehemiasza 1–3"
+    },
+    {
+      "day": 129,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "NEH",
+          "bookName": "Księga Nehemiasza",
+          "chapterFrom": 4,
+          "chapterTo": 7
+        }
+      ],
+      "label": "Księga Nehemiasza 4–7"
+    },
+    {
+      "day": 130,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "NEH",
+          "bookName": "Księga Nehemiasza",
+          "chapterFrom": 8,
+          "chapterTo": 10
+        }
+      ],
+      "label": "Księga Nehemiasza 8–10"
+    },
+    {
+      "day": 131,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "NEH",
+          "bookName": "Księga Nehemiasza",
+          "chapterFrom": 11,
+          "chapterTo": 13
+        }
+      ],
+      "label": "Księga Nehemiasza 11–13"
+    },
+    {
+      "day": 132,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EST",
+          "bookName": "Księga Estery",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "Księga Estery 1–3"
+    },
+    {
+      "day": 133,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "EST",
+          "bookName": "Księga Estery",
+          "chapterFrom": 4,
+          "chapterTo": 7
+        }
+      ],
+      "label": "Księga Estery 4–7"
+    },
+    {
+      "day": 134,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EST",
+          "bookName": "Księga Estery",
+          "chapterFrom": 8,
+          "chapterTo": 10
+        }
+      ],
+      "label": "Księga Estery 8–10"
+    },
+    {
+      "day": 135,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JOB",
+          "bookName": "Księga Hioba",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "Księga Hioba 1–3"
+    },
+    {
+      "day": 136,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "JOB",
+          "bookName": "Księga Hioba",
+          "chapterFrom": 4,
+          "chapterTo": 7
+        }
+      ],
+      "label": "Księga Hioba 4–7"
+    },
+    {
+      "day": 137,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JOB",
+          "bookName": "Księga Hioba",
+          "chapterFrom": 8,
+          "chapterTo": 10
+        }
+      ],
+      "label": "Księga Hioba 8–10"
+    },
+    {
+      "day": 138,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JOB",
+          "bookName": "Księga Hioba",
+          "chapterFrom": 11,
+          "chapterTo": 13
+        }
+      ],
+      "label": "Księga Hioba 11–13"
+    },
+    {
+      "day": 139,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JOB",
+          "bookName": "Księga Hioba",
+          "chapterFrom": 14,
+          "chapterTo": 16
+        }
+      ],
+      "label": "Księga Hioba 14–16"
+    },
+    {
+      "day": 140,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "JOB",
+          "bookName": "Księga Hioba",
+          "chapterFrom": 17,
+          "chapterTo": 20
+        }
+      ],
+      "label": "Księga Hioba 17–20"
+    },
+    {
+      "day": 141,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JOB",
+          "bookName": "Księga Hioba",
+          "chapterFrom": 21,
+          "chapterTo": 23
+        }
+      ],
+      "label": "Księga Hioba 21–23"
+    },
+    {
+      "day": 142,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JOB",
+          "bookName": "Księga Hioba",
+          "chapterFrom": 24,
+          "chapterTo": 26
+        }
+      ],
+      "label": "Księga Hioba 24–26"
+    },
+    {
+      "day": 143,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JOB",
+          "bookName": "Księga Hioba",
+          "chapterFrom": 27,
+          "chapterTo": 29
+        }
+      ],
+      "label": "Księga Hioba 27–29"
+    },
+    {
+      "day": 144,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "JOB",
+          "bookName": "Księga Hioba",
+          "chapterFrom": 30,
+          "chapterTo": 33
+        }
+      ],
+      "label": "Księga Hioba 30–33"
+    },
+    {
+      "day": 145,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JOB",
+          "bookName": "Księga Hioba",
+          "chapterFrom": 34,
+          "chapterTo": 36
+        }
+      ],
+      "label": "Księga Hioba 34–36"
+    },
+    {
+      "day": 146,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JOB",
+          "bookName": "Księga Hioba",
+          "chapterFrom": 37,
+          "chapterTo": 39
+        }
+      ],
+      "label": "Księga Hioba 37–39"
+    },
+    {
+      "day": 147,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JOB",
+          "bookName": "Księga Hioba",
+          "chapterFrom": 40,
+          "chapterTo": 42
+        }
+      ],
+      "label": "Księga Hioba 40–42"
+    },
+    {
+      "day": 148,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 1,
+          "chapterTo": 4
+        }
+      ],
+      "label": "Księga Psalmów 1–4"
+    },
+    {
+      "day": 149,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 5,
+          "chapterTo": 7
+        }
+      ],
+      "label": "Księga Psalmów 5–7"
+    },
+    {
+      "day": 150,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 8,
+          "chapterTo": 10
+        }
+      ],
+      "label": "Księga Psalmów 8–10"
+    },
+    {
+      "day": 151,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 11,
+          "chapterTo": 13
+        }
+      ],
+      "label": "Księga Psalmów 11–13"
+    },
+    {
+      "day": 152,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 14,
+          "chapterTo": 17
+        }
+      ],
+      "label": "Księga Psalmów 14–17"
+    },
+    {
+      "day": 153,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 18,
+          "chapterTo": 20
+        }
+      ],
+      "label": "Księga Psalmów 18–20"
+    },
+    {
+      "day": 154,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 21,
+          "chapterTo": 23
+        }
+      ],
+      "label": "Księga Psalmów 21–23"
+    },
+    {
+      "day": 155,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 24,
+          "chapterTo": 26
+        }
+      ],
+      "label": "Księga Psalmów 24–26"
+    },
+    {
+      "day": 156,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 27,
+          "chapterTo": 30
+        }
+      ],
+      "label": "Księga Psalmów 27–30"
+    },
+    {
+      "day": 157,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 31,
+          "chapterTo": 33
+        }
+      ],
+      "label": "Księga Psalmów 31–33"
+    },
+    {
+      "day": 158,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 34,
+          "chapterTo": 36
+        }
+      ],
+      "label": "Księga Psalmów 34–36"
+    },
+    {
+      "day": 159,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 37,
+          "chapterTo": 39
+        }
+      ],
+      "label": "Księga Psalmów 37–39"
+    },
+    {
+      "day": 160,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 40,
+          "chapterTo": 43
+        }
+      ],
+      "label": "Księga Psalmów 40–43"
+    },
+    {
+      "day": 161,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 44,
+          "chapterTo": 46
+        }
+      ],
+      "label": "Księga Psalmów 44–46"
+    },
+    {
+      "day": 162,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 47,
+          "chapterTo": 49
+        }
+      ],
+      "label": "Księga Psalmów 47–49"
+    },
+    {
+      "day": 163,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 50,
+          "chapterTo": 52
+        }
+      ],
+      "label": "Księga Psalmów 50–52"
+    },
+    {
+      "day": 164,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 53,
+          "chapterTo": 56
+        }
+      ],
+      "label": "Księga Psalmów 53–56"
+    },
+    {
+      "day": 165,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 57,
+          "chapterTo": 59
+        }
+      ],
+      "label": "Księga Psalmów 57–59"
+    },
+    {
+      "day": 166,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 60,
+          "chapterTo": 62
+        }
+      ],
+      "label": "Księga Psalmów 60–62"
+    },
+    {
+      "day": 167,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 63,
+          "chapterTo": 66
+        }
+      ],
+      "label": "Księga Psalmów 63–66"
+    },
+    {
+      "day": 168,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 67,
+          "chapterTo": 69
+        }
+      ],
+      "label": "Księga Psalmów 67–69"
+    },
+    {
+      "day": 169,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 70,
+          "chapterTo": 72
+        }
+      ],
+      "label": "Księga Psalmów 70–72"
+    },
+    {
+      "day": 170,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 73,
+          "chapterTo": 75
+        }
+      ],
+      "label": "Księga Psalmów 73–75"
+    },
+    {
+      "day": 171,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 76,
+          "chapterTo": 79
+        }
+      ],
+      "label": "Księga Psalmów 76–79"
+    },
+    {
+      "day": 172,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 80,
+          "chapterTo": 82
+        }
+      ],
+      "label": "Księga Psalmów 80–82"
+    },
+    {
+      "day": 173,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 83,
+          "chapterTo": 85
+        }
+      ],
+      "label": "Księga Psalmów 83–85"
+    },
+    {
+      "day": 174,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 86,
+          "chapterTo": 88
+        }
+      ],
+      "label": "Księga Psalmów 86–88"
+    },
+    {
+      "day": 175,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 89,
+          "chapterTo": 92
+        }
+      ],
+      "label": "Księga Psalmów 89–92"
+    },
+    {
+      "day": 176,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 93,
+          "chapterTo": 95
+        }
+      ],
+      "label": "Księga Psalmów 93–95"
+    },
+    {
+      "day": 177,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 96,
+          "chapterTo": 98
+        }
+      ],
+      "label": "Księga Psalmów 96–98"
+    },
+    {
+      "day": 178,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 99,
+          "chapterTo": 101
+        }
+      ],
+      "label": "Księga Psalmów 99–101"
+    },
+    {
+      "day": 179,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 102,
+          "chapterTo": 105
+        }
+      ],
+      "label": "Księga Psalmów 102–105"
+    },
+    {
+      "day": 180,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 106,
+          "chapterTo": 108
+        }
+      ],
+      "label": "Księga Psalmów 106–108"
+    },
+    {
+      "day": 181,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 109,
+          "chapterTo": 111
+        }
+      ],
+      "label": "Księga Psalmów 109–111"
+    },
+    {
+      "day": 182,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 112,
+          "chapterTo": 114
+        }
+      ],
+      "label": "Księga Psalmów 112–114"
+    },
+    {
+      "day": 183,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 115,
+          "chapterTo": 118
+        }
+      ],
+      "label": "Księga Psalmów 115–118"
+    },
+    {
+      "day": 184,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 119,
+          "chapterTo": 121
+        }
+      ],
+      "label": "Księga Psalmów 119–121"
+    },
+    {
+      "day": 185,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 122,
+          "chapterTo": 124
+        }
+      ],
+      "label": "Księga Psalmów 122–124"
+    },
+    {
+      "day": 186,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 125,
+          "chapterTo": 127
+        }
+      ],
+      "label": "Księga Psalmów 125–127"
+    },
+    {
+      "day": 187,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 128,
+          "chapterTo": 131
+        }
+      ],
+      "label": "Księga Psalmów 128–131"
+    },
+    {
+      "day": 188,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 132,
+          "chapterTo": 134
+        }
+      ],
+      "label": "Księga Psalmów 132–134"
+    },
+    {
+      "day": 189,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 135,
+          "chapterTo": 137
+        }
+      ],
+      "label": "Księga Psalmów 135–137"
+    },
+    {
+      "day": 190,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 138,
+          "chapterTo": 140
+        }
+      ],
+      "label": "Księga Psalmów 138–140"
+    },
+    {
+      "day": 191,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 141,
+          "chapterTo": 144
+        }
+      ],
+      "label": "Księga Psalmów 141–144"
+    },
+    {
+      "day": 192,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 145,
+          "chapterTo": 147
+        }
+      ],
+      "label": "Księga Psalmów 145–147"
+    },
+    {
+      "day": 193,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PSA",
+          "bookName": "Księga Psalmów",
+          "chapterFrom": 148,
+          "chapterTo": 150
+        }
+      ],
+      "label": "Księga Psalmów 148–150"
+    },
+    {
+      "day": 194,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PRO",
+          "bookName": "Przypowieści Salomona",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "Przypowieści Salomona 1–3"
+    },
+    {
+      "day": 195,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "PRO",
+          "bookName": "Przypowieści Salomona",
+          "chapterFrom": 4,
+          "chapterTo": 7
+        }
+      ],
+      "label": "Przypowieści Salomona 4–7"
+    },
+    {
+      "day": 196,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PRO",
+          "bookName": "Przypowieści Salomona",
+          "chapterFrom": 8,
+          "chapterTo": 10
+        }
+      ],
+      "label": "Przypowieści Salomona 8–10"
+    },
+    {
+      "day": 197,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PRO",
+          "bookName": "Przypowieści Salomona",
+          "chapterFrom": 11,
+          "chapterTo": 13
+        }
+      ],
+      "label": "Przypowieści Salomona 11–13"
+    },
+    {
+      "day": 198,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PRO",
+          "bookName": "Przypowieści Salomona",
+          "chapterFrom": 14,
+          "chapterTo": 16
+        }
+      ],
+      "label": "Przypowieści Salomona 14–16"
+    },
+    {
+      "day": 199,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "PRO",
+          "bookName": "Przypowieści Salomona",
+          "chapterFrom": 17,
+          "chapterTo": 20
+        }
+      ],
+      "label": "Przypowieści Salomona 17–20"
+    },
+    {
+      "day": 200,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PRO",
+          "bookName": "Przypowieści Salomona",
+          "chapterFrom": 21,
+          "chapterTo": 23
+        }
+      ],
+      "label": "Przypowieści Salomona 21–23"
+    },
+    {
+      "day": 201,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PRO",
+          "bookName": "Przypowieści Salomona",
+          "chapterFrom": 24,
+          "chapterTo": 26
+        }
+      ],
+      "label": "Przypowieści Salomona 24–26"
+    },
+    {
+      "day": 202,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "PRO",
+          "bookName": "Przypowieści Salomona",
+          "chapterFrom": 27,
+          "chapterTo": 30
+        }
+      ],
+      "label": "Przypowieści Salomona 27–30"
+    },
+    {
+      "day": 203,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PRO",
+          "bookName": "Przypowieści Salomona",
+          "chapterFrom": 31,
+          "chapterTo": 31
+        },
+        {
+          "bookId": "ECC",
+          "bookName": "Księga Kaznodziei",
+          "chapterFrom": 1,
+          "chapterTo": 2
+        }
+      ],
+      "label": "Przypowieści Salomona 31 · Księga Kaznodziei 1–2"
+    },
+    {
+      "day": 204,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ECC",
+          "bookName": "Księga Kaznodziei",
+          "chapterFrom": 3,
+          "chapterTo": 5
+        }
+      ],
+      "label": "Księga Kaznodziei 3–5"
+    },
+    {
+      "day": 205,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ECC",
+          "bookName": "Księga Kaznodziei",
+          "chapterFrom": 6,
+          "chapterTo": 8
+        }
+      ],
+      "label": "Księga Kaznodziei 6–8"
+    },
+    {
+      "day": 206,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "ECC",
+          "bookName": "Księga Kaznodziei",
+          "chapterFrom": 9,
+          "chapterTo": 12
+        }
+      ],
+      "label": "Księga Kaznodziei 9–12"
+    },
+    {
+      "day": 207,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "SNG",
+          "bookName": "Pieśń nad Pieśniami",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "Pieśń nad Pieśniami 1–3"
+    },
+    {
+      "day": 208,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "SNG",
+          "bookName": "Pieśń nad Pieśniami",
+          "chapterFrom": 4,
+          "chapterTo": 6
+        }
+      ],
+      "label": "Pieśń nad Pieśniami 4–6"
+    },
+    {
+      "day": 209,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "SNG",
+          "bookName": "Pieśń nad Pieśniami",
+          "chapterFrom": 7,
+          "chapterTo": 8
+        },
+        {
+          "bookId": "ISA",
+          "bookName": "Księga Izajasza",
+          "chapterFrom": 1,
+          "chapterTo": 1
+        }
+      ],
+      "label": "Pieśń nad Pieśniami 7–8 · Księga Izajasza 1"
+    },
+    {
+      "day": 210,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "ISA",
+          "bookName": "Księga Izajasza",
+          "chapterFrom": 2,
+          "chapterTo": 5
+        }
+      ],
+      "label": "Księga Izajasza 2–5"
+    },
+    {
+      "day": 211,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ISA",
+          "bookName": "Księga Izajasza",
+          "chapterFrom": 6,
+          "chapterTo": 8
+        }
+      ],
+      "label": "Księga Izajasza 6–8"
+    },
+    {
+      "day": 212,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ISA",
+          "bookName": "Księga Izajasza",
+          "chapterFrom": 9,
+          "chapterTo": 11
+        }
+      ],
+      "label": "Księga Izajasza 9–11"
+    },
+    {
+      "day": 213,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ISA",
+          "bookName": "Księga Izajasza",
+          "chapterFrom": 12,
+          "chapterTo": 14
+        }
+      ],
+      "label": "Księga Izajasza 12–14"
+    },
+    {
+      "day": 214,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "ISA",
+          "bookName": "Księga Izajasza",
+          "chapterFrom": 15,
+          "chapterTo": 18
+        }
+      ],
+      "label": "Księga Izajasza 15–18"
+    },
+    {
+      "day": 215,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ISA",
+          "bookName": "Księga Izajasza",
+          "chapterFrom": 19,
+          "chapterTo": 21
+        }
+      ],
+      "label": "Księga Izajasza 19–21"
+    },
+    {
+      "day": 216,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ISA",
+          "bookName": "Księga Izajasza",
+          "chapterFrom": 22,
+          "chapterTo": 24
+        }
+      ],
+      "label": "Księga Izajasza 22–24"
+    },
+    {
+      "day": 217,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ISA",
+          "bookName": "Księga Izajasza",
+          "chapterFrom": 25,
+          "chapterTo": 27
+        }
+      ],
+      "label": "Księga Izajasza 25–27"
+    },
+    {
+      "day": 218,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "ISA",
+          "bookName": "Księga Izajasza",
+          "chapterFrom": 28,
+          "chapterTo": 31
+        }
+      ],
+      "label": "Księga Izajasza 28–31"
+    },
+    {
+      "day": 219,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ISA",
+          "bookName": "Księga Izajasza",
+          "chapterFrom": 32,
+          "chapterTo": 34
+        }
+      ],
+      "label": "Księga Izajasza 32–34"
+    },
+    {
+      "day": 220,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ISA",
+          "bookName": "Księga Izajasza",
+          "chapterFrom": 35,
+          "chapterTo": 37
+        }
+      ],
+      "label": "Księga Izajasza 35–37"
+    },
+    {
+      "day": 221,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ISA",
+          "bookName": "Księga Izajasza",
+          "chapterFrom": 38,
+          "chapterTo": 40
+        }
+      ],
+      "label": "Księga Izajasza 38–40"
+    },
+    {
+      "day": 222,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "ISA",
+          "bookName": "Księga Izajasza",
+          "chapterFrom": 41,
+          "chapterTo": 44
+        }
+      ],
+      "label": "Księga Izajasza 41–44"
+    },
+    {
+      "day": 223,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ISA",
+          "bookName": "Księga Izajasza",
+          "chapterFrom": 45,
+          "chapterTo": 47
+        }
+      ],
+      "label": "Księga Izajasza 45–47"
+    },
+    {
+      "day": 224,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ISA",
+          "bookName": "Księga Izajasza",
+          "chapterFrom": 48,
+          "chapterTo": 50
+        }
+      ],
+      "label": "Księga Izajasza 48–50"
+    },
+    {
+      "day": 225,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ISA",
+          "bookName": "Księga Izajasza",
+          "chapterFrom": 51,
+          "chapterTo": 53
+        }
+      ],
+      "label": "Księga Izajasza 51–53"
+    },
+    {
+      "day": 226,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "ISA",
+          "bookName": "Księga Izajasza",
+          "chapterFrom": 54,
+          "chapterTo": 57
+        }
+      ],
+      "label": "Księga Izajasza 54–57"
+    },
+    {
+      "day": 227,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ISA",
+          "bookName": "Księga Izajasza",
+          "chapterFrom": 58,
+          "chapterTo": 60
+        }
+      ],
+      "label": "Księga Izajasza 58–60"
+    },
+    {
+      "day": 228,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ISA",
+          "bookName": "Księga Izajasza",
+          "chapterFrom": 61,
+          "chapterTo": 63
+        }
+      ],
+      "label": "Księga Izajasza 61–63"
+    },
+    {
+      "day": 229,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ISA",
+          "bookName": "Księga Izajasza",
+          "chapterFrom": 64,
+          "chapterTo": 66
+        }
+      ],
+      "label": "Księga Izajasza 64–66"
+    },
+    {
+      "day": 230,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "JER",
+          "bookName": "Księga Jeremiasza",
+          "chapterFrom": 1,
+          "chapterTo": 4
+        }
+      ],
+      "label": "Księga Jeremiasza 1–4"
+    },
+    {
+      "day": 231,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JER",
+          "bookName": "Księga Jeremiasza",
+          "chapterFrom": 5,
+          "chapterTo": 7
+        }
+      ],
+      "label": "Księga Jeremiasza 5–7"
+    },
+    {
+      "day": 232,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JER",
+          "bookName": "Księga Jeremiasza",
+          "chapterFrom": 8,
+          "chapterTo": 10
+        }
+      ],
+      "label": "Księga Jeremiasza 8–10"
+    },
+    {
+      "day": 233,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "JER",
+          "bookName": "Księga Jeremiasza",
+          "chapterFrom": 11,
+          "chapterTo": 14
+        }
+      ],
+      "label": "Księga Jeremiasza 11–14"
+    },
+    {
+      "day": 234,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JER",
+          "bookName": "Księga Jeremiasza",
+          "chapterFrom": 15,
+          "chapterTo": 17
+        }
+      ],
+      "label": "Księga Jeremiasza 15–17"
+    },
+    {
+      "day": 235,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JER",
+          "bookName": "Księga Jeremiasza",
+          "chapterFrom": 18,
+          "chapterTo": 20
+        }
+      ],
+      "label": "Księga Jeremiasza 18–20"
+    },
+    {
+      "day": 236,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JER",
+          "bookName": "Księga Jeremiasza",
+          "chapterFrom": 21,
+          "chapterTo": 23
+        }
+      ],
+      "label": "Księga Jeremiasza 21–23"
+    },
+    {
+      "day": 237,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "JER",
+          "bookName": "Księga Jeremiasza",
+          "chapterFrom": 24,
+          "chapterTo": 27
+        }
+      ],
+      "label": "Księga Jeremiasza 24–27"
+    },
+    {
+      "day": 238,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JER",
+          "bookName": "Księga Jeremiasza",
+          "chapterFrom": 28,
+          "chapterTo": 30
+        }
+      ],
+      "label": "Księga Jeremiasza 28–30"
+    },
+    {
+      "day": 239,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JER",
+          "bookName": "Księga Jeremiasza",
+          "chapterFrom": 31,
+          "chapterTo": 33
+        }
+      ],
+      "label": "Księga Jeremiasza 31–33"
+    },
+    {
+      "day": 240,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JER",
+          "bookName": "Księga Jeremiasza",
+          "chapterFrom": 34,
+          "chapterTo": 36
+        }
+      ],
+      "label": "Księga Jeremiasza 34–36"
+    },
+    {
+      "day": 241,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "JER",
+          "bookName": "Księga Jeremiasza",
+          "chapterFrom": 37,
+          "chapterTo": 40
+        }
+      ],
+      "label": "Księga Jeremiasza 37–40"
+    },
+    {
+      "day": 242,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JER",
+          "bookName": "Księga Jeremiasza",
+          "chapterFrom": 41,
+          "chapterTo": 43
+        }
+      ],
+      "label": "Księga Jeremiasza 41–43"
+    },
+    {
+      "day": 243,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JER",
+          "bookName": "Księga Jeremiasza",
+          "chapterFrom": 44,
+          "chapterTo": 46
+        }
+      ],
+      "label": "Księga Jeremiasza 44–46"
+    },
+    {
+      "day": 244,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JER",
+          "bookName": "Księga Jeremiasza",
+          "chapterFrom": 47,
+          "chapterTo": 49
+        }
+      ],
+      "label": "Księga Jeremiasza 47–49"
+    },
+    {
+      "day": 245,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "JER",
+          "bookName": "Księga Jeremiasza",
+          "chapterFrom": 50,
+          "chapterTo": 52
+        },
+        {
+          "bookId": "LAM",
+          "bookName": "Lamentacje Jeremiasza",
+          "chapterFrom": 1,
+          "chapterTo": 1
+        }
+      ],
+      "label": "Księga Jeremiasza 50–52 · Lamentacje Jeremiasza 1"
+    },
+    {
+      "day": 246,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "LAM",
+          "bookName": "Lamentacje Jeremiasza",
+          "chapterFrom": 2,
+          "chapterTo": 4
+        }
+      ],
+      "label": "Lamentacje Jeremiasza 2–4"
+    },
+    {
+      "day": 247,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "LAM",
+          "bookName": "Lamentacje Jeremiasza",
+          "chapterFrom": 5,
+          "chapterTo": 5
+        },
+        {
+          "bookId": "EZK",
+          "bookName": "Księga Ezechiela",
+          "chapterFrom": 1,
+          "chapterTo": 2
+        }
+      ],
+      "label": "Lamentacje Jeremiasza 5 · Księga Ezechiela 1–2"
+    },
+    {
+      "day": 248,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EZK",
+          "bookName": "Księga Ezechiela",
+          "chapterFrom": 3,
+          "chapterTo": 5
+        }
+      ],
+      "label": "Księga Ezechiela 3–5"
+    },
+    {
+      "day": 249,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "EZK",
+          "bookName": "Księga Ezechiela",
+          "chapterFrom": 6,
+          "chapterTo": 9
+        }
+      ],
+      "label": "Księga Ezechiela 6–9"
+    },
+    {
+      "day": 250,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EZK",
+          "bookName": "Księga Ezechiela",
+          "chapterFrom": 10,
+          "chapterTo": 12
+        }
+      ],
+      "label": "Księga Ezechiela 10–12"
+    },
+    {
+      "day": 251,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EZK",
+          "bookName": "Księga Ezechiela",
+          "chapterFrom": 13,
+          "chapterTo": 15
+        }
+      ],
+      "label": "Księga Ezechiela 13–15"
+    },
+    {
+      "day": 252,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EZK",
+          "bookName": "Księga Ezechiela",
+          "chapterFrom": 16,
+          "chapterTo": 18
+        }
+      ],
+      "label": "Księga Ezechiela 16–18"
+    },
+    {
+      "day": 253,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "EZK",
+          "bookName": "Księga Ezechiela",
+          "chapterFrom": 19,
+          "chapterTo": 22
+        }
+      ],
+      "label": "Księga Ezechiela 19–22"
+    },
+    {
+      "day": 254,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EZK",
+          "bookName": "Księga Ezechiela",
+          "chapterFrom": 23,
+          "chapterTo": 25
+        }
+      ],
+      "label": "Księga Ezechiela 23–25"
+    },
+    {
+      "day": 255,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EZK",
+          "bookName": "Księga Ezechiela",
+          "chapterFrom": 26,
+          "chapterTo": 28
+        }
+      ],
+      "label": "Księga Ezechiela 26–28"
+    },
+    {
+      "day": 256,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EZK",
+          "bookName": "Księga Ezechiela",
+          "chapterFrom": 29,
+          "chapterTo": 31
+        }
+      ],
+      "label": "Księga Ezechiela 29–31"
+    },
+    {
+      "day": 257,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "EZK",
+          "bookName": "Księga Ezechiela",
+          "chapterFrom": 32,
+          "chapterTo": 35
+        }
+      ],
+      "label": "Księga Ezechiela 32–35"
+    },
+    {
+      "day": 258,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EZK",
+          "bookName": "Księga Ezechiela",
+          "chapterFrom": 36,
+          "chapterTo": 38
+        }
+      ],
+      "label": "Księga Ezechiela 36–38"
+    },
+    {
+      "day": 259,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EZK",
+          "bookName": "Księga Ezechiela",
+          "chapterFrom": 39,
+          "chapterTo": 41
+        }
+      ],
+      "label": "Księga Ezechiela 39–41"
+    },
+    {
+      "day": 260,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EZK",
+          "bookName": "Księga Ezechiela",
+          "chapterFrom": 42,
+          "chapterTo": 44
+        }
+      ],
+      "label": "Księga Ezechiela 42–44"
+    },
+    {
+      "day": 261,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "EZK",
+          "bookName": "Księga Ezechiela",
+          "chapterFrom": 45,
+          "chapterTo": 48
+        }
+      ],
+      "label": "Księga Ezechiela 45–48"
+    },
+    {
+      "day": 262,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "DAN",
+          "bookName": "Księga Daniela",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "Księga Daniela 1–3"
+    },
+    {
+      "day": 263,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "DAN",
+          "bookName": "Księga Daniela",
+          "chapterFrom": 4,
+          "chapterTo": 6
+        }
+      ],
+      "label": "Księga Daniela 4–6"
+    },
+    {
+      "day": 264,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "DAN",
+          "bookName": "Księga Daniela",
+          "chapterFrom": 7,
+          "chapterTo": 9
+        }
+      ],
+      "label": "Księga Daniela 7–9"
+    },
+    {
+      "day": 265,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "DAN",
+          "bookName": "Księga Daniela",
+          "chapterFrom": 10,
+          "chapterTo": 12
+        },
+        {
+          "bookId": "HOS",
+          "bookName": "Księga Ozeasza",
+          "chapterFrom": 1,
+          "chapterTo": 1
+        }
+      ],
+      "label": "Księga Daniela 10–12 · Księga Ozeasza 1"
+    },
+    {
+      "day": 266,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "HOS",
+          "bookName": "Księga Ozeasza",
+          "chapterFrom": 2,
+          "chapterTo": 4
+        }
+      ],
+      "label": "Księga Ozeasza 2–4"
+    },
+    {
+      "day": 267,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "HOS",
+          "bookName": "Księga Ozeasza",
+          "chapterFrom": 5,
+          "chapterTo": 7
+        }
+      ],
+      "label": "Księga Ozeasza 5–7"
+    },
+    {
+      "day": 268,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "HOS",
+          "bookName": "Księga Ozeasza",
+          "chapterFrom": 8,
+          "chapterTo": 11
+        }
+      ],
+      "label": "Księga Ozeasza 8–11"
+    },
+    {
+      "day": 269,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "HOS",
+          "bookName": "Księga Ozeasza",
+          "chapterFrom": 12,
+          "chapterTo": 14
+        }
+      ],
+      "label": "Księga Ozeasza 12–14"
+    },
+    {
+      "day": 270,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JOL",
+          "bookName": "Księga Joela",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "Księga Joela 1–3"
+    },
+    {
+      "day": 271,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "AMO",
+          "bookName": "Księga Amosa",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "Księga Amosa 1–3"
+    },
+    {
+      "day": 272,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "AMO",
+          "bookName": "Księga Amosa",
+          "chapterFrom": 4,
+          "chapterTo": 7
+        }
+      ],
+      "label": "Księga Amosa 4–7"
+    },
+    {
+      "day": 273,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "AMO",
+          "bookName": "Księga Amosa",
+          "chapterFrom": 8,
+          "chapterTo": 9
+        },
+        {
+          "bookId": "OBA",
+          "bookName": "Księga Abdiasza",
+          "chapterFrom": 1,
+          "chapterTo": 1
+        }
+      ],
+      "label": "Księga Amosa 8–9 · Księga Abdiasza 1"
+    },
+    {
+      "day": 274,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JON",
+          "bookName": "Księga Jonasza",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "Księga Jonasza 1–3"
+    },
+    {
+      "day": 275,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JON",
+          "bookName": "Księga Jonasza",
+          "chapterFrom": 4,
+          "chapterTo": 4
+        },
+        {
+          "bookId": "MIC",
+          "bookName": "Księga Micheasza",
+          "chapterFrom": 1,
+          "chapterTo": 2
+        }
+      ],
+      "label": "Księga Jonasza 4 · Księga Micheasza 1–2"
+    },
+    {
+      "day": 276,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "MIC",
+          "bookName": "Księga Micheasza",
+          "chapterFrom": 3,
+          "chapterTo": 6
+        }
+      ],
+      "label": "Księga Micheasza 3–6"
+    },
+    {
+      "day": 277,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "MIC",
+          "bookName": "Księga Micheasza",
+          "chapterFrom": 7,
+          "chapterTo": 7
+        },
+        {
+          "bookId": "NAH",
+          "bookName": "Księga Nahuma",
+          "chapterFrom": 1,
+          "chapterTo": 2
+        }
+      ],
+      "label": "Księga Micheasza 7 · Księga Nahuma 1–2"
+    },
+    {
+      "day": 278,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "NAH",
+          "bookName": "Księga Nahuma",
+          "chapterFrom": 3,
+          "chapterTo": 3
+        },
+        {
+          "bookId": "HAB",
+          "bookName": "Księga Habakuka",
+          "chapterFrom": 1,
+          "chapterTo": 2
+        }
+      ],
+      "label": "Księga Nahuma 3 · Księga Habakuka 1–2"
+    },
+    {
+      "day": 279,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "HAB",
+          "bookName": "Księga Habakuka",
+          "chapterFrom": 3,
+          "chapterTo": 3
+        },
+        {
+          "bookId": "ZEP",
+          "bookName": "Księga Sofoniasza",
+          "chapterFrom": 1,
+          "chapterTo": 2
+        }
+      ],
+      "label": "Księga Habakuka 3 · Księga Sofoniasza 1–2"
+    },
+    {
+      "day": 280,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "ZEP",
+          "bookName": "Księga Sofoniasza",
+          "chapterFrom": 3,
+          "chapterTo": 3
+        },
+        {
+          "bookId": "HAG",
+          "bookName": "Księga Aggeusza",
+          "chapterFrom": 1,
+          "chapterTo": 2
+        },
+        {
+          "bookId": "ZEC",
+          "bookName": "Księga Zachariasza",
+          "chapterFrom": 1,
+          "chapterTo": 1
+        }
+      ],
+      "label": "Księga Sofoniasza 3 · Księga Aggeusza 1–2 · Księga Zachariasza 1"
+    },
+    {
+      "day": 281,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ZEC",
+          "bookName": "Księga Zachariasza",
+          "chapterFrom": 2,
+          "chapterTo": 4
+        }
+      ],
+      "label": "Księga Zachariasza 2–4"
+    },
+    {
+      "day": 282,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ZEC",
+          "bookName": "Księga Zachariasza",
+          "chapterFrom": 5,
+          "chapterTo": 7
+        }
+      ],
+      "label": "Księga Zachariasza 5–7"
+    },
+    {
+      "day": 283,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ZEC",
+          "bookName": "Księga Zachariasza",
+          "chapterFrom": 8,
+          "chapterTo": 10
+        }
+      ],
+      "label": "Księga Zachariasza 8–10"
+    },
+    {
+      "day": 284,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "ZEC",
+          "bookName": "Księga Zachariasza",
+          "chapterFrom": 11,
+          "chapterTo": 14
+        }
+      ],
+      "label": "Księga Zachariasza 11–14"
+    },
+    {
+      "day": 285,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "MAL",
+          "bookName": "Księga Malachiasza",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "Księga Malachiasza 1–3"
+    },
+    {
+      "day": 286,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "MAL",
+          "bookName": "Księga Malachiasza",
+          "chapterFrom": 4,
+          "chapterTo": 4
+        },
+        {
+          "bookId": "MAT",
+          "bookName": "Ewangelia Mateusza",
+          "chapterFrom": 1,
+          "chapterTo": 2
+        }
+      ],
+      "label": "Księga Malachiasza 4 · Ewangelia Mateusza 1–2"
+    },
+    {
+      "day": 287,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "MAT",
+          "bookName": "Ewangelia Mateusza",
+          "chapterFrom": 3,
+          "chapterTo": 5
+        }
+      ],
+      "label": "Ewangelia Mateusza 3–5"
+    },
+    {
+      "day": 288,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "MAT",
+          "bookName": "Ewangelia Mateusza",
+          "chapterFrom": 6,
+          "chapterTo": 9
+        }
+      ],
+      "label": "Ewangelia Mateusza 6–9"
+    },
+    {
+      "day": 289,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "MAT",
+          "bookName": "Ewangelia Mateusza",
+          "chapterFrom": 10,
+          "chapterTo": 12
+        }
+      ],
+      "label": "Ewangelia Mateusza 10–12"
+    },
+    {
+      "day": 290,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "MAT",
+          "bookName": "Ewangelia Mateusza",
+          "chapterFrom": 13,
+          "chapterTo": 15
+        }
+      ],
+      "label": "Ewangelia Mateusza 13–15"
+    },
+    {
+      "day": 291,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "MAT",
+          "bookName": "Ewangelia Mateusza",
+          "chapterFrom": 16,
+          "chapterTo": 18
+        }
+      ],
+      "label": "Ewangelia Mateusza 16–18"
+    },
+    {
+      "day": 292,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "MAT",
+          "bookName": "Ewangelia Mateusza",
+          "chapterFrom": 19,
+          "chapterTo": 22
+        }
+      ],
+      "label": "Ewangelia Mateusza 19–22"
+    },
+    {
+      "day": 293,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "MAT",
+          "bookName": "Ewangelia Mateusza",
+          "chapterFrom": 23,
+          "chapterTo": 25
+        }
+      ],
+      "label": "Ewangelia Mateusza 23–25"
+    },
+    {
+      "day": 294,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "MAT",
+          "bookName": "Ewangelia Mateusza",
+          "chapterFrom": 26,
+          "chapterTo": 28
+        }
+      ],
+      "label": "Ewangelia Mateusza 26–28"
+    },
+    {
+      "day": 295,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "MRK",
+          "bookName": "Ewangelia Marka",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "Ewangelia Marka 1–3"
+    },
+    {
+      "day": 296,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "MRK",
+          "bookName": "Ewangelia Marka",
+          "chapterFrom": 4,
+          "chapterTo": 7
+        }
+      ],
+      "label": "Ewangelia Marka 4–7"
+    },
+    {
+      "day": 297,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "MRK",
+          "bookName": "Ewangelia Marka",
+          "chapterFrom": 8,
+          "chapterTo": 10
+        }
+      ],
+      "label": "Ewangelia Marka 8–10"
+    },
+    {
+      "day": 298,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "MRK",
+          "bookName": "Ewangelia Marka",
+          "chapterFrom": 11,
+          "chapterTo": 13
+        }
+      ],
+      "label": "Ewangelia Marka 11–13"
+    },
+    {
+      "day": 299,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "MRK",
+          "bookName": "Ewangelia Marka",
+          "chapterFrom": 14,
+          "chapterTo": 16
+        },
+        {
+          "bookId": "LUK",
+          "bookName": "Ewangelia Łukasza",
+          "chapterFrom": 1,
+          "chapterTo": 1
+        }
+      ],
+      "label": "Ewangelia Marka 14–16 · Ewangelia Łukasza 1"
+    },
+    {
+      "day": 300,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "LUK",
+          "bookName": "Ewangelia Łukasza",
+          "chapterFrom": 2,
+          "chapterTo": 4
+        }
+      ],
+      "label": "Ewangelia Łukasza 2–4"
+    },
+    {
+      "day": 301,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "LUK",
+          "bookName": "Ewangelia Łukasza",
+          "chapterFrom": 5,
+          "chapterTo": 7
+        }
+      ],
+      "label": "Ewangelia Łukasza 5–7"
+    },
+    {
+      "day": 302,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "LUK",
+          "bookName": "Ewangelia Łukasza",
+          "chapterFrom": 8,
+          "chapterTo": 10
+        }
+      ],
+      "label": "Ewangelia Łukasza 8–10"
+    },
+    {
+      "day": 303,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "LUK",
+          "bookName": "Ewangelia Łukasza",
+          "chapterFrom": 11,
+          "chapterTo": 14
+        }
+      ],
+      "label": "Ewangelia Łukasza 11–14"
+    },
+    {
+      "day": 304,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "LUK",
+          "bookName": "Ewangelia Łukasza",
+          "chapterFrom": 15,
+          "chapterTo": 17
+        }
+      ],
+      "label": "Ewangelia Łukasza 15–17"
+    },
+    {
+      "day": 305,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "LUK",
+          "bookName": "Ewangelia Łukasza",
+          "chapterFrom": 18,
+          "chapterTo": 20
+        }
+      ],
+      "label": "Ewangelia Łukasza 18–20"
+    },
+    {
+      "day": 306,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "LUK",
+          "bookName": "Ewangelia Łukasza",
+          "chapterFrom": 21,
+          "chapterTo": 23
+        }
+      ],
+      "label": "Ewangelia Łukasza 21–23"
+    },
+    {
+      "day": 307,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "LUK",
+          "bookName": "Ewangelia Łukasza",
+          "chapterFrom": 24,
+          "chapterTo": 24
+        },
+        {
+          "bookId": "JHN",
+          "bookName": "Ewangelia Jana",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "Ewangelia Łukasza 24 · Ewangelia Jana 1–3"
+    },
+    {
+      "day": 308,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JHN",
+          "bookName": "Ewangelia Jana",
+          "chapterFrom": 4,
+          "chapterTo": 6
+        }
+      ],
+      "label": "Ewangelia Jana 4–6"
+    },
+    {
+      "day": 309,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JHN",
+          "bookName": "Ewangelia Jana",
+          "chapterFrom": 7,
+          "chapterTo": 9
+        }
+      ],
+      "label": "Ewangelia Jana 7–9"
+    },
+    {
+      "day": 310,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JHN",
+          "bookName": "Ewangelia Jana",
+          "chapterFrom": 10,
+          "chapterTo": 12
+        }
+      ],
+      "label": "Ewangelia Jana 10–12"
+    },
+    {
+      "day": 311,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "JHN",
+          "bookName": "Ewangelia Jana",
+          "chapterFrom": 13,
+          "chapterTo": 16
+        }
+      ],
+      "label": "Ewangelia Jana 13–16"
+    },
+    {
+      "day": 312,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JHN",
+          "bookName": "Ewangelia Jana",
+          "chapterFrom": 17,
+          "chapterTo": 19
+        }
+      ],
+      "label": "Ewangelia Jana 17–19"
+    },
+    {
+      "day": 313,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JHN",
+          "bookName": "Ewangelia Jana",
+          "chapterFrom": 20,
+          "chapterTo": 21
+        },
+        {
+          "bookId": "ACT",
+          "bookName": "Dzieje Apostolskie",
+          "chapterFrom": 1,
+          "chapterTo": 1
+        }
+      ],
+      "label": "Ewangelia Jana 20–21 · Dzieje Apostolskie 1"
+    },
+    {
+      "day": 314,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ACT",
+          "bookName": "Dzieje Apostolskie",
+          "chapterFrom": 2,
+          "chapterTo": 4
+        }
+      ],
+      "label": "Dzieje Apostolskie 2–4"
+    },
+    {
+      "day": 315,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "ACT",
+          "bookName": "Dzieje Apostolskie",
+          "chapterFrom": 5,
+          "chapterTo": 8
+        }
+      ],
+      "label": "Dzieje Apostolskie 5–8"
+    },
+    {
+      "day": 316,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ACT",
+          "bookName": "Dzieje Apostolskie",
+          "chapterFrom": 9,
+          "chapterTo": 11
+        }
+      ],
+      "label": "Dzieje Apostolskie 9–11"
+    },
+    {
+      "day": 317,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ACT",
+          "bookName": "Dzieje Apostolskie",
+          "chapterFrom": 12,
+          "chapterTo": 14
+        }
+      ],
+      "label": "Dzieje Apostolskie 12–14"
+    },
+    {
+      "day": 318,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ACT",
+          "bookName": "Dzieje Apostolskie",
+          "chapterFrom": 15,
+          "chapterTo": 17
+        }
+      ],
+      "label": "Dzieje Apostolskie 15–17"
+    },
+    {
+      "day": 319,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "ACT",
+          "bookName": "Dzieje Apostolskie",
+          "chapterFrom": 18,
+          "chapterTo": 21
+        }
+      ],
+      "label": "Dzieje Apostolskie 18–21"
+    },
+    {
+      "day": 320,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ACT",
+          "bookName": "Dzieje Apostolskie",
+          "chapterFrom": 22,
+          "chapterTo": 24
+        }
+      ],
+      "label": "Dzieje Apostolskie 22–24"
+    },
+    {
+      "day": 321,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ACT",
+          "bookName": "Dzieje Apostolskie",
+          "chapterFrom": 25,
+          "chapterTo": 27
+        }
+      ],
+      "label": "Dzieje Apostolskie 25–27"
+    },
+    {
+      "day": 322,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ACT",
+          "bookName": "Dzieje Apostolskie",
+          "chapterFrom": 28,
+          "chapterTo": 28
+        },
+        {
+          "bookId": "ROM",
+          "bookName": "List do Rzymian",
+          "chapterFrom": 1,
+          "chapterTo": 2
+        }
+      ],
+      "label": "Dzieje Apostolskie 28 · List do Rzymian 1–2"
+    },
+    {
+      "day": 323,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "ROM",
+          "bookName": "List do Rzymian",
+          "chapterFrom": 3,
+          "chapterTo": 6
+        }
+      ],
+      "label": "List do Rzymian 3–6"
+    },
+    {
+      "day": 324,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ROM",
+          "bookName": "List do Rzymian",
+          "chapterFrom": 7,
+          "chapterTo": 9
+        }
+      ],
+      "label": "List do Rzymian 7–9"
+    },
+    {
+      "day": 325,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ROM",
+          "bookName": "List do Rzymian",
+          "chapterFrom": 10,
+          "chapterTo": 12
+        }
+      ],
+      "label": "List do Rzymian 10–12"
+    },
+    {
+      "day": 326,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "ROM",
+          "bookName": "List do Rzymian",
+          "chapterFrom": 13,
+          "chapterTo": 15
+        }
+      ],
+      "label": "List do Rzymian 13–15"
+    },
+    {
+      "day": 327,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "ROM",
+          "bookName": "List do Rzymian",
+          "chapterFrom": 16,
+          "chapterTo": 16
+        },
+        {
+          "bookId": "1CO",
+          "bookName": "1 List do Koryntian",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "List do Rzymian 16 · 1 List do Koryntian 1–3"
+    },
+    {
+      "day": 328,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1CO",
+          "bookName": "1 List do Koryntian",
+          "chapterFrom": 4,
+          "chapterTo": 6
+        }
+      ],
+      "label": "1 List do Koryntian 4–6"
+    },
+    {
+      "day": 329,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1CO",
+          "bookName": "1 List do Koryntian",
+          "chapterFrom": 7,
+          "chapterTo": 9
+        }
+      ],
+      "label": "1 List do Koryntian 7–9"
+    },
+    {
+      "day": 330,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1CO",
+          "bookName": "1 List do Koryntian",
+          "chapterFrom": 10,
+          "chapterTo": 12
+        }
+      ],
+      "label": "1 List do Koryntian 10–12"
+    },
+    {
+      "day": 331,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "1CO",
+          "bookName": "1 List do Koryntian",
+          "chapterFrom": 13,
+          "chapterTo": 16
+        }
+      ],
+      "label": "1 List do Koryntian 13–16"
+    },
+    {
+      "day": 332,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2CO",
+          "bookName": "2 List do Koryntian",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "2 List do Koryntian 1–3"
+    },
+    {
+      "day": 333,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2CO",
+          "bookName": "2 List do Koryntian",
+          "chapterFrom": 4,
+          "chapterTo": 6
+        }
+      ],
+      "label": "2 List do Koryntian 4–6"
+    },
+    {
+      "day": 334,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "2CO",
+          "bookName": "2 List do Koryntian",
+          "chapterFrom": 7,
+          "chapterTo": 10
+        }
+      ],
+      "label": "2 List do Koryntian 7–10"
+    },
+    {
+      "day": 335,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2CO",
+          "bookName": "2 List do Koryntian",
+          "chapterFrom": 11,
+          "chapterTo": 13
+        }
+      ],
+      "label": "2 List do Koryntian 11–13"
+    },
+    {
+      "day": 336,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "GAL",
+          "bookName": "List do Galacjan",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "List do Galacjan 1–3"
+    },
+    {
+      "day": 337,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "GAL",
+          "bookName": "List do Galacjan",
+          "chapterFrom": 4,
+          "chapterTo": 6
+        }
+      ],
+      "label": "List do Galacjan 4–6"
+    },
+    {
+      "day": 338,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "EPH",
+          "bookName": "List do Efezjan",
+          "chapterFrom": 1,
+          "chapterTo": 4
+        }
+      ],
+      "label": "List do Efezjan 1–4"
+    },
+    {
+      "day": 339,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "EPH",
+          "bookName": "List do Efezjan",
+          "chapterFrom": 5,
+          "chapterTo": 6
+        },
+        {
+          "bookId": "PHP",
+          "bookName": "List do Filipian",
+          "chapterFrom": 1,
+          "chapterTo": 1
+        }
+      ],
+      "label": "List do Efezjan 5–6 · List do Filipian 1"
+    },
+    {
+      "day": 340,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "PHP",
+          "bookName": "List do Filipian",
+          "chapterFrom": 2,
+          "chapterTo": 4
+        }
+      ],
+      "label": "List do Filipian 2–4"
+    },
+    {
+      "day": 341,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "COL",
+          "bookName": "List do Kolosan",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "List do Kolosan 1–3"
+    },
+    {
+      "day": 342,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "COL",
+          "bookName": "List do Kolosan",
+          "chapterFrom": 4,
+          "chapterTo": 4
+        },
+        {
+          "bookId": "1TH",
+          "bookName": "1 List do Tesaloniczan",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "List do Kolosan 4 · 1 List do Tesaloniczan 1–3"
+    },
+    {
+      "day": 343,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1TH",
+          "bookName": "1 List do Tesaloniczan",
+          "chapterFrom": 4,
+          "chapterTo": 5
+        },
+        {
+          "bookId": "2TH",
+          "bookName": "2 List do Tesaloniczan",
+          "chapterFrom": 1,
+          "chapterTo": 1
+        }
+      ],
+      "label": "1 List do Tesaloniczan 4–5 · 2 List do Tesaloniczan 1"
+    },
+    {
+      "day": 344,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2TH",
+          "bookName": "2 List do Tesaloniczan",
+          "chapterFrom": 2,
+          "chapterTo": 3
+        },
+        {
+          "bookId": "1TI",
+          "bookName": "1 List do Tymoteusza",
+          "chapterFrom": 1,
+          "chapterTo": 1
+        }
+      ],
+      "label": "2 List do Tesaloniczan 2–3 · 1 List do Tymoteusza 1"
+    },
+    {
+      "day": 345,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1TI",
+          "bookName": "1 List do Tymoteusza",
+          "chapterFrom": 2,
+          "chapterTo": 4
+        }
+      ],
+      "label": "1 List do Tymoteusza 2–4"
+    },
+    {
+      "day": 346,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "1TI",
+          "bookName": "1 List do Tymoteusza",
+          "chapterFrom": 5,
+          "chapterTo": 6
+        },
+        {
+          "bookId": "2TI",
+          "bookName": "2 List do Tymoteusza",
+          "chapterFrom": 1,
+          "chapterTo": 2
+        }
+      ],
+      "label": "1 List do Tymoteusza 5–6 · 2 List do Tymoteusza 1–2"
+    },
+    {
+      "day": 347,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2TI",
+          "bookName": "2 List do Tymoteusza",
+          "chapterFrom": 3,
+          "chapterTo": 4
+        },
+        {
+          "bookId": "TIT",
+          "bookName": "List do Tytusa",
+          "chapterFrom": 1,
+          "chapterTo": 1
+        }
+      ],
+      "label": "2 List do Tymoteusza 3–4 · List do Tytusa 1"
+    },
+    {
+      "day": 348,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "TIT",
+          "bookName": "List do Tytusa",
+          "chapterFrom": 2,
+          "chapterTo": 3
+        },
+        {
+          "bookId": "PHM",
+          "bookName": "List do Filemona",
+          "chapterFrom": 1,
+          "chapterTo": 1
+        }
+      ],
+      "label": "List do Tytusa 2–3 · List do Filemona 1"
+    },
+    {
+      "day": 349,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "HEB",
+          "bookName": "List do Hebrajczyków",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "List do Hebrajczyków 1–3"
+    },
+    {
+      "day": 350,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "HEB",
+          "bookName": "List do Hebrajczyków",
+          "chapterFrom": 4,
+          "chapterTo": 7
+        }
+      ],
+      "label": "List do Hebrajczyków 4–7"
+    },
+    {
+      "day": 351,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "HEB",
+          "bookName": "List do Hebrajczyków",
+          "chapterFrom": 8,
+          "chapterTo": 10
+        }
+      ],
+      "label": "List do Hebrajczyków 8–10"
+    },
+    {
+      "day": 352,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "HEB",
+          "bookName": "List do Hebrajczyków",
+          "chapterFrom": 11,
+          "chapterTo": 13
+        }
+      ],
+      "label": "List do Hebrajczyków 11–13"
+    },
+    {
+      "day": 353,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JAS",
+          "bookName": "List Jakuba",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "List Jakuba 1–3"
+    },
+    {
+      "day": 354,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "JAS",
+          "bookName": "List Jakuba",
+          "chapterFrom": 4,
+          "chapterTo": 5
+        },
+        {
+          "bookId": "1PE",
+          "bookName": "1 List Piotra",
+          "chapterFrom": 1,
+          "chapterTo": 2
+        }
+      ],
+      "label": "List Jakuba 4–5 · 1 List Piotra 1–2"
+    },
+    {
+      "day": 355,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1PE",
+          "bookName": "1 List Piotra",
+          "chapterFrom": 3,
+          "chapterTo": 5
+        }
+      ],
+      "label": "1 List Piotra 3–5"
+    },
+    {
+      "day": 356,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "2PE",
+          "bookName": "2 List Piotra",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "2 List Piotra 1–3"
+    },
+    {
+      "day": 357,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "1JN",
+          "bookName": "1 List Jana",
+          "chapterFrom": 1,
+          "chapterTo": 3
+        }
+      ],
+      "label": "1 List Jana 1–3"
+    },
+    {
+      "day": 358,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "1JN",
+          "bookName": "1 List Jana",
+          "chapterFrom": 4,
+          "chapterTo": 5
+        },
+        {
+          "bookId": "2JN",
+          "bookName": "2 List Jana",
+          "chapterFrom": 1,
+          "chapterTo": 1
+        },
+        {
+          "bookId": "3JN",
+          "bookName": "3 List Jana",
+          "chapterFrom": 1,
+          "chapterTo": 1
+        }
+      ],
+      "label": "1 List Jana 4–5 · 2 List Jana 1 · 3 List Jana 1"
+    },
+    {
+      "day": 359,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "JUD",
+          "bookName": "List Judy",
+          "chapterFrom": 1,
+          "chapterTo": 1
+        },
+        {
+          "bookId": "REV",
+          "bookName": "Apokalipsa św. Jana",
+          "chapterFrom": 1,
+          "chapterTo": 2
+        }
+      ],
+      "label": "List Judy 1 · Apokalipsa św. Jana 1–2"
+    },
+    {
+      "day": 360,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "REV",
+          "bookName": "Apokalipsa św. Jana",
+          "chapterFrom": 3,
+          "chapterTo": 5
+        }
+      ],
+      "label": "Apokalipsa św. Jana 3–5"
+    },
+    {
+      "day": 361,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "REV",
+          "bookName": "Apokalipsa św. Jana",
+          "chapterFrom": 6,
+          "chapterTo": 8
+        }
+      ],
+      "label": "Apokalipsa św. Jana 6–8"
+    },
+    {
+      "day": 362,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "REV",
+          "bookName": "Apokalipsa św. Jana",
+          "chapterFrom": 9,
+          "chapterTo": 12
+        }
+      ],
+      "label": "Apokalipsa św. Jana 9–12"
+    },
+    {
+      "day": 363,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "REV",
+          "bookName": "Apokalipsa św. Jana",
+          "chapterFrom": 13,
+          "chapterTo": 15
+        }
+      ],
+      "label": "Apokalipsa św. Jana 13–15"
+    },
+    {
+      "day": 364,
+      "chapterCount": 3,
+      "passages": [
+        {
+          "bookId": "REV",
+          "bookName": "Apokalipsa św. Jana",
+          "chapterFrom": 16,
+          "chapterTo": 18
+        }
+      ],
+      "label": "Apokalipsa św. Jana 16–18"
+    },
+    {
+      "day": 365,
+      "chapterCount": 4,
+      "passages": [
+        {
+          "bookId": "REV",
+          "bookName": "Apokalipsa św. Jana",
+          "chapterFrom": 19,
+          "chapterTo": 22
+        }
+      ],
+      "label": "Apokalipsa św. Jana 19–22"
+    }
+  ],
+  "starterPath": {
+    "id": "john-21",
+    "title": "Ścieżka startowa: 21 dni z Ewangelią Jana",
+    "note": "Łagodne wprowadzenie do samodzielnego czytania Pisma Świętego (1 rozdział dziennie). Ścieżka startowa jest dodatkiem wprowadzającym, a nie osobnym pełnym planem rocznym.",
+    "totalDays": 21,
+    "days": [
+      {
+        "day": 1,
+        "chapterCount": 1,
+        "passages": [
+          {
+            "bookId": "JHN",
+            "bookName": "Ewangelia Jana",
+            "chapterFrom": 1,
+            "chapterTo": 1
+          }
+        ],
+        "label": "Ewangelia Jana 1"
+      },
+      {
+        "day": 2,
+        "chapterCount": 1,
+        "passages": [
+          {
+            "bookId": "JHN",
+            "bookName": "Ewangelia Jana",
+            "chapterFrom": 2,
+            "chapterTo": 2
+          }
+        ],
+        "label": "Ewangelia Jana 2"
+      },
+      {
+        "day": 3,
+        "chapterCount": 1,
+        "passages": [
+          {
+            "bookId": "JHN",
+            "bookName": "Ewangelia Jana",
+            "chapterFrom": 3,
+            "chapterTo": 3
+          }
+        ],
+        "label": "Ewangelia Jana 3"
+      },
+      {
+        "day": 4,
+        "chapterCount": 1,
+        "passages": [
+          {
+            "bookId": "JHN",
+            "bookName": "Ewangelia Jana",
+            "chapterFrom": 4,
+            "chapterTo": 4
+          }
+        ],
+        "label": "Ewangelia Jana 4"
+      },
+      {
+        "day": 5,
+        "chapterCount": 1,
+        "passages": [
+          {
+            "bookId": "JHN",
+            "bookName": "Ewangelia Jana",
+            "chapterFrom": 5,
+            "chapterTo": 5
+          }
+        ],
+        "label": "Ewangelia Jana 5"
+      },
+      {
+        "day": 6,
+        "chapterCount": 1,
+        "passages": [
+          {
+            "bookId": "JHN",
+            "bookName": "Ewangelia Jana",
+            "chapterFrom": 6,
+            "chapterTo": 6
+          }
+        ],
+        "label": "Ewangelia Jana 6"
+      },
+      {
+        "day": 7,
+        "chapterCount": 1,
+        "passages": [
+          {
+            "bookId": "JHN",
+            "bookName": "Ewangelia Jana",
+            "chapterFrom": 7,
+            "chapterTo": 7
+          }
+        ],
+        "label": "Ewangelia Jana 7"
+      },
+      {
+        "day": 8,
+        "chapterCount": 1,
+        "passages": [
+          {
+            "bookId": "JHN",
+            "bookName": "Ewangelia Jana",
+            "chapterFrom": 8,
+            "chapterTo": 8
+          }
+        ],
+        "label": "Ewangelia Jana 8"
+      },
+      {
+        "day": 9,
+        "chapterCount": 1,
+        "passages": [
+          {
+            "bookId": "JHN",
+            "bookName": "Ewangelia Jana",
+            "chapterFrom": 9,
+            "chapterTo": 9
+          }
+        ],
+        "label": "Ewangelia Jana 9"
+      },
+      {
+        "day": 10,
+        "chapterCount": 1,
+        "passages": [
+          {
+            "bookId": "JHN",
+            "bookName": "Ewangelia Jana",
+            "chapterFrom": 10,
+            "chapterTo": 10
+          }
+        ],
+        "label": "Ewangelia Jana 10"
+      },
+      {
+        "day": 11,
+        "chapterCount": 1,
+        "passages": [
+          {
+            "bookId": "JHN",
+            "bookName": "Ewangelia Jana",
+            "chapterFrom": 11,
+            "chapterTo": 11
+          }
+        ],
+        "label": "Ewangelia Jana 11"
+      },
+      {
+        "day": 12,
+        "chapterCount": 1,
+        "passages": [
+          {
+            "bookId": "JHN",
+            "bookName": "Ewangelia Jana",
+            "chapterFrom": 12,
+            "chapterTo": 12
+          }
+        ],
+        "label": "Ewangelia Jana 12"
+      },
+      {
+        "day": 13,
+        "chapterCount": 1,
+        "passages": [
+          {
+            "bookId": "JHN",
+            "bookName": "Ewangelia Jana",
+            "chapterFrom": 13,
+            "chapterTo": 13
+          }
+        ],
+        "label": "Ewangelia Jana 13"
+      },
+      {
+        "day": 14,
+        "chapterCount": 1,
+        "passages": [
+          {
+            "bookId": "JHN",
+            "bookName": "Ewangelia Jana",
+            "chapterFrom": 14,
+            "chapterTo": 14
+          }
+        ],
+        "label": "Ewangelia Jana 14"
+      },
+      {
+        "day": 15,
+        "chapterCount": 1,
+        "passages": [
+          {
+            "bookId": "JHN",
+            "bookName": "Ewangelia Jana",
+            "chapterFrom": 15,
+            "chapterTo": 15
+          }
+        ],
+        "label": "Ewangelia Jana 15"
+      },
+      {
+        "day": 16,
+        "chapterCount": 1,
+        "passages": [
+          {
+            "bookId": "JHN",
+            "bookName": "Ewangelia Jana",
+            "chapterFrom": 16,
+            "chapterTo": 16
+          }
+        ],
+        "label": "Ewangelia Jana 16"
+      },
+      {
+        "day": 17,
+        "chapterCount": 1,
+        "passages": [
+          {
+            "bookId": "JHN",
+            "bookName": "Ewangelia Jana",
+            "chapterFrom": 17,
+            "chapterTo": 17
+          }
+        ],
+        "label": "Ewangelia Jana 17"
+      },
+      {
+        "day": 18,
+        "chapterCount": 1,
+        "passages": [
+          {
+            "bookId": "JHN",
+            "bookName": "Ewangelia Jana",
+            "chapterFrom": 18,
+            "chapterTo": 18
+          }
+        ],
+        "label": "Ewangelia Jana 18"
+      },
+      {
+        "day": 19,
+        "chapterCount": 1,
+        "passages": [
+          {
+            "bookId": "JHN",
+            "bookName": "Ewangelia Jana",
+            "chapterFrom": 19,
+            "chapterTo": 19
+          }
+        ],
+        "label": "Ewangelia Jana 19"
+      },
+      {
+        "day": 20,
+        "chapterCount": 1,
+        "passages": [
+          {
+            "bookId": "JHN",
+            "bookName": "Ewangelia Jana",
+            "chapterFrom": 20,
+            "chapterTo": 20
+          }
+        ],
+        "label": "Ewangelia Jana 20"
+      },
+      {
+        "day": 21,
+        "chapterCount": 1,
+        "passages": [
+          {
+            "bookId": "JHN",
+            "bookName": "Ewangelia Jana",
+            "chapterFrom": 21,
+            "chapterTo": 21
+          }
+        ],
+        "label": "Ewangelia Jana 21"
+      }
+    ]
+  },
+  "updatedAt": "2026-11-26"
+}

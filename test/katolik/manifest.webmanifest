@@ -1,0 +1,20 @@
+{
+  "name": "Odkryj Biblię — Christian Culture",
+  "short_name": "Odkryj Biblię",
+  "description": "Bezpłatny przewodnik po 66 księgach Biblii (UBG), Plan 365 dni, Biblia Audio i odpowiedzi na pytania o wiarę.",
+  "start_url": "/test/katolik/",
+  "scope": "/test/katolik/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0B0B0D",
+  "theme_color": "#0B0B0D",
+  "lang": "pl",
+  "icons": [
+    {
+      "src": "/app-christian-culture.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

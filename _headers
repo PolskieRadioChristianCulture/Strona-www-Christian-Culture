@@ -395,6 +395,15 @@
   X-Robots-Tag: noindex, nofollow, noarchive
   Cache-Control: no-cache, no-store, must-revalidate
 
+# Środowisko testowe „Odkryj Biblię — dla katolików” — wyłącznie noindex + brak cache
+/test/katolik
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/test/katolik/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: no-cache, no-store, must-revalidate
+
 # Wiadomość z Nieba — produkcja (zawsze świeży odczyt danych i strony)
 /wiadomosc-z-nieba/
   Cache-Control: public, max-age=0, must-revalidate

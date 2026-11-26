@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-26",
+      "topic": "Podgląd testowy portalu „Odkryj Biblię — dla katolików” (/test/katolik, noindex) — Mapa 66 ksiąg (UBG-2025), Plan 365 dni (1189 rozdziałów), Biblia Audio, 10 studiów i 13 FAQ",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-26",
       "topic": "Kino VOD & Lejek GA4 — Schema.org Rich Snippets (/vod: 12 filmów ?film=, FAQPage 6 Q&A, BreadcrumbList), aktywacja modalu WspieramTO 1-Click na /vod oraz pełna telemetria GA4 seansów VOD i Infolinii NADZIEJA",
       "agent": "A"
     },

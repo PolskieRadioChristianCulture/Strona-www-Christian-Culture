@@ -1,0 +1,2058 @@
+{
+  "version": 1,
+  "translation": "UBG-2025",
+  "license": "Uwspółcześniona Biblia Gdańska (UBG) © Fundacja Wrota Nadziei / Logos Media. Wykorzystanie ewangelizacyjne na licencji CC BY-ND 4.0.",
+  "reviewStatus": "draft",
+  "updatedAt": "2026-11-26",
+  "trustVerse": {
+    "bookId": "ACT",
+    "bookName": "Dzieje Apostolskie",
+    "chapter": 17,
+    "verseStart": 11,
+    "verseEnd": 11,
+    "label": "Dzieje Apostolskie 17:11",
+    "translation": "UBG-2025",
+    "sourceUrl": "/data/bible/ubg-2025/ACT-017.json",
+    "text": "Ci byli szlachetniejsi od tych w Tesalonice, gdyż przyjęli słowo Boże z całą gotowością i codziennie badali Pisma, czy tak się sprawy mają.",
+    "verses": [
+      {
+        "number": 11,
+        "text": "Ci byli szlachetniejsi od tych w Tesalonice, gdyż przyjęli słowo Boże z całą gotowością i codziennie badali Pisma, czy tak się sprawy mają."
+      }
+    ]
+  },
+  "studies": [
+    {
+      "slug": "poznaj-jezusa",
+      "navLabel": "Poznaj Jezusa",
+      "category": "Fundament Ewangelii",
+      "title": "Kim jest Jezus Chrystus według Pisma Świętego?",
+      "summary": "Życie, nauczanie, krzyż, zmartwychwstanie i obietnice Jezusa wprost na kartach Ewangelii — bez uproszczeń i bez presji.",
+      "shortAnswer": "Według Nowego Testamentu Jezus nie jest jedynie dawnym nauczycielem etyki ani odległą postacią z obrazów. Jest Synem Bożym, który stał się człowiekiem, oddał swoje życie na krzyżu za ludzkie grzechy, zmartwychwstał i zaprasza każdego do żywej, osobistej relacji ze sobą.",
+      "quotes": [
+        {
+          "bookId": "JHN",
+          "bookName": "Ewangelia Jana",
+          "chapter": 3,
+          "verseStart": 16,
+          "verseEnd": 17,
+          "label": "Ewangelia Jana 3:16–17",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/JHN-003.json",
+          "text": "16 Tak bowiem Bóg umiłował świat, że dał swego jednorodzonego Syna, aby każdy, kto w niego wierzy, nie zginął, ale miał życie wieczne. 17 Bo Bóg nie posłał swego Syna na świat, aby potępił świat, lecz aby świat był przez niego zbawiony.",
+          "verses": [
+            {
+              "number": 16,
+              "text": "Tak bowiem Bóg umiłował świat, że dał swego jednorodzonego Syna, aby każdy, kto w niego wierzy, nie zginął, ale miał życie wieczne."
+            },
+            {
+              "number": 17,
+              "text": "Bo Bóg nie posłał swego Syna na świat, aby potępił świat, lecz aby świat był przez niego zbawiony."
+            }
+          ]
+        },
+        {
+          "bookId": "JHN",
+          "bookName": "Ewangelia Jana",
+          "chapter": 14,
+          "verseStart": 6,
+          "verseEnd": 6,
+          "label": "Ewangelia Jana 14:6",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/JHN-014.json",
+          "text": "Jezus mu odpowiedział: Ja jestem drogą, prawdą i życiem. Nikt nie przychodzi do Ojca jak tylko przeze mnie.",
+          "verses": [
+            {
+              "number": 6,
+              "text": "Jezus mu odpowiedział: Ja jestem drogą, prawdą i życiem. Nikt nie przychodzi do Ojca jak tylko przeze mnie."
+            }
+          ]
+        },
+        {
+          "bookId": "MAT",
+          "bookName": "Ewangelia Mateusza",
+          "chapter": 11,
+          "verseStart": 28,
+          "verseEnd": 30,
+          "label": "Ewangelia Mateusza 11:28–30",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/MAT-011.json",
+          "text": "28 Przyjdźcie do mnie wszyscy, którzy jesteście spracowani i obciążeni, a ja wam dam odpoczynek. 29 Weźcie na siebie moje jarzmo i uczcie się ode mnie, że jestem cichy i pokornego serca, a znajdziecie odpoczynek dla waszych dusz. 30 Moje jarzmo bowiem jest przyjemne, a moje brzemię lekkie.",
+          "verses": [
+            {
+              "number": 28,
+              "text": "Przyjdźcie do mnie wszyscy, którzy jesteście spracowani i obciążeni, a ja wam dam odpoczynek."
+            },
+            {
+              "number": 29,
+              "text": "Weźcie na siebie moje jarzmo i uczcie się ode mnie, że jestem cichy i pokornego serca, a znajdziecie odpoczynek dla waszych dusz."
+            },
+            {
+              "number": 30,
+              "text": "Moje jarzmo bowiem jest przyjemne, a moje brzemię lekkie."
+            }
+          ]
+        }
+      ],
+      "commentary": [
+        {
+          "heading": "Jezus bliższy niż myślisz",
+          "body": "Wiele osób wychowanych w tradycji religijnej zna Jezusa z lekcji religii lub świąt, ale nigdy nie przeczytało samodzielnie jednej całej Ewangelii. Na kartach Pisma spotykamy Chrystusa, który nie gardzi ludzkimi pytaniami — rozmawia nocą z dociekliwym Nikodemem (J 3), przy studni ze zranioną Samarytanką (J 4) i zatrzymuje się przy tych, którzy czują się niegodni."
+        },
+        {
+          "heading": "Krzyż i zmartwychwstanie jako historyczny fundament",
+          "body": "Centralnym wydarzeniem wszystkich czterech Ewangelii jest ofiara Jezusa na Golgocie i pusty grób trzeciego dnia. Apostoł Paweł przypomina, że bez zmartwychwstania wiara byłaby daremna (1 Kor 15:14). Ponieważ Jezus żyje, chrześcijaństwo nie polega na samym naśladowaniu wspomnień, lecz na zaufaniu żywemu Zbawicielowi."
+        },
+        {
+          "heading": "Od czego zacząć osobiste poznawanie Jezusa?",
+          "body": "Najprostszy krok to przeczytanie jednego rozdziału Ewangelii Jana dziennie — powoli, zadając proste pytanie: „Co ten fragment mówi o sercu Jezusa?”. Możesz skorzystać z naszego Planu 365 dni lub 21-dniowej ścieżki startowej."
+        }
+      ],
+      "catholicContext": null,
+      "reflectionQuestion": "Który obraz Jezusa z Ewangelii (Przyjaciel, Pasterz, Nauczyciel, Zbawiciel) najbardziej przemawia do tego, czego dziś szukasz?",
+      "relatedSlugs": [
+        "zbawienie",
+        "modlitwa",
+        "jedyny-posrednik"
+      ],
+      "sources": [
+        {
+          "label": "Uwspółcześniona Biblia Gdańska (UBG-2025), CC BY-ND 4.0",
+          "url": "/mojabiblia"
+        },
+        {
+          "label": "Opracowanie redakcyjne Christian Culture (status: draft)",
+          "url": "/test/katolik/o-projekcie"
+        }
+      ],
+      "reviewStatus": "draft",
+      "updatedAt": "2026-11-26"
+    },
+    {
+      "slug": "zbawienie",
+      "navLabel": "Zbawienie z łaski",
+      "category": "Fundament Ewangelii",
+      "title": "Zbawienie: dar łaski czy nagroda za zasługi?",
+      "summary": "Ewangelia łaski (Sola Gratia, Sola Fide), pokuta, nowe życie oraz miejsce dobrych uczynków jako owocu wdzięczności.",
+      "shortAnswer": "Biblia uczy jasno, że zbawienie jest darmowym darem Bożej łaski przyjmowanym przez wiarę w Jezusa Chrystusa (Ef 2:8–9; Rz 3:23–24). Dobre uczynki są niezwykle cenne, ale są owocem otrzymanej łaski, a nie walutą, którą człowiek kupuje sobie niebo.",
+      "quotes": [
+        {
+          "bookId": "EPH",
+          "bookName": "List do Efezjan",
+          "chapter": 2,
+          "verseStart": 8,
+          "verseEnd": 10,
+          "label": "List do Efezjan 2:8–10",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/EPH-002.json",
+          "text": "8 Łaską bowiem jesteście zbawieni przez wiarę, i to nie jest z was, jest to dar Boga. 9 Nie z uczynków, aby nikt się nie chlubił. 10 Jesteśmy bowiem jego dziełem, stworzeni w Chrystusie Jezusie do dobrych uczynków, które Bóg wcześniej przygotował, abyśmy w nich postępowali.",
+          "verses": [
+            {
+              "number": 8,
+              "text": "Łaską bowiem jesteście zbawieni przez wiarę, i to nie jest z was, jest to dar Boga."
+            },
+            {
+              "number": 9,
+              "text": "Nie z uczynków, aby nikt się nie chlubił."
+            },
+            {
+              "number": 10,
+              "text": "Jesteśmy bowiem jego dziełem, stworzeni w Chrystusie Jezusie do dobrych uczynków, które Bóg wcześniej przygotował, abyśmy w nich postępowali."
+            }
+          ]
+        },
+        {
+          "bookId": "ROM",
+          "bookName": "List do Rzymian",
+          "chapter": 3,
+          "verseStart": 23,
+          "verseEnd": 24,
+          "label": "List do Rzymian 3:23–24",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/ROM-003.json",
+          "text": "23 Wszyscy bowiem zgrzeszyli i są pozbawieni chwały Boga; 24 A zostają usprawiedliwieni darmo, z jego łaski, przez odkupienie, które jest w Jezusie Chrystusie.",
+          "verses": [
+            {
+              "number": 23,
+              "text": "Wszyscy bowiem zgrzeszyli i są pozbawieni chwały Boga;"
+            },
+            {
+              "number": 24,
+              "text": "A zostają usprawiedliwieni darmo, z jego łaski, przez odkupienie, które jest w Jezusie Chrystusie."
+            }
+          ]
+        },
+        {
+          "bookId": "ROM",
+          "bookName": "List do Rzymian",
+          "chapter": 10,
+          "verseStart": 9,
+          "verseEnd": 13,
+          "label": "List do Rzymian 10:9–13",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/ROM-010.json",
+          "text": "9 Jeśli ustami wyznasz Pana Jezusa i uwierzysz w swoim sercu, że Bóg wskrzesił go z martwych, będziesz zbawiony. 10 Sercem bowiem wierzy się ku sprawiedliwości, a ustami wyznaje się ku zbawieniu. 11 Mówi bowiem Pismo: Każdy, kto w niego wierzy, nie będzie zawstydzony. 12 Gdyż nie ma różnicy między Żydem a Grekiem; bo ten sam Pan wszystkich jest bogaty względem wszystkich, którzy go wzywają. 13 Każdy bowiem, kto wezwie imienia Pana, będzie zbawiony.",
+          "verses": [
+            {
+              "number": 9,
+              "text": "Jeśli ustami wyznasz Pana Jezusa i uwierzysz w swoim sercu, że Bóg wskrzesił go z martwych, będziesz zbawiony."
+            },
+            {
+              "number": 10,
+              "text": "Sercem bowiem wierzy się ku sprawiedliwości, a ustami wyznaje się ku zbawieniu."
+            },
+            {
+              "number": 11,
+              "text": "Mówi bowiem Pismo: Każdy, kto w niego wierzy, nie będzie zawstydzony."
+            },
+            {
+              "number": 12,
+              "text": "Gdyż nie ma różnicy między Żydem a Grekiem; bo ten sam Pan wszystkich jest bogaty względem wszystkich, którzy go wzywają."
+            },
+            {
+              "number": 13,
+              "text": "Każdy bowiem, kto wezwie imienia Pana, będzie zbawiony."
+            }
+          ]
+        }
+      ],
+      "commentary": [
+        {
+          "heading": "Dlaczego nie musimy już żyć w nieustannym lęku, czy „zrobiliśmy wystarczająco dużo”?",
+          "body": "Wiele szczerych, pobożnych osób nosi w sercu ciche pytanie: czy moje dobre uczynki przeważą moje błędy? Słowo Boże przynosi w tym miejscu głęboką ulgę. Nikt z ludzi nie spełnia doskonałej miary świętości Boga (Rz 3:23). Dlatego ratunek nie zaczyna się od naszej doskonałości, lecz od tego, że Chrystus na krzyżu spłacił nasz dług w całości."
+        },
+        {
+          "heading": "Prawdziwe miejsce dobrych uczynków",
+          "body": "Zauważ, że List do Efezjan nie kończy się na słowach „nie z uczynków” (Ef 2:9) — już w kolejnym wersecie dodaje: „stworzeni w Chrystusie Jezusie do dobrych uczynków” (Ef 2:10). Jabłoń nie rodzi jabłek po to, żeby stać się jabłonią — rodzi je, bo już nią jest. Podobnie człowiek przyjęty przez Jezusa czyni dobro nie ze strachu przed karą, lecz z wdzięczności i miłości."
+        },
+        {
+          "heading": "Pokuta i osobiste powierzenie życia Jezusowi",
+          "body": "Biblijna pokuta (metanoia) to szczera zmiana kierunku — odwrócenie się od życia bez Boga ku zaufaniu Jezusowi. Poniższa modlitwa jest wyłącznie dobrowolnym przykładem słów, a nie magiczną formułą automatycznie gwarantującą zbawienie; Bóg patrzy na szczere serce, nie na wyuczoną recytację."
+        }
+      ],
+      "optionalPrayer": {
+        "disclaimer": "Dobrowolny przykład modlitwy (nie jest formułą automatycznie gwarantującą zbawienie — możesz porozmawiać z Bogiem całkowicie własnymi słowami):",
+        "text": "Panie Jezu, przychodzę do Ciebie szczerze taki, jaki jestem. Dziękuję Ci, że umiłowałeś mnie i oddałeś za mnie swoje życie na krzyżu. Wyznaję przed Tobą moje grzechy i proszę o Twoje przebaczenie. Chcę Ci zaufać jako mojemu jedynemu Zbawicielowi i poznawać Cię coraz lepiej przez Twoje Słowo. Prowadź mnie każdego dnia. Amen."
+      },
+      "catholicContext": {
+        "heading": "Perspektywa porównawcza (źródłowo i z szacunkiem)",
+        "officialView": "Oficjalne nauczanie Kościoła katolickiego (np. Katechizm Kościoła Katolickiego, KKK 1987–2011; Wspólna Deklaracja o Usprawiedliwieniu z 1999 r.) podkreśla pierwotność Bożej łaski, lecz jednocześnie łączy proces usprawiedliwienia z uświęceniem, sakramentami i pojęciem zasługi rozumianej we współpracy z łaską (KKK 2006–2010).",
+        "ccView": "Stanowisko Christian Culture (Sola Gratia, Sola Fide): usprawiedliwienie jest jednorazowym, pełnym darem przypisania sprawiedliwości Chrystusa grzesznikowi wyłącznie przez wiarę, bez ludzkich zasług; uświęcenie i dobre uczynki są naturalnym owocem nowego życia w Duchu Świętym.",
+        "sourceLabel": "Katechizm Kościoła Katolickiego (KKK 1987–2011), vatican.va",
+        "sourceUrl": "https://www.vatican.va/archive/ENG0015/__P6Z.HTM"
+      },
+      "reflectionQuestion": "Co zmieniłoby się w Twoim codziennym pokoju serca, gdybyś przyjął zbawienie jako dar od Jezusa, a nie ciężar do odpracowania?",
+      "relatedSlugs": [
+        "poznaj-jezusa",
+        "modlitwa",
+        "jedyny-posrednik"
+      ],
+      "sources": [
+        {
+          "label": "Uwspółcześniona Biblia Gdańska (UBG-2025), CC BY-ND 4.0",
+          "url": "/mojabiblia"
+        },
+        {
+          "label": "Katechizm Kościoła Katolickiego (KKK 1987–2011) — źródło porównawcze",
+          "url": "https://www.vatican.va/archive/ENG0015/__P6Z.HTM"
+        }
+      ],
+      "reviewStatus": "draft",
+      "updatedAt": "2026-11-26"
+    },
+    {
+      "slug": "modlitwa",
+      "navLabel": "Modlitwa",
+      "category": "Życie z Bogiem",
+      "title": "Jak rozmawiać bezpośrednio z Bogiem?",
+      "summary": "Modlitwa jako szczera, osobista rozmowa z Ojcem w imieniu Jezusa — wzór Modlitwy Pańskiej i praktyczne kroki.",
+      "shortAnswer": "Możesz zwracać się bezpośrednio do Boga własnymi słowami, w każdej chwili i miejscu. Jezus nauczył uczniów zwracać się do Boga „Ojcze nasz” i obiecał, że w Jego imieniu mamy śmiały przystęp do tronu łaski bez strachu i bez pośrednictwa ludzkich formuł.",
+      "quotes": [
+        {
+          "bookId": "MAT",
+          "bookName": "Ewangelia Mateusza",
+          "chapter": 6,
+          "verseStart": 9,
+          "verseEnd": 13,
+          "label": "Ewangelia Mateusza 6:9–13",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/MAT-006.json",
+          "text": "9 Wy więc tak się módlcie: Ojcze nasz, który jesteś w niebie, niech będzie uświęcone twoje imię. 10 Niech przyjdzie twoje królestwo, niech się dzieje twoja wola na ziemi, tak jak w niebie. 11 Daj nam dzisiaj naszego powszedniego chleba. 12 I przebacz nam nasze winy, jak i my przebaczamy tym, którzy przeciw nam zawinili. 13 I nie wystawiaj nas na pokusę, ale wybaw nas od złego; twoje bowiem jest królestwo, moc i chwała na wieki. Amen.",
+          "verses": [
+            {
+              "number": 9,
+              "text": "Wy więc tak się módlcie: Ojcze nasz, który jesteś w niebie, niech będzie uświęcone twoje imię."
+            },
+            {
+              "number": 10,
+              "text": "Niech przyjdzie twoje królestwo, niech się dzieje twoja wola na ziemi, tak jak w niebie."
+            },
+            {
+              "number": 11,
+              "text": "Daj nam dzisiaj naszego powszedniego chleba."
+            },
+            {
+              "number": 12,
+              "text": "I przebacz nam nasze winy, jak i my przebaczamy tym, którzy przeciw nam zawinili."
+            },
+            {
+              "number": 13,
+              "text": "I nie wystawiaj nas na pokusę, ale wybaw nas od złego; twoje bowiem jest królestwo, moc i chwała na wieki. Amen."
+            }
+          ]
+        },
+        {
+          "bookId": "PHP",
+          "bookName": "List do Filipian",
+          "chapter": 4,
+          "verseStart": 6,
+          "verseEnd": 7,
+          "label": "List do Filipian 4:6–7",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/PHP-004.json",
+          "text": "6 Nie troszczcie się o nic, ale we wszystkim przez modlitwę i prośbę z dziękczynieniem niech wasze pragnienia będą znane Bogu. 7 A pokój Boży, który przewyższa wszelkie zrozumienie, będzie strzegł waszych serc i myśli w Chrystusie Jezusie.",
+          "verses": [
+            {
+              "number": 6,
+              "text": "Nie troszczcie się o nic, ale we wszystkim przez modlitwę i prośbę z dziękczynieniem niech wasze pragnienia będą znane Bogu."
+            },
+            {
+              "number": 7,
+              "text": "A pokój Boży, który przewyższa wszelkie zrozumienie, będzie strzegł waszych serc i myśli w Chrystusie Jezusie."
+            }
+          ]
+        },
+        {
+          "bookId": "HEB",
+          "bookName": "List do Hebrajczyków",
+          "chapter": 4,
+          "verseStart": 14,
+          "verseEnd": 16,
+          "label": "List do Hebrajczyków 4:14–16",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/HEB-004.json",
+          "text": "14 Mając więc wielkiego najwyższego kapłana, który przeszedł przez niebiosa, Jezusa, Syna Bożego, trzymajmy się naszego wyznania. 15 Nie mamy bowiem najwyższego kapłana, który by nie mógł współczuć naszym słabościom, lecz kuszonego we wszystkim podobnie jak my, ale bez grzechu. 16 Przystąpmy więc z ufnością do tronu łaski, abyśmy dostąpili miłosierdzia i znaleźli łaskę ku pomocy w stosownej chwili.",
+          "verses": [
+            {
+              "number": 14,
+              "text": "Mając więc wielkiego najwyższego kapłana, który przeszedł przez niebiosa, Jezusa, Syna Bożego, trzymajmy się naszego wyznania."
+            },
+            {
+              "number": 15,
+              "text": "Nie mamy bowiem najwyższego kapłana, który by nie mógł współczuć naszym słabościom, lecz kuszonego we wszystkim podobnie jak my, ale bez grzechu."
+            },
+            {
+              "number": 16,
+              "text": "Przystąpmy więc z ufnością do tronu łaski, abyśmy dostąpili miłosierdzia i znaleźli łaskę ku pomocy w stosownej chwili."
+            }
+          ]
+        }
+      ],
+      "commentary": [
+        {
+          "heading": "Prostota zamiast wielomówstwa",
+          "body": "Tuż przed Modlitwą Pańską Jezus powiedział: „Modląc się, nie bądźcie wielomówni… wie bowiem wasz Ojciec, czego potrzebujecie, zanim go poprosicie” (Mt 6:7–8). Modlitwa nie jest recytowaniem zadanej liczby powtórzeń, aby „przekonać” niechętnego Boga — jest szczerą rozmową dziecka ze kochającym Ojcem."
+        },
+        {
+          "heading": "Prosty biblijny rytm modlitwy",
+          "body": "Wzór z Mt 6:9–13 podpowiada cztery naturalne elementy rozmowy z Bogiem: (1) Uwielbienie i wdzięczność („Ojcze nasz, święć się imię Twoje”), (2) Oddanie swojej woli („bądź wola Twoja”), (3) Zwykłe potrzeby i prośba o przebaczenie („chleba powszedniego… przebacz nam”), (4) Prośba o ochronę i prowadzenie w trudnych wyborach."
+        },
+        {
+          "heading": "Modlitwa razem z otwartą Biblią",
+          "body": "Jednym z najlepszych sposobów na żywą modlitwę jest modlenie się słowami Psalmów lub krótkiego fragmentu Ewangelii: najpierw czytasz kilka wersetów (Bóg mówi do Ciebie), a potem odpowiadasz Mu własnymi słowami na to, co przeczytałeś."
+        }
+      ],
+      "catholicContext": null,
+      "reflectionQuestion": "Gdybyś miał dziś powiedzieć Bogu jedno całkiem szczere zdanie własnymi słowami — bez gotowej formułki — jak by ono brzmiało?",
+      "relatedSlugs": [
+        "jedyny-posrednik",
+        "poznaj-jezusa",
+        "zbawienie"
+      ],
+      "sources": [
+        {
+          "label": "Uwspółcześniona Biblia Gdańska (UBG-2025), CC BY-ND 4.0",
+          "url": "/mojabiblia"
+        }
+      ],
+      "reviewStatus": "draft",
+      "updatedAt": "2026-11-26"
+    },
+    {
+      "slug": "biblia-a-tradycja",
+      "navLabel": "Biblia a tradycja",
+      "category": "Badanie Pisma",
+      "title": "Biblia a tradycja kościelna — co jest ostateczną miarą wiary?",
+      "summary": "Uczciwe, źródłowe porównanie zasady Sola Scriptura i relacji między Pismem Świętym a tradycją (Mk 7, 2 Tm 3:16–17).",
+      "shortAnswer": "Christian Culture przyjmuje zasadę Sola Scriptura: Biblia (66 ksiąg) jest jedynym nieomylnym i wystarczającym autorytetem w sprawach wiary i zbawienia. Historia i tradycja mogą być pomocnym świadectwem, ale każdą ludzką naukę należy sprawdzać w świetle Pisma Świętego (Dz 17:11; Mk 7:8–13).",
+      "quotes": [
+        {
+          "bookId": "2TI",
+          "bookName": "2 List do Tymoteusza",
+          "chapter": 3,
+          "verseStart": 16,
+          "verseEnd": 17,
+          "label": "2 List do Tymoteusza 3:16–17",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/2TI-003.json",
+          "text": "16 Całe Pismo jest natchnione przez Boga i pożyteczne do nauki, do strofowania, do poprawiania, do wychowywania w sprawiedliwości; 17 Aby człowiek Boży był doskonały, do wszelkiego dobrego dzieła w pełni przygotowany.",
+          "verses": [
+            {
+              "number": 16,
+              "text": "Całe Pismo jest natchnione przez Boga i pożyteczne do nauki, do strofowania, do poprawiania, do wychowywania w sprawiedliwości;"
+            },
+            {
+              "number": 17,
+              "text": "Aby człowiek Boży był doskonały, do wszelkiego dobrego dzieła w pełni przygotowany."
+            }
+          ]
+        },
+        {
+          "bookId": "MRK",
+          "bookName": "Ewangelia Marka",
+          "chapter": 7,
+          "verseStart": 8,
+          "verseEnd": 13,
+          "label": "Ewangelia Marka 7:8–13",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/MRK-007.json",
+          "text": "8 Wy bowiem, opuściwszy przykazania Boże, trzymacie się tradycji ludzkiej, obmywania dzbanków i kubków. I wiele innych tym podobnych rzeczy czynicie. 9 Mówił im też: Całkowicie znosicie przykazanie Boże, aby zachować swoją tradycję. 10 Mojżesz bowiem powiedział: Czcij swego ojca i swoją matkę, oraz: Kto złorzeczy ojcu albo matce, niech poniesie śmierć. 11 Ale wy mówicie: Jeśli człowiek powie ojcu albo matce: To, co powinieneś otrzymać ode mnie jako pomoc, to Korban, to znaczy dar przeznaczony na ofiarę – będzie bez winy. 12 I nie pozwalacie mu nic więcej uczynić dla swego ojca albo matki; 13 Wniwecz obracając słowo Boże przez waszą tradycję, którą przekazaliście. I wiele innych tym podobnych rzeczy czynicie.",
+          "verses": [
+            {
+              "number": 8,
+              "text": "Wy bowiem, opuściwszy przykazania Boże, trzymacie się tradycji ludzkiej, obmywania dzbanków i kubków. I wiele innych tym podobnych rzeczy czynicie."
+            },
+            {
+              "number": 9,
+              "text": "Mówił im też: Całkowicie znosicie przykazanie Boże, aby zachować swoją tradycję."
+            },
+            {
+              "number": 10,
+              "text": "Mojżesz bowiem powiedział: Czcij swego ojca i swoją matkę, oraz: Kto złorzeczy ojcu albo matce, niech poniesie śmierć."
+            },
+            {
+              "number": 11,
+              "text": "Ale wy mówicie: Jeśli człowiek powie ojcu albo matce: To, co powinieneś otrzymać ode mnie jako pomoc, to Korban, to znaczy dar przeznaczony na ofiarę – będzie bez winy."
+            },
+            {
+              "number": 12,
+              "text": "I nie pozwalacie mu nic więcej uczynić dla swego ojca albo matki;"
+            },
+            {
+              "number": 13,
+              "text": "Wniwecz obracając słowo Boże przez waszą tradycję, którą przekazaliście. I wiele innych tym podobnych rzeczy czynicie."
+            }
+          ]
+        },
+        {
+          "bookId": "ACT",
+          "bookName": "Dzieje Apostolskie",
+          "chapter": 17,
+          "verseStart": 11,
+          "verseEnd": 11,
+          "label": "Dzieje Apostolskie 17:11",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/ACT-017.json",
+          "text": "Ci byli szlachetniejsi od tych w Tesalonice, gdyż przyjęli słowo Boże z całą gotowością i codziennie badali Pisma, czy tak się sprawy mają.",
+          "verses": [
+            {
+              "number": 11,
+              "text": "Ci byli szlachetniejsi od tych w Tesalonice, gdyż przyjęli słowo Boże z całą gotowością i codziennie badali Pisma, czy tak się sprawy mają."
+            }
+          ]
+        }
+      ],
+      "commentary": [
+        {
+          "heading": "Czym jest, a czym NIE jest Sola Scriptura?",
+          "body": "Zasada „Tylko Pismo” nie oznacza pogardy dla historii chrześcijaństwa ani przekonania, że każdy zamyka się w izolacji. Oznacza jasno określoną hierarchię autorytetu: ludzkie sobory, nauczyciele i tradycje mogą się mylić i zmieniać na przestrzeni wieków — dlatego ostatecznym sędzią każdej nauki pozostaje spisane Słowo Boże."
+        },
+        {
+          "heading": "Jak Jezus odnosił się do tradycji ludzkiej?",
+          "body": "W Ewangelii Marka 7:8–13 Jezus nie krytykował Prawa Bożego, lecz ludzkie przepisy religijne („tradycję starszych”), które z czasem zaczęły znosić lub przysłaniać jasne przykazanie Boga. W każdym sporze religijnym Jezus odwoływał się do słów: „Napisano” (Mt 4:4,7,10)."
+        },
+        {
+          "heading": "Dlaczego w projekcie korzystamy z kanonu 66 ksiąg?",
+          "body": "Stary Testament w kanonie hebrajskim (przyjmowanym przez wspólnoty ewangeliczne i protestanckie) liczy 39 ksiąg; wraz z 27 księgami Nowego Testamentu daje to 66 ksiąg. Kanon katolicki obejmuje 73 księgi (dodając 7 ksiąg tzw. deuterokanonicznych: Tobiasza, Judyty, 1–2 Machabejską, Mądrości, Mądrość Syracha, Barucha oraz dodatki do Estery i Daniela). Nie mylimy przy tym całego katolickiego przekładu z księgami deuterokanonicznymi — różnica dotyczy zakresu kanonu Starego Testamentu."
+        }
+      ],
+      "catholicContext": {
+        "heading": "Oficjalne stanowisko katolickie a stanowisko Christian Culture",
+        "officialView": "Kościół rzymskokatolicki naucza (Konstytucja Dei Verbum 9; KKK 80–82, 85–87, 120), że Pismo Święte i Tradycja stanowią jeden święty depozyt słowa Bożego, a jego autentyczna interpretacja została powierzona Urzędowi Nauczycielskiemu Kościoła (Magisterium); kanon katolicki obejmuje 73 księgi.",
+        "ccView": "Christian Culture nie reprezentuje Kościoła rzymskokatolickiego i świadomie stoi na gruncie Sola Scriptura oraz kanonu 66 ksiąg: Słowo Boże samo się wyjaśnia, jest w pełni wystarczające ku zbawieniu (2 Tm 3:15–17) i stoi ponad każdą instytucjonalną tradycją.",
+        "sourceLabel": "Katechizm Kościoła Katolickiego (KKK 80–87, 120), vatican.va",
+        "sourceUrl": "https://www.vatican.va/archive/ENG0015/__PL.HTM"
+      },
+      "reflectionQuestion": "Kiedy pojawia się rozbieżność między przyzwyczajeniem religijnym a jasnym wersetem Biblii — według jakiej miary chcesz podejmować decyzję?",
+      "relatedSlugs": [
+        "dekalog",
+        "jedyny-posrednik",
+        "o-projekcie"
+      ],
+      "sources": [
+        {
+          "label": "Uwspółcześniona Biblia Gdańska (UBG-2025), CC BY-ND 4.0",
+          "url": "/mojabiblia"
+        },
+        {
+          "label": "Katechizm Kościoła Katolickiego (KKK 80–87, 120) — źródło porównawcze",
+          "url": "https://www.vatican.va/archive/ENG0015/__PL.HTM"
+        }
+      ],
+      "reviewStatus": "draft",
+      "updatedAt": "2026-11-26"
+    },
+    {
+      "slug": "dekalog",
+      "navLabel": "Dekalog i Sabat",
+      "category": "Badanie Pisma",
+      "title": "Jak naprawdę brzmi Dekalog w Biblii? (Wj 20 i Pwt 5)",
+      "summary": "Pełny, dosłowny tekst Dziesięciu Przykazań z Księgi Wyjścia 20 i Księgi Powtórzonego Prawa 5 oraz biblijny kontekst dnia odpoczynku.",
+      "shortAnswer": "Pełny tekst biblijny Dziesięciu Przykazań (Wj 20:1–17 oraz Pwt 5:6–21) zawiera wyraźne drugie przykazanie zakazujące czynienia i kłaniania się rzeźbom i obrazom w kulcie religijnym oraz czwarte przykazanie nakazujące święcić siódmy dzień tygodnia — szabat (sobotę) jako pamiątkę stworzenia i wyzwolenia.",
+      "quotes": [
+        {
+          "bookId": "EXO",
+          "bookName": "Księga Wyjścia",
+          "chapter": 20,
+          "verseStart": 1,
+          "verseEnd": 17,
+          "label": "Księga Wyjścia 20:1–17",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/EXO-020.json",
+          "text": "1 I Bóg mówił te wszystkie słowa: 2 Ja jestem PAN, twój Bóg, który cię wyprowadził z ziemi Egiptu, z domu niewoli. 3 Nie będziesz miał innych bogów przede mną. 4 Nie będziesz czynił sobie żadnego rzeźbionego posągu ani żadnej podobizny czegokolwiek, co jest w górze na niebie, co jest nisko na ziemi ani co jest w wodach pod ziemią. 5 Nie będziesz oddawał im pokłonu ani nie będziesz im służył, bo ja jestem PAN, twój Bóg, Bóg zazdrosny, nawiedzający nieprawość ojców na synach do trzeciego i czwartego pokolenia tych, którzy mnie nienawidzą; 6 A okazujący miłosierdzie tysiącom tych, którzy mnie miłują i strzegą moich przykazań. 7 Nie będziesz brał imienia PANA, twego Boga, nadaremnie, gdyż PAN nie zostawi bez kary tego, który bierze jego imię nadaremnie. 8 Pamiętaj o dniu szabatu, aby go święcić. 9 Sześć dni będziesz pracować i wykonywać wszystkie swoje prace; 10 Ale siódmy dzień jest szabatem PANA, twego Boga. W tym dniu nie będziesz wykonywał żadnej pracy – ani ty, ani twój syn, ani twoja córka, ani twój sługa, ani twoja służąca, ani twoje bydło, ani twój gość, który jest w obrębie twoich bram. 11 PAN bowiem przez sześć dni stworzył niebo i ziemię, morze i wszystko, co jest w nich, a siódmego dnia odpoczął. Dlatego PAN błogosławił dzień szabatu i uświęcił go. 12 Czcij swego ojca i swoją matkę, aby twoje dni były długie na ziemi, którą PAN, twój Bóg, da tobie. 13 Nie będziesz zabijał. 14 Nie będziesz cudzołożył. 15 Nie będziesz kradł. 16 Nie będziesz fałszywie świadczył przeciw twemu bliźniemu. 17 Nie będziesz pożądał domu twego bliźniego ani nie będziesz pożądał żony twego bliźniego, ani jego sługi, ani jego służącej, ani jego wołu, ani jego osła, ani żadnej rzeczy, która należy do twego bliźniego.",
+          "verses": [
+            {
+              "number": 1,
+              "text": "I Bóg mówił te wszystkie słowa:"
+            },
+            {
+              "number": 2,
+              "text": "Ja jestem PAN, twój Bóg, który cię wyprowadził z ziemi Egiptu, z domu niewoli."
+            },
+            {
+              "number": 3,
+              "text": "Nie będziesz miał innych bogów przede mną."
+            },
+            {
+              "number": 4,
+              "text": "Nie będziesz czynił sobie żadnego rzeźbionego posągu ani żadnej podobizny czegokolwiek, co jest w górze na niebie, co jest nisko na ziemi ani co jest w wodach pod ziemią."
+            },
+            {
+              "number": 5,
+              "text": "Nie będziesz oddawał im pokłonu ani nie będziesz im służył, bo ja jestem PAN, twój Bóg, Bóg zazdrosny, nawiedzający nieprawość ojców na synach do trzeciego i czwartego pokolenia tych, którzy mnie nienawidzą;"
+            },
+            {
+              "number": 6,
+              "text": "A okazujący miłosierdzie tysiącom tych, którzy mnie miłują i strzegą moich przykazań."
+            },
+            {
+              "number": 7,
+              "text": "Nie będziesz brał imienia PANA, twego Boga, nadaremnie, gdyż PAN nie zostawi bez kary tego, który bierze jego imię nadaremnie."
+            },
+            {
+              "number": 8,
+              "text": "Pamiętaj o dniu szabatu, aby go święcić."
+            },
+            {
+              "number": 9,
+              "text": "Sześć dni będziesz pracować i wykonywać wszystkie swoje prace;"
+            },
+            {
+              "number": 10,
+              "text": "Ale siódmy dzień jest szabatem PANA, twego Boga. W tym dniu nie będziesz wykonywał żadnej pracy – ani ty, ani twój syn, ani twoja córka, ani twój sługa, ani twoja służąca, ani twoje bydło, ani twój gość, który jest w obrębie twoich bram."
+            },
+            {
+              "number": 11,
+              "text": "PAN bowiem przez sześć dni stworzył niebo i ziemię, morze i wszystko, co jest w nich, a siódmego dnia odpoczął. Dlatego PAN błogosławił dzień szabatu i uświęcił go."
+            },
+            {
+              "number": 12,
+              "text": "Czcij swego ojca i swoją matkę, aby twoje dni były długie na ziemi, którą PAN, twój Bóg, da tobie."
+            },
+            {
+              "number": 13,
+              "text": "Nie będziesz zabijał."
+            },
+            {
+              "number": 14,
+              "text": "Nie będziesz cudzołożył."
+            },
+            {
+              "number": 15,
+              "text": "Nie będziesz kradł."
+            },
+            {
+              "number": 16,
+              "text": "Nie będziesz fałszywie świadczył przeciw twemu bliźniemu."
+            },
+            {
+              "number": 17,
+              "text": "Nie będziesz pożądał domu twego bliźniego ani nie będziesz pożądał żony twego bliźniego, ani jego sługi, ani jego służącej, ani jego wołu, ani jego osła, ani żadnej rzeczy, która należy do twego bliźniego."
+            }
+          ]
+        },
+        {
+          "bookId": "DEU",
+          "bookName": "Księga Powtórzonego Prawa",
+          "chapter": 5,
+          "verseStart": 6,
+          "verseEnd": 21,
+          "label": "Księga Powtórzonego Prawa 5:6–21",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/DEU-005.json",
+          "text": "6 Ja jestem PAN, twój Bóg, który cię wyprowadził z ziemi Egiptu, z domu niewoli. 7 Nie będziesz miał innych bogów przede mną. 8 Nie czyń sobie rzeźbionego posągu ani żadnej podobizny czegokolwiek, co jest w górze na niebie, co jest nisko na ziemi ani tego, co jest w wodach pod ziemią; 9 Nie będziesz oddawał im pokłonu ani nie będziesz im służył, gdyż ja jestem PAN, twój Bóg, Bóg zazdrosny, nawiedzający nieprawość ojców na synach do trzeciego i czwartego pokolenia tych, którzy mnie nienawidzą; 10 A okazujący miłosierdzie tysiącom tych, którzy mnie miłują i strzegą moich przykazań. 11 Nie będziesz brał imienia PANA, twego Boga, nadaremnie, gdyż PAN nie zostawi bez kary tego, który bierze jego imię nadaremnie. 12 Przestrzegaj dnia szabatu, abyś go święcił, tak jak ci nakazał PAN, twój Bóg. 13 Przez sześć dni będziesz pracował i wykonywał wszelką swoją pracę; 14 Lecz siódmy dzień jest szabatem PANA, twego Boga. Nie będziesz wykonywał żadnej pracy w tym dniu ani ty, ani twój syn, ani twoja córka, ani twój sługa, ani twoja służąca, ani twój wół, ani twój osioł, ani żadne twoje bydło, ani twój gość, który jest w twych bramach; aby odpoczął twój sługa i twoja służąca – jak i ty. 15 I pamiętaj, że byłeś niewolnikiem w ziemi Egiptu i że PAN, twój Bóg, wyprowadził cię stamtąd potężną ręką i wyciągniętym ramieniem. Dlatego PAN, twój Bóg, nakazał ci obchodzić dzień szabatu. 16 Czcij swego ojca i swoją matkę, tak jak nakazał ci PAN, twój Bóg, aby przedłużone były twoje dni i żeby ci się dobrze powodziło na ziemi, którą PAN, twój Bóg, da tobie. 17 Nie będziesz zabijał. 18 Nie będziesz cudzołożył. 19 Nie będziesz kradł. 20 Nie będziesz mówił fałszywego świadectwa przeciw twemu bliźniemu. 21 Nie będziesz pragnął żony swego bliźniego ani nie będziesz pożądał domu swego bliźniego, ani jego pola, ani jego sługi czy służącej, ani jego wołu czy osła, ani żadnej rzeczy, która należy do twego bliźniego.",
+          "verses": [
+            {
+              "number": 6,
+              "text": "Ja jestem PAN, twój Bóg, który cię wyprowadził z ziemi Egiptu, z domu niewoli."
+            },
+            {
+              "number": 7,
+              "text": "Nie będziesz miał innych bogów przede mną."
+            },
+            {
+              "number": 8,
+              "text": "Nie czyń sobie rzeźbionego posągu ani żadnej podobizny czegokolwiek, co jest w górze na niebie, co jest nisko na ziemi ani tego, co jest w wodach pod ziemią;"
+            },
+            {
+              "number": 9,
+              "text": "Nie będziesz oddawał im pokłonu ani nie będziesz im służył, gdyż ja jestem PAN, twój Bóg, Bóg zazdrosny, nawiedzający nieprawość ojców na synach do trzeciego i czwartego pokolenia tych, którzy mnie nienawidzą;"
+            },
+            {
+              "number": 10,
+              "text": "A okazujący miłosierdzie tysiącom tych, którzy mnie miłują i strzegą moich przykazań."
+            },
+            {
+              "number": 11,
+              "text": "Nie będziesz brał imienia PANA, twego Boga, nadaremnie, gdyż PAN nie zostawi bez kary tego, który bierze jego imię nadaremnie."
+            },
+            {
+              "number": 12,
+              "text": "Przestrzegaj dnia szabatu, abyś go święcił, tak jak ci nakazał PAN, twój Bóg."
+            },
+            {
+              "number": 13,
+              "text": "Przez sześć dni będziesz pracował i wykonywał wszelką swoją pracę;"
+            },
+            {
+              "number": 14,
+              "text": "Lecz siódmy dzień jest szabatem PANA, twego Boga. Nie będziesz wykonywał żadnej pracy w tym dniu ani ty, ani twój syn, ani twoja córka, ani twój sługa, ani twoja służąca, ani twój wół, ani twój osioł, ani żadne twoje bydło, ani twój gość, który jest w twych bramach; aby odpoczął twój sługa i twoja służąca – jak i ty."
+            },
+            {
+              "number": 15,
+              "text": "I pamiętaj, że byłeś niewolnikiem w ziemi Egiptu i że PAN, twój Bóg, wyprowadził cię stamtąd potężną ręką i wyciągniętym ramieniem. Dlatego PAN, twój Bóg, nakazał ci obchodzić dzień szabatu."
+            },
+            {
+              "number": 16,
+              "text": "Czcij swego ojca i swoją matkę, tak jak nakazał ci PAN, twój Bóg, aby przedłużone były twoje dni i żeby ci się dobrze powodziło na ziemi, którą PAN, twój Bóg, da tobie."
+            },
+            {
+              "number": 17,
+              "text": "Nie będziesz zabijał."
+            },
+            {
+              "number": 18,
+              "text": "Nie będziesz cudzołożył."
+            },
+            {
+              "number": 19,
+              "text": "Nie będziesz kradł."
+            },
+            {
+              "number": 20,
+              "text": "Nie będziesz mówił fałszywego świadectwa przeciw twemu bliźniemu."
+            },
+            {
+              "number": 21,
+              "text": "Nie będziesz pragnął żony swego bliźniego ani nie będziesz pożądał domu swego bliźniego, ani jego pola, ani jego sługi czy służącej, ani jego wołu czy osła, ani żadnej rzeczy, która należy do twego bliźniego."
+            }
+          ]
+        }
+      ],
+      "commentary": [
+        {
+          "heading": "Sprawdź tekst biblijny słowo po słowie",
+          "body": "Większość osób w Polsce zna skróconą, rymowaną wersję katechetyczną ze szkoły, ale rzadko czytała oryginalny tekst Dekalogu z 20. rozdziału Księgi Wyjścia. Zachęcamy: przeczytaj uważnie oba pełne cytaty powyżej — zarówno z Księgi Wyjścia 20:1–17, jak i z Księgi Powtórzonego Prawa 5:6–21."
+        },
+        {
+          "heading": "Dwie różnice, które najczęściej zaskakują czytelników",
+          "body": "Po pierwsze, w biblijnym brzmieniu bardzo obszerne przykazanie (Wj 20:4–6) dotyczy zakazu oddawania czci religijnej rzeźbom i wizerunkom — w skróconym katechizmie zostało ono włączone w pierwsze przykazanie, a dziesiąte rozdzielono na dziewiąte i dziesiąte. Po drugie, przykazanie o dniu odpoczynku (Wj 20:8–11) wskazuje konkretnie siódmy dzień tygodnia (szabat — sobotę), ustanowiony przez Stwórcę już w Księdze Rodzaju 2:2–3."
+        },
+        {
+          "heading": "Sabat i przykazania według stanowiska Christian Culture",
+          "body": "W rozumieniu Christian Culture Dziesięć Przykazań jest niezmiennym wyrazem charakteru i miłości Boga (J 14:15; Rz 3:31), a biblijny szabat (siódmy dzień tygodnia, od zachodu słońca w piątek do zachodu słońca w sobotę) pozostaje darem odpoczynku i znakiem Stwórcy. Przestrzeganie przykazań nigdy nie służy „kupowaniu” zbawienia, lecz jest radosną odpowiedzią miłości człowieka już zbawionego przez łaskę."
+        }
+      ],
+      "catholicContext": {
+        "heading": "Numeracja katechetyczna i niedziela w nauczaniu katolickim",
+        "officialView": "Kościół katolicki podaje w Katechizmie (KKK 2052–2074, tabela porównawcza) pełny tekst Wj 20 i Pwt 5, stosując tradycyjną numerację św. Augustyna (łączącą Wj 20:2–6 w 1. przykazanie i dzielącą Wj 20:17 na 9. i 10.) oraz nauczając, że dzień Pański został przeniesiony na niedzielę na pamiątkę zmartwychwstania Chrystusa (KKK 2174–2176).",
+        "ccView": "Stanowisko Christian Culture: Nowy Testament nie zawiera żadnego Bożego nakazu przeniesienia świętości siódmego dnia na niedzielę; Jezus sam zachowywał szabat (Łk 4:16) i nazwał siebie „Panem szabatu” (Mk 2:28). Zachęcamy każdego czytelnika do spokojnego, osobistego zbadania Pisma.",
+        "sourceLabel": "Katechizm Kościoła Katolickiego (KKK 2052–2176), vatican.va",
+        "sourceUrl": "https://www.vatican.va/archive/ENG0015/__P77.HTM"
+      },
+      "reflectionQuestion": "Czy znałeś wcześniej pełne biblijne brzmienie Wj 20:1–17? Co najbardziej zwróciło Twoją uwagę podczas tej lektury?",
+      "relatedSlugs": [
+        "biblia-a-tradycja",
+        "zbawienie",
+        "poznaj-jezusa"
+      ],
+      "sources": [
+        {
+          "label": "Uwspółcześniona Biblia Gdańska (UBG-2025), CC BY-ND 4.0",
+          "url": "/mojabiblia"
+        },
+        {
+          "label": "Katechizm Kościoła Katolickiego (KKK 2052–2176) — źródło porównawcze",
+          "url": "https://www.vatican.va/archive/ENG0015/__P77.HTM"
+        }
+      ],
+      "reviewStatus": "draft",
+      "updatedAt": "2026-11-26"
+    },
+    {
+      "slug": "jedyny-posrednik",
+      "navLabel": "Jedyny Pośrednik",
+      "category": "Badanie Pisma",
+      "title": "Jezus jako jedyny Pośrednik — co Biblia mówi o Marii i świętych?",
+      "summary": "1 Tm 2:5, Hbr 4:14–16, J 14:6 i Łk 1:46–55: głęboki szacunek dla wiary Marii przy zachowaniu wyłącznego pośrednictwa Chrystusa.",
+      "shortAnswer": "Pismo Święte uczy jednoznacznie: „Jeden bowiem jest Bóg, jeden też pośrednik między Bogiem a ludźmi, człowiek Chrystus Jezus” (1 Tm 2:5). Maria jest w Ewangelii pięknym wzorem pokornej wiary i posłuszeństwa Bogu, lecz Biblia nie uczy modlitwy do Marii ani do zmarłych świętych.",
+      "quotes": [
+        {
+          "bookId": "1TI",
+          "bookName": "1 List do Tymoteusza",
+          "chapter": 2,
+          "verseStart": 5,
+          "verseEnd": 5,
+          "label": "1 List do Tymoteusza 2:5",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/1TI-002.json",
+          "text": "Jeden bowiem jest Bóg, jeden też pośrednik między Bogiem a ludźmi, człowiek Chrystus Jezus;",
+          "verses": [
+            {
+              "number": 5,
+              "text": "Jeden bowiem jest Bóg, jeden też pośrednik między Bogiem a ludźmi, człowiek Chrystus Jezus;"
+            }
+          ]
+        },
+        {
+          "bookId": "HEB",
+          "bookName": "List do Hebrajczyków",
+          "chapter": 4,
+          "verseStart": 14,
+          "verseEnd": 16,
+          "label": "List do Hebrajczyków 4:14–16",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/HEB-004.json",
+          "text": "14 Mając więc wielkiego najwyższego kapłana, który przeszedł przez niebiosa, Jezusa, Syna Bożego, trzymajmy się naszego wyznania. 15 Nie mamy bowiem najwyższego kapłana, który by nie mógł współczuć naszym słabościom, lecz kuszonego we wszystkim podobnie jak my, ale bez grzechu. 16 Przystąpmy więc z ufnością do tronu łaski, abyśmy dostąpili miłosierdzia i znaleźli łaskę ku pomocy w stosownej chwili.",
+          "verses": [
+            {
+              "number": 14,
+              "text": "Mając więc wielkiego najwyższego kapłana, który przeszedł przez niebiosa, Jezusa, Syna Bożego, trzymajmy się naszego wyznania."
+            },
+            {
+              "number": 15,
+              "text": "Nie mamy bowiem najwyższego kapłana, który by nie mógł współczuć naszym słabościom, lecz kuszonego we wszystkim podobnie jak my, ale bez grzechu."
+            },
+            {
+              "number": 16,
+              "text": "Przystąpmy więc z ufnością do tronu łaski, abyśmy dostąpili miłosierdzia i znaleźli łaskę ku pomocy w stosownej chwili."
+            }
+          ]
+        },
+        {
+          "bookId": "JHN",
+          "bookName": "Ewangelia Jana",
+          "chapter": 14,
+          "verseStart": 6,
+          "verseEnd": 6,
+          "label": "Ewangelia Jana 14:6",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/JHN-014.json",
+          "text": "Jezus mu odpowiedział: Ja jestem drogą, prawdą i życiem. Nikt nie przychodzi do Ojca jak tylko przeze mnie.",
+          "verses": [
+            {
+              "number": 6,
+              "text": "Jezus mu odpowiedział: Ja jestem drogą, prawdą i życiem. Nikt nie przychodzi do Ojca jak tylko przeze mnie."
+            }
+          ]
+        },
+        {
+          "bookId": "LUK",
+          "bookName": "Ewangelia Łukasza",
+          "chapter": 1,
+          "verseStart": 46,
+          "verseEnd": 55,
+          "label": "Ewangelia Łukasza 1:46–55",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/LUK-001.json",
+          "text": "46 Wtedy Maria powiedziała: Wielbi moja dusza Pana; 47 I rozradował się mój duch w Bogu, moim Zbawicielu; 48 Bo wejrzał na uniżenie swojej służebnicy. Oto bowiem wszystkie pokolenia będą mnie odtąd nazywać błogosławioną. 49 Bo uczynił mi wielkie rzeczy ten, który jest mocny, i święte jest jego imię. 50 A jego miłosierdzie z pokolenia na pokolenie nad tymi, którzy się go boją. 51 Okazał moc swoim ramieniem i rozproszył pysznych w myślach ich serc. 52 Strącił mocarzy z tronów, a wywyższył pokornych. 53 Głodnych napełnił dobrami, a bogaczy odprawił z niczym. 54 Ujął się za Izraelem, swym sługą, pomny na swoje miłosierdzie; 55 Jak mówił do naszych ojców, do Abrahama i jego potomstwa na wieki.",
+          "verses": [
+            {
+              "number": 46,
+              "text": "Wtedy Maria powiedziała: Wielbi moja dusza Pana;"
+            },
+            {
+              "number": 47,
+              "text": "I rozradował się mój duch w Bogu, moim Zbawicielu;"
+            },
+            {
+              "number": 48,
+              "text": "Bo wejrzał na uniżenie swojej służebnicy. Oto bowiem wszystkie pokolenia będą mnie odtąd nazywać błogosławioną."
+            },
+            {
+              "number": 49,
+              "text": "Bo uczynił mi wielkie rzeczy ten, który jest mocny, i święte jest jego imię."
+            },
+            {
+              "number": 50,
+              "text": "A jego miłosierdzie z pokolenia na pokolenie nad tymi, którzy się go boją."
+            },
+            {
+              "number": 51,
+              "text": "Okazał moc swoim ramieniem i rozproszył pysznych w myślach ich serc."
+            },
+            {
+              "number": 52,
+              "text": "Strącił mocarzy z tronów, a wywyższył pokornych."
+            },
+            {
+              "number": 53,
+              "text": "Głodnych napełnił dobrami, a bogaczy odprawił z niczym."
+            },
+            {
+              "number": 54,
+              "text": "Ujął się za Izraelem, swym sługą, pomny na swoje miłosierdzie;"
+            },
+            {
+              "number": 55,
+              "text": "Jak mówił do naszych ojców, do Abrahama i jego potomstwa na wieki."
+            }
+          ]
+        }
+      ],
+      "commentary": [
+        {
+          "heading": "Dlaczego nikt nie jest bardziej dostępny niż sam Jezus?",
+          "body": "Czasem ludzie zwracają się do innych pośredników z obawy, że Bóg jest zbyt surowy lub daleki. Tymczasem List do Hebrajczyków 4:14–16 burzy ten lęk u samych podstaw: nasz Arcykapłan Jezus współczuje naszym słabościom, bo sam był kuszony we wszystkim oprócz grzechu — dlatego możemy przychodzić wprost do tronu łaski z pełną ufnością."
+        },
+        {
+          "heading": "Biblijny obraz Marii — z pełnym szacunkiem",
+          "body": "W Christian Culture odnosimy się do Marii z głębokim biblijnym szacunkiem: była błogosławioną, bogobojną kobietą, która z pokorą przyjęła powołanie bycia matką Jezusa (Łk 1:38,48). W swojej pieśni Magnificat (Łk 1:47) sama nazwała Boga „moim Zbawicielem”, a w Kanie Galilejskiej wypowiedziała najlepsze słowa, jakie kieruje do każdego czytelnika: „Cokolwiek wam powie [Jezus], czyńcie” (J 2:5)."
+        },
+        {
+          "heading": "Co Nowy Testament mówi o modlitwie do świętych?",
+          "body": "W Nowym Testamencie „świętymi” nazywani są wszyscy żyjący wierzący w Chrystusa (np. 1 Kor 1:2; Ef 1:1) — i jak najbardziej zachęca się nas do wzajemnej modlitwy za siebie tu na ziemi (Jk 5:16). Natomiast na kartach całej Biblii nie ma ani jednego nakazu ani przykładu modlitwy kierowanej do zmarłych ludzi; wszelka modlitwa kierowana jest wyłącznie do Boga w imieniu Jezusa."
+        }
+      ],
+      "catholicContext": {
+        "heading": "Stanowisko katolickie a stanowisko Christian Culture",
+        "officialView": "Kościół katolicki naucza (KKK 956, 963–975), że jedyne pośrednictwo Chrystusa nie wyklucza „podporządkowanego” wstawiennictwa Maryi i świętych w niebie, odróżniając cześć należną Bogu (latria) od czci oddawanej świętym (dulia) i Maryi (hyperdulia).",
+        "ccView": "Christian Culture — w wierności zasadzie Solus Christus — nie praktykuje kultu maryjnego ani modlitwy do świętych, uznając, że Pismo Święte powierza całą modlitwę, cześć i pośrednictwo zbawcze wyłącznie Trójjedynemu Bogu przez Jezusa Chrystusa (1 Tm 2:5; Dz 4:12).",
+        "sourceLabel": "Katechizm Kościoła Katolickiego (KKK 956, 963–975), vatican.va",
+        "sourceUrl": "https://www.vatican.va/archive/ENG0015/__P2C.HTM"
+      },
+      "reflectionQuestion": "Co czujesz, gdy czytasz, że sam Jezus zaprasza Cię bezpośrednio do siebie (Mt 11:28; Hbr 4:16) bez żadnych barier i pośredników?",
+      "relatedSlugs": [
+        "modlitwa",
+        "po-smierci",
+        "biblia-a-tradycja"
+      ],
+      "sources": [
+        {
+          "label": "Uwspółcześniona Biblia Gdańska (UBG-2025), CC BY-ND 4.0",
+          "url": "/mojabiblia"
+        },
+        {
+          "label": "Katechizm Kościoła Katolickiego (KKK 956, 963–975) — źródło porównawcze",
+          "url": "https://www.vatican.va/archive/ENG0015/__P2C.HTM"
+        }
+      ],
+      "reviewStatus": "draft",
+      "updatedAt": "2026-11-26"
+    },
+    {
+      "slug": "po-smierci",
+      "navLabel": "Co po śmierci?",
+      "category": "Nadzieja przyszłości",
+      "title": "Co dzieje się z człowiekiem po śmierci według Biblii?",
+      "summary": "Biblijne studium snu śmierci, zmartwychwstania i wieczności w Chrystusie (J 11, Koh 9:5, 1 Tes 4:13–18) z jawnym rozróżnieniem interpretacji.",
+      "shortAnswer": "Według stanowiska biblijnego przyjmowanego przez Christian Culture śmierć w Piśmie porównywana jest do nieświadomego snu (J 11:11–14; Koh 9:5–6), a chrześcijańska nadzieja nie opiera się na naturalnej nieśmiertelności duszy ani na czyśćcu, lecz na zmartwychwstaniu ciał przy powrocie Jezusa Chrystusa (1 Tes 4:13–18).",
+      "quotes": [
+        {
+          "bookId": "JHN",
+          "bookName": "Ewangelia Jana",
+          "chapter": 11,
+          "verseStart": 25,
+          "verseEnd": 26,
+          "label": "Ewangelia Jana 11:25–26",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/JHN-011.json",
+          "text": "25 I powiedział do niej Jezus: Ja jestem zmartwychwstaniem i życiem. Kto we mnie wierzy, choćby i umarł, będzie żył. 26 A każdy, kto żyje i wierzy we mnie, nigdy nie umrze. Czy wierzysz w to?",
+          "verses": [
+            {
+              "number": 25,
+              "text": "I powiedział do niej Jezus: Ja jestem zmartwychwstaniem i życiem. Kto we mnie wierzy, choćby i umarł, będzie żył."
+            },
+            {
+              "number": 26,
+              "text": "A każdy, kto żyje i wierzy we mnie, nigdy nie umrze. Czy wierzysz w to?"
+            }
+          ]
+        },
+        {
+          "bookId": "ECC",
+          "bookName": "Księga Kaznodziei",
+          "chapter": 9,
+          "verseStart": 5,
+          "verseEnd": 6,
+          "label": "Księga Kaznodziei 9:5–6",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/ECC-009.json",
+          "text": "5 Żyjący bowiem wiedzą, że umrą, ale umarli o niczym nie wiedzą i nie mają już żadnej zapłaty, gdyż pamięć o nich uległa zapomnieniu. 6 Tak samo ich miłość, nienawiść i zazdrość już zginęły. I już nigdy więcej nie będą mieć działu we wszystkim, co się dzieje pod słońcem.",
+          "verses": [
+            {
+              "number": 5,
+              "text": "Żyjący bowiem wiedzą, że umrą, ale umarli o niczym nie wiedzą i nie mają już żadnej zapłaty, gdyż pamięć o nich uległa zapomnieniu."
+            },
+            {
+              "number": 6,
+              "text": "Tak samo ich miłość, nienawiść i zazdrość już zginęły. I już nigdy więcej nie będą mieć działu we wszystkim, co się dzieje pod słońcem."
+            }
+          ]
+        },
+        {
+          "bookId": "1TH",
+          "bookName": "1 List do Tesaloniczan",
+          "chapter": 4,
+          "verseStart": 13,
+          "verseEnd": 18,
+          "label": "1 List do Tesaloniczan 4:13–18",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/1TH-004.json",
+          "text": "13 A nie chcę, bracia, abyście byli w niewiedzy co do tych, którzy zasnęli, abyście się nie smucili jak inni, którzy nie mają nadziei. 14 Jeśli bowiem wierzymy, że Jezus umarł i zmartwychwstał, to też tych, którzy zasnęli w Jezusie, Bóg przyprowadzi wraz z nim. 15 Bo to wam mówimy przez słowo Pana, że my, którzy pozostaniemy żywi do przyjścia Pana, nie wyprzedzimy tych, którzy zasnęli. 16 Gdyż sam Pan z okrzykiem, z głosem archanioła i dźwiękiem trąby Bożej zstąpi z nieba, a zmarli w Chrystusie powstaną pierwsi. 17 Potem my, którzy pozostaniemy żywi, razem z nimi będziemy porwani w obłoki, w powietrze, na spotkanie Pana, i tak zawsze będziemy z Panem. 18 Dlatego pocieszajcie się wzajemnie tymi słowami.",
+          "verses": [
+            {
+              "number": 13,
+              "text": "A nie chcę, bracia, abyście byli w niewiedzy co do tych, którzy zasnęli, abyście się nie smucili jak inni, którzy nie mają nadziei."
+            },
+            {
+              "number": 14,
+              "text": "Jeśli bowiem wierzymy, że Jezus umarł i zmartwychwstał, to też tych, którzy zasnęli w Jezusie, Bóg przyprowadzi wraz z nim."
+            },
+            {
+              "number": 15,
+              "text": "Bo to wam mówimy przez słowo Pana, że my, którzy pozostaniemy żywi do przyjścia Pana, nie wyprzedzimy tych, którzy zasnęli."
+            },
+            {
+              "number": 16,
+              "text": "Gdyż sam Pan z okrzykiem, z głosem archanioła i dźwiękiem trąby Bożej zstąpi z nieba, a zmarli w Chrystusie powstaną pierwsi."
+            },
+            {
+              "number": 17,
+              "text": "Potem my, którzy pozostaniemy żywi, razem z nimi będziemy porwani w obłoki, w powietrze, na spotkanie Pana, i tak zawsze będziemy z Panem."
+            },
+            {
+              "number": 18,
+              "text": "Dlatego pocieszajcie się wzajemnie tymi słowami."
+            }
+          ]
+        },
+        {
+          "bookId": "REV",
+          "bookName": "Apokalipsa św. Jana",
+          "chapter": 21,
+          "verseStart": 3,
+          "verseEnd": 4,
+          "label": "Apokalipsa św. Jana 21:3–4",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/REV-021.json",
+          "text": "3 I usłyszałem donośny głos z nieba: Oto przybytek Boga jest z ludźmi i będzie mieszkał z nimi. Oni będą jego ludem, a sam Bóg będzie z nimi i będzie ich Bogiem. 4 I otrze Bóg wszelką łzę z ich oczu, i śmierci już nie będzie ani smutku, ani krzyku, ani bólu nie będzie, bo pierwsze rzeczy przeminęły.",
+          "verses": [
+            {
+              "number": 3,
+              "text": "I usłyszałem donośny głos z nieba: Oto przybytek Boga jest z ludźmi i będzie mieszkał z nimi. Oni będą jego ludem, a sam Bóg będzie z nimi i będzie ich Bogiem."
+            },
+            {
+              "number": 4,
+              "text": "I otrze Bóg wszelką łzę z ich oczu, i śmierci już nie będzie ani smutku, ani krzyku, ani bólu nie będzie, bo pierwsze rzeczy przeminęły."
+            }
+          ]
+        }
+      ],
+      "commentary": [
+        {
+          "heading": "Jak Jezus nazywał śmierć?",
+          "body": "Gdy umarł przyjaciel Jezusa, Łazarz, Jezus powiedział do uczniów prosto: „Łazarz, nasz przyjaciel, zasnął, ale idę, aby go obudzić” (J 11:11). Podobnego języka („śpiący w Panu”) używał wielokrotnie apostoł Paweł (1 Kor 15:20; 1 Tes 4:13–15). Sen to obraz spokojnego odpoczynku bez bólu i bez świadomości upływu czasu — aż do radosnego poranka zmartwychwstania."
+        },
+        {
+          "heading": "Dlaczego Pismo kieruje nadzieję na dzień zmartwychwstania?",
+          "body": "Gdyby sprawiedliwi w pełni otrzymywali nagrodę już w chwili śmierci, zmartwychwstanie i powrót Chrystusa traciłyby centralną rolę. Tymczasem w 1 Tes 4:16–18 Paweł pociesza pogrążonych w żałobie obietnicą, że sam Pan zstąpi z nieba, wzbudzi zmarłych i połączy wszystkich wierzących ze sobą na zawsze."
+        },
+        {
+          "heading": "Co Biblia mówi o czyśćcu?",
+          "body": "Słowo „czyściec” ani nauka o pośmiertnym oczyszczaniu z kar za grzechy nie występują w kanonie 66 ksiąg. Według Nowego Testamentu krew Jezusa Chrystusa „oczyszcza nas z wszelkiego grzechu” w pełni już tu i teraz (1 J 1:7; Hbr 10:14)."
+        }
+      ],
+      "catholicContext": {
+        "heading": "Rozróżnienie interpretacji chrześcijańskich",
+        "officialView": "Kościół katolicki (KKK 1020–1037) oraz część tradycji chrześcijańskich naucza o nieśmiertelności duszy, sądzie szczegółowym bezpośrednio po śmierci oraz istnieniu czyśćca dla dusz wymagających ostatecznego oczyszczenia przed wejściem do nieba.",
+        "ccView": "Stanowisko Christian Culture (warunkowa nieśmiertelność — 1 Tm 6:16; 1 Kor 15:51–54): człowiek jest niepodzielną jednością, śmierć jest stanem nieświadomego odpoczynku, a życie wieczne jest darem otrzymywanym przy zmartwychwstaniu w dniu powrotu Chrystusa.",
+        "sourceLabel": "Katechizm Kościoła Katolickiego (KKK 1020–1037), vatican.va",
+        "sourceUrl": "https://www.vatican.va/archive/ENG0015/__P2L.HTM"
+      },
+      "reflectionQuestion": "Dlaczego obietnica z Ap 21:4, że Bóg osobiście otrze każdą łzę i nie będzie już śmierci, jest tak ważna wobec naszych ludzkich pożegnań?",
+      "relatedSlugs": [
+        "powrot-jezusa",
+        "zbawienie",
+        "jedyny-posrednik"
+      ],
+      "sources": [
+        {
+          "label": "Uwspółcześniona Biblia Gdańska (UBG-2025), CC BY-ND 4.0",
+          "url": "/mojabiblia"
+        },
+        {
+          "label": "Katechizm Kościoła Katolickiego (KKK 1020–1037) — źródło porównawcze",
+          "url": "https://www.vatican.va/archive/ENG0015/__P2L.HTM"
+        }
+      ],
+      "reviewStatus": "draft",
+      "updatedAt": "2026-11-26"
+    },
+    {
+      "slug": "powrot-jezusa",
+      "navLabel": "Powrót Jezusa",
+      "category": "Nadzieja przyszłości",
+      "title": "Powtórne przyjście Jezusa — nadzieja bez sensacyjnych dat",
+      "summary": "Biblijna obietnica widzialnego, chwalebnego powrotu Chrystusa i nowego stworzenia — spokojna, trzeźwa nadzieja bez wyznaczania terminów.",
+      "shortAnswer": "Powtórne przyjście Jezusa jest jednym z najczęściej powtarzanych tematów Nowego Testamentu. Będzie ono dosłowne, widzialne i pełne chwały (Dz 1:11; 1 Tes 4:16). Sam Jezus zakazał wyznaczania dat („o tym dniu i godzinie nikt nie wie”, Mt 24:36) — zamiast lęku zaprasza do spokojnej gotowości serca.",
+      "quotes": [
+        {
+          "bookId": "1TH",
+          "bookName": "1 List do Tesaloniczan",
+          "chapter": 4,
+          "verseStart": 13,
+          "verseEnd": 18,
+          "label": "1 List do Tesaloniczan 4:13–18",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/1TH-004.json",
+          "text": "13 A nie chcę, bracia, abyście byli w niewiedzy co do tych, którzy zasnęli, abyście się nie smucili jak inni, którzy nie mają nadziei. 14 Jeśli bowiem wierzymy, że Jezus umarł i zmartwychwstał, to też tych, którzy zasnęli w Jezusie, Bóg przyprowadzi wraz z nim. 15 Bo to wam mówimy przez słowo Pana, że my, którzy pozostaniemy żywi do przyjścia Pana, nie wyprzedzimy tych, którzy zasnęli. 16 Gdyż sam Pan z okrzykiem, z głosem archanioła i dźwiękiem trąby Bożej zstąpi z nieba, a zmarli w Chrystusie powstaną pierwsi. 17 Potem my, którzy pozostaniemy żywi, razem z nimi będziemy porwani w obłoki, w powietrze, na spotkanie Pana, i tak zawsze będziemy z Panem. 18 Dlatego pocieszajcie się wzajemnie tymi słowami.",
+          "verses": [
+            {
+              "number": 13,
+              "text": "A nie chcę, bracia, abyście byli w niewiedzy co do tych, którzy zasnęli, abyście się nie smucili jak inni, którzy nie mają nadziei."
+            },
+            {
+              "number": 14,
+              "text": "Jeśli bowiem wierzymy, że Jezus umarł i zmartwychwstał, to też tych, którzy zasnęli w Jezusie, Bóg przyprowadzi wraz z nim."
+            },
+            {
+              "number": 15,
+              "text": "Bo to wam mówimy przez słowo Pana, że my, którzy pozostaniemy żywi do przyjścia Pana, nie wyprzedzimy tych, którzy zasnęli."
+            },
+            {
+              "number": 16,
+              "text": "Gdyż sam Pan z okrzykiem, z głosem archanioła i dźwiękiem trąby Bożej zstąpi z nieba, a zmarli w Chrystusie powstaną pierwsi."
+            },
+            {
+              "number": 17,
+              "text": "Potem my, którzy pozostaniemy żywi, razem z nimi będziemy porwani w obłoki, w powietrze, na spotkanie Pana, i tak zawsze będziemy z Panem."
+            },
+            {
+              "number": 18,
+              "text": "Dlatego pocieszajcie się wzajemnie tymi słowami."
+            }
+          ]
+        },
+        {
+          "bookId": "REV",
+          "bookName": "Apokalipsa św. Jana",
+          "chapter": 21,
+          "verseStart": 3,
+          "verseEnd": 4,
+          "label": "Apokalipsa św. Jana 21:3–4",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/REV-021.json",
+          "text": "3 I usłyszałem donośny głos z nieba: Oto przybytek Boga jest z ludźmi i będzie mieszkał z nimi. Oni będą jego ludem, a sam Bóg będzie z nimi i będzie ich Bogiem. 4 I otrze Bóg wszelką łzę z ich oczu, i śmierci już nie będzie ani smutku, ani krzyku, ani bólu nie będzie, bo pierwsze rzeczy przeminęły.",
+          "verses": [
+            {
+              "number": 3,
+              "text": "I usłyszałem donośny głos z nieba: Oto przybytek Boga jest z ludźmi i będzie mieszkał z nimi. Oni będą jego ludem, a sam Bóg będzie z nimi i będzie ich Bogiem."
+            },
+            {
+              "number": 4,
+              "text": "I otrze Bóg wszelką łzę z ich oczu, i śmierci już nie będzie ani smutku, ani krzyku, ani bólu nie będzie, bo pierwsze rzeczy przeminęły."
+            }
+          ]
+        }
+      ],
+      "commentary": [
+        {
+          "heading": "Dlaczego powrót Jezusa nazywany jest „błogosławioną nadzieją”?",
+          "body": "Dla wielu ludzi temat „końca świata” kojarzy się z filmami katastroficznymi i strachem. W Biblii jest dokładnie odwrotnie: powrót Jezusa to nie zagłada nadziei, lecz koniec cierpienia, wojen, chorób i śmierci — moment, w którym Zbawiciel przychodzi po tych, którzy Go kochają (J 14:1–3; Tt 2:13)."
+        },
+        {
+          "heading": "Stanowcze NIE dla sensacyjnego wyznaczania dat",
+          "body": "W Christian Culture kategorycznie odrzucamy wszelkie sensacyjne wyznaczanie dat powrotu Chrystusa. Sam Jezus powiedział wyraźnie, że nikt z ludzi nie zna dnia ani godziny (Mt 24:36). Dojrzała wiara nie polega na odliczaniu dni w lęku, lecz na codziennym chodzeniu z Bogiem, uczciwej pracy i niesieniu dobra ludziom."
+        }
+      ],
+      "catholicContext": null,
+      "reflectionQuestion": "Co pomaga Ci patrzeć w przyszłość z pokojem i nadzieją zamiast lęku przed wiadomościami ze świata?",
+      "relatedSlugs": [
+        "po-smierci",
+        "proroctwa",
+        "poznaj-jezusa"
+      ],
+      "sources": [
+        {
+          "label": "Uwspółcześniona Biblia Gdańska (UBG-2025), CC BY-ND 4.0",
+          "url": "/mojabiblia"
+        }
+      ],
+      "reviewStatus": "draft",
+      "updatedAt": "2026-11-26"
+    },
+    {
+      "slug": "proroctwa",
+      "navLabel": "Proroctwa Biblii",
+      "category": "Nadzieja przyszłości",
+      "title": "Daniel i Apokalipsa — jak czytać proroctwa bez strachu i sensacji?",
+      "summary": "Wprowadzenie do ksiąg Daniela i Apokalipsy z jasno oznaczonym stanowiskiem interpretacyjnym Christian Culture.",
+      "shortAnswer": "Proroctwa Daniela i Apokalipsy nie zostały dane po to, by straszyć czytelników tajemnymi szyframi, lecz by pokazać, że historia świata nie wymknęła się Bogu z rąk — a jej finałem jest wieczne królestwo Jezusa Chrystusa (Dn 2:44; Ap 14:6–7).",
+      "quotes": [
+        {
+          "bookId": "DAN",
+          "bookName": "Księga Daniela",
+          "chapter": 2,
+          "verseStart": 44,
+          "verseEnd": 44,
+          "label": "Księga Daniela 2:44",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/DAN-002.json",
+          "text": "Ale w dniach tych królów Bóg nieba wzbudzi królestwo, które nigdy nie będzie zniszczone. To królestwo nie przejdzie na inny lud, ale połamie i zniszczy wszystkie te królestwa, samo zaś będzie trwać na wieki.",
+          "verses": [
+            {
+              "number": 44,
+              "text": "Ale w dniach tych królów Bóg nieba wzbudzi królestwo, które nigdy nie będzie zniszczone. To królestwo nie przejdzie na inny lud, ale połamie i zniszczy wszystkie te królestwa, samo zaś będzie trwać na wieki."
+            }
+          ]
+        },
+        {
+          "bookId": "REV",
+          "bookName": "Apokalipsa św. Jana",
+          "chapter": 14,
+          "verseStart": 6,
+          "verseEnd": 7,
+          "label": "Apokalipsa św. Jana 14:6–7",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/REV-014.json",
+          "text": "6 I zobaczyłem innego anioła lecącego środkiem nieba, który miał ewangelię wieczną, aby ją zwiastować mieszkańcom ziemi, wszystkim narodom, plemionom, językom i ludom; 7 Mówiącego donośnym głosem: Bójcie się Boga i oddajcie mu chwałę, bo przyszła godzina jego sądu. Oddajcie pokłon temu, który stworzył niebo i ziemię, morze i źródła wód.",
+          "verses": [
+            {
+              "number": 6,
+              "text": "I zobaczyłem innego anioła lecącego środkiem nieba, który miał ewangelię wieczną, aby ją zwiastować mieszkańcom ziemi, wszystkim narodom, plemionom, językom i ludom;"
+            },
+            {
+              "number": 7,
+              "text": "Mówiącego donośnym głosem: Bójcie się Boga i oddajcie mu chwałę, bo przyszła godzina jego sądu. Oddajcie pokłon temu, który stworzył niebo i ziemię, morze i źródła wód."
+            }
+          ]
+        },
+        {
+          "bookId": "REV",
+          "bookName": "Apokalipsa św. Jana",
+          "chapter": 21,
+          "verseStart": 3,
+          "verseEnd": 4,
+          "label": "Apokalipsa św. Jana 21:3–4",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/REV-021.json",
+          "text": "3 I usłyszałem donośny głos z nieba: Oto przybytek Boga jest z ludźmi i będzie mieszkał z nimi. Oni będą jego ludem, a sam Bóg będzie z nimi i będzie ich Bogiem. 4 I otrze Bóg wszelką łzę z ich oczu, i śmierci już nie będzie ani smutku, ani krzyku, ani bólu nie będzie, bo pierwsze rzeczy przeminęły.",
+          "verses": [
+            {
+              "number": 3,
+              "text": "I usłyszałem donośny głos z nieba: Oto przybytek Boga jest z ludźmi i będzie mieszkał z nimi. Oni będą jego ludem, a sam Bóg będzie z nimi i będzie ich Bogiem."
+            },
+            {
+              "number": 4,
+              "text": "I otrze Bóg wszelką łzę z ich oczu, i śmierci już nie będzie ani smutku, ani krzyku, ani bólu nie będzie, bo pierwsze rzeczy przeminęły."
+            }
+          ]
+        }
+      ],
+      "commentary": [
+        {
+          "heading": "Zasada zdrowego czytania proroctw: Pismo wyjaśnia Pismo",
+          "body": "Symbole w Księdze Daniela i Apokalipsie (bestie, rogi, wody, kobieta, Baranek) nie są dowolnymi zagadkami do zgadywania na podstawie bieżących nagłówków z internetu. Sama Biblia niemal każdy swój symbol wyjaśnia w innych wersetach (np. bestie oznaczają królestwa — Dn 7:17,23; wody oznaczają ludy i narody — Ap 17:15)."
+        },
+        {
+          "heading": "Stanowisko interpretacyjne Christian Culture (jawnie oznaczone)",
+          "body": "Chrześcijanie stosują różne szkoły czytania proroctw (historycystyczną, preterystyczną, futurystyczną, idealistyczną). Christian Culture odczytuje Księgę Daniela i Apokalipsę w tradycji historycystycznej (ciągły zarys dziejów zbawienia od czasów proroka aż po powrót Chrystusa), zawsze stawiając w centrum samego Jezusa i wieczną Ewangelię (Ap 14:6), bez wyznaczania jakichkolwiek dat."
+        }
+      ],
+      "catholicContext": null,
+      "reflectionQuestion": "Dlaczego pierwszym i najważniejszym przesłaniem proroctwa w Ap 14:6 jest „wieczna Ewangelia”, a nie groźba?",
+      "relatedSlugs": [
+        "powrot-jezusa",
+        "po-smierci",
+        "biblia-a-tradycja"
+      ],
+      "sources": [
+        {
+          "label": "Uwspółcześniona Biblia Gdańska (UBG-2025), CC BY-ND 4.0",
+          "url": "/mojabiblia"
+        },
+        {
+          "label": "Księga Daniela i Apokalipsa w Mapie Biblii CC",
+          "url": "/test/katolik/mapa-biblii/DAN"
+        }
+      ],
+      "reviewStatus": "draft",
+      "updatedAt": "2026-11-26"
+    },
+    {
+      "slug": "o-projekcie",
+      "navLabel": "O projekcie",
+      "category": "Tożsamość i zasady",
+      "title": "O projekcie „Odkryj Biblię — dla katolików”",
+      "summary": "Jawna tożsamość Christian Culture, wyjaśnienie kanonu 66 vs 73 ksiąg, zasady redakcyjne, źródła, licencja UBG i prywatność.",
+      "shortAnswer": "Christian Culture jest niezależną inicjatywą chrześcijańską. Nie reprezentujemy Kościoła rzymskokatolickiego. Naszym celem jest przybliżanie Jezusa Chrystusa i zachęcanie do osobistego poznawania Pisma Świętego w kanonie 66 ksiąg.",
+      "quotes": [
+        {
+          "bookId": "ACT",
+          "bookName": "Dzieje Apostolskie",
+          "chapter": 17,
+          "verseStart": 11,
+          "verseEnd": 11,
+          "label": "Dzieje Apostolskie 17:11",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/ACT-017.json",
+          "text": "Ci byli szlachetniejsi od tych w Tesalonice, gdyż przyjęli słowo Boże z całą gotowością i codziennie badali Pisma, czy tak się sprawy mają.",
+          "verses": [
+            {
+              "number": 11,
+              "text": "Ci byli szlachetniejsi od tych w Tesalonice, gdyż przyjęli słowo Boże z całą gotowością i codziennie badali Pisma, czy tak się sprawy mają."
+            }
+          ]
+        },
+        {
+          "bookId": "2TI",
+          "bookName": "2 List do Tymoteusza",
+          "chapter": 3,
+          "verseStart": 16,
+          "verseEnd": 17,
+          "label": "2 List do Tymoteusza 3:16–17",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/2TI-003.json",
+          "text": "16 Całe Pismo jest natchnione przez Boga i pożyteczne do nauki, do strofowania, do poprawiania, do wychowywania w sprawiedliwości; 17 Aby człowiek Boży był doskonały, do wszelkiego dobrego dzieła w pełni przygotowany.",
+          "verses": [
+            {
+              "number": 16,
+              "text": "Całe Pismo jest natchnione przez Boga i pożyteczne do nauki, do strofowania, do poprawiania, do wychowywania w sprawiedliwości;"
+            },
+            {
+              "number": 17,
+              "text": "Aby człowiek Boży był doskonały, do wszelkiego dobrego dzieła w pełni przygotowany."
+            }
+          ]
+        }
+      ],
+      "commentary": [
+        {
+          "heading": "Nasza jawna tożsamość i szacunek dla każdego czytelnika",
+          "body": "Christian Culture jest niezależną inicjatywą chrześcijańską. Nie reprezentujemy Kościoła rzymskokatolickiego. Naszym celem jest przybliżanie Jezusa Chrystusa i zachęcanie do osobistego poznawania Pisma Świętego w kanonie 66 ksiąg. Projekt powstał z głębokiego szacunku dla osób wywodzących się z tradycji katolickiej, które chcą spokojnie, bez presji i bez wrogości same otworzyć Biblię."
+        },
+        {
+          "heading": "Kanon 66 ksiąg a kanon 73 ksiąg — uczciwe wyjaśnienie",
+          "body": "Kanon katolicki obejmuje 73 księgi (46 ksiąg Starego Testamentu, w tym 7 ksiąg tzw. deuterokanonicznych, oraz 27 ksiąg Nowego Testamentu). Projekt Christian Culture świadomie przyjmuje kanon 66 ksiąg (39 ksiąg Starego Testamentu według kanonu hebrajskiego i 27 ksiąg Nowego Testamentu). Nie mylimy całego katolickiego przekładu Biblii z księgami deuterokanonicznymi — zawsze jasno oznaczamy przyjęty przekład i źródło."
+        },
+        {
+          "heading": "Przekład, licencja i status redakcyjny",
+          "body": "Podstawowym przekładem cytowanym na tej stronie jest Uwspółcześniona Biblia Gdańska (UBG-2025) © Fundacja Wrota Nadziei / Logos Media, wykorzystywana ewangelizacyjnie na licencji CC BY-ND 4.0 bezpośrednio ze zweryfikowanego korpusu Christian Culture (/data/bible/ubg-2025/). Wszystkie streszczenia ksiąg oraz studia tematyczne w wersji testowej /test/katolik posiadają status roboczy (draft) i oczekują na końcową akceptację redakcyjną przed promocją na /katolik."
+        },
+        {
+          "heading": "Prywatność, dostępność i zero przymusu",
+          "body": "Korzystanie z portalu, Mapy 66 ksiąg i Planu 365 dni jest całkowicie bezpłatne i nie wymaga zakładania konta, podawania adresu e-mail ani żadnych darowizn. Twój postęp czytania zapisywany jest lokalnie w Twojej przeglądarce (z możliwością eksportu i usunięcia). Nie wysyłamy treści modlitw, pytań duchowych ani przekonań religijnych do systemów reklamowych i nie tworzymy remarketingu na podstawie wiary."
+        }
+      ],
+      "catholicContext": null,
+      "reflectionQuestion": "Masz uwagę merytoryczną, błąd techniczny lub propozycję źródła? Napisz do nas: radiochristianculture@gmail.com.",
+      "relatedSlugs": [
+        "biblia-a-tradycja",
+        "poznaj-jezusa",
+        "zbawienie"
+      ],
+      "sources": [
+        {
+          "label": "Uwspółcześniona Biblia Gdańska (UBG-2025), CC BY-ND 4.0",
+          "url": "/mojabiblia"
+        },
+        {
+          "label": "Polityka Prywatności Christian Culture",
+          "url": "/privacy"
+        },
+        {
+          "label": "Strona główna Christian Culture",
+          "url": "/"
+        }
+      ],
+      "reviewStatus": "draft",
+      "updatedAt": "2026-11-26"
+    }
+  ],
+  "faq": [
+    {
+      "id": "faq-start",
+      "question": "Od czego zacząć czytanie Biblii?",
+      "category": "Start z Biblią",
+      "answer": "Jeśli dopiero zaczynasz, najlepiej rozpocząć od Ewangelii Jana (21 rozdziałów — ok. 5–7 minut dziennie), aby wprost poznać Jezusa Chrystusa, Jego słowa i relacje z ludźmi. Równolegle możesz uruchomić nasz Plan 365 dni, który w ciągu roku przeprowadzi Cię przez wszystkie 66 ksiąg (1189 rozdziałów) od dowolnej daty.",
+      "refs": [
+        {
+          "bookId": "JHN",
+          "bookName": "Ewangelia Jana",
+          "chapter": 20,
+          "verseStart": 31,
+          "verseEnd": 31,
+          "label": "Ewangelia Jana 20:31",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/JHN-020.json",
+          "text": "Lecz te są napisane, abyście wierzyli, że Jezus jest Chrystusem, Synem Bożym, i abyście wierząc, mieli życie w jego imieniu.",
+          "verses": [
+            {
+              "number": 31,
+              "text": "Lecz te są napisane, abyście wierzyli, że Jezus jest Chrystusem, Synem Bożym, i abyście wierząc, mieli życie w jego imieniu."
+            }
+          ]
+        },
+        {
+          "bookId": "ACT",
+          "bookName": "Dzieje Apostolskie",
+          "chapter": 17,
+          "verseStart": 11,
+          "verseEnd": 11,
+          "label": "Dzieje Apostolskie 17:11",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/ACT-017.json",
+          "text": "Ci byli szlachetniejsi od tych w Tesalonice, gdyż przyjęli słowo Boże z całą gotowością i codziennie badali Pisma, czy tak się sprawy mają.",
+          "verses": [
+            {
+              "number": 11,
+              "text": "Ci byli szlachetniejsi od tych w Tesalonice, gdyż przyjęli słowo Boże z całą gotowością i codziennie badali Pisma, czy tak się sprawy mają."
+            }
+          ]
+        }
+      ],
+      "studySlug": "poznaj-jezusa",
+      "reviewStatus": "draft"
+    },
+    {
+      "id": "faq-modlitwa",
+      "question": "Czy mogę rozmawiać bezpośrednio z Bogiem?",
+      "category": "Życie z Bogiem",
+      "answer": "Tak. Nowy Testament uczy, że przez Jezusa Chrystusa każdy człowiek ma bezpośredni, śmiały dostęp do Boga Ojca (Hbr 4:16; Ef 2:18). Nie potrzebujesz wyszukanych formuł ani ziemskich pośredników — Bóg słucha szczerego serca i zwykłych ludzkich słów.",
+      "refs": [
+        {
+          "bookId": "HEB",
+          "bookName": "List do Hebrajczyków",
+          "chapter": 4,
+          "verseStart": 14,
+          "verseEnd": 16,
+          "label": "List do Hebrajczyków 4:14–16",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/HEB-004.json",
+          "text": "14 Mając więc wielkiego najwyższego kapłana, który przeszedł przez niebiosa, Jezusa, Syna Bożego, trzymajmy się naszego wyznania. 15 Nie mamy bowiem najwyższego kapłana, który by nie mógł współczuć naszym słabościom, lecz kuszonego we wszystkim podobnie jak my, ale bez grzechu. 16 Przystąpmy więc z ufnością do tronu łaski, abyśmy dostąpili miłosierdzia i znaleźli łaskę ku pomocy w stosownej chwili.",
+          "verses": [
+            {
+              "number": 14,
+              "text": "Mając więc wielkiego najwyższego kapłana, który przeszedł przez niebiosa, Jezusa, Syna Bożego, trzymajmy się naszego wyznania."
+            },
+            {
+              "number": 15,
+              "text": "Nie mamy bowiem najwyższego kapłana, który by nie mógł współczuć naszym słabościom, lecz kuszonego we wszystkim podobnie jak my, ale bez grzechu."
+            },
+            {
+              "number": 16,
+              "text": "Przystąpmy więc z ufnością do tronu łaski, abyśmy dostąpili miłosierdzia i znaleźli łaskę ku pomocy w stosownej chwili."
+            }
+          ]
+        },
+        {
+          "bookId": "PHP",
+          "bookName": "List do Filipian",
+          "chapter": 4,
+          "verseStart": 6,
+          "verseEnd": 7,
+          "label": "List do Filipian 4:6–7",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/PHP-004.json",
+          "text": "6 Nie troszczcie się o nic, ale we wszystkim przez modlitwę i prośbę z dziękczynieniem niech wasze pragnienia będą znane Bogu. 7 A pokój Boży, który przewyższa wszelkie zrozumienie, będzie strzegł waszych serc i myśli w Chrystusie Jezusie.",
+          "verses": [
+            {
+              "number": 6,
+              "text": "Nie troszczcie się o nic, ale we wszystkim przez modlitwę i prośbę z dziękczynieniem niech wasze pragnienia będą znane Bogu."
+            },
+            {
+              "number": 7,
+              "text": "A pokój Boży, który przewyższa wszelkie zrozumienie, będzie strzegł waszych serc i myśli w Chrystusie Jezusie."
+            }
+          ]
+        }
+      ],
+      "studySlug": "modlitwa",
+      "reviewStatus": "draft"
+    },
+    {
+      "id": "faq-zbawienie",
+      "question": "Jak mogę otrzymać zbawienie?",
+      "category": "Ewangelia",
+      "answer": "Według Biblii zbawienie otrzymuje się jako dar Bożej łaski przez szczere zawierzenie Jezusowi Chrystusowi, który umarł za nasze grzechy i zmartwychwstał (J 3:16; Rz 10:9–10; Ef 2:8–9). Nie kupuje się go obrzędem ani liczbą dobrych czynów, lecz przyjmuje z wiarą i pokutą.",
+      "refs": [
+        {
+          "bookId": "JHN",
+          "bookName": "Ewangelia Jana",
+          "chapter": 3,
+          "verseStart": 16,
+          "verseEnd": 17,
+          "label": "Ewangelia Jana 3:16–17",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/JHN-003.json",
+          "text": "16 Tak bowiem Bóg umiłował świat, że dał swego jednorodzonego Syna, aby każdy, kto w niego wierzy, nie zginął, ale miał życie wieczne. 17 Bo Bóg nie posłał swego Syna na świat, aby potępił świat, lecz aby świat był przez niego zbawiony.",
+          "verses": [
+            {
+              "number": 16,
+              "text": "Tak bowiem Bóg umiłował świat, że dał swego jednorodzonego Syna, aby każdy, kto w niego wierzy, nie zginął, ale miał życie wieczne."
+            },
+            {
+              "number": 17,
+              "text": "Bo Bóg nie posłał swego Syna na świat, aby potępił świat, lecz aby świat był przez niego zbawiony."
+            }
+          ]
+        },
+        {
+          "bookId": "ROM",
+          "bookName": "List do Rzymian",
+          "chapter": 10,
+          "verseStart": 9,
+          "verseEnd": 13,
+          "label": "List do Rzymian 10:9–13",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/ROM-010.json",
+          "text": "9 Jeśli ustami wyznasz Pana Jezusa i uwierzysz w swoim sercu, że Bóg wskrzesił go z martwych, będziesz zbawiony. 10 Sercem bowiem wierzy się ku sprawiedliwości, a ustami wyznaje się ku zbawieniu. 11 Mówi bowiem Pismo: Każdy, kto w niego wierzy, nie będzie zawstydzony. 12 Gdyż nie ma różnicy między Żydem a Grekiem; bo ten sam Pan wszystkich jest bogaty względem wszystkich, którzy go wzywają. 13 Każdy bowiem, kto wezwie imienia Pana, będzie zbawiony.",
+          "verses": [
+            {
+              "number": 9,
+              "text": "Jeśli ustami wyznasz Pana Jezusa i uwierzysz w swoim sercu, że Bóg wskrzesił go z martwych, będziesz zbawiony."
+            },
+            {
+              "number": 10,
+              "text": "Sercem bowiem wierzy się ku sprawiedliwości, a ustami wyznaje się ku zbawieniu."
+            },
+            {
+              "number": 11,
+              "text": "Mówi bowiem Pismo: Każdy, kto w niego wierzy, nie będzie zawstydzony."
+            },
+            {
+              "number": 12,
+              "text": "Gdyż nie ma różnicy między Żydem a Grekiem; bo ten sam Pan wszystkich jest bogaty względem wszystkich, którzy go wzywają."
+            },
+            {
+              "number": 13,
+              "text": "Każdy bowiem, kto wezwie imienia Pana, będzie zbawiony."
+            }
+          ]
+        }
+      ],
+      "studySlug": "zbawienie",
+      "reviewStatus": "draft"
+    },
+    {
+      "id": "faq-uczynki",
+      "question": "Czy dobre uczynki dają zbawienie?",
+      "category": "Ewangelia",
+      "answer": "Dobre uczynki są bardzo ważne, ale według Pisma Świętego nie są ceną ani podstawą zbawienia — są jego owocem (Ef 2:8–10; Tt 3:5). Najpierw Bóg zbawia nas z łaski przez wiarę w Chrystusa, a potem przemienione serce z wdzięczności czyni dobro bliźnim.",
+      "refs": [
+        {
+          "bookId": "EPH",
+          "bookName": "List do Efezjan",
+          "chapter": 2,
+          "verseStart": 8,
+          "verseEnd": 10,
+          "label": "List do Efezjan 2:8–10",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/EPH-002.json",
+          "text": "8 Łaską bowiem jesteście zbawieni przez wiarę, i to nie jest z was, jest to dar Boga. 9 Nie z uczynków, aby nikt się nie chlubił. 10 Jesteśmy bowiem jego dziełem, stworzeni w Chrystusie Jezusie do dobrych uczynków, które Bóg wcześniej przygotował, abyśmy w nich postępowali.",
+          "verses": [
+            {
+              "number": 8,
+              "text": "Łaską bowiem jesteście zbawieni przez wiarę, i to nie jest z was, jest to dar Boga."
+            },
+            {
+              "number": 9,
+              "text": "Nie z uczynków, aby nikt się nie chlubił."
+            },
+            {
+              "number": 10,
+              "text": "Jesteśmy bowiem jego dziełem, stworzeni w Chrystusie Jezusie do dobrych uczynków, które Bóg wcześniej przygotował, abyśmy w nich postępowali."
+            }
+          ]
+        },
+        {
+          "bookId": "ROM",
+          "bookName": "List do Rzymian",
+          "chapter": 3,
+          "verseStart": 23,
+          "verseEnd": 24,
+          "label": "List do Rzymian 3:23–24",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/ROM-003.json",
+          "text": "23 Wszyscy bowiem zgrzeszyli i są pozbawieni chwały Boga; 24 A zostają usprawiedliwieni darmo, z jego łaski, przez odkupienie, które jest w Jezusie Chrystusie.",
+          "verses": [
+            {
+              "number": 23,
+              "text": "Wszyscy bowiem zgrzeszyli i są pozbawieni chwały Boga;"
+            },
+            {
+              "number": 24,
+              "text": "A zostają usprawiedliwieni darmo, z jego łaski, przez odkupienie, które jest w Jezusie Chrystusie."
+            }
+          ]
+        }
+      ],
+      "studySlug": "zbawienie",
+      "reviewStatus": "draft"
+    },
+    {
+      "id": "faq-posrednik",
+      "question": "Kto jest pośrednikiem między Bogiem a ludźmi?",
+      "category": "Badanie Pisma",
+      "answer": "Pismo Święte odpowiada jednym jasnym zdaniem: „Jeden bowiem jest Bóg, jeden też pośrednik między Bogiem a ludźmi, człowiek Chrystus Jezus” (1 Tm 2:5). Sam Jezus mówi też: „Ja jestem drogą, prawdą i życiem. Nikt nie przychodzi do Ojca jak tylko przeze mnie” (J 14:6).",
+      "refs": [
+        {
+          "bookId": "1TI",
+          "bookName": "1 List do Tymoteusza",
+          "chapter": 2,
+          "verseStart": 5,
+          "verseEnd": 5,
+          "label": "1 List do Tymoteusza 2:5",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/1TI-002.json",
+          "text": "Jeden bowiem jest Bóg, jeden też pośrednik między Bogiem a ludźmi, człowiek Chrystus Jezus;",
+          "verses": [
+            {
+              "number": 5,
+              "text": "Jeden bowiem jest Bóg, jeden też pośrednik między Bogiem a ludźmi, człowiek Chrystus Jezus;"
+            }
+          ]
+        },
+        {
+          "bookId": "JHN",
+          "bookName": "Ewangelia Jana",
+          "chapter": 14,
+          "verseStart": 6,
+          "verseEnd": 6,
+          "label": "Ewangelia Jana 14:6",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/JHN-014.json",
+          "text": "Jezus mu odpowiedział: Ja jestem drogą, prawdą i życiem. Nikt nie przychodzi do Ojca jak tylko przeze mnie.",
+          "verses": [
+            {
+              "number": 6,
+              "text": "Jezus mu odpowiedział: Ja jestem drogą, prawdą i życiem. Nikt nie przychodzi do Ojca jak tylko przeze mnie."
+            }
+          ]
+        }
+      ],
+      "studySlug": "jedyny-posrednik",
+      "reviewStatus": "draft"
+    },
+    {
+      "id": "faq-maria",
+      "question": "Co Biblia mówi o Marii?",
+      "category": "Badanie Pisma",
+      "answer": "Biblia przedstawia Marię z wielkim szacunkiem jako pokorną, bogobojną matkę Jezusa (Łk 1:28–38), która w swojej pieśni sama nazwała Boga „moim Zbawicielem” (Łk 1:47) i skierowała uwagę ludzi na Syna: „Cokolwiek wam powie, czyńcie” (J 2:5). Pismo nie nakazuje kultu maryjnego ani modlitwy do Marii.",
+      "refs": [
+        {
+          "bookId": "LUK",
+          "bookName": "Ewangelia Łukasza",
+          "chapter": 1,
+          "verseStart": 46,
+          "verseEnd": 55,
+          "label": "Ewangelia Łukasza 1:46–55",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/LUK-001.json",
+          "text": "46 Wtedy Maria powiedziała: Wielbi moja dusza Pana; 47 I rozradował się mój duch w Bogu, moim Zbawicielu; 48 Bo wejrzał na uniżenie swojej służebnicy. Oto bowiem wszystkie pokolenia będą mnie odtąd nazywać błogosławioną. 49 Bo uczynił mi wielkie rzeczy ten, który jest mocny, i święte jest jego imię. 50 A jego miłosierdzie z pokolenia na pokolenie nad tymi, którzy się go boją. 51 Okazał moc swoim ramieniem i rozproszył pysznych w myślach ich serc. 52 Strącił mocarzy z tronów, a wywyższył pokornych. 53 Głodnych napełnił dobrami, a bogaczy odprawił z niczym. 54 Ujął się za Izraelem, swym sługą, pomny na swoje miłosierdzie; 55 Jak mówił do naszych ojców, do Abrahama i jego potomstwa na wieki.",
+          "verses": [
+            {
+              "number": 46,
+              "text": "Wtedy Maria powiedziała: Wielbi moja dusza Pana;"
+            },
+            {
+              "number": 47,
+              "text": "I rozradował się mój duch w Bogu, moim Zbawicielu;"
+            },
+            {
+              "number": 48,
+              "text": "Bo wejrzał na uniżenie swojej służebnicy. Oto bowiem wszystkie pokolenia będą mnie odtąd nazywać błogosławioną."
+            },
+            {
+              "number": 49,
+              "text": "Bo uczynił mi wielkie rzeczy ten, który jest mocny, i święte jest jego imię."
+            },
+            {
+              "number": 50,
+              "text": "A jego miłosierdzie z pokolenia na pokolenie nad tymi, którzy się go boją."
+            },
+            {
+              "number": 51,
+              "text": "Okazał moc swoim ramieniem i rozproszył pysznych w myślach ich serc."
+            },
+            {
+              "number": 52,
+              "text": "Strącił mocarzy z tronów, a wywyższył pokornych."
+            },
+            {
+              "number": 53,
+              "text": "Głodnych napełnił dobrami, a bogaczy odprawił z niczym."
+            },
+            {
+              "number": 54,
+              "text": "Ujął się za Izraelem, swym sługą, pomny na swoje miłosierdzie;"
+            },
+            {
+              "number": 55,
+              "text": "Jak mówił do naszych ojców, do Abrahama i jego potomstwa na wieki."
+            }
+          ]
+        }
+      ],
+      "studySlug": "jedyny-posrednik",
+      "reviewStatus": "draft"
+    },
+    {
+      "id": "faq-swieci",
+      "question": "Czy Biblia nakazuje modlitwę do świętych?",
+      "category": "Badanie Pisma",
+      "answer": "Nie. W Nowym Testamencie określenie „święci” odnosi się do wszystkich żyjących wierzących, którzy wzajemnie modlą się za siebie na ziemi. W całej Biblii nie ma jednak nakazu ani przykładu zwracania się w modlitwie do zmarłych świętych — wszelką modlitwę kierujemy wprost do Boga przez Jezusa (1 Tm 2:5).",
+      "refs": [
+        {
+          "bookId": "1TI",
+          "bookName": "1 List do Tymoteusza",
+          "chapter": 2,
+          "verseStart": 5,
+          "verseEnd": 5,
+          "label": "1 List do Tymoteusza 2:5",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/1TI-002.json",
+          "text": "Jeden bowiem jest Bóg, jeden też pośrednik między Bogiem a ludźmi, człowiek Chrystus Jezus;",
+          "verses": [
+            {
+              "number": 5,
+              "text": "Jeden bowiem jest Bóg, jeden też pośrednik między Bogiem a ludźmi, człowiek Chrystus Jezus;"
+            }
+          ]
+        },
+        {
+          "bookId": "ACT",
+          "bookName": "Dzieje Apostolskie",
+          "chapter": 4,
+          "verseStart": 12,
+          "verseEnd": 12,
+          "label": "Dzieje Apostolskie 4:12",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/ACT-004.json",
+          "text": "I nie ma w nikim innym zbawienia. Nie ma bowiem pod niebem żadnego innego imienia danego ludziom, przez które moglibyśmy być zbawieni.",
+          "verses": [
+            {
+              "number": 12,
+              "text": "I nie ma w nikim innym zbawienia. Nie ma bowiem pod niebem żadnego innego imienia danego ludziom, przez które moglibyśmy być zbawieni."
+            }
+          ]
+        }
+      ],
+      "studySlug": "jedyny-posrednik",
+      "reviewStatus": "draft"
+    },
+    {
+      "id": "faq-tradycja",
+      "question": "Co Biblia mówi o ludzkiej tradycji religijnej?",
+      "category": "Badanie Pisma",
+      "answer": "Sama historia i tradycja mogą być cenną pamięcią, ale gdy ludzka tradycja staje ponad jasnym przykazaniem Bożym lub je zmienia, Jezus wyraźnie ją odrzuca (Mk 7:8–13). Ostatecznym sprawdzianem każdej nauki pozostaje natchnione Pismo Święte (2 Tm 3:16–17; Dz 17:11).",
+      "refs": [
+        {
+          "bookId": "MRK",
+          "bookName": "Ewangelia Marka",
+          "chapter": 7,
+          "verseStart": 8,
+          "verseEnd": 13,
+          "label": "Ewangelia Marka 7:8–13",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/MRK-007.json",
+          "text": "8 Wy bowiem, opuściwszy przykazania Boże, trzymacie się tradycji ludzkiej, obmywania dzbanków i kubków. I wiele innych tym podobnych rzeczy czynicie. 9 Mówił im też: Całkowicie znosicie przykazanie Boże, aby zachować swoją tradycję. 10 Mojżesz bowiem powiedział: Czcij swego ojca i swoją matkę, oraz: Kto złorzeczy ojcu albo matce, niech poniesie śmierć. 11 Ale wy mówicie: Jeśli człowiek powie ojcu albo matce: To, co powinieneś otrzymać ode mnie jako pomoc, to Korban, to znaczy dar przeznaczony na ofiarę – będzie bez winy. 12 I nie pozwalacie mu nic więcej uczynić dla swego ojca albo matki; 13 Wniwecz obracając słowo Boże przez waszą tradycję, którą przekazaliście. I wiele innych tym podobnych rzeczy czynicie.",
+          "verses": [
+            {
+              "number": 8,
+              "text": "Wy bowiem, opuściwszy przykazania Boże, trzymacie się tradycji ludzkiej, obmywania dzbanków i kubków. I wiele innych tym podobnych rzeczy czynicie."
+            },
+            {
+              "number": 9,
+              "text": "Mówił im też: Całkowicie znosicie przykazanie Boże, aby zachować swoją tradycję."
+            },
+            {
+              "number": 10,
+              "text": "Mojżesz bowiem powiedział: Czcij swego ojca i swoją matkę, oraz: Kto złorzeczy ojcu albo matce, niech poniesie śmierć."
+            },
+            {
+              "number": 11,
+              "text": "Ale wy mówicie: Jeśli człowiek powie ojcu albo matce: To, co powinieneś otrzymać ode mnie jako pomoc, to Korban, to znaczy dar przeznaczony na ofiarę – będzie bez winy."
+            },
+            {
+              "number": 12,
+              "text": "I nie pozwalacie mu nic więcej uczynić dla swego ojca albo matki;"
+            },
+            {
+              "number": 13,
+              "text": "Wniwecz obracając słowo Boże przez waszą tradycję, którą przekazaliście. I wiele innych tym podobnych rzeczy czynicie."
+            }
+          ]
+        },
+        {
+          "bookId": "2TI",
+          "bookName": "2 List do Tymoteusza",
+          "chapter": 3,
+          "verseStart": 16,
+          "verseEnd": 17,
+          "label": "2 List do Tymoteusza 3:16–17",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/2TI-003.json",
+          "text": "16 Całe Pismo jest natchnione przez Boga i pożyteczne do nauki, do strofowania, do poprawiania, do wychowywania w sprawiedliwości; 17 Aby człowiek Boży był doskonały, do wszelkiego dobrego dzieła w pełni przygotowany.",
+          "verses": [
+            {
+              "number": 16,
+              "text": "Całe Pismo jest natchnione przez Boga i pożyteczne do nauki, do strofowania, do poprawiania, do wychowywania w sprawiedliwości;"
+            },
+            {
+              "number": 17,
+              "text": "Aby człowiek Boży był doskonały, do wszelkiego dobrego dzieła w pełni przygotowany."
+            }
+          ]
+        }
+      ],
+      "studySlug": "biblia-a-tradycja",
+      "reviewStatus": "draft"
+    },
+    {
+      "id": "faq-dekalog",
+      "question": "Jak naprawdę brzmi biblijny Dekalog?",
+      "category": "Dekalog i Sabat",
+      "answer": "Pełne brzmienie Dziesięciu Przykazań zapisano w Księdze Wyjścia 20:1–17 oraz Księdze Powtórzonego Prawa 5:6–21. Zawiera ono m.in. wyraźne przykazanie zakazujące czynienia i kłaniania się rzeźbom/obrazom w kulcie (Wj 20:4–6) oraz przykazanie święcenia siódmego dnia — szabatu (Wj 20:8–11).",
+      "refs": [
+        {
+          "bookId": "EXO",
+          "bookName": "Księga Wyjścia",
+          "chapter": 20,
+          "verseStart": 1,
+          "verseEnd": 17,
+          "label": "Księga Wyjścia 20:1–17",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/EXO-020.json",
+          "text": "1 I Bóg mówił te wszystkie słowa: 2 Ja jestem PAN, twój Bóg, który cię wyprowadził z ziemi Egiptu, z domu niewoli. 3 Nie będziesz miał innych bogów przede mną. 4 Nie będziesz czynił sobie żadnego rzeźbionego posągu ani żadnej podobizny czegokolwiek, co jest w górze na niebie, co jest nisko na ziemi ani co jest w wodach pod ziemią. 5 Nie będziesz oddawał im pokłonu ani nie będziesz im służył, bo ja jestem PAN, twój Bóg, Bóg zazdrosny, nawiedzający nieprawość ojców na synach do trzeciego i czwartego pokolenia tych, którzy mnie nienawidzą; 6 A okazujący miłosierdzie tysiącom tych, którzy mnie miłują i strzegą moich przykazań. 7 Nie będziesz brał imienia PANA, twego Boga, nadaremnie, gdyż PAN nie zostawi bez kary tego, który bierze jego imię nadaremnie. 8 Pamiętaj o dniu szabatu, aby go święcić. 9 Sześć dni będziesz pracować i wykonywać wszystkie swoje prace; 10 Ale siódmy dzień jest szabatem PANA, twego Boga. W tym dniu nie będziesz wykonywał żadnej pracy – ani ty, ani twój syn, ani twoja córka, ani twój sługa, ani twoja służąca, ani twoje bydło, ani twój gość, który jest w obrębie twoich bram. 11 PAN bowiem przez sześć dni stworzył niebo i ziemię, morze i wszystko, co jest w nich, a siódmego dnia odpoczął. Dlatego PAN błogosławił dzień szabatu i uświęcił go. 12 Czcij swego ojca i swoją matkę, aby twoje dni były długie na ziemi, którą PAN, twój Bóg, da tobie. 13 Nie będziesz zabijał. 14 Nie będziesz cudzołożył. 15 Nie będziesz kradł. 16 Nie będziesz fałszywie świadczył przeciw twemu bliźniemu. 17 Nie będziesz pożądał domu twego bliźniego ani nie będziesz pożądał żony twego bliźniego, ani jego sługi, ani jego służącej, ani jego wołu, ani jego osła, ani żadnej rzeczy, która należy do twego bliźniego.",
+          "verses": [
+            {
+              "number": 1,
+              "text": "I Bóg mówił te wszystkie słowa:"
+            },
+            {
+              "number": 2,
+              "text": "Ja jestem PAN, twój Bóg, który cię wyprowadził z ziemi Egiptu, z domu niewoli."
+            },
+            {
+              "number": 3,
+              "text": "Nie będziesz miał innych bogów przede mną."
+            },
+            {
+              "number": 4,
+              "text": "Nie będziesz czynił sobie żadnego rzeźbionego posągu ani żadnej podobizny czegokolwiek, co jest w górze na niebie, co jest nisko na ziemi ani co jest w wodach pod ziemią."
+            },
+            {
+              "number": 5,
+              "text": "Nie będziesz oddawał im pokłonu ani nie będziesz im służył, bo ja jestem PAN, twój Bóg, Bóg zazdrosny, nawiedzający nieprawość ojców na synach do trzeciego i czwartego pokolenia tych, którzy mnie nienawidzą;"
+            },
+            {
+              "number": 6,
+              "text": "A okazujący miłosierdzie tysiącom tych, którzy mnie miłują i strzegą moich przykazań."
+            },
+            {
+              "number": 7,
+              "text": "Nie będziesz brał imienia PANA, twego Boga, nadaremnie, gdyż PAN nie zostawi bez kary tego, który bierze jego imię nadaremnie."
+            },
+            {
+              "number": 8,
+              "text": "Pamiętaj o dniu szabatu, aby go święcić."
+            },
+            {
+              "number": 9,
+              "text": "Sześć dni będziesz pracować i wykonywać wszystkie swoje prace;"
+            },
+            {
+              "number": 10,
+              "text": "Ale siódmy dzień jest szabatem PANA, twego Boga. W tym dniu nie będziesz wykonywał żadnej pracy – ani ty, ani twój syn, ani twoja córka, ani twój sługa, ani twoja służąca, ani twoje bydło, ani twój gość, który jest w obrębie twoich bram."
+            },
+            {
+              "number": 11,
+              "text": "PAN bowiem przez sześć dni stworzył niebo i ziemię, morze i wszystko, co jest w nich, a siódmego dnia odpoczął. Dlatego PAN błogosławił dzień szabatu i uświęcił go."
+            },
+            {
+              "number": 12,
+              "text": "Czcij swego ojca i swoją matkę, aby twoje dni były długie na ziemi, którą PAN, twój Bóg, da tobie."
+            },
+            {
+              "number": 13,
+              "text": "Nie będziesz zabijał."
+            },
+            {
+              "number": 14,
+              "text": "Nie będziesz cudzołożył."
+            },
+            {
+              "number": 15,
+              "text": "Nie będziesz kradł."
+            },
+            {
+              "number": 16,
+              "text": "Nie będziesz fałszywie świadczył przeciw twemu bliźniemu."
+            },
+            {
+              "number": 17,
+              "text": "Nie będziesz pożądał domu twego bliźniego ani nie będziesz pożądał żony twego bliźniego, ani jego sługi, ani jego służącej, ani jego wołu, ani jego osła, ani żadnej rzeczy, która należy do twego bliźniego."
+            }
+          ]
+        }
+      ],
+      "studySlug": "dekalog",
+      "reviewStatus": "draft"
+    },
+    {
+      "id": "faq-sabat",
+      "question": "Co Biblia mówi o sabacie (szabacie)?",
+      "category": "Dekalog i Sabat",
+      "answer": "Już przy stworzeniu świata Bóg pobłogosławił siódmy dzień (Rdz 2:2–3), potwierdził go w czwartym przykazaniu Dekalogu (Wj 20:8–11), a Jezus sam go zachowywał (Łk 4:16) i nazwał siebie „Panem szabatu” (Mk 2:28). Według stanowiska Christian Culture biblijny dzień odpoczynku przypada na siódmy dzień tygodnia — sobotę.",
+      "refs": [
+        {
+          "bookId": "EXO",
+          "bookName": "Księga Wyjścia",
+          "chapter": 20,
+          "verseStart": 8,
+          "verseEnd": 11,
+          "label": "Księga Wyjścia 20:8–11",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/EXO-020.json",
+          "text": "8 Pamiętaj o dniu szabatu, aby go święcić. 9 Sześć dni będziesz pracować i wykonywać wszystkie swoje prace; 10 Ale siódmy dzień jest szabatem PANA, twego Boga. W tym dniu nie będziesz wykonywał żadnej pracy – ani ty, ani twój syn, ani twoja córka, ani twój sługa, ani twoja służąca, ani twoje bydło, ani twój gość, który jest w obrębie twoich bram. 11 PAN bowiem przez sześć dni stworzył niebo i ziemię, morze i wszystko, co jest w nich, a siódmego dnia odpoczął. Dlatego PAN błogosławił dzień szabatu i uświęcił go.",
+          "verses": [
+            {
+              "number": 8,
+              "text": "Pamiętaj o dniu szabatu, aby go święcić."
+            },
+            {
+              "number": 9,
+              "text": "Sześć dni będziesz pracować i wykonywać wszystkie swoje prace;"
+            },
+            {
+              "number": 10,
+              "text": "Ale siódmy dzień jest szabatem PANA, twego Boga. W tym dniu nie będziesz wykonywał żadnej pracy – ani ty, ani twój syn, ani twoja córka, ani twój sługa, ani twoja służąca, ani twoje bydło, ani twój gość, który jest w obrębie twoich bram."
+            },
+            {
+              "number": 11,
+              "text": "PAN bowiem przez sześć dni stworzył niebo i ziemię, morze i wszystko, co jest w nich, a siódmego dnia odpoczął. Dlatego PAN błogosławił dzień szabatu i uświęcił go."
+            }
+          ]
+        }
+      ],
+      "studySlug": "dekalog",
+      "reviewStatus": "draft"
+    },
+    {
+      "id": "faq-smierc",
+      "question": "Co dzieje się po śmierci?",
+      "category": "Nadzieja przyszłości",
+      "answer": "W tradycji katolickiej naucza się o nieśmiertelnej duszy i czyśćcu (KKK 1020–1037). W rozumieniu biblijnym Christian Culture śmierć jest stanem nieświadomego snu i odpoczynku (Koh 9:5–6; J 11:11–14), a prawdziwa nadzieja wieczności spełni się przy zmartwychwstaniu w dniu powrotu Jezusa (1 Tes 4:13–18).",
+      "refs": [
+        {
+          "bookId": "ECC",
+          "bookName": "Księga Kaznodziei",
+          "chapter": 9,
+          "verseStart": 5,
+          "verseEnd": 6,
+          "label": "Księga Kaznodziei 9:5–6",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/ECC-009.json",
+          "text": "5 Żyjący bowiem wiedzą, że umrą, ale umarli o niczym nie wiedzą i nie mają już żadnej zapłaty, gdyż pamięć o nich uległa zapomnieniu. 6 Tak samo ich miłość, nienawiść i zazdrość już zginęły. I już nigdy więcej nie będą mieć działu we wszystkim, co się dzieje pod słońcem.",
+          "verses": [
+            {
+              "number": 5,
+              "text": "Żyjący bowiem wiedzą, że umrą, ale umarli o niczym nie wiedzą i nie mają już żadnej zapłaty, gdyż pamięć o nich uległa zapomnieniu."
+            },
+            {
+              "number": 6,
+              "text": "Tak samo ich miłość, nienawiść i zazdrość już zginęły. I już nigdy więcej nie będą mieć działu we wszystkim, co się dzieje pod słońcem."
+            }
+          ]
+        },
+        {
+          "bookId": "1TH",
+          "bookName": "1 List do Tesaloniczan",
+          "chapter": 4,
+          "verseStart": 13,
+          "verseEnd": 18,
+          "label": "1 List do Tesaloniczan 4:13–18",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/1TH-004.json",
+          "text": "13 A nie chcę, bracia, abyście byli w niewiedzy co do tych, którzy zasnęli, abyście się nie smucili jak inni, którzy nie mają nadziei. 14 Jeśli bowiem wierzymy, że Jezus umarł i zmartwychwstał, to też tych, którzy zasnęli w Jezusie, Bóg przyprowadzi wraz z nim. 15 Bo to wam mówimy przez słowo Pana, że my, którzy pozostaniemy żywi do przyjścia Pana, nie wyprzedzimy tych, którzy zasnęli. 16 Gdyż sam Pan z okrzykiem, z głosem archanioła i dźwiękiem trąby Bożej zstąpi z nieba, a zmarli w Chrystusie powstaną pierwsi. 17 Potem my, którzy pozostaniemy żywi, razem z nimi będziemy porwani w obłoki, w powietrze, na spotkanie Pana, i tak zawsze będziemy z Panem. 18 Dlatego pocieszajcie się wzajemnie tymi słowami.",
+          "verses": [
+            {
+              "number": 13,
+              "text": "A nie chcę, bracia, abyście byli w niewiedzy co do tych, którzy zasnęli, abyście się nie smucili jak inni, którzy nie mają nadziei."
+            },
+            {
+              "number": 14,
+              "text": "Jeśli bowiem wierzymy, że Jezus umarł i zmartwychwstał, to też tych, którzy zasnęli w Jezusie, Bóg przyprowadzi wraz z nim."
+            },
+            {
+              "number": 15,
+              "text": "Bo to wam mówimy przez słowo Pana, że my, którzy pozostaniemy żywi do przyjścia Pana, nie wyprzedzimy tych, którzy zasnęli."
+            },
+            {
+              "number": 16,
+              "text": "Gdyż sam Pan z okrzykiem, z głosem archanioła i dźwiękiem trąby Bożej zstąpi z nieba, a zmarli w Chrystusie powstaną pierwsi."
+            },
+            {
+              "number": 17,
+              "text": "Potem my, którzy pozostaniemy żywi, razem z nimi będziemy porwani w obłoki, w powietrze, na spotkanie Pana, i tak zawsze będziemy z Panem."
+            },
+            {
+              "number": 18,
+              "text": "Dlatego pocieszajcie się wzajemnie tymi słowami."
+            }
+          ]
+        }
+      ],
+      "studySlug": "po-smierci",
+      "reviewStatus": "draft"
+    },
+    {
+      "id": "faq-powrot",
+      "question": "Czym jest powtórne przyjście Jezusa?",
+      "category": "Nadzieja przyszłości",
+      "answer": "To obiecany przez samego Jezusa (J 14:1–3) i apostołów (1 Tes 4:16–17) dosłowny, widzialny powrót Chrystusa, który położy kres cierpieniu, złu i śmierci, wzbudzi zmarłych i zapoczątkuje nowe niebo i nową ziemię (Ap 21:3–4). Nikt nie zna daty tego dnia — dlatego żyjemy w spokojnej gotowości, bez sensacyjnych przepowiedni.",
+      "refs": [
+        {
+          "bookId": "1TH",
+          "bookName": "1 List do Tesaloniczan",
+          "chapter": 4,
+          "verseStart": 13,
+          "verseEnd": 18,
+          "label": "1 List do Tesaloniczan 4:13–18",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/1TH-004.json",
+          "text": "13 A nie chcę, bracia, abyście byli w niewiedzy co do tych, którzy zasnęli, abyście się nie smucili jak inni, którzy nie mają nadziei. 14 Jeśli bowiem wierzymy, że Jezus umarł i zmartwychwstał, to też tych, którzy zasnęli w Jezusie, Bóg przyprowadzi wraz z nim. 15 Bo to wam mówimy przez słowo Pana, że my, którzy pozostaniemy żywi do przyjścia Pana, nie wyprzedzimy tych, którzy zasnęli. 16 Gdyż sam Pan z okrzykiem, z głosem archanioła i dźwiękiem trąby Bożej zstąpi z nieba, a zmarli w Chrystusie powstaną pierwsi. 17 Potem my, którzy pozostaniemy żywi, razem z nimi będziemy porwani w obłoki, w powietrze, na spotkanie Pana, i tak zawsze będziemy z Panem. 18 Dlatego pocieszajcie się wzajemnie tymi słowami.",
+          "verses": [
+            {
+              "number": 13,
+              "text": "A nie chcę, bracia, abyście byli w niewiedzy co do tych, którzy zasnęli, abyście się nie smucili jak inni, którzy nie mają nadziei."
+            },
+            {
+              "number": 14,
+              "text": "Jeśli bowiem wierzymy, że Jezus umarł i zmartwychwstał, to też tych, którzy zasnęli w Jezusie, Bóg przyprowadzi wraz z nim."
+            },
+            {
+              "number": 15,
+              "text": "Bo to wam mówimy przez słowo Pana, że my, którzy pozostaniemy żywi do przyjścia Pana, nie wyprzedzimy tych, którzy zasnęli."
+            },
+            {
+              "number": 16,
+              "text": "Gdyż sam Pan z okrzykiem, z głosem archanioła i dźwiękiem trąby Bożej zstąpi z nieba, a zmarli w Chrystusie powstaną pierwsi."
+            },
+            {
+              "number": 17,
+              "text": "Potem my, którzy pozostaniemy żywi, razem z nimi będziemy porwani w obłoki, w powietrze, na spotkanie Pana, i tak zawsze będziemy z Panem."
+            },
+            {
+              "number": 18,
+              "text": "Dlatego pocieszajcie się wzajemnie tymi słowami."
+            }
+          ]
+        },
+        {
+          "bookId": "REV",
+          "bookName": "Apokalipsa św. Jana",
+          "chapter": 21,
+          "verseStart": 3,
+          "verseEnd": 4,
+          "label": "Apokalipsa św. Jana 21:3–4",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/REV-021.json",
+          "text": "3 I usłyszałem donośny głos z nieba: Oto przybytek Boga jest z ludźmi i będzie mieszkał z nimi. Oni będą jego ludem, a sam Bóg będzie z nimi i będzie ich Bogiem. 4 I otrze Bóg wszelką łzę z ich oczu, i śmierci już nie będzie ani smutku, ani krzyku, ani bólu nie będzie, bo pierwsze rzeczy przeminęły.",
+          "verses": [
+            {
+              "number": 3,
+              "text": "I usłyszałem donośny głos z nieba: Oto przybytek Boga jest z ludźmi i będzie mieszkał z nimi. Oni będą jego ludem, a sam Bóg będzie z nimi i będzie ich Bogiem."
+            },
+            {
+              "number": 4,
+              "text": "I otrze Bóg wszelką łzę z ich oczu, i śmierci już nie będzie ani smutku, ani krzyku, ani bólu nie będzie, bo pierwsze rzeczy przeminęły."
+            }
+          ]
+        }
+      ],
+      "studySlug": "powrot-jezusa",
+      "reviewStatus": "draft"
+    },
+    {
+      "id": "faq-kanon66",
+      "question": "Dlaczego Christian Culture korzysta z 66 ksiąg zamiast 73?",
+      "category": "Tożsamość i zasady",
+      "answer": "Kanon katolicki liczy 73 księgi (obejmując 7 ksiąg deuterokanonicznych Starego Testamentu przyjętych dogmatycznie na Soborze Trydenckim w 1546 r.). Christian Culture — jak wspólnoty ewangeliczne i protestanckie — przyjmuje kanon 66 ksiąg: 39 ksiąg Starego Testamentu (kanon hebrajski używany w czasach Jezusa) oraz 27 ksiąg Nowego Testamentu. Podajemy tę różnicę jawnie i z szacunkiem.",
+      "refs": [
+        {
+          "bookId": "2TI",
+          "bookName": "2 List do Tymoteusza",
+          "chapter": 3,
+          "verseStart": 16,
+          "verseEnd": 17,
+          "label": "2 List do Tymoteusza 3:16–17",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/2TI-003.json",
+          "text": "16 Całe Pismo jest natchnione przez Boga i pożyteczne do nauki, do strofowania, do poprawiania, do wychowywania w sprawiedliwości; 17 Aby człowiek Boży był doskonały, do wszelkiego dobrego dzieła w pełni przygotowany.",
+          "verses": [
+            {
+              "number": 16,
+              "text": "Całe Pismo jest natchnione przez Boga i pożyteczne do nauki, do strofowania, do poprawiania, do wychowywania w sprawiedliwości;"
+            },
+            {
+              "number": 17,
+              "text": "Aby człowiek Boży był doskonały, do wszelkiego dobrego dzieła w pełni przygotowany."
+            }
+          ]
+        },
+        {
+          "bookId": "ACT",
+          "bookName": "Dzieje Apostolskie",
+          "chapter": 17,
+          "verseStart": 11,
+          "verseEnd": 11,
+          "label": "Dzieje Apostolskie 17:11",
+          "translation": "UBG-2025",
+          "sourceUrl": "/data/bible/ubg-2025/ACT-017.json",
+          "text": "Ci byli szlachetniejsi od tych w Tesalonice, gdyż przyjęli słowo Boże z całą gotowością i codziennie badali Pisma, czy tak się sprawy mają.",
+          "verses": [
+            {
+              "number": 11,
+              "text": "Ci byli szlachetniejsi od tych w Tesalonice, gdyż przyjęli słowo Boże z całą gotowością i codziennie badali Pisma, czy tak się sprawy mają."
+            }
+          ]
+        }
+      ],
+      "studySlug": "o-projekcie",
+      "reviewStatus": "draft"
+    }
+  ]
+}

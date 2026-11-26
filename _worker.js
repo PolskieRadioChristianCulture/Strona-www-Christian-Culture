@@ -2356,6 +2356,20 @@ export default {
       return Response.redirect(redirectUrl.toString(), 301);
     }
     // Adventist World P0 Preview (/test/adventist-world/ & /en/) — trailing slash 301 + /adventist-world/* 302 alias
+    // Portal „Odkryj Biblię — dla katolików” (/test/katolik/* — deep links + X-Robots-Tag noindex do zatwierdzenia L0)
+    if (decodedP === '/test/katolik' || decodedP.startsWith('/test/katolik/')) {
+      const lastSeg = decodedP.split('/').pop() || '';
+      const isStaticAsset = /\.[a-z0-9]{2,12}$/i.test(lastSeg) && lastSeg.toLowerCase() !== 'index.html';
+      const targetUrl = new URL(request.url);
+      if (!isStaticAsset) {
+        targetUrl.pathname = '/test/katolik/index.html';
+      }
+      const assetRes = await env.ASSETS.fetch(new Request(targetUrl, request));
+      const res = new Response(assetRes.body, assetRes);
+      res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+      res.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+      return res;
+    }
     if (url.pathname === '/test/adventist-world') {
       const redirectUrl = new URL(request.url);
       redirectUrl.pathname = '/test/adventist-world/';

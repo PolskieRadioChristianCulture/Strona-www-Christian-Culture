@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4EFTVBPE3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
+</script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="theme-color" content="#0B0B0D">
+<title>Jesteś katolikiem? Odkryj Biblię i poznaj Jezusa | Christian Culture</title>
+<meta name="description" content="Bezpłatny przewodnik po 66 księgach Biblii, Biblia Audio, plan czytania w 365 dni i odpowiedzi na pytania o wiarę. Poznawaj Słowo Boże we własnym tempie.">
+<link rel="icon" type="image/png" href="/app-christian-culture.png">
+<link rel="apple-touch-icon" href="/app-christian-culture.png">
+<link rel="manifest" href="/test/katolik/manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="/test/katolik/katolik.css?v=20261126_1">
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem('cc_katolik_theme_v1');
+      if (saved === 'light' || saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', saved);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+<a class="skip-link" href="#mainContent">Przejdź do głównej treści</a>
+
+<!-- Pasek środowiska testowego (usuwany przy promocji produkcyjnej na /katolik) -->
+<div class="env-bar" role="region" aria-label="Informacja o środowisku testowym">
+  <div class="wrap env-bar__in">
+    <span class="env-badge"><span class="env-dot" aria-hidden="true"></span>Środowisko testowe: /test/katolik (noindex)</span>
+    <span>Treści w statusie roboczym (draft) do akceptacji redakcyjnej &bull; Przekład bazowy: UBG-2025 (66 ksiąg)</span>
+  </div>
+</div>
+
+<!-- Nagłówek główny -->
+<header class="site-header">
+  <div class="wrap header-in">
+    <a class="brand" href="/test/katolik/" data-route="">
+      <img src="/app-christian-culture.png" width="36" height="36" alt="Christian Culture">
+      <span class="brand__text">
+        <span class="brand__cc">Christian Culture</span>
+        <span class="brand__sub">Odkryj Biblię</span>
+      </span>
+    </a>
+
+    <nav class="nav-desktop" aria-label="Główna nawigacja Odkryj Biblię">
+      <a href="/test/katolik/mapa-biblii" data-route="mapa-biblii">Mapa 66 ksiąg</a>
+      <a href="/test/katolik/plan-365" data-route="plan-365">Plan 365 dni</a>
+      <a href="/test/katolik/biblia-audio" data-route="biblia-audio">Biblia Audio</a>
+      <a href="/test/katolik/poznaj-jezusa" data-route="poznaj-jezusa">Poznaj Jezusa</a>
+      <a href="/test/katolik/pytania" data-route="pytania">Pytania</a>
+      <a href="/test/katolik/o-projekcie" data-route="o-projekcie">O projekcie</a>
+    </nav>
+
+    <div class="header-actions">
+      <button type="button" class="icon-btn" id="themeToggleBtn" aria-label="Przełącz tryb jasny lub ciemny">
+        <span id="themeToggleIcon" aria-hidden="true">☀</span>
+        <span class="sr-only">Zmień motyw</span>
+      </button>
+      <button type="button" class="icon-btn" id="menuOpenBtn" aria-expanded="false" aria-controls="mobileDrawer" aria-label="Otwórz pełne menu modułów">
+        <span aria-hidden="true">☰</span>
+        <span>Menu</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Pełny panel nawigacji modułów (mobile & desktop) -->
+<div class="drawer-scrim" id="drawerScrim" hidden></div>
+<aside class="mobile-drawer" id="mobileDrawer" aria-label="Wszystkie moduły Odkryj Biblię" hidden>
+  <div class="drawer-head">
+    <strong>Moduły „Odkryj Biblię”</strong>
+    <button type="button" class="icon-btn" id="menuCloseBtn" aria-label="Zamknij menu">&times;</button>
+  </div>
+  <nav class="drawer-links" aria-label="Nawigacja boczna">
+    <span class="drawer-group-title">Start i Słowo Boże</span>
+    <a href="/test/katolik/" data-route="">Strona główna</a>
+    <a href="/test/katolik/mapa-biblii" data-route="mapa-biblii">Mapa Biblii (66 ksiąg)</a>
+    <a href="/test/katolik/plan-365" data-route="plan-365">Plan czytania 365 dni</a>
+    <a href="/test/katolik/biblia-audio" data-route="biblia-audio">Biblia Audio CC</a>
+    <a href="/test/katolik/wiadomosc-z-nieba" data-route="wiadomosc-z-nieba">Werset dnia (Wiadomość z Nieba)</a>
+
+    <span class="drawer-group-title">Ewangelia i badanie Pisma</span>
+    <a href="/test/katolik/poznaj-jezusa" data-route="poznaj-jezusa">Poznaj Jezusa</a>
+    <a href="/test/katolik/zbawienie" data-route="zbawienie">Zbawienie z łaski</a>
+    <a href="/test/katolik/modlitwa" data-route="modlitwa">Modlitwa do Boga</a>
+    <a href="/test/katolik/biblia-a-tradycja" data-route="biblia-a-tradycja">Biblia a tradycja</a>
+    <a href="/test/katolik/dekalog" data-route="dekalog">Dekalog (Wj 20 i Pwt 5)</a>
+    <a href="/test/katolik/jedyny-posrednik" data-route="jedyny-posrednik">Jedyny Pośrednik</a>
+    <a href="/test/katolik/po-smierci" data-route="po-smierci">Co po śmierci?</a>
+    <a href="/test/katolik/powrot-jezusa" data-route="powrot-jezusa">Powrót Jezusa</a>
+    <a href="/test/katolik/proroctwa" data-route="proroctwa">Proroctwa (Daniel i Apokalipsa)</a>
+    <a href="/test/katolik/pytania" data-route="pytania">Pytania i odpowiedzi (FAQ)</a>
+
+    <span class="drawer-group-title">Wsparcie i narzędzia CC</span>
+    <a href="/test/katolik/ai" data-route="ai">AI dla Jezusa (status i wyszukiwanie)</a>
+    <a href="/test/katolik/nadzieja" data-route="nadzieja">Infolinia NADZIEJA</a>
+    <a href="/test/katolik/o-projekcie" data-route="o-projekcie">O projekcie i zasady</a>
+    <a href="/">← Powrót do Christian Culture</a>
+  </nav>
+</aside>
+
+<!-- Breadcrumbs dla podstron -->
+<div class="wrap" id="breadcrumbsWrap" hidden>
+  <nav class="breadcrumbs" aria-label="Ścieżka nawigacyjna">
+    <ol id="breadcrumbsList"></ol>
+  </nav>
+</div>
+
+<!-- Główna treść aplikacji (SSR-like fallback + pełne renderowanie JS) -->
+<main id="mainContent" tabindex="-1">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Odkryj Biblię — dla katolików &bull; Christian Culture</p>
+        <h1>Jesteś katolikiem i chcesz lepiej poznać Jezusa?</h1>
+        <p class="hero__lead">Chcesz czytać Biblię, ale nie wiesz, od czego zacząć? Odkryj Słowo Boże, poznaj Ewangelię i buduj osobistą relację z Jezusem Chrystusem. Bezpłatnie, we własnym tempie.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="/test/katolik/plan-365" data-route="plan-365">Rozpocznij podróż z Biblią</a>
+          <a class="btn btn--secondary" href="/test/katolik/biblia-audio" data-route="biblia-audio">Posłuchaj Biblii</a>
+        </div>
+        <div class="hero-meta">
+          <span>66 ksiąg · 1189 rozdziałów (UBG-2025)</span>
+          <span>100% bezpłatnie, bez konta i bez presji</span>
+          <span>Szacunek dla człowieka · Wierność Słowu Bożemu</span>
+        </div>
+      </div>
+      <div class="hero-media">
+        <img src="/images/academy/hero_couple_cross.jpg" width="1280" height="800" fetchpriority="high" alt="Osoby wspólnie odkrywające Pismo Święte w naturalnym świetle">
+        <div class="hero-media__caption">
+          <strong>„Otwórz Biblię i sprawdź samodzielnie.”</strong>
+          <span>Dzieje Apostolskie 17:11 (UBG)</span>
+        </div>
+        <div class="hero-media__accent" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+  <noscript>
+    <div class="wrap section">
+      <div class="notice-box notice-box--warn">
+        <h3>Włącz JavaScript, aby korzystać z interaktywnej Mapy 66 ksiąg i Planu 365 dni</h3>
+        <p>Bez JavaScript możesz nadal otworzyć <a href="/mojabiblia">MojaBiblia (UBG)</a>, <a href="/biblia-audio/">Biblia Audio CC</a>, <a href="/werset-dnia">Werset Dnia</a> oraz <a href="/infolinia-nadzieja/">Infolinię NADZIEJA</a>.</p>
+      </div>
+    </div>
+  </noscript>
+</main>
+
+<!-- Okno czytnika rozdziału UBG-2025 (ładowane na żądanie z /data/bible/ubg-2025/) -->
+<dialog class="cc-dialog" id="readerDialog" aria-labelledby="readerTitle">
+  <div class="dialog-head">
+    <div>
+      <strong id="readerTitle">Czytnik Pisma Świętego (UBG-2025)</strong>
+      <div id="readerSubtitle" style="font-size:13px;color:var(--ink-soft);">Uwspółcześniona Biblia Gdańska</div>
+    </div>
+    <button type="button" class="icon-btn" id="readerCloseBtn" aria-label="Zamknij czytnik">&times;</button>
+  </div>
+  <div class="dialog-body" id="readerBody"></div>
+  <div class="dialog-foot">
+    <div class="btn-row">
+      <button type="button" class="btn btn--ghost btn--sm" id="readerPrevBtn">← Poprzedni</button>
+      <button type="button" class="btn btn--ghost btn--sm" id="readerNextBtn">Następny →</button>
+    </div>
+    <a class="btn btn--secondary btn--sm" id="readerFullLink" href="/mojabiblia" target="_blank" rel="noopener noreferrer">Otwórz w MojaBiblia ↗</a>
+  </div>
+</dialog>
+
+<!-- Okno potwierdzenia resetu Planu 365 -->
+<dialog class="cc-dialog" id="resetDialog" aria-labelledby="resetTitle">
+  <div class="dialog-head">
+    <strong id="resetTitle">Wyzerować zapisany postęp planu?</strong>
+    <button type="button" class="icon-btn" id="resetCloseBtn" aria-label="Anuluj">&times;</button>
+  </div>
+  <div class="dialog-body">
+    <p>Ta operacja usunie zapisane ukończone dni Planu 365 dni z pamięci tej przeglądarki. Zanim potwierdzisz, możesz pobrać kopię zapasową JSON.</p>
+  </div>
+  <div class="dialog-foot">
+    <button type="button" class="btn btn--ghost btn--sm" id="resetCancelBtn">Anuluj</button>
+    <button type="button" class="btn btn--primary btn--sm" id="resetConfirmBtn">Tak, wyzeruj postęp</button>
+  </div>
+</dialog>
+
+<div class="status-live" id="statusToast" role="status" aria-live="polite" hidden></div>
+
+<!-- Stopka (jawna tożsamość, bez wymuszonego konta, darowizn ani newslettera) -->
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-disclosure">
+      <strong style="color:var(--ink);display:block;margin-bottom:6px;">Christian Culture — Odkryj Biblię (Szacunek dla człowieka. Wierność Słowu Bożemu.)</strong>
+      Christian Culture jest niezależną inicjatywą chrześcijańską. Nie reprezentujemy Kościoła rzymskokatolickiego. Naszym celem jest przybliżanie Jezusa Chrystusa i zachęcanie do osobistego poznawania Pisma Świętego w kanonie 66 ksiąg. Tekst biblijny: Uwspółcześniona Biblia Gdańska (UBG-2025) &copy; Fundacja Wrota Nadziei / Logos Media (CC BY-ND 4.0).
+    </div>
+    <div>
+      <ul class="footer-links">
+        <li><a href="/test/katolik/o-projekcie" data-route="o-projekcie">O projekcie</a></li>
+        <li><a href="mailto:radiochristianculture@gmail.com?subject=Odkryj%20Bibli%C4%99%20%E2%80%94%20Kontakt">Kontakt</a></li>
+        <li><a href="/privacy">Polityka prywatności</a></li>
+        <li><a href="/test/katolik/o-projekcie#dostepnosc" data-route="o-projekcie">Dostępność</a></li>
+        <li><a href="mailto:radiochristianculture@gmail.com?subject=Zg%C5%82oszenie%20b%C5%82%C4%99du%20%E2%80%94%20Odkryj%20Bibli%C4%99">Zgłoś błąd</a></li>
+        <li><a href="/">Powrót do Christian Culture</a></li>
+      </ul>
+      <p style="margin:8px 0 0;font-size:12.5px;color:var(--ink-soft);">Korzystanie z serwisu jest w 100% bezpłatne. Bez wymuszonego konta, bez reklam i bez profilowania przekonań religijnych.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="/test/katolik/katolik.js?v=20261126_1"></script>
+</body>
+</html>
