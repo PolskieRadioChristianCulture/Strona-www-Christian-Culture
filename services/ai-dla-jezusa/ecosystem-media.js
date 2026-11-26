@@ -323,11 +323,37 @@ export const CC_SOCIAL_HUB = [
   }
 ];
 
+const BUILTIN_DOCTRINAL_GUIDES = {
+  dekalog_i_sabat: {
+    topic: 'Biblijny Dekalog (Wj 20,1–17) i Sabat — siódmy dzień (sobota)',
+    keywords: [
+      'dekalog', 'przykazania', 'przykazanie', 'dziesiec przykazan', '10 przykazan',
+      'wyjscia 20', 'wj 20', 'sabat', 'szabat', 'sobota', 'sobotni', 'niedziela',
+      'dzien swiety', 'dzien panski', 'plan tygodnia', 'wujka', 'obrazy',
+      'balwochwalstwo', '28 zasad', 'prawo boze'
+    ],
+    summary:
+      'Autentyczny Dekalog z Księgi Wyjścia 20,1–17 (zgodny z UBG i historycznym przekładem ks. Jakuba Wujka, wyd. III 1962 r.): ' +
+      'I. Nie będziesz miał bogów cudzych przede mną. ' +
+      'II. Zakaz czynienia obrazów rytych i podobizn oraz oddawania im pokłonu (Wj 20,4–6). ' +
+      'III. Nie będziesz brał imienia Pana, Boga twego, nadaremno. ' +
+      'IV. Pamiętaj, abyś dzień sobotni święcił — sześć dni będziesz pracował, a siódmego dnia jest Sabat Pana (sobota, od zachodu słońca w piątek do zachodu w sobotę). Niedziela jest pierwszym dniem tygodnia (zwykłym dniem pracy) i nie zastępuje biblijnego Sabatu ani nie jest „Dniem Pańskim”. ' +
+      'V. Czcij ojca twego i matkę twoją. VI. Nie będziesz zabijał. VII. Nie będziesz cudzołożył. VIII. Nie będziesz kradzieży czynił. IX. Nie będziesz mówił fałszywego świadectwa przeciw bliźniemu twemu. ' +
+      'X. Nie będziesz pożądał domu bliźniego twego, żony jego ani żadnej rzeczy jego (jedno X przykazanie).',
+    keyVerses: [
+      {
+        ref: 'Wj 20,8–11',
+        text: 'Pamiętaj o dniu sabatu, aby go święcić. Sześć dni będziesz pracował i wykonywał wszelką swoją pracę; ale siódmego dnia jest sabat PANA, twego Boga.'
+      }
+    ]
+  }
+};
+
 export function matchContextGuides(query = '') {
   const qn = normalizeText(query);
   if (!qn) return [];
   const words = qn.split(/[^a-z0-9]+/).filter((w) => w.length >= 3);
-  const guidesObj = searchIndexData?.contextGuides || {};
+  const guidesObj = { ...(searchIndexData?.contextGuides || {}), ...BUILTIN_DOCTRINAL_GUIDES };
   const hits = [];
 
   for (const [key, guide] of Object.entries(guidesObj)) {

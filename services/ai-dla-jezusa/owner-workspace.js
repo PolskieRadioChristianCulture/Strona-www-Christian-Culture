@@ -235,7 +235,7 @@ export const OWNER_AUTOMATIONS = [
     desc: 'Układa harmonogram publikacji, nagrań Biblii Audio, Shorts oraz artykułów CCN News.',
     kind: 'chat_prompt',
     mode: 'CC Auto',
-    prompt: 'Jako @Rut wspierana przez @777 ułóż przejrzysty plan priorytetów Christian Culture od poniedziałku do soboty (Biblia Audio, Kurs Codzienny, VOD, CCN News).'
+    prompt: 'Jako @Rut wspierana przez @777 ułóż przejrzysty plan priorytetów Christian Culture od niedzieli do piątku z poszanowaniem sobotniego Sabatu (Biblia Audio, Kurs Codzienny, VOD, CCN News).'
   }
 ];
 

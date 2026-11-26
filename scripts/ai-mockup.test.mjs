@@ -203,8 +203,8 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai21b_p0/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai21b_p0/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai22_p0/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai22_p0/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
@@ -767,4 +767,40 @@ test('Simplified 5-item sidebar + PRO More group, contextual media only, mobile 
   const trJson = await trRes.json();
   assert.equal(trJson.ok, true);
   assert.equal(trJson.text, 'Panie Jezu pomóż mi dziś');
+});
+
+test('AI dla Jezusa strictly enforces the Biblical Decalogue (Wj 20:1-17), Saturday Sabbath, and 28 Fundamental Beliefs', async () => {
+  const { matchContextGuides } = await import('../services/ai-dla-jezusa/ecosystem-media.js');
+  const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
+  const ownerWsJs = fs.readFileSync(path.join(ROOT, 'services/ai-dla-jezusa/owner-workspace.js'), 'utf8');
+
+  let capturedSys = '';
+  const captureFetch = async (_u, opts) => {
+    const body = JSON.parse(opts.body);
+    capturedSys = body?.systemInstruction?.parts?.[0]?.text || '';
+    return new Response(
+      JSON.stringify({ candidates: [{ content: { parts: [{ text: 'Sobota to biblijny Sabat Pana.' }] } }] }),
+      { status: 200 }
+    );
+  };
+
+  await processAiChat(
+    { message: 'Pomóż mi ułożyć chrześcijański plan tygodnia' },
+    verifiedSharedFixture('test-decalogue'),
+    { fetch: captureFetch }
+  );
+
+  assert.match(capturedSys, /Wyjścia 20,1–17/);
+  assert.match(capturedSys, /obrazów rytych i podobizn/);
+  assert.match(capturedSys, /Sabat Pana, Boga twego \(SOBOTA/);
+  assert.match(capturedSys, /KATEGORYCZNIE ZABRANIA SIĘ nazywania niedzieli „Dniem Pańskim”/);
+  assert.match(capturedSys, /28 Zasad Wiary Kościoła Bożego/);
+
+  const planGuides = matchContextGuides('Pomóż mi ułożyć plan tygodnia');
+  const decGuides = matchContextGuides('Podaj Dziesięć Przykazań Bożych według Ks. Jakuba Wujka');
+  assert.ok(planGuides.some((g) => g.key === 'dekalog_i_sabat'), 'Weekly plan prompt must surface dekalog_i_sabat guide');
+  assert.ok(decGuides.some((g) => g.key === 'dekalog_i_sabat'), 'Decalogue prompt must surface dekalog_i_sabat guide');
+
+  assert.doesNotMatch(appJs, /od poniedziałku do soboty/i);
+  assert.doesNotMatch(ownerWsJs, /od poniedziałku do soboty/i);
 });

@@ -322,7 +322,7 @@ const STARTER_CHATS = [
   {
     id: 'starter-plan',
     title: 'Plan tygodnia',
-    starterPrompt: 'Pomóż mi ułożyć chrześcijański plan tygodnia z czasem na modlitwę, Słowo Boże, pracę i odpoczynek.'
+    starterPrompt: 'Pomóż mi ułożyć biblijny plan tygodnia z czasem na modlitwę, Słowo Boże, pracę przez 6 dni (niedziela–piątek) oraz świętowanie sobotniego Sabatu (Wj 20,8–11).'
   },
   {
     id: 'starter-scenariusz',
@@ -379,7 +379,7 @@ const MODULE_TEMPLATES = {
   ],
   Automatyzacje: [
     { title: 'Poranny rytm Kursu Codziennego', mode: 'CC Auto', prompt: 'Ułóż codzienną 15-minutową rutynę porannej modlitwy, lektury Kursu Codziennego i słuchania Biblii Audio.' },
-    { title: 'Plan publikacji tygodnia', mode: 'Twórczość CC', prompt: 'Zaplanuj harmonogram treści misyjnych od poniedziałku do soboty dla strony i kanałów społecznościowych.' }
+    { title: 'Plan publikacji tygodnia', mode: 'Twórczość CC', prompt: 'Zaplanuj harmonogram treści misyjnych od niedzieli do piątku (z pełnym uszanowaniem sobotniego Sabatu) dla strony i kanałów społecznościowych.' }
   ]
 };
 
