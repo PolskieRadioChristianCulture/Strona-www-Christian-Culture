@@ -189,8 +189,19 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai11/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai11/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai12/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai12/);
+  assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
+  assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
+  assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
+
+  const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, 'manifest-ai.json'), 'utf8'));
+  assert.equal(manifest.start_url, '/ai/aplikacja');
+  assert.equal(manifest.icons.length, 3);
+  assert.ok(manifest.icons.some((ic) => ic.purpose === 'maskable' && ic.src.includes('icon-maskable-512.png')));
+  for (const assetName of ['favicon-32.png', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png']) {
+    assert.ok(fs.existsSync(path.join(ROOT, 'ai/assets', assetName)), `Missing PWA/favicon icon: ${assetName}`);
+  }
   assert.match(html, /id="promptCascadeNav"/);
   assert.match(css, /\.prompt-grid\.is-cascade-ready/);
   assert.match(css, /\.is-wave-visible/);
