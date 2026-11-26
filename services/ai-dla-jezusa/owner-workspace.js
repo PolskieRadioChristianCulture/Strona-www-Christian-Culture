@@ -367,7 +367,7 @@ const OWNER_HEADERS = {
   'Vary': 'Authorization'
 };
 
-async function requireVerifiedOwner(request, env, deps, corsHeaders) {
+export async function requireVerifiedOwner(request, env, deps, corsHeaders) {
   const authHeader = request.headers.get('Authorization') || '';
   if (!authHeader.startsWith('Bearer ')) {
     return {

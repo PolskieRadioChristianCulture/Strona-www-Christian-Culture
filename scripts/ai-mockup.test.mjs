@@ -203,8 +203,8 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai28_p0/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai28_p0/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai29_p0/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai29_p0/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
@@ -930,4 +930,119 @@ test('AI dla Jezusa integrates live MojaBiblia interlinear, zero-fluff biblical 
   assert.ok(appJs.includes('mojabiblia-cards'));
   assert.ok(appJs.includes('@MojaBiblia'));
   assert.ok(css.includes('.mojabiblia-card'));
+});
+
+test('AI dla Jezusa stores feedback in D1 with PII scrubbing and gates owner reader with Firebase auth (ai29)', async () => {
+  const { DatabaseSync } = await import('node:sqlite');
+  const { resetFeedbackRateState } = await import('../services/ai-dla-jezusa/feedback-service.js');
+  resetFeedbackRateState();
+
+  const db = new DatabaseSync(':memory:');
+  db.exec(fs.readFileSync(path.join(ROOT, 'migrations/ai-cost/0002_ai_feedback.sql'), 'utf8'));
+  const d1Shim = {
+    prepare: (sql) => ({
+      bind: (...args) => ({
+        run: async () => db.prepare(sql).run(...args),
+        first: async () => db.prepare(sql).get(...args),
+        all: async () => ({ results: db.prepare(sql).all(...args) })
+      }),
+      first: async () => db.prepare(sql).get()
+    })
+  };
+  const env = { AI_COST_DB: d1Shim };
+
+  // 1. Public POST stores sanitized opinion & strips email/phone PII
+  const postRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/feedback', {
+      method: 'POST',
+      headers: { Origin: 'https://polskieradio.cc', 'Content-Type': 'application/json', 'cf-connecting-ip': '203.0.113.10' },
+      body: JSON.stringify({
+        kind: 'opinion',
+        rating: 5,
+        category: 'biblijna',
+        comment: '=HYPERLINK Napisz do mnie ewa@example.com albo +48 600 700 800 świetna analiza adelphos!',
+        assistantId: 'ai-dla-jezusa',
+        mode: 'Studium Biblijne',
+        modelId: 'gemini-3.1-flash-lite',
+        promptExcerpt: 'Czy Jezus miał braci?'
+      })
+    }),
+    env
+  );
+  assert.equal(postRes.status, 201);
+  const postJson = await postRes.json();
+  assert.equal(postJson.ok, true);
+  assert.equal(postJson.stored, true);
+
+  // 2. Private mode skips DB write
+  const privRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/feedback', {
+      method: 'POST',
+      headers: { Origin: 'https://polskieradio.cc', 'Content-Type': 'application/json', 'cf-connecting-ip': '203.0.113.11' },
+      body: JSON.stringify({ kind: 'thumbs_up', privateMode: true })
+    }),
+    env
+  );
+  assert.equal(privRes.status, 200);
+  const privJson = await privRes.json();
+  assert.equal(privJson.stored, false);
+
+  // 3. Cross-origin and >4KB payload rejected
+  const corsErr = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/feedback', {
+      method: 'POST',
+      headers: { Origin: 'https://evil.example', 'Content-Type': 'application/json' },
+      body: '{}'
+    }),
+    env
+  );
+  assert.equal(corsErr.status, 403);
+
+  const bigErr = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/feedback', {
+      method: 'POST',
+      headers: { Origin: 'https://polskieradio.cc', 'Content-Type': 'application/json', 'cf-connecting-ip': '203.0.113.12' },
+      body: JSON.stringify({ kind: 'opinion', comment: 'x'.repeat(4500) })
+    }),
+    env
+  );
+  assert.equal(bigErr.status, 413);
+
+  // 4. Owner reader: anonymous -> 401, non-owner -> 403, owner -> 200 + scrubbed PII + formula-safe CSV
+  const anonRes = await handleAiDlaJezusaApi(new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/owner/feedback'), env);
+  assert.equal(anonRes.status, 401);
+
+  const nonOwnerRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/owner/feedback', { headers: { Authorization: 'Bearer tok' } }),
+    env,
+    { verifyToken: async () => ({ email: 'someone@example.com', email_verified: true, sub: 'u1' }) }
+  );
+  assert.equal(nonOwnerRes.status, 403);
+
+  const ownerRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/owner/feedback', { headers: { Authorization: 'Bearer tok' } }),
+    env,
+    { verifyToken: async () => ({ email: 'nazirczarek@gmail.com', email_verified: true, sub: 'owner1' }) }
+  );
+  assert.equal(ownerRes.status, 200);
+  const ownerJson = await ownerRes.json();
+  assert.equal(ownerJson.summary.opinions, 1);
+  assert.equal(ownerJson.summary.avg_rating, 5);
+  assert.equal(ownerJson.items.length, 1);
+  assert.match(ownerJson.items[0].comment, /\[EMAIL_REDACTED\]/);
+  assert.match(ownerJson.items[0].comment, /\[PHONE_REDACTED\]/);
+  assert.doesNotMatch(ownerJson.items[0].comment, /ewa@example\.com|600 700 800/);
+
+  const csvRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/owner/feedback?format=csv', { headers: { Authorization: 'Bearer tok' } }),
+    env,
+    { verifyToken: async () => ({ email: 'nazirczarek@gmail.com', email_verified: true, sub: 'owner1' }) }
+  );
+  assert.equal(csvRes.status, 200);
+  const csvBody = await csvRes.text();
+  assert.ok(csvBody.includes("'=HYPERLINK"), 'Leading formula character must be neutralized in CSV');
+
+  const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
+  assert.ok(appJs.includes('sendFeedbackToServer'));
+  assert.ok(appJs.includes('openOwnerFeedbackModal'));
 });

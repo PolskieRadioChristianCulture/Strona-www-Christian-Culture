@@ -14,6 +14,7 @@ import { openApiSpec } from './openapi.js';
 import { handleMcpRequest } from './mcp-server.js';
 import { handleAiChatRequest, handleAiTranscribeRequest } from './chat-service.js';
 import { handleOwnerSessionRequest, handleOwnerActionRequest } from './owner-workspace.js';
+import { handleAiFeedbackPost, handleOwnerFeedbackGet } from './feedback-service.js';
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
@@ -33,7 +34,7 @@ export async function handleAiDlaJezusaApi(request, env = {}, deps = {}) {
   const url = new URL(request.url);
   const path = url.pathname.replace(/\/+$/, '') || '/';
 
-  const privateApi = ['/chat', '/transcribe', '/owner/session', '/owner/action']
+  const privateApi = ['/chat', '/transcribe', '/feedback', '/owner/session', '/owner/action', '/owner/feedback']
     .some(suffix => path === '/api/ai-dla-jezusa/v1' + suffix);
   if (privateApi && request.headers.has('Origin') &&
       request.headers.get('Origin') !== url.origin) {
@@ -65,6 +66,12 @@ export async function handleAiDlaJezusaApi(request, env = {}, deps = {}) {
   }
   if (path === '/api/ai-dla-jezusa/v1/owner/action') {
     return handleOwnerActionRequest(request, env, deps, apiHeaders);
+  }
+  if (path === '/api/ai-dla-jezusa/v1/feedback') {
+    return handleAiFeedbackPost(request, env, deps, apiHeaders);
+  }
+  if (path === '/api/ai-dla-jezusa/v1/owner/feedback') {
+    return handleOwnerFeedbackGet(request, env, deps, apiHeaders);
   }
 
   // Tylko metoda GET w publicznym API odczytowym

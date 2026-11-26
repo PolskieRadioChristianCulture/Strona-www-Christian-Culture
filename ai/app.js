@@ -1961,7 +1961,168 @@ function createReactionSvg(kind) {
   return svg;
 }
 
-function toggleMessageReaction(msg, kind) {
+async function sendFeedbackToServer(payload) {
+  if (privateMode) return { ok: true, stored: false, reason: 'private_mode' };
+  try {
+    const res = await fetch('/api/ai-dla-jezusa/v1/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...payload, privateMode })
+    });
+    if (!res.ok) return { ok: false, status: res.status };
+    return await res.json();
+  } catch {
+    return { ok: false };
+  }
+}
+
+async function openOwnerFeedbackModal(filterKind = '') {
+  if (!ownerSession?.isOwner) {
+    showToast('Dostęp wyłącznie dla zalogowanego konta właściciela.');
+    return;
+  }
+  infoDialogTitle.textContent = '📊 Opinie i reakcje użytkowników';
+  infoDialogBody.replaceChildren();
+
+  const waitP = document.createElement('p');
+  waitP.textContent = 'Pobieram opinie użytkowników z bazy Cloudflare D1...';
+  infoDialogBody.appendChild(waitP);
+  showInfoDialog();
+
+  try {
+    const authHeaders = await getAuthHeaders();
+    const qs = new URLSearchParams({ limit: '100' });
+    if (filterKind) qs.set('kind', filterKind);
+    const res = await fetch(`/api/ai-dla-jezusa/v1/owner/feedback?${qs.toString()}`, { headers: authHeaders });
+    const data = await res.json();
+    if (!res.ok || !data?.ok) {
+      throw new Error(data?.detail || data?.error || `HTTP ${res.status}`);
+    }
+
+    infoDialogBody.replaceChildren();
+    const sum = data.summary || {};
+
+    const kpis = document.createElement('div');
+    kpis.className = 'owner-fb-kpis';
+    for (const [val, label] of [
+      [sum.opinions ?? 0, 'Opinie pisemne'],
+      [sum.avg_rating != null ? `${sum.avg_rating} ★` : '—', 'Średnia ocena'],
+      [sum.total ?? 0, 'Wszystkie reakcje'],
+      [sum.thumbs_up ?? 0, 'Łapki w górę 👍'],
+      [sum.thumbs_down ?? 0, 'Łapki w dół 👎'],
+      [sum.favorites ?? 0, 'Ulubione ★']
+    ]) {
+      const box = document.createElement('div');
+      box.className = 'owner-fb-kpi';
+      const st = document.createElement('strong');
+      st.textContent = String(val);
+      const sp = document.createElement('span');
+      sp.textContent = label;
+      box.append(st, sp);
+      kpis.appendChild(box);
+    }
+
+    const filterRow = document.createElement('div');
+    filterRow.className = 'opinion-cats';
+    for (const [kVal, kLabel] of [
+      ['', 'Wszystkie'],
+      ['opinion', 'Opinie'],
+      ['thumbs_up', '👍'],
+      ['thumbs_down', '👎'],
+      ['favorite', '★']
+    ]) {
+      const fbBtn = document.createElement('button');
+      fbBtn.type = 'button';
+      fbBtn.className = 'opinion-cat-btn' + (filterKind === kVal ? ' active' : '');
+      fbBtn.textContent = kLabel;
+      fbBtn.onclick = () => openOwnerFeedbackModal(kVal);
+      filterRow.appendChild(fbBtn);
+    }
+
+    const actRow = document.createElement('div');
+    actRow.className = 'dialog-actions-row';
+    const csvBtn = document.createElement('button');
+    csvBtn.type = 'button';
+    csvBtn.className = 'connect-btn';
+    csvBtn.textContent = 'Pobierz CSV';
+    csvBtn.onclick = async () => {
+      try {
+        const h = await getAuthHeaders();
+        const cQs = new URLSearchParams({ format: 'csv', limit: '200' });
+        if (filterKind) cQs.set('kind', filterKind);
+        const cRes = await fetch(`/api/ai-dla-jezusa/v1/owner/feedback?${cQs.toString()}`, { headers: h });
+        if (!cRes.ok) throw new Error(`HTTP ${cRes.status}`);
+        const blob = await cRes.blob();
+        const href = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = href;
+        a.download = 'ai-dla-jezusa-opinie.csv';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(href), 2000);
+        showToast('Pobrano zestawienie opinii w formacie CSV.');
+      } catch {
+        showToast('Nie udało się pobrać pliku CSV.');
+      }
+    };
+    const refreshBtn = document.createElement('button');
+    refreshBtn.type = 'button';
+    refreshBtn.className = 'dialog-btn-secondary';
+    refreshBtn.textContent = 'Odśwież';
+    refreshBtn.onclick = () => openOwnerFeedbackModal(filterKind);
+    actRow.append(csvBtn, refreshBtn);
+
+    const listWrap = document.createElement('div');
+    listWrap.className = 'owner-fb-list';
+    const items = Array.isArray(data.items) ? data.items : [];
+    if (!items.length) {
+      const emp = document.createElement('p');
+      emp.className = 'module-empty';
+      emp.textContent = 'Brak zapisanych wpisów dla wybranego filtra.';
+      listWrap.appendChild(emp);
+    } else {
+      for (const it of items) {
+        const card = document.createElement('article');
+        card.className = 'owner-fb-card';
+        const meta = document.createElement('div');
+        meta.className = 'owner-fb-meta';
+        const leftM = document.createElement('strong');
+        const kindLabel = it.kind === 'opinion'
+          ? `Opinia ${'★'.repeat(it.rating || 0)} (${it.category || 'brak'})`
+          : it.kind;
+        leftM.textContent = kindLabel;
+        const rightM = document.createElement('span');
+        const dtStr = it.created_at ? new Date(it.created_at).toLocaleString('pl-PL') : '';
+        rightM.textContent = `${dtStr} · ${it.assistant_id || ''} · ${it.model_id || ''}`;
+        meta.append(leftM, rightM);
+        card.appendChild(meta);
+        if (it.comment) {
+          const com = document.createElement('p');
+          com.className = 'owner-fb-comment';
+          com.textContent = it.comment;
+          card.appendChild(com);
+        }
+        if (it.prompt_excerpt) {
+          const pr = document.createElement('div');
+          pr.className = 'owner-fb-prompt';
+          pr.textContent = `Pytanie: ${it.prompt_excerpt}`;
+          card.appendChild(pr);
+        }
+        listWrap.appendChild(card);
+      }
+    }
+
+    infoDialogBody.append(kpis, filterRow, actRow, listWrap);
+  } catch (err) {
+    infoDialogBody.replaceChildren();
+    const errP = document.createElement('p');
+    errP.textContent = `Nie udało się wczytać opinii z D1 (${err.message}).`;
+    infoDialogBody.appendChild(errP);
+  }
+}
+
+function toggleMessageReaction(msg, kind, prevUserText = '') {
   if (!msg?.id || (kind !== 'up' && kind !== 'down')) return null;
   if (!state.reactions || typeof state.reactions !== 'object') state.reactions = {};
   const prev = state.reactions[msg.id] || '';
@@ -1969,13 +2130,25 @@ function toggleMessageReaction(msg, kind) {
   if (next) state.reactions[msg.id] = next;
   else delete state.reactions[msg.id];
   saveState();
+  const assistantId = msg.assistantId || getActiveAssistantId();
+  const mode = msg.mode || currentMode;
+  const modelId = msg.modelUsed || getPreferredModelId();
   trackAiEvent('ai_response_reaction', {
     reaction: kind === 'up' ? 'thumbs_up' : 'thumbs_down',
     active: next === kind,
-    assistant_id: msg.assistantId || getActiveAssistantId(),
-    mode: msg.mode || currentMode,
-    model_id: msg.modelUsed || getPreferredModelId()
+    assistant_id: assistantId,
+    mode,
+    model_id: modelId
   });
+  if (next === kind) {
+    sendFeedbackToServer({
+      kind: kind === 'up' ? 'thumbs_up' : 'thumbs_down',
+      assistantId,
+      mode,
+      modelId,
+      promptExcerpt: stripMarkdownPlain(prevUserText).slice(0, 160)
+    });
+  }
   return next;
 }
 
@@ -1999,16 +2172,28 @@ function toggleMessageFavorite(msg, prevUserText = '') {
   }
   saveState();
   if (currentNav === 'Notatniki') renderModule('Notatniki');
+  const assistantId = msg.assistantId || getActiveAssistantId();
+  const mode = msg.mode || currentMode;
+  const modelId = msg.modelUsed || getPreferredModelId();
   trackAiEvent('ai_response_favorite', {
     action: added ? 'add' : 'remove',
-    assistant_id: msg.assistantId || getActiveAssistantId(),
-    mode: msg.mode || currentMode,
-    model_id: msg.modelUsed || getPreferredModelId()
+    assistant_id: assistantId,
+    mode,
+    model_id: modelId
   });
+  if (added) {
+    sendFeedbackToServer({
+      kind: 'favorite',
+      assistantId,
+      mode,
+      modelId,
+      promptExcerpt: stripMarkdownPlain(prevUserText).slice(0, 160)
+    });
+  }
   return added;
 }
 
-function openOpinionModal(msg, _prevUserText = '', onSaved = null) {
+function openOpinionModal(msg, prevUserText = '', onSaved = null) {
   const existing = (state.opinions || []).find((o) => o.msgId === msg.id);
   trackAiEvent('ai_opinion_open', {
     assistant_id: msg.assistantId || getActiveAssistantId(),
@@ -2020,7 +2205,9 @@ function openOpinionModal(msg, _prevUserText = '', onSaved = null) {
   infoDialogBody.replaceChildren();
 
   const intro = document.createElement('p');
-  intro.textContent = 'Twoja ocena pomaga ulepszać odpowiedzi AI dla Jezusa. Do statystyk trafia wyłącznie ocena i kategoria — bez treści Twojego komentarza.';
+  intro.textContent = privateMode
+    ? 'Tryb prywatny jest włączony — Twoja opinia zapisze się wyłącznie lokalnie na tym urządzeniu.'
+    : 'Twoja opinia pomaga ulepszać odpowiedzi AI dla Jezusa. Ocena, kategoria i komentarz (bez danych osobowych) trafiają anonimowo do analizy zespołu Christian Culture.';
 
   const form = document.createElement('form');
   form.className = 'dialog-form';
@@ -2095,7 +2282,7 @@ function openOpinionModal(msg, _prevUserText = '', onSaved = null) {
   noteInput.maxLength = 500;
   noteInput.value = existing?.comment || '';
   noteInput.placeholder = 'Napisz krótko, co było dobre lub co możemy poprawić (opcjonalnie)…';
-  noteInput.setAttribute('aria-label', 'Komentarz do opinii (zapisywany wyłącznie lokalnie)');
+  noteInput.setAttribute('aria-label', 'Komentarz do opinii (opcjonalnie)');
 
   const btnRow = document.createElement('div');
   btnRow.className = 'dialog-actions-row';
@@ -2111,18 +2298,23 @@ function openOpinionModal(msg, _prevUserText = '', onSaved = null) {
   cancelBtn.textContent = 'Anuluj';
   cancelBtn.onclick = () => infoDialog.close();
 
-  form.onsubmit = (e) => {
+  form.onsubmit = async (e) => {
     e.preventDefault();
+    submitBtn.disabled = true;
     if (!Array.isArray(state.opinions)) state.opinions = [];
     const comment = noteInput.value.trim().slice(0, 500);
+    const assistantId = msg.assistantId || getActiveAssistantId();
+    const mode = msg.mode || currentMode;
+    const modelId = msg.modelUsed || getPreferredModelId();
+    const category = selectedCategory || 'brak';
     const entry = {
       id: existing?.id || `op-${Date.now()}`,
       msgId: msg.id,
       rating,
-      category: selectedCategory || 'brak',
+      category,
       comment,
-      assistantId: msg.assistantId || getActiveAssistantId(),
-      mode: msg.mode || currentMode,
+      assistantId,
+      mode,
       createdAt: new Date().toISOString()
     };
     const pos = state.opinions.findIndex((o) => o.msgId === msg.id);
@@ -2132,14 +2324,29 @@ function openOpinionModal(msg, _prevUserText = '', onSaved = null) {
     saveState();
     trackAiEvent('ai_response_opinion', {
       rating,
-      category: selectedCategory || 'brak',
+      category,
       has_comment: Boolean(comment),
-      assistant_id: msg.assistantId || getActiveAssistantId(),
-      mode: msg.mode || currentMode,
-      model_id: msg.modelUsed || getPreferredModelId()
+      assistant_id: assistantId,
+      mode,
+      model_id: modelId
+    });
+    const serverRes = await sendFeedbackToServer({
+      kind: 'opinion',
+      rating,
+      category,
+      comment,
+      assistantId,
+      mode,
+      modelId,
+      promptExcerpt: stripMarkdownPlain(prevUserText).slice(0, 160),
+      replyExcerpt: stripMarkdownPlain(msg.text || '').slice(0, 240)
     });
     if (typeof onSaved === 'function') onSaved(entry);
-    showToast('Dziękujemy za Twoją opinię!');
+    showToast(
+      privateMode
+        ? 'Zapisano opinię lokalnie (Tryb prywatny).'
+        : (serverRes?.stored ? 'Dziękujemy! Twoja opinia została zapisana do analizy.' : 'Dziękujemy za Twoją opinię!')
+    );
     infoDialog.close();
   };
 
@@ -2997,13 +3204,13 @@ function renderConversation(animateMsgId = '') {
       syncThumbsUi((state.reactions && state.reactions[msg.id]) || '');
 
       upBtn.onclick = () => {
-        const next = toggleMessageReaction(msg, 'up');
+        const next = toggleMessageReaction(msg, 'up', prevUserMsg?.text || '');
         syncThumbsUi(next);
         showToast(next === 'up' ? 'Dziękujemy za pozytywną ocenę!' : 'Cofnięto ocenę.');
       };
 
       downBtn.onclick = () => {
-        const next = toggleMessageReaction(msg, 'down');
+        const next = toggleMessageReaction(msg, 'down', prevUserMsg?.text || '');
         syncThumbsUi(next);
         showToast(next === 'down' ? 'Zapisano zgłoszenie — ulepszymy tę odpowiedź.' : 'Cofnięto ocenę.');
       };
@@ -4068,7 +4275,12 @@ function renderModule(name) {
         const bBadge = document.createElement('span');
         bBadge.className = 'owner-badge';
         bBadge.textContent = 'ANTIGRAVITY + CHMURA';
-        banner.append(bText, bBadge);
+        const fbReadBtn = document.createElement('button');
+        fbReadBtn.type = 'button';
+        fbReadBtn.className = 'connect-btn';
+        fbReadBtn.textContent = '📊 Opinie użytkowników';
+        fbReadBtn.onclick = () => openOwnerFeedbackModal();
+        banner.append(bText, fbReadBtn, bBadge);
         wrap.appendChild(banner);
 
         if (ownerSession.apiPool?.youtubeApi) {
@@ -4884,6 +5096,14 @@ function openProfileModal() {
     proBtn.onclick = openProModal;
 
     btnRow.append(proBtn, luminaLink, logoutBtn);
+    if (ownerSession?.isOwner) {
+      const ownerFbBtn = document.createElement('button');
+      ownerFbBtn.type = 'button';
+      ownerFbBtn.className = 'connect-btn';
+      ownerFbBtn.textContent = '📊 Opinie użytkowników';
+      ownerFbBtn.onclick = () => openOwnerFeedbackModal();
+      btnRow.insertBefore(ownerFbBtn, luminaLink);
+    }
     infoDialogBody.append(info, btnRow);
   } else {
     const desc = document.createElement('p');
