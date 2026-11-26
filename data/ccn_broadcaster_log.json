@@ -1,5 +1,277 @@
 [
   {
+    "timestamp": "2026-11-26T05:01:37.014Z",
+    "title": "Christian Culture Apps — Android (Google Play) & Web/PWA Hub (EN)",
+    "url": "https://polskieradio.cc/aplikacje/en/",
+    "type": "module",
+    "image": "topic-en-4cee05d4.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-26T04:58:58.853Z",
+    "title": "CC Pomoc: Pastor – rozmowa o wierze i życiu",
+    "url": "https://polskieradio.cc/pastor",
+    "type": "help",
+    "image": "topic-pastor-f342c51e.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T22:01:15.868Z",
+    "title": "Katalog Wizytówek Christian Culture — Ludzie, Służby i Projekty (/wizytowki)",
+    "url": "https://polskieradio.cc/wizytowki",
+    "type": "profile",
+    "image": "topic-wizytowki-580ee6cf.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T21:31:24.008Z",
+    "title": "Werset Dnia: „Oznajmił ci, człowiecze, co jest dobre: czynić sprawiedliwość, miłować miłosierdzie i pokornie chodzić ze swoim Bogiem” (Księga Micheasza 6:8, UBG)",
+    "url": "https://polskieradio.cc/werset-dnia?day=353",
+    "type": "verse",
+    "image": "werset-day-353-ksiega-micheasza-6-8.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T21:01:20.737Z",
+    "title": "Gdy szkoła przestaje być bezpieczna. Po śmierci pracownicy szkoły pod Wyszkowem",
+    "url": "https://polskieradio.cc/news/tragedia-szkola-wyszkow-przemoc-biblia",
+    "type": "news",
+    "image": "art-tragedia-szkola-wyszkow-przemoc-biblia.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T20:31:23.536Z",
+    "title": "„Z Biblią za Pan Brat” Tom I: Od Stworzenia do Abrahama (Księga Rodzaju 1–12) – CCN News",
+    "url": "https://polskieradio.cc/biblioteka/z-biblia-za-pan-brat-tom-1-od-stworzenia-do-abrahama",
+    "type": "book",
+    "image": "kc_day_01_creation.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T20:01:18.385Z",
+    "title": "Kurs 28 Kroków — Lekcja 17: Dary i Posługi Duchowe — Wyposażenie do Służby Bliźnim",
+    "url": "https://polskieradio.cc/kursy/17-dary-i-poslugi-duchowe.html",
+    "type": "course",
+    "image": "17.png",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T19:32:41.483Z",
+    "title": "Playlisty i kolekcje",
+    "url": "https://polskieradio.cc/music/playlisty",
+    "type": "music",
+    "image": "art-chan-muzyka.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T19:01:15.287Z",
+    "title": "Infolinia NADZIEJA Christian Culture — Ponadwyznaniowy wolontariat chrześcijański",
+    "url": "https://polskieradio.cc/infolinia-nadzieja/",
+    "type": "module",
+    "image": "topic-infolinia-nadzieja-61a76d4d.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T18:31:11.139Z",
+    "title": "Kino Chrześcijańskie VOD — Dobre Kino 24/7 i bezpłatne filmy z polskim lektorem",
+    "url": "https://polskieradio.cc/vod",
+    "type": "vod",
+    "image": "vod-christian-culture-03-dobre-kino-24-7.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T18:01:22.162Z",
+    "title": "CC Help: High blood pressure",
+    "url": "https://polskieradio.cc/en/blood-pressure-support",
+    "type": "help",
+    "image": "topic-blood-pressure-support-caf6931d.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T16:01:12.038Z",
+    "title": "40 Dni Modlitwy i Biblijny Czas Modlitwy — Zjednoczeni w Modlitwie (/40DM & /modlitwa)",
+    "url": "https://polskieradio.cc/40DM/",
+    "type": "profile",
+    "image": "topic-40dm-8c519078.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T15:31:31.472Z",
+    "title": "Werset Dnia: „Wyleję mego Ducha na wszelkie ciało; wasi synowie i córki prorokować będą” (Księga Joela 2:28, UBG)",
+    "url": "https://polskieradio.cc/werset-dnia?day=352",
+    "type": "verse",
+    "image": "werset-day-352-ksiega-joela-2-28.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T15:04:17.303Z",
+    "title": "Wojna, ciemność i nadzieja. Ukraina przed zimą — czego Jezus uczy o pokoju?",
+    "url": "https://polskieradio.cc/news/wojna-ukraina-jezus-pokoj-znaki-czasow",
+    "type": "news",
+    "image": "art-wojna-ukraina-jezus-pokoj-znaki-czasow.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T14:31:38.795Z",
+    "title": "„Wędrówka Pielgrzyma” Johna Bunyana: Kompletne Słuchowisko Audio i E-book PDF – CCN News",
+    "url": "https://polskieradio.cc/biblioteka/wedrowka-pielgrzyma-john-bunyan-sluchowisko-audio-ebook-pdf",
+    "type": "book",
+    "image": "topic-wedrowka-pielgrzyma-john-bunyan-sluchowisko-audi-747e607a.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T14:01:17.312Z",
+    "title": "Kurs 28 Kroków — Lekcja 16: Wieczerza Pańska — Pamiątka Ofiary, Obmycie Nóg i Społeczność",
+    "url": "https://polskieradio.cc/kursy/16-wieczerza-panska.html",
+    "type": "course",
+    "image": "16.png",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T13:31:24.951Z",
+    "title": "Gerald Welch — Official Artist Showcase",
+    "url": "https://polskieradio.cc/Welch/en",
+    "type": "music",
+    "image": "gerald-hero-og.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T13:01:14.864Z",
+    "title": "Aplikacje Christian Culture — Android (Google Play) i Web/PWA",
+    "url": "https://polskieradio.cc/aplikacje/",
+    "type": "module",
+    "image": "topic-aplikacje-78dc6986.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T12:31:21.012Z",
+    "title": "CC Pomoc: Senior – aktywne i wartościowe życie",
+    "url": "https://polskieradio.cc/senior",
+    "type": "help",
+    "image": "topic-senior-608f772a.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T12:01:23.963Z",
+    "title": "Werset Dnia: „Miłości bowiem pragnę, a nie ofiary; poznania Boga bardziej niż całopaleń” (Księga Ozeasza 6:6, UBG)",
+    "url": "https://polskieradio.cc/werset-dnia?day=351",
+    "type": "verse",
+    "image": "werset-day-351-ksiega-ozeasza-6-6.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T11:31:31.304Z",
+    "title": "LUMINA — Portal Społecznościowy",
+    "url": "https://polskieradio.cc/lumina",
+    "type": "profile",
+    "image": "card-lumina.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T11:01:36.959Z",
+    "title": "Cyfrowy pieniądz, prawo niedzielne i Apokalipsa 13. Czy technologia może stać się narzędziem przymusu religijnego?",
+    "url": "https://polskieradio.cc/news/cbdc-prawo-niedzielne-apokalipsa-13",
+    "type": "news",
+    "image": "art-cbdc-prawo-niedzielne-apokalipsa-13.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T10:31:15.510Z",
+    "title": "„Przymierze na Całe Życie”: Biblijny Przewodnik po Narzeczeństwie i Małżeństwie – CCN News",
+    "url": "https://polskieradio.cc/biblioteka/przymierze-na-cale-zycie-biblijny-przewodnik-malzenstwo",
+    "type": "book",
+    "image": "topic-przymierze-na-cale-zycie-biblijny-przewodnik-mal-5b751e66.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T10:01:21.845Z",
+    "title": "Kurs 28 Kroków — Lekcja 15: Chrzest Święty — Przymierze z Chrystusem, Śmierć dla Grzechu i Nowe Życie",
+    "url": "https://polskieradio.cc/kursy/15-chrzest.html",
+    "type": "course",
+    "image": "15.png",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T09:31:34.687Z",
+    "title": "Spiritual Sounds – Polish Psalms",
+    "url": "https://polskieradio.cc/SpiritualSounds/en",
+    "type": "music",
+    "image": "ss-og-1200x630.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T09:01:16.852Z",
+    "title": "Kino Chrześcijańskie VOD — Dobre Kino 24/7 i bezpłatne filmy z polskim lektorem",
+    "url": "https://polskieradio.cc/vod",
+    "type": "vod",
+    "image": "vod-christian-culture-02-rodzina-24-7.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T08:31:18.198Z",
+    "title": "Muzyczne E-Kartki Christian Culture — Urodziny, Dobrze że jesteś, Nowy Rok 2027",
+    "url": "https://polskieradio.cc/kartki/",
+    "type": "module",
+    "image": "topic-kartki-6afb2d94.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T08:03:00.300Z",
+    "title": "CC Pomoc: Zdrowie – odpowiedzialna troska o życie",
+    "url": "https://polskieradio.cc/wsparcie-zdrowia",
+    "type": "help",
+    "image": "topic-wsparcie-zdrowia-cf9f8489.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T07:31:34.088Z",
+    "title": "Werset Dnia: „Mądrzy będą świecić jak blask na sklepieniu, a ci, którzy wielu przywiedli do sprawiedliwości — jak gwiazdy na wieki” (Księga Daniela 12:3, UBG)",
+    "url": "https://polskieradio.cc/werset-dnia?day=350",
+    "type": "verse",
+    "image": "werset-day-350-ksiega-daniela-12-3.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T07:03:07.810Z",
+    "title": "Holistyczny Coaching & Terapia Wolności — Paweł Murawski",
+    "url": "https://polskieradio.cc/holistyczny-coaching",
+    "type": "profile",
+    "image": "avatar_pawel_murawski.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T06:31:34.303Z",
+    "title": "Paryż pod godziną policyjną. Francja protestuje, a Jezus ostrzega przed oziębnięciem miłości",
+    "url": "https://polskieradio.cc/news/paryz-godzina-policyjna-protesty-francja-biblia",
+    "type": "news",
+    "image": "art-paryz-godzina-policyjna-protesty-francja-biblia.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T06:02:46.963Z",
+    "title": "„Pokonać Goliata — Jak zwyciężać własne słabości” Cezarego Rogowskiego: Recenzja i Platforma Cyfrowa 2026 – CCN News",
+    "url": "https://polskieradio.cc/biblioteka/pokonac-goliata-cezary-rogowski-recenzja-ebook-generator-mocy",
+    "type": "book",
+    "image": "pokonac-goliata-book-3d.webp",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T05:31:14.464Z",
+    "title": "Kurs 28 Kroków — Lekcja 14: Jedność Ciała Chrystusa — Miłość Ponad Podziałami",
+    "url": "https://polskieradio.cc/kursy/14-jednosc-ciala-chrystusa.html",
+    "type": "course",
+    "image": "14.png",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-25T05:05:12.008Z",
+    "title": "Artyści i kanały",
+    "url": "https://polskieradio.cc/music/artysci",
+    "type": "music",
+    "image": "art-chan-muzyka.jpg",
+    "status": "PUBLISHED"
+  },
+  {
     "timestamp": "2026-11-25T04:31:16.597Z",
     "title": "CC Pomoc (CC Help) — Bezpłatne Centrum Wsparcia: Małżeństwo, Rozwód, Samotność, Starość (/uslugi)",
     "url": "https://polskieradio.cc/uslugi",
@@ -3725,278 +3997,6 @@
     "url": "https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-34-plonacy-krzak-swiete-imie-boga",
     "type": "news",
     "image": "art-z-biblia-za-pan-brat-dzien-34-plonacy-krzak-swiete-imie-boga.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-03T10:06:22.488Z",
-    "title": "Biblia Audio CC: Księga Rodzaju 12 (GEN-012) — Powołanie Abrama i Boża obietnica narodu",
-    "url": "https://polskieradio.cc/biblia-audio",
-    "type": "module",
-    "image": "rodzaju-hero.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-03T09:35:12.402Z",
-    "title": "Werset Dnia: „Czyż Sędzia całej ziemi nie postąpi sprawiedliwie?” (Rdz 18:25, UBG)",
-    "url": "https://polskieradio.cc/mojabiblia?ref=GEN.18.25",
-    "type": "verse",
-    "image": "art-rdz18-mamre-wstawiennictwo.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-03T09:13:38.147Z",
-    "title": "Wizytówka: Wioletta Rogowska — Współzałożycielka Christian Culture, Rodzina i Wiara",
-    "url": "https://polskieradio.cc/lumina.wiolettarogowska",
-    "type": "profile",
-    "image": "wioletta-og.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-03T09:05:37.082Z",
-    "title": "Polskie Radio CC — Odtwarzacz Muzyki Chrześcijańskiej Spotify-Style & Transmisje 24/7",
-    "url": "https://polskieradio.cc/player",
-    "type": "music",
-    "image": "art-worship.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-03T08:34:43.256Z",
-    "title": "Książka: Prawda Bez Filtra — Cezary Rogowski. Bezkompromisowe chrześcijaństwo",
-    "url": "https://polskieradio.cc/prawda-bez-filtra",
-    "type": "book",
-    "image": "art-prawda-bez-filtra.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-03T08:05:04.629Z",
-    "title": "Kino VOD & YouTube: Studio Dobrego Słowa — Proroctwa Księgi Apokalipsy",
-    "url": "https://polskieradio.cc/vod",
-    "type": "vod",
-    "image": "art-cbdc-prawo-niedzielne-apokalipsa-13.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-03T07:36:53.664Z",
-    "title": "Werset Dnia: „Spójrz ku niebu i policz gwiazdy...” (Rdz 15:5, UBG)",
-    "url": "https://polskieradio.cc/mojabiblia?ref=GEN.15.5",
-    "type": "verse",
-    "image": "art-rdz15-abram-gwiazdy.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-03T07:04:35.992Z",
-    "title": "Wizytówka: Cezary Rogowski — Założyciel Christian Culture & Polskie Radio CC",
-    "url": "https://polskieradio.cc/lumina.cezaryrgowski",
-    "type": "profile",
-    "image": "cezary-wioletta-radiocc.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-03T06:10:27.682Z",
-    "title": "Rozwiąż problem: Rzuć palenie w 14 dni — Praktyczny kurs chrześcijański",
-    "url": "https://polskieradio.cc/rozwiaz-problem",
-    "type": "course",
-    "image": "og-rozwiaz-problem.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-03T05:08:58.996Z",
-    "title": "Akademia Biblijna: Z Biblią za Pan Brat — Dzień 34 (Wj 3:1–22): Płonący krzak i Święte Imię Boga",
-    "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-34",
-    "type": "module",
-    "image": "art-z-biblia-za-pan-brat-dzien-34-plonacy-krzak-swiete-imie-boga.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-03T04:35:50.868Z",
-    "title": "Nowość Muzyczna: Cezary Rogowski — Cokolwiek na świecie (Rz 8:38-39 / CC Men)",
-    "url": "https://polskieradio.cc/CezaryRogowski",
-    "type": "music",
-    "image": "cezary-hero.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-02T17:37:21.660Z",
-    "title": "Werset Dnia: „Ty jesteś Bogiem, który mnie widzi” (Rdz 16:13, UBG)",
-    "url": "https://polskieradio.cc/mojabiblia?ref=GEN.16.13",
-    "type": "verse",
-    "image": "art-rdz16-17-hagar-el-roi.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-02T17:14:14.209Z",
-    "title": "Książka: U boku Diabła — Cezary Rogowski. Anatomia duchowej walki i zwycięstwa",
-    "url": "https://polskieradio.cc/u-boku-diabla",
-    "type": "book",
-    "image": "art-u-boku-diabla.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-02T16:38:25.624Z",
-    "title": "Z Biblią za Pan Brat: Dzień 33 — Z wód Nilu do pustyni Madian: ocalenie Mojżesza, próba i Boża pamięć w Wj 2",
-    "url": "https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-33-ocalenie-mojzesza-nil-madian",
-    "type": "news",
-    "image": "art-z-biblia-za-pan-brat-dzien-33-ocalenie-mojzesza-nil-madian.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-02T05:37:09.755Z",
-    "title": "Żywa Interaktywna Mapa Ekosystemu Christian Culture",
-    "url": "https://polskieradio.cc/mapa",
-    "type": "module",
-    "image": "planeta-poster.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-01T20:39:06.936Z",
-    "title": "topTEN — Oficjalna Lista Przebojów i Notowania Muzyki Chrześcijańskiej",
-    "url": "https://polskieradio.cc/topTEN",
-    "type": "music",
-    "image": "wspieramto-banner.png",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-01T20:06:22.084Z",
-    "title": "LUMINA — Wolna od Algorytmów Przestrzeń Społeczności Chrześcijańskiej",
-    "url": "https://polskieradio.cc/lumina-tablica",
-    "type": "profile",
-    "image": "card-lumina.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-01T19:04:48.103Z",
-    "title": "Sprawozdanie misyjne Christian Culture za październik 2026: Słowo Boże, muzyka i prawda na 5 kontynentach",
-    "url": "https://polskieradio.cc/news/sprawozdanie-misyjne-pazdziernik-2026",
-    "type": "news",
-    "image": "art-sprawozdanie-misyjne-pazdziernik-2026.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-01T18:34:02.526Z",
-    "title": "Biblia Audio CC — Księga Rodzaju w Kinowej Jakości Dźwięku i Słuchowiskach",
-    "url": "https://polskieradio.cc/biblia-audio",
-    "type": "module",
-    "image": "rodzaju-hero.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-01T18:06:05.934Z",
-    "title": "Wizytówka: Wioletta Rogowska — Współzałożycielka Christian Culture, Rodzina i Wiara",
-    "url": "https://polskieradio.cc/lumina.wiolettarogowska",
-    "type": "profile",
-    "image": "wioletta-og.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-01T17:12:23.803Z",
-    "title": "Kanał Transmisyjny: Biblia Śpiewana Live — Słowo Boże ubrane w natchnioną muzykę",
-    "url": "https://polskieradio.cc/live/biblia-spiewana",
-    "type": "music",
-    "image": "Logo_Biblia_Spiewana.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-01T17:11:31.128Z",
-    "title": "Kino VOD & YouTube: Studio Dobrego Słowa — Proroctwa Księgi Apokalipsy",
-    "url": "https://polskieradio.cc/vod",
-    "type": "vod",
-    "image": "art-cbdc-prawo-niedzielne-apokalipsa-13.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-01T16:39:04.324Z",
-    "title": "95 tez Marcina Lutra (Wittenberga, 1517) — Kompletny Tekst z Komentarzem",
-    "url": "https://polskieradio.cc/historia/95-tez-marcina-lutra-wittenberga-1517",
-    "type": "news",
-    "image": "95-tez-marcina-lutra-wittenberga-1517.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-01T12:40:51.032Z",
-    "title": "Wizytówka: Cezary Rogowski — Założyciel Christian Culture & Polskie Radio CC",
-    "url": "https://polskieradio.cc/lumina.cezaryrgowski",
-    "type": "profile",
-    "image": "cezary-wioletta-radiocc.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-01T10:34:46.403Z",
-    "title": "Nowość Muzyczna: Gerald Welch — THE CALL. Głębokie uwielbienie w Polskim Radiu CC",
-    "url": "https://polskieradio.cc/news/gerald-welch-the-call",
-    "type": "music",
-    "image": "art-gerald-welch-the-call.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-01T09:34:33.180Z",
-    "title": "Werset Dnia: „Pamiętaj o dniu szabatu, aby go święcić” (Wj 20:8, UBG)",
-    "url": "https://polskieradio.cc/prawo/dekalog-bozy",
-    "type": "verse",
-    "image": "art-dekalog-dziesiec-przykazan-wujek.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-01T09:08:32.335Z",
-    "title": "Książka: Prawda Bez Filtra — Cezary Rogowski. Bezkompromisowe chrześcijaństwo",
-    "url": "https://polskieradio.cc/biblioteka",
-    "type": "book",
-    "image": "art-prawda-bez-filtra.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-01T09:04:16.062Z",
-    "title": "Książka: Kod Źródłowy Duszy — Cezary Rogowski. Biblijna tożsamość i sens istnienia",
-    "url": "https://polskieradio.cc/news/kod-zrodlowy-duszy-jak-zresetowac-wewnetrzny-system-i-wrocic-do-ustawien-fabrycznych-boga",
-    "type": "book",
-    "image": "art-kod-zrodlowy.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-01T08:37:25.361Z",
-    "title": "Akademia Biblijna & Kurs Codzienny — Systematyczne Studium Słowa Bożego",
-    "url": "https://polskieradio.cc/akademia",
-    "type": "module",
-    "image": "z_biblia_za_pan_brat_hero.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-01T08:05:04.371Z",
-    "title": "Polskie Radio CC — Odtwarzacz Muzyki Chrześcijańskiej Spotify-Style & Transmisje 24/7",
-    "url": "https://polskieradio.cc/player",
-    "type": "music",
-    "image": "art-worship.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-01T07:38:24.419Z",
-    "title": "Werset Dnia: „Wy myśleliście o złu przeciwko mnie, ale Bóg obrócił to w dobro” (Rdz 50:20, UBG)",
-    "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-31",
-    "type": "verse",
-    "image": "art-z-biblia-za-pan-brat-dzien-31-bog-obrocil-to-w-dobro.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-01T07:05:57.271Z",
-    "title": "Reformacja nie skończyła się w 1517 roku — wróćmy do Pisma i Ewangelii łaski",
-    "url": "https://polskieradio.cc/news/dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski",
-    "type": "news",
-    "image": "art-dzien-reformacji-2026.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-01T06:34:29.479Z",
-    "title": "Akademia Biblijna: Z Biblią za Pan Brat — Dzień 32 (Wj 1:1–22): Nowy król, ucisk i Boże ocalenie",
-    "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-32",
-    "type": "module",
-    "image": "art-z-biblia-za-pan-brat-dzien-32-nowy-krol-ucisk-ocalenie.jpg",
-    "status": "PUBLISHED"
-  },
-  {
-    "timestamp": "2026-11-01T06:06:10.082Z",
-    "title": "Nowość Muzyczna: Cezary Rogowski — Cokolwiek na świecie (Rz 8:38-39 / CC Men)",
-    "url": "https://polskieradio.cc/CezaryRogowski",
-    "type": "music",
-    "image": "cezary-hero.jpg",
     "status": "PUBLISHED"
   }
 ]

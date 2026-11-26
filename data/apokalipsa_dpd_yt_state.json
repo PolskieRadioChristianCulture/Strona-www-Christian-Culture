@@ -112,6 +112,54 @@
           "verifiedLive": true
         }
       }
+    },
+    "3": {
+      "epNum": 3,
+      "title": "APOKALIPSA Dzień Po Dniu - Pilny list z nieba #003",
+      "channels": {
+        "Biblia Audio Christian Culture": {
+          "status": "error",
+          "channelId": "UCCqHRCEuSDhlRcvcQ6qM1Kw",
+          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
+          "failedAt": "2026-11-25T06:35:32.952Z"
+        },
+        "Werset Dnia - Chrześcijański Serwis Biblijny": {
+          "status": "error",
+          "channelId": "UCyOvW5DuDLVq5XWFyijgtbw",
+          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
+          "failedAt": "2026-11-25T06:38:03.324Z"
+        },
+        "Christian Culture TV": {
+          "status": "error",
+          "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
+          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
+          "failedAt": "2026-11-25T06:43:08.436Z"
+        },
+        "Polskie Radio CHRISTIAN CULTURE": {
+          "status": "error",
+          "channelId": "UCNnCdsJ-K6FXulZzXZHWkjQ",
+          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
+          "failedAt": "2026-11-25T06:50:04.071Z"
+        },
+        "Osobowość +": {
+          "status": "error",
+          "channelId": "UCHmPxDM2zzlUAf5ZvlotPLw",
+          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
+          "failedAt": "2026-11-25T06:56:57.096Z"
+        },
+        "CC Men": {
+          "status": "error",
+          "channelId": "UCUpuq9JS7jitIcm9iBn0jnA",
+          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
+          "failedAt": "2026-11-25T06:59:45.932Z"
+        },
+        "CC Women": {
+          "status": "error",
+          "channelId": "UC-LPFt-vmJCeap746DOWMgw",
+          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
+          "failedAt": "2026-11-25T07:02:51.728Z"
+        }
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "standardVersion": "CCN Global SEO & AI Search 2026 v1.0",
-  "generatedAt": "2026-11-25T05:01:39.677Z",
+  "generatedAt": "2026-11-26T05:03:09.080Z",
   "zeroFakeDataPolicy": true,
   "counts": {
     "totalValidatedUrls": 110,
@@ -12,7 +12,7 @@
     "bibliaUrlsCount": 7,
     "muzykaUrlsCount": 9,
     "videoUrlsCount": 12,
-    "pagesUrlsCount": 52,
+    "pagesUrlsCount": 54,
     "enUrlsCount": 132
   },
   "discoveryFiles": [
@@ -79,7 +79,7 @@
     {
       "path": "/sitemaps/pages.xml",
       "exists": true,
-      "sizeBytes": 9386,
+      "sizeBytes": 9727,
       "status": "OK"
     },
     {
@@ -291,7 +291,7 @@
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-25T05:01:39.671Z",
+        "queuedAt": "2026-11-26T05:03:09.076Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -310,7 +310,7 @@
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-25T05:01:39.671Z",
+        "queuedAt": "2026-11-26T05:03:09.076Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -329,7 +329,7 @@
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-25T05:01:39.671Z",
+        "queuedAt": "2026-11-26T05:03:09.076Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -348,7 +348,7 @@
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-25T05:01:39.671Z",
+        "queuedAt": "2026-11-26T05:03:09.076Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -367,7 +367,7 @@
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
-        "queuedAt": "2026-11-25T05:01:39.671Z",
+        "queuedAt": "2026-11-26T05:03:09.076Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -384,9 +384,9 @@
       }
     ],
     "keyMasked": "cc777b...c28e",
-    "totalIndexedUrls": 507,
-    "lastSubmittedCount": 507,
-    "lastSubmittedAt": "2026-11-25T05:01:41.615Z"
+    "totalIndexedUrls": 509,
+    "lastSubmittedCount": 509,
+    "lastSubmittedAt": "2026-11-26T05:03:10.435Z"
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -603,5 +603,5 @@
       "warnings": []
     }
   ],
-  "lastInstantIndexingAt": "2026-11-25T05:01:41.615Z"
+  "lastInstantIndexingAt": "2026-11-26T05:03:10.435Z"
 }

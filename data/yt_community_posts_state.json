@@ -44,17 +44,17 @@
           "status": "error",
           "channelId": "UCyOvW5DuDLVq5XWFyijgtbw",
           "error": "Brak formularza tworzenia posta na karcie /posts (kanał może wymagać włączenia zakładki Posty lub nie przełączył konta).",
-          "failedAt": "2026-11-25T05:06:27.719Z"
+          "failedAt": "2026-11-25T11:02:36.715Z"
         },
         "Biblia Audio Christian Culture": {
           "status": "error",
           "channelId": "UCCqHRCEuSDhlRcvcQ6qM1Kw",
           "error": "Brak formularza tworzenia posta na karcie /posts (kanał może wymagać włączenia zakładki Posty lub nie przełączył konta).",
-          "failedAt": "2026-11-25T05:06:47.031Z"
+          "failedAt": "2026-11-25T11:03:18.461Z"
         }
       }
     }
   },
-  "promoIndex": 1,
+  "promoIndex": 2,
   "pollIndex": 0
 }

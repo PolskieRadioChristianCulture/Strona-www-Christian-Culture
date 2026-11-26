@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-25T14:23:29.030Z",
+  "updatedAt": "2026-11-26T05:03:10.768Z",
   "totalItems": 706,
   "contextGuides": {
     "nadzieja": {
@@ -1062,54 +1062,6 @@
   },
   "items": [
     {
-      "title": "Infolinia NADZIEJA Christian Culture — Ponadwyznaniowy wolontariat chrześcijański",
-      "category": "Moduły & Platformy",
-      "url": "https://polskieradio.cc/infolinia-nadzieja/",
-      "description": "Infolinia NADZIEJA Christian Culture (+48 730 958 583) — ponadwyznaniowy wolontariat chrześcijański. Ponad podziałami. Blisko człowieka. W duchu Chrystusa. Z szacunkiem i życzliwością przyjmujemy każdego człowieka, aby wysłuchać, wesprzeć i nieść nadzieję.",
-      "tags": [
-        "infolinia",
-        "nadzieja",
-        "infolinia nadzieja",
-        "telefon",
-        "wsparcie",
-        "rozmowa",
-        "wolontariat",
-        "pomoc duchowa",
-        "modlitwa",
-        "730 958 583",
-        "+48 730 958 583",
-        "ponad podzialami",
-        "w duchu chrystusa"
-      ],
-      "featured": true
-    },
-    {
-      "title": "Muzyczne E-Kartki Christian Culture — Urodziny, Dobrze że jesteś, Nowy Rok 2027",
-      "category": "Moduły & Platformy",
-      "url": "https://polskieradio.cc/kartki/",
-      "description": "Darmowy kreator imiennych muzycznych e-kartek Christian Culture z piosenkami („Dziś Są Twoje Urodziny”, „Dobrze, że jesteś”, „Szczęśliwego Nowego Roku z Jezusem”) oraz błogosławieństwem z Biblii (UBG) — 1 link do wysłania na WhatsApp i SMS.",
-      "tags": [
-        "kartki",
-        "e-kartki",
-        "ekartki",
-        "kartka urodzinowa",
-        "urodziny",
-        "dzis sa twoje urodziny",
-        "dziś są twoje urodziny",
-        "dobrze ze jestes",
-        "dobrze, że jesteś",
-        "nowy rok",
-        "nowy rok 2027",
-        "zyczenia",
-        "życzenia",
-        "piosenka urodzinowa",
-        "blogoslawienstwo",
-        "błogosławieństwo",
-        "muzyczne kartki"
-      ],
-      "featured": true
-    },
-    {
       "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
       "category": "Narzędzia i misja",
       "url": "https://cclite.pl",
@@ -1475,18 +1427,12 @@
       "featured": false
     },
     {
-      "title": "HOLOS 2027 — Wyzwania Noworoczne, System Celów & Szafarstwa Czasu (Life OS)",
+      "title": "HOLOS — Chrześcijański System Rozwoju Osobistego & Szafarstwa Czasu (Life OS)",
       "category": "Narzędzia i misja",
       "url": "https://polskieradio.cc/holos",
-      "description": "HOLOS 2027: system wyzwań noworocznych i celów w 5 sektorach życia z Tarczą Szabatu, 14-dniową mapą rytmu, zegarem 5·10·15, Kołem Życia, Kalkulatorem Szafarstwa 10/20/70, Google Calendar, AI Mentorem Aura i synchronizacją Google.",
+      "description": "Innowacyjna platforma rozwoju opartego na 5 sektorach życia: Duchowość, Zdrowie, Rodzina, Praca/Finanse oraz Społeczność. Narzędzia planowania dnia, kalendarz szabatów, wirtualny mentor biblijny i holistyczne szafarstwo darami Bożymi.",
       "tags": [
         "holos",
-        "holos 2027",
-        "wyzwania noworoczne 2027",
-        "cele 2027",
-        "nawyki",
-        "szabat",
-        "synchronizacja google",
         "rozwój osobisty",
         "zarządzanie czasem",
         "life os",
@@ -3831,6 +3777,54 @@
         "telewizor",
         "tv",
         "projektor"
+      ],
+      "featured": true
+    },
+    {
+      "title": "Infolinia NADZIEJA Christian Culture — Ponadwyznaniowy wolontariat chrześcijański",
+      "category": "Moduły & Platformy",
+      "url": "https://polskieradio.cc/infolinia-nadzieja/",
+      "description": "Infolinia NADZIEJA Christian Culture (+48 730 958 583) — ponadwyznaniowy wolontariat chrześcijański. Ponad podziałami. Blisko człowieka. W duchu Chrystusa. Z szacunkiem i życzliwością przyjmujemy każdego człowieka, aby wysłuchać, wesprzeć i nieść nadzieję.",
+      "tags": [
+        "infolinia",
+        "nadzieja",
+        "infolinia nadzieja",
+        "telefon",
+        "wsparcie",
+        "rozmowa",
+        "wolontariat",
+        "pomoc duchowa",
+        "modlitwa",
+        "730 958 583",
+        "+48 730 958 583",
+        "ponad podzialami",
+        "w duchu chrystusa"
+      ],
+      "featured": true
+    },
+    {
+      "title": "Muzyczne E-Kartki Christian Culture — Urodziny, Dobrze że jesteś, Nowy Rok 2027",
+      "category": "Moduły & Platformy",
+      "url": "https://polskieradio.cc/kartki/",
+      "description": "Darmowy kreator imiennych muzycznych e-kartek Christian Culture z piosenkami („Dziś Są Twoje Urodziny”, „Dobrze, że jesteś”, „Szczęśliwego Nowego Roku z Jezusem”) oraz błogosławieństwem z Biblii (UBG) — 1 link do wysłania na WhatsApp i SMS.",
+      "tags": [
+        "kartki",
+        "e-kartki",
+        "ekartki",
+        "kartka urodzinowa",
+        "urodziny",
+        "dzis sa twoje urodziny",
+        "dziś są twoje urodziny",
+        "dobrze ze jestes",
+        "dobrze, że jesteś",
+        "nowy rok",
+        "nowy rok 2027",
+        "zyczenia",
+        "życzenia",
+        "piosenka urodzinowa",
+        "blogoslawienstwo",
+        "błogosławieństwo",
+        "muzyczne kartki"
       ],
       "featured": true
     },
@@ -9320,16 +9314,9 @@
         "lekcja 56",
         "księga wyjścia",
         "lekcja biblijna",
-        "rozważanie",
-        "lekcja 56 na dziś",
-        "lekcja na dziś",
-        "rozważanie na dziś",
-        "słowo na dziś",
-        "25 listopada 2026",
-        "dzisiaj",
-        "dziś"
+        "rozważanie"
       ],
-      "featured": true
+      "featured": false
     },
     {
       "title": "Z Biblią za Pan Brat — Dzień 57: OŁTARZ CAŁOPALENIA, DZIEDZINIEC PRZYBYTKU I OLIWA DO ŚWIECZNIKA (Wj 27:1–21)",
@@ -9344,9 +9331,16 @@
         "lekcja 57",
         "księga wyjścia",
         "lekcja biblijna",
-        "rozważanie"
+        "rozważanie",
+        "lekcja 57 na dziś",
+        "lekcja na dziś",
+        "rozważanie na dziś",
+        "słowo na dziś",
+        "26 listopada 2026",
+        "dzisiaj",
+        "dziś"
       ],
-      "featured": false
+      "featured": true
     },
     {
       "title": "Leksykon: Paruzja (Parousia)",
@@ -15490,16 +15484,16 @@
   "recommendedToday": [
     {
       "tag": "Inspiracja na Dziś",
-      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 25",
-      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 25 listopada 2026.",
+      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 26",
+      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 26 listopada 2026.",
       "url": "/player",
       "icon": "heart"
     },
     {
       "tag": "Akademia Biblijna",
-      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 56)",
+      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 57)",
       "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-      "url": "/akademia/kurscodzienny/dzien-56",
+      "url": "/akademia/kurscodzienny/dzien-57",
       "icon": "book"
     },
     {
@@ -15518,15 +15512,15 @@
     }
   ],
   "searchRecommendations": {
-    "updatedAt": "2026-11-25T05:01:42.338Z",
+    "updatedAt": "2026-11-26T05:03:11.036Z",
     "heading": "Polecane na dziś",
-    "dateFormattedPL": "25 listopada 2026",
+    "dateFormattedPL": "26 listopada 2026",
     "pools": [
       [
         {
           "tag": "Inspiracja na Dziś",
-          "title": "Rozważanie „Dobrze, że jesteś” • Dzień 25",
-          "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 25 listopada 2026.",
+          "title": "Rozważanie „Dobrze, że jesteś” • Dzień 26",
+          "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 26 listopada 2026.",
           "url": "/player",
           "icon": "heart"
         },
@@ -15555,9 +15549,9 @@
       [
         {
           "tag": "Akademia Biblijna",
-          "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 56)",
+          "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 57)",
           "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-          "url": "/akademia/kurscodzienny/dzien-56",
+          "url": "/akademia/kurscodzienny/dzien-57",
           "icon": "book"
         },
         {
@@ -15646,16 +15640,16 @@
     "recommendedToday": [
       {
         "tag": "Inspiracja na Dziś",
-        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 25",
-        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 25 listopada 2026.",
+        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 26",
+        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 26 listopada 2026.",
         "url": "/player",
         "icon": "heart"
       },
       {
         "tag": "Akademia Biblijna",
-        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 56)",
+        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 57)",
         "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-        "url": "/akademia/kurscodzienny/dzien-56",
+        "url": "/akademia/kurscodzienny/dzien-57",
         "icon": "book"
       },
       {

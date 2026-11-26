@@ -496,6 +496,8 @@ export function buildAllDiscoverySignals() {
 
   // 7. /sitemaps/pages.xml
   const corePaths = [
+    { path: '/infolinia-nadzieja/', lastmod: '2026-11-25', priority: '0.90', changefreq: 'monthly' },
+    { path: '/kartki/', lastmod: '2026-11-25', priority: '0.90', changefreq: 'weekly' },
     { path: '/the-journal', lastmod: '2026-11-04', priority: '0.80', changefreq: 'monthly' },
     { path: '/', lastmod: '2026-10-17', priority: '1.0', changefreq: 'daily' },
     { path: '/szukaj', lastmod: '2026-10-15', priority: '0.95', changefreq: 'daily' },

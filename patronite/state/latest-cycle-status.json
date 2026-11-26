@@ -1,11 +1,13 @@
 {
-  "updatedAt": "2026-11-23T06:00:01.136Z",
-  "jobId": "PAT-20261123-mission-report",
-  "seriesLabel": "DZIENNIK MISJI",
-  "scheduledForWarsaw": "2026-11-23T09:00:00+01:00",
+  "updatedAt": "2026-11-25T15:00:01.833Z",
+  "jobId": "PAT-20261125-behind-the-scenes",
+  "seriesLabel": "ZA KULISAMI CHRISTIAN CULTURE",
+  "scheduledForWarsaw": "2026-11-25T18:00:00+01:00",
   "status": "SZKIC",
   "qaOverall": "PASS",
-  "title": "Dziennik Misji: 34 rozdziałów Księgi Rodzaju już w Biblii Audio CC",
-  "draftDir": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\drafts\\PAT-20261123-mission-report",
-  "blockReason": null
+  "title": "Za kulisami CC: jak powstają nagrania Studia Dobrego Słowa i Biblii Audio",
+  "draftDir": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\drafts\\PAT-20261125-behind-the-scenes",
+  "blockReason": null,
+  "zrzutkaJobId": "ZRZ-20261125-behind-the-scenes",
+  "zrzutkaStatus": "SZKIC"
 }

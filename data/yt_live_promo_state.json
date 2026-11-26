@@ -1,7 +1,30 @@
 {
-  "lastPromotedIndex": 7,
-  "lastPromotedDate": "2026-11-24",
+  "lastPromotedIndex": 8,
+  "lastPromotedDate": "2026-11-25",
   "history": [
+    {
+      "date": "2026-11-25",
+      "channelName": "RCC TV 24",
+      "handle": "@ToDlaCiebieGramy",
+      "url": "https://www.youtube.com/@ToDlaCiebieGramy/live",
+      "results": {
+        "lumina": {
+          "status": "published",
+          "docId": "R7RxBJ9TcsKMpyBMYu4w"
+        },
+        "x": {
+          "status": "published"
+        },
+        "fb": {
+          "status": "skipped_disabled",
+          "reason": "fb_disabled_by_owner_20261124"
+        },
+        "wa": {
+          "status": "queued",
+          "targets": 3
+        }
+      }
+    },
     {
       "date": "2026-11-24",
       "channelName": "Top Seven",

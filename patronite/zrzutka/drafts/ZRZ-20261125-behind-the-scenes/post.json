@@ -24,12 +24,12 @@
     {
       "sourceName": "polskieradio.cc/vod & /news",
       "sourceRef": "data/ecosystem-map.json + vod.html + news.html",
-      "verifiedDate": "2026-11-23",
+      "verifiedDate": "2026-11-25",
       "status": "ZREALIZOWANE",
       "publicUrl": "https://polskieradio.cc/vod",
       "claim": "Jak powstają słuchowiska Biblia Audio, wykłady Studio Dobrego Słowa i artykuły CCN News"
     }
   ],
   "honestAdapterNote": "Serwis zrzutka.pl jest chroniony przez Cloudflare i nie udostępnia otwartego publicznego REST API zapisu aktualizacji — pakiet zapisany uczciwie jako kompletny szkic gotowy do 1-kliknięciowego wklejenia na https://zrzutka.pl/rs4g4v.",
-  "savedAt": "2026-11-23T10:15:27.957Z"
+  "savedAt": "2026-11-25T15:00:01.821Z"
 }

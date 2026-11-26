@@ -552,6 +552,54 @@ const CORE_PROJECTS = [
     featured: true
   },
   {
+    title: "Infolinia NADZIEJA Christian Culture — Ponadwyznaniowy wolontariat chrześcijański",
+    category: "Moduły & Platformy",
+    url: "https://polskieradio.cc/infolinia-nadzieja/",
+    description: "Infolinia NADZIEJA Christian Culture (+48 730 958 583) — ponadwyznaniowy wolontariat chrześcijański. Ponad podziałami. Blisko człowieka. W duchu Chrystusa. Z szacunkiem i życzliwością przyjmujemy każdego człowieka, aby wysłuchać, wesprzeć i nieść nadzieję.",
+    tags: [
+      "infolinia",
+      "nadzieja",
+      "infolinia nadzieja",
+      "telefon",
+      "wsparcie",
+      "rozmowa",
+      "wolontariat",
+      "pomoc duchowa",
+      "modlitwa",
+      "730 958 583",
+      "+48 730 958 583",
+      "ponad podzialami",
+      "w duchu chrystusa"
+    ],
+    featured: true
+  },
+  {
+    title: "Muzyczne E-Kartki Christian Culture — Urodziny, Dobrze że jesteś, Nowy Rok 2027",
+    category: "Moduły & Platformy",
+    url: "https://polskieradio.cc/kartki/",
+    description: "Darmowy kreator imiennych muzycznych e-kartek Christian Culture z piosenkami („Dziś Są Twoje Urodziny”, „Dobrze, że jesteś”, „Szczęśliwego Nowego Roku z Jezusem”) oraz błogosławieństwem z Biblii (UBG) — 1 link do wysłania na WhatsApp i SMS.",
+    tags: [
+      "kartki",
+      "e-kartki",
+      "ekartki",
+      "kartka urodzinowa",
+      "urodziny",
+      "dzis sa twoje urodziny",
+      "dziś są twoje urodziny",
+      "dobrze ze jestes",
+      "dobrze, że jesteś",
+      "nowy rok",
+      "nowy rok 2027",
+      "zyczenia",
+      "życzenia",
+      "piosenka urodzinowa",
+      "blogoslawienstwo",
+      "błogosławieństwo",
+      "muzyczne kartki"
+    ],
+    featured: true
+  },
+  {
     title: "Studio Dobrego Słowa (SDS)",
     category: "Media i treści",
     url: "https://polskieradio.cc/studium",

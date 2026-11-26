@@ -3,7 +3,7 @@
   "series": "What's Up Prof? — Walter Veith & Martin Smith (Clash of Minds)",
   "scheduleOffsetHours": 48,
   "dailyCron": "CRON_TZ=Europe/Warsaw 0 15 * * *",
-  "lastRunAt": "2026-11-24T14:42:17.491Z",
+  "lastRunAt": "2026-11-25T14:21:04.889Z",
   "episodes": {
     "1": {
       "seq": 1,
@@ -734,6 +734,79 @@
       },
       "scheduledYmd": "2026-11-26",
       "scheduledTime": "15:30"
+    },
+    "11": {
+      "seq": 11,
+      "epCode": "011",
+      "completed": true,
+      "channels": {
+        "Personality Plus": {
+          "status": "ok",
+          "channelId": "UCSwb927uMg2PxIl_Aakht0Q",
+          "videoUrl": "https://youtu.be/VWxP70zcQaI",
+          "title": "011. Double Blind, What Is The Agenda For The World? | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-25T14:06:16.947Z"
+        },
+        "Biblia Audio Christian Culture": {
+          "status": "ok",
+          "channelId": "UCCqHRCEuSDhlRcvcQ6qM1Kw",
+          "videoUrl": "https://youtu.be/3gYQcbvOaCw",
+          "title": "011. Podwójnie ślepa próba — jaki jest plan dla świata? | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-25T14:08:17.810Z"
+        },
+        "Werset Dnia - Chrześcijański Serwis Biblijny": {
+          "status": "ok",
+          "channelId": "UCyOvW5DuDLVq5XWFyijgtbw",
+          "videoUrl": "https://youtu.be/mR936c8-ZE8",
+          "title": "011. Podwójnie ślepa próba — jaki jest plan dla świata? | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-25T14:10:16.294Z"
+        },
+        "Polskie Radio CHRISTIAN CULTURE": {
+          "status": "ok",
+          "channelId": "UCNnCdsJ-K6FXulZzXZHWkjQ",
+          "videoUrl": "https://youtu.be/7Oj4I5gtQBg",
+          "title": "011. Podwójnie ślepa próba — jaki jest plan dla świata? | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-25T14:12:23.763Z"
+        },
+        "Christian Culture TV": {
+          "status": "ok",
+          "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
+          "videoUrl": "https://youtu.be/pTIKvwQZ7hc",
+          "title": "011. Podwójnie ślepa próba — jaki jest plan dla świata? | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-25T14:14:43.446Z"
+        },
+        "Osobowość +": {
+          "status": "ok",
+          "channelId": "UCHmPxDM2zzlUAf5ZvlotPLw",
+          "videoUrl": "https://youtu.be/T1tRwh5Bc7s",
+          "title": "011. Podwójnie ślepa próba — jaki jest plan dla świata? | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-25T14:16:52.561Z"
+        },
+        "CC Women": {
+          "status": "ok",
+          "channelId": "UC-LPFt-vmJCeap746DOWMgw",
+          "videoUrl": "https://youtu.be/Xn231zRa0b0",
+          "title": "011. Podwójnie ślepa próba — jaki jest plan dla świata? | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-25T14:18:57.779Z"
+        },
+        "CC Men": {
+          "status": "ok",
+          "channelId": "UCUpuq9JS7jitIcm9iBn0jnA",
+          "videoUrl": "https://youtu.be/9D_m-hC8ORg",
+          "title": "011. Podwójnie ślepa próba — jaki jest plan dla świata? | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-25T14:21:04.889Z"
+        }
+      },
+      "scheduledYmd": "2026-11-27",
+      "scheduledTime": "15:00"
     }
   }
 }

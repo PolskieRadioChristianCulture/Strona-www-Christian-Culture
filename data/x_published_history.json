@@ -2,6 +2,306 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "en",
+      "title": "Christian Culture Apps — Android (Google Play) & Web/PWA Hub (EN)",
+      "url": "https://polskieradio.cc/aplikacje/en/",
+      "type": "module",
+      "topicId": null,
+      "image": "topic-en-4cee05d4.jpg",
+      "publishedAt": "2026-11-26T05:01:37.014Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "pastor",
+      "title": "CC Pomoc: Pastor – rozmowa o wierze i życiu",
+      "url": "https://polskieradio.cc/pastor",
+      "type": "help",
+      "topicId": "pastor",
+      "image": "topic-pastor-f342c51e.jpg",
+      "publishedAt": "2026-11-26T04:58:58.853Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "wizytowki",
+      "title": "Katalog Wizytówek Christian Culture — Ludzie, Służby i Projekty (/wizytowki)",
+      "url": "https://polskieradio.cc/wizytowki",
+      "type": "profile",
+      "topicId": null,
+      "image": "topic-wizytowki-580ee6cf.jpg",
+      "publishedAt": "2026-11-25T22:01:15.868Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "werset-dnia?day=353",
+      "title": "Werset Dnia: „Oznajmił ci, człowiecze, co jest dobre: czynić sprawiedliwość, miłować miłosierdzie i pokornie chodzić ze swoim Bogiem” (Księga Micheasza 6:8, UBG)",
+      "url": "https://polskieradio.cc/werset-dnia?day=353",
+      "type": "verse",
+      "topicId": null,
+      "image": "werset-day-353-ksiega-micheasza-6-8.jpg",
+      "publishedAt": "2026-11-25T21:31:24.008Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "tragedia-szkola-wyszkow-przemoc-biblia",
+      "title": "Gdy szkoła przestaje być bezpieczna. Po śmierci pracownicy szkoły pod Wyszkowem",
+      "url": "https://polskieradio.cc/news/tragedia-szkola-wyszkow-przemoc-biblia",
+      "type": "news",
+      "topicId": null,
+      "image": "art-tragedia-szkola-wyszkow-przemoc-biblia.jpg",
+      "publishedAt": "2026-11-25T21:01:20.737Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "z-biblia-za-pan-brat-tom-1-od-stworzenia-do-abrahama",
+      "title": "„Z Biblią za Pan Brat” Tom I: Od Stworzenia do Abrahama (Księga Rodzaju 1–12) – CCN News",
+      "url": "https://polskieradio.cc/biblioteka/z-biblia-za-pan-brat-tom-1-od-stworzenia-do-abrahama",
+      "type": "book",
+      "topicId": null,
+      "image": "kc_day_01_creation.jpg",
+      "publishedAt": "2026-11-25T20:31:23.536Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "17-dary-i-poslugi-duchowe.html",
+      "title": "Kurs 28 Kroków — Lekcja 17: Dary i Posługi Duchowe — Wyposażenie do Służby Bliźnim",
+      "url": "https://polskieradio.cc/kursy/17-dary-i-poslugi-duchowe.html",
+      "type": "course",
+      "topicId": null,
+      "image": "17.png",
+      "publishedAt": "2026-11-25T20:01:18.385Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "playlisty",
+      "title": "Playlisty i kolekcje",
+      "url": "https://polskieradio.cc/music/playlisty",
+      "type": "music",
+      "topicId": null,
+      "image": "art-chan-muzyka.jpg",
+      "publishedAt": "2026-11-25T19:32:41.483Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "infolinia-nadzieja",
+      "title": "Infolinia NADZIEJA Christian Culture — Ponadwyznaniowy wolontariat chrześcijański",
+      "url": "https://polskieradio.cc/infolinia-nadzieja/",
+      "type": "module",
+      "topicId": null,
+      "image": "topic-infolinia-nadzieja-61a76d4d.jpg",
+      "publishedAt": "2026-11-25T19:01:15.287Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "vod",
+      "title": "Kino Chrześcijańskie VOD — Dobre Kino 24/7 i bezpłatne filmy z polskim lektorem",
+      "url": "https://polskieradio.cc/vod",
+      "type": "vod",
+      "topicId": null,
+      "image": "vod-christian-culture-03-dobre-kino-24-7.jpg",
+      "publishedAt": "2026-11-25T18:31:11.139Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "blood-pressure-support",
+      "title": "CC Help: High blood pressure",
+      "url": "https://polskieradio.cc/en/blood-pressure-support",
+      "type": "help",
+      "topicId": "nadcisnienie",
+      "image": "topic-blood-pressure-support-caf6931d.jpg",
+      "publishedAt": "2026-11-25T18:01:22.162Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "40DM",
+      "title": "40 Dni Modlitwy i Biblijny Czas Modlitwy — Zjednoczeni w Modlitwie (/40DM & /modlitwa)",
+      "url": "https://polskieradio.cc/40DM/",
+      "type": "profile",
+      "topicId": null,
+      "image": "topic-40dm-8c519078.jpg",
+      "publishedAt": "2026-11-25T16:01:12.038Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "werset-dnia?day=352",
+      "title": "Werset Dnia: „Wyleję mego Ducha na wszelkie ciało; wasi synowie i córki prorokować będą” (Księga Joela 2:28, UBG)",
+      "url": "https://polskieradio.cc/werset-dnia?day=352",
+      "type": "verse",
+      "topicId": null,
+      "image": "werset-day-352-ksiega-joela-2-28.jpg",
+      "publishedAt": "2026-11-25T15:31:31.472Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "wojna-ukraina-jezus-pokoj-znaki-czasow",
+      "title": "Wojna, ciemność i nadzieja. Ukraina przed zimą — czego Jezus uczy o pokoju?",
+      "url": "https://polskieradio.cc/news/wojna-ukraina-jezus-pokoj-znaki-czasow",
+      "type": "news",
+      "topicId": null,
+      "image": "art-wojna-ukraina-jezus-pokoj-znaki-czasow.jpg",
+      "publishedAt": "2026-11-25T15:04:17.303Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "wedrowka-pielgrzyma-john-bunyan-sluchowisko-audio-ebook-pdf",
+      "title": "„Wędrówka Pielgrzyma” Johna Bunyana: Kompletne Słuchowisko Audio i E-book PDF – CCN News",
+      "url": "https://polskieradio.cc/biblioteka/wedrowka-pielgrzyma-john-bunyan-sluchowisko-audio-ebook-pdf",
+      "type": "book",
+      "topicId": null,
+      "image": "topic-wedrowka-pielgrzyma-john-bunyan-sluchowisko-audi-747e607a.jpg",
+      "publishedAt": "2026-11-25T14:31:38.795Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "16-wieczerza-panska.html",
+      "title": "Kurs 28 Kroków — Lekcja 16: Wieczerza Pańska — Pamiątka Ofiary, Obmycie Nóg i Społeczność",
+      "url": "https://polskieradio.cc/kursy/16-wieczerza-panska.html",
+      "type": "course",
+      "topicId": null,
+      "image": "16.png",
+      "publishedAt": "2026-11-25T14:01:17.312Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "en",
+      "title": "Gerald Welch — Official Artist Showcase",
+      "url": "https://polskieradio.cc/Welch/en",
+      "type": "music",
+      "topicId": null,
+      "image": "gerald-hero-og.jpg",
+      "publishedAt": "2026-11-25T13:31:24.951Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "aplikacje",
+      "title": "Aplikacje Christian Culture — Android (Google Play) i Web/PWA",
+      "url": "https://polskieradio.cc/aplikacje/",
+      "type": "module",
+      "topicId": null,
+      "image": "topic-aplikacje-78dc6986.jpg",
+      "publishedAt": "2026-11-25T13:01:14.864Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "senior",
+      "title": "CC Pomoc: Senior – aktywne i wartościowe życie",
+      "url": "https://polskieradio.cc/senior",
+      "type": "help",
+      "topicId": "senior",
+      "image": "topic-senior-608f772a.jpg",
+      "publishedAt": "2026-11-25T12:31:21.012Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "werset-dnia?day=351",
+      "title": "Werset Dnia: „Miłości bowiem pragnę, a nie ofiary; poznania Boga bardziej niż całopaleń” (Księga Ozeasza 6:6, UBG)",
+      "url": "https://polskieradio.cc/werset-dnia?day=351",
+      "type": "verse",
+      "topicId": null,
+      "image": "werset-day-351-ksiega-ozeasza-6-6.jpg",
+      "publishedAt": "2026-11-25T12:01:23.963Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "lumina",
+      "title": "LUMINA — Portal Społecznościowy",
+      "url": "https://polskieradio.cc/lumina",
+      "type": "profile",
+      "topicId": null,
+      "image": "card-lumina.jpg",
+      "publishedAt": "2026-11-25T11:31:31.304Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "cbdc-prawo-niedzielne-apokalipsa-13",
+      "title": "Cyfrowy pieniądz, prawo niedzielne i Apokalipsa 13. Czy technologia może stać się narzędziem przymusu religijnego?",
+      "url": "https://polskieradio.cc/news/cbdc-prawo-niedzielne-apokalipsa-13",
+      "type": "news",
+      "topicId": null,
+      "image": "art-cbdc-prawo-niedzielne-apokalipsa-13.jpg",
+      "publishedAt": "2026-11-25T11:01:36.959Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "przymierze-na-cale-zycie-biblijny-przewodnik-malzenstwo",
+      "title": "„Przymierze na Całe Życie”: Biblijny Przewodnik po Narzeczeństwie i Małżeństwie – CCN News",
+      "url": "https://polskieradio.cc/biblioteka/przymierze-na-cale-zycie-biblijny-przewodnik-malzenstwo",
+      "type": "book",
+      "topicId": null,
+      "image": "topic-przymierze-na-cale-zycie-biblijny-przewodnik-mal-5b751e66.jpg",
+      "publishedAt": "2026-11-25T10:31:15.510Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "15-chrzest.html",
+      "title": "Kurs 28 Kroków — Lekcja 15: Chrzest Święty — Przymierze z Chrystusem, Śmierć dla Grzechu i Nowe Życie",
+      "url": "https://polskieradio.cc/kursy/15-chrzest.html",
+      "type": "course",
+      "topicId": null,
+      "image": "15.png",
+      "publishedAt": "2026-11-25T10:01:21.845Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "en",
+      "title": "Spiritual Sounds – Polish Psalms",
+      "url": "https://polskieradio.cc/SpiritualSounds/en",
+      "type": "music",
+      "topicId": null,
+      "image": "ss-og-1200x630.jpg",
+      "publishedAt": "2026-11-25T09:31:34.687Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "vod",
+      "title": "Kino Chrześcijańskie VOD — Dobre Kino 24/7 i bezpłatne filmy z polskim lektorem",
+      "url": "https://polskieradio.cc/vod",
+      "type": "vod",
+      "topicId": null,
+      "image": "vod-christian-culture-02-rodzina-24-7.jpg",
+      "publishedAt": "2026-11-25T09:01:16.852Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "kartki",
+      "title": "Muzyczne E-Kartki Christian Culture — Urodziny, Dobrze że jesteś, Nowy Rok 2027",
+      "url": "https://polskieradio.cc/kartki/",
+      "type": "module",
+      "topicId": null,
+      "image": "topic-kartki-6afb2d94.jpg",
+      "publishedAt": "2026-11-25T08:31:18.198Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "wsparcie-zdrowia",
+      "title": "CC Pomoc: Zdrowie – odpowiedzialna troska o życie",
+      "url": "https://polskieradio.cc/wsparcie-zdrowia",
+      "type": "help",
+      "topicId": "zdrowie",
+      "image": "topic-wsparcie-zdrowia-cf9f8489.jpg",
+      "publishedAt": "2026-11-25T08:03:00.300Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "werset-dnia?day=350",
+      "title": "Werset Dnia: „Mądrzy będą świecić jak blask na sklepieniu, a ci, którzy wielu przywiedli do sprawiedliwości — jak gwiazdy na wieki” (Księga Daniela 12:3, UBG)",
+      "url": "https://polskieradio.cc/werset-dnia?day=350",
+      "type": "verse",
+      "topicId": null,
+      "image": "werset-day-350-ksiega-daniela-12-3.jpg",
+      "publishedAt": "2026-11-25T07:31:34.088Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "holistyczny-coaching",
+      "title": "Holistyczny Coaching & Terapia Wolności — Paweł Murawski",
+      "url": "https://polskieradio.cc/holistyczny-coaching",
+      "type": "profile",
+      "topicId": null,
+      "image": "avatar_pawel_murawski.jpg",
+      "publishedAt": "2026-11-25T07:03:07.810Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "biblia-audio-gen-038",
       "title": "Biblia Audio CC — Księga Rodzaju 38 (Juda i Tamar)",
       "url": "https://youtu.be/pFBIaexrfwA",

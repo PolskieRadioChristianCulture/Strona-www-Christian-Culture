@@ -2,6 +2,142 @@
   "version": "2.1",
   "items": [
     {
+      "id": "social-topic-https-polskieradio-cc-pastor-201bc3f2",
+      "format": "16:9",
+      "headline": "Pastor – rozmowa o wierze i życiu",
+      "reference": "https://polskieradio.cc/pastor",
+      "motif": "CC POMOC • WIARA, BIBLIA I PORADNICTWO DUCHOWE",
+      "palette": {
+        "bg": "#0A111F",
+        "text": "#FFFFFF",
+        "accent": "#C4A35A"
+      },
+      "layout": "help-photo-card",
+      "emotion": "Nadzieja",
+      "file": "images/social/generated/topic-pastor-f342c51e.jpg",
+      "hash": "201bc3f2",
+      "createdAt": "2026-11-26T04:58:39.719Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-infolinia-nadzieja-c0a3b421",
+      "format": "16:9",
+      "headline": "Infolinia NADZIEJA Christian Culture — Ponadwyznaniowy wolontariat chrześcijańsk",
+      "reference": "https://polskieradio.cc/infolinia-nadzieja/",
+      "motif": "MODUŁY & PLATFORMY • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-infolinia-nadzieja-61a76d4d.jpg",
+      "hash": "c0a3b421",
+      "createdAt": "2026-11-25T19:00:55.163Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-en-blood-pressure-support-68ab4da5",
+      "format": "16:9",
+      "headline": "High blood pressure",
+      "reference": "https://polskieradio.cc/en/blood-pressure-support",
+      "motif": "CC HELP • HEALTH AND WELLBEING",
+      "palette": {
+        "bg": "#0A111F",
+        "text": "#FFFFFF",
+        "accent": "#C4A35A"
+      },
+      "layout": "help-photo-card",
+      "emotion": "Nadzieja",
+      "file": "images/social/generated/topic-blood-pressure-support-caf6931d.jpg",
+      "hash": "68ab4da5",
+      "createdAt": "2026-11-25T18:01:01.562Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-biblioteka-wedrowka-pielgr-f27ac90c",
+      "format": "16:9",
+      "headline": "„Wędrówka Pielgrzyma” Johna Bunyana: Kompletne Słuchowisko Audio i E-book PDF – ",
+      "reference": "https://polskieradio.cc/biblioteka/wedrowka-pielgrzyma-john-bunyan-sluchowisko-audio-ebook-pdf",
+      "motif": "BIBLIOTEKA • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-wedrowka-pielgrzyma-john-bunyan-sluchowisko-audi-747e607a.jpg",
+      "hash": "f27ac90c",
+      "createdAt": "2026-11-25T14:31:17.842Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-senior-7965f29d",
+      "format": "16:9",
+      "headline": "Senior – aktywne i wartościowe życie",
+      "reference": "https://polskieradio.cc/senior",
+      "motif": "CC POMOC • SENIORZY, NIEPEŁNOSPRAWNOŚĆ I OPIEKA",
+      "palette": {
+        "bg": "#0A111F",
+        "text": "#FFFFFF",
+        "accent": "#C4A35A"
+      },
+      "layout": "help-photo-card",
+      "emotion": "Nadzieja",
+      "file": "images/social/generated/topic-senior-608f772a.jpg",
+      "hash": "7965f29d",
+      "createdAt": "2026-11-25T12:31:01.567Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-biblioteka-przymierze-na-c-bd72cb60",
+      "format": "16:9",
+      "headline": "„Przymierze na Całe Życie”: Biblijny Przewodnik po Narzeczeństwie i Małżeństwie ",
+      "reference": "https://polskieradio.cc/biblioteka/przymierze-na-cale-zycie-biblijny-przewodnik-malzenstwo",
+      "motif": "BIBLIOTEKA • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-przymierze-na-cale-zycie-biblijny-przewodnik-mal-5b751e66.jpg",
+      "hash": "bd72cb60",
+      "createdAt": "2026-11-25T10:30:56.358Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-kartki-f692a0c6",
+      "format": "16:9",
+      "headline": "Muzyczne E-Kartki Christian Culture — Urodziny, Dobrze że jesteś, Nowy Rok 2027",
+      "reference": "https://polskieradio.cc/kartki/",
+      "motif": "MODUŁY & PLATFORMY • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-kartki-6afb2d94.jpg",
+      "hash": "f692a0c6",
+      "createdAt": "2026-11-25T08:30:58.712Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-wsparcie-zdrowia-fc41d1cc",
+      "format": "16:9",
+      "headline": "Zdrowie – odpowiedzialna troska o życie",
+      "reference": "https://polskieradio.cc/wsparcie-zdrowia",
+      "motif": "CC POMOC • ZDROWIE, PROFILAKTYKA I STYL ŻYCIA",
+      "palette": {
+        "bg": "#0A111F",
+        "text": "#FFFFFF",
+        "accent": "#C4A35A"
+      },
+      "layout": "help-photo-card",
+      "emotion": "Nadzieja",
+      "file": "images/social/generated/topic-wsparcie-zdrowia-cf9f8489.jpg",
+      "hash": "fc41d1cc",
+      "createdAt": "2026-11-25T08:01:57.267Z"
+    },
+    {
       "id": "social-topic-https-polskieradio-cc-uslugi-a8fd04f7",
       "format": "16:9",
       "headline": "CC Pomoc (CC Help) — Bezpłatne Centrum Wsparcia: Małżeństwo, Rozwód, Samotność, ",

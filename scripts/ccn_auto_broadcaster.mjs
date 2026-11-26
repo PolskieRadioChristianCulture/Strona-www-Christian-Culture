@@ -1836,9 +1836,32 @@ async function publishToX(tweetText, imagePath, dryRun = false) {
       throw new Error('[CCN Broadcaster BŁĄD AUTORYZACJI] Sesja X wygasła. Wymagane odświeżenie X_AUTH_TOKEN w .env.local.');
     }
 
-    const composeDialog = page.locator('[role="dialog"]').filter({
+    const dismissBlockingModals = async () => {
+      const dialogs = page.locator('[role="dialog"]');
+      const count = await dialogs.count().catch(() => 0);
+      for (let i = count - 1; i >= 0; i--) {
+        const dlg = dialogs.nth(i);
+        const visible = await dlg.isVisible().catch(() => false);
+        if (!visible) continue;
+        const hasComposer = await dlg.locator('[data-testid="tweetTextarea_0"], [data-testid="tweetButton"], div[role="textbox"][contenteditable="true"]').count().catch(() => 0);
+        if (hasComposer > 0) continue;
+        const closeBtn = dlg.locator('[data-testid="app-bar-close"], button[aria-label="Close"], button[aria-label="Zamknij"], [role="button"][aria-label="Close"], [role="button"][aria-label="Zamknij"]').first();
+        if (await closeBtn.isVisible({ timeout: 500 }).catch(() => false)) {
+          console.log('🧹 [CCN Broadcaster] Zamykam wyskakujący baner/modal na X...');
+          await closeBtn.click({ force: true }).catch(() => {});
+          await page.waitForTimeout(600);
+        } else {
+          await page.keyboard.press('Escape').catch(() => {});
+          await page.waitForTimeout(400);
+        }
+      }
+    };
+
+    await dismissBlockingModals();
+
+    const composeDialog = page.locator('[role="dialog"][aria-modal="true"]').filter({
       has: page.locator('[data-testid="tweetTextarea_0"], [data-testid="tweetButton"], div[role="textbox"][contenteditable="true"]')
-    }).first();
+    }).last();
     const hasComposeDialog = (timeout = 1000) => composeDialog.isVisible({ timeout }).catch(() => false);
 
     const dialogTextareaSel = 'div[data-testid="tweetTextarea_0"], div[role="textbox"][contenteditable="true"], textarea';
@@ -1873,6 +1896,14 @@ async function publishToX(tweetText, imagePath, dryRun = false) {
     });
     await page.waitForTimeout(500);
 
+    // Wyczyść ewentualny stary szkic przed wpisaniem nowego posta
+    const existingText = (await textarea.innerText().catch(() => '')).trim();
+    if (existingText.length > 0) {
+      await page.keyboard.press('Control+A');
+      await page.keyboard.press('Backspace');
+      await page.waitForTimeout(300);
+    }
+
     // 1. Wpisanie sformatowanego tekstu
     await page.keyboard.insertText(tweetText);
     console.log('📝 [CCN Broadcaster] Wpisano treść nowości...');
@@ -1897,6 +1928,7 @@ async function publishToX(tweetText, imagePath, dryRun = false) {
 
     // 3. Wysłanie posta (przycisk TweetButton / Post z modalu lub inline + Control+Enter)
     console.log('🔘 [CCN Broadcaster] Wysyłam post...');
+    await dismissBlockingModals();
     isDialog = await hasComposeDialog(1000);
     const layersPostBtn = page.locator('#layers [data-testid="tweetButton"]').last();
     const hasLayersComposer = !isDialog && (await layersPostBtn.isVisible({ timeout: 500 }).catch(() => false));
@@ -1921,7 +1953,10 @@ async function publishToX(tweetText, imagePath, dryRun = false) {
       await page.screenshot({ path: path.join(__dirname, '../x_debug_screen.png') }).catch(() => {});
       throw new Error(`[CCN Broadcaster BŁĄD PUBLIKACJI] Przycisk Post niedostępny lub nieaktywny (visible=${btnVisible}, disabled=${btnDisabledBefore}, ariaDisabled=${ariaDisabledBefore}).`);
     }
-    await postBtn.click();
+    await postBtn.click({ timeout: 10000 }).catch(async () => {
+      console.log('⚠️ [CCN Broadcaster] Kliknięcie standardowe zablokowane — ponawiam z force: true...');
+      await postBtn.click({ force: true });
+    });
 
     // Jeśli formularz nadal otwarty po 1.5s, ponów kliknięcie / skrót Control+Enter
     await page.waitForTimeout(1500);

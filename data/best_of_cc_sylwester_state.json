@@ -12,10 +12,108 @@
       "lastSentIso": "2026-11-24T15:11:04.555Z",
       "waveId": "wave-1-premiera",
       "groupName": "Osobowość+"
+    },
+    "120363238150187442@g.us": {
+      "lastSentIso": "2026-11-25T10:15:03.043Z",
+      "waveId": "wave-1-premiera",
+      "groupName": "Chrześcijanin w Biznesie"
+    },
+    "120363421947722586@g.us": {
+      "lastSentIso": "2026-11-25T10:15:03.043Z",
+      "waveId": "wave-1-premiera",
+      "groupName": "Chrześcijanie"
+    },
+    "120363416073268021@g.us": {
+      "lastSentIso": "2026-11-25T16:15:03.917Z",
+      "waveId": "wave-1-premiera",
+      "groupName": "Cuda Każdego Dnia"
+    },
+    "120363233828426051@g.us": {
+      "lastSentIso": "2026-11-25T16:15:03.917Z",
+      "waveId": "wave-1-premiera",
+      "groupName": "Pościliście więc... Ezch 8:23"
     }
   },
   "waNazirLastSentAt": "2026-11-24T15:11:04.555Z",
   "history": [
+    {
+      "timestamp": "2026-11-25T16:15:03.917Z",
+      "waveId": "wave-1-premiera",
+      "ymd": "2026-11-25",
+      "x": {
+        "ok": true,
+        "skipped": true,
+        "reason": "interval_48h"
+      },
+      "tablica": {
+        "ok": true,
+        "skipped": true,
+        "reason": "interval_96h"
+      },
+      "whatsapp": [
+        {
+          "ok": true,
+          "targetGroupId": "120363416073268021@g.us",
+          "d1": {
+            "success": true,
+            "id": "cmd_1795623304109_bfkrw",
+            "status": "pending",
+            "source": "local_fallback"
+          },
+          "name": "Cuda Każdego Dnia"
+        },
+        {
+          "ok": true,
+          "targetGroupId": "120363233828426051@g.us",
+          "d1": {
+            "success": true,
+            "id": "cmd_1795623304352_2lhqm",
+            "status": "pending",
+            "source": "local_fallback"
+          },
+          "name": "Pościliście więc... Ezch 8:23"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-11-25T10:15:03.043Z",
+      "waveId": "wave-1-premiera",
+      "ymd": "2026-11-25",
+      "x": {
+        "ok": true,
+        "skipped": true,
+        "reason": "interval_48h"
+      },
+      "tablica": {
+        "ok": true,
+        "skipped": true,
+        "reason": "interval_96h"
+      },
+      "whatsapp": [
+        {
+          "ok": true,
+          "targetGroupId": "120363238150187442@g.us",
+          "d1": {
+            "success": true,
+            "id": "cmd_1795601703062_dqc4t",
+            "status": "pending",
+            "source": "local_fallback"
+          },
+          "name": "Chrześcijanin w Biznesie"
+        },
+        {
+          "ok": true,
+          "targetGroupId": "120363421947722586@g.us",
+          "d1": {
+            "success": true,
+            "id": "cmd_1795601703209_t8zfg",
+            "status": "pending",
+            "source": "local_fallback"
+          },
+          "name": "Chrześcijanie"
+        }
+      ]
+    },
     {
       "timestamp": "2026-11-24T16:37:01.735Z",
       "waveId": "wave-1-premiera",

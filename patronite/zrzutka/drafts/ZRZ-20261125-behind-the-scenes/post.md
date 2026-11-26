@@ -35,4 +35,4 @@ Odwiedź Kino VOD Christian Culture pod adresem https://polskieradio.cc/vod
 Grafika Za kulisami Christian Culture: mikrofon studyjny i stanowisko montażowe audio
 
 ## Rejestr źródeł
-- [ZREALIZOWANE] polskieradio.cc/vod & /news (data/ecosystem-map.json + vod.html + news.html, data: 2026-11-23) — https://polskieradio.cc/vod
+- [ZREALIZOWANE] polskieradio.cc/vod & /news (data/ecosystem-map.json + vod.html + news.html, data: 2026-11-25) — https://polskieradio.cc/vod

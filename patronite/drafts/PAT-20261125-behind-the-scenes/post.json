@@ -30,12 +30,12 @@
     {
       "sourceName": "polskieradio.cc/vod & /news",
       "sourceRef": "data/ecosystem-map.json + vod.html + news.html",
-      "verifiedDate": "2026-11-23",
+      "verifiedDate": "2026-11-25",
       "status": "ZREALIZOWANE",
       "publicUrl": "https://polskieradio.cc/vod",
       "claim": "Jak powstają słuchowiska Biblia Audio, wykłady Studio Dobrego Słowa i artykuły CCN News"
     }
   ],
   "honestAdapterNote": "Brak publicznego API zapisu postow Patronite — pakiet zapisany jako kompletny szkic gotowy do recznego wklejenia/zaplanowania w oficjalnym panelu Moderatora.",
-  "savedAt": "2026-11-23T10:15:27.597Z"
+  "savedAt": "2026-11-25T15:00:01.498Z"
 }

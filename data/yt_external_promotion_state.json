@@ -1,7 +1,7 @@
 {
-  "lastIndex": 15,
-  "lastChannelId": "cc_instrumental",
-  "lastTimestamp": "2026-11-24T17:00:47.554Z",
+  "lastIndex": 16,
+  "lastChannelId": "cc_pop",
+  "lastTimestamp": "2026-11-25T09:00:25.315Z",
   "history": [
     {
       "index": 0,
@@ -176,6 +176,17 @@
       "url": "https://www.youtube.com/@ChristianCultureInstrumental",
       "targetAudience": "Osoby szukające muzyki instrumentalnej do pracy głębokiej, modlitwy kontemplacyjnej i czytania",
       "hook": "Muzyka bez słów, która pozwala Twojemu umysłowi odpocząć i skupić się na tym, co najważniejsze."
+    },
+    {
+      "index": 16,
+      "channelId": "cc_pop",
+      "timestamp": "2026-11-25T09:00:25.316Z",
+      "status": "PROMOTED",
+      "channelName": "Christian Culture POP",
+      "handle": "@ChristianCulturePOP",
+      "url": "https://www.youtube.com/@ChristianCulturePOP",
+      "targetAudience": "Młodzi słuchacze szukający chrześcijańskiego popu i alternatywy dla komercyjnego mainstreamu",
+      "hook": "Światowy poziom produkcji i teksty, które budują zamiast niszczyć. Zobacz Christian Culture POP!"
     }
   ]
 }
