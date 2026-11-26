@@ -106,6 +106,7 @@ a:focus-visible {
   width: 100%;
   overflow: hidden;
   background: var(--bg-main);
+  transition: grid-template-columns 240ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* =================== LEWY PANEL =================== */
@@ -117,6 +118,8 @@ a:focus-visible {
   height: 100dvh;
   padding: 14px 12px 10px;
   min-width: 0;
+  overflow: hidden;
+  transition: padding 220ms ease, border-color 220ms ease, opacity 180ms ease;
 }
 
 .brand-block {
@@ -2052,9 +2055,11 @@ a:focus-visible {
   padding: 16px 14px;
   display: flex;
   flex-direction: column;
+  min-width: 0;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #262626 transparent;
+  transition: padding 220ms ease, border-color 220ms ease, opacity 180ms ease;
 }
 
 .right-header {
@@ -2310,9 +2315,38 @@ a:focus-visible {
 }
 
 .mobile-only,
-.tablet-only,
-.drawer-close {
+.tablet-only {
   display: none;
+}
+
+.panel-toggle-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  color: #cfcdc7;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.panel-toggle-btn:hover {
+  background: #191919;
+  border-color: rgba(230, 184, 76, 0.32);
+  color: var(--gold);
+}
+
+.panel-toggle-btn.is-collapsed {
+  border-color: rgba(230, 184, 76, 0.42);
+  background: rgba(230, 184, 76, 0.09);
+  color: var(--gold);
+}
+
+.drawer-close {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  color: #9b9992;
 }
 
 .scrim {
@@ -2451,7 +2485,49 @@ a:focus-visible {
   color: #e6e4de;
 }
 
-/* =================== RESPONSYWNOŚĆ =================== */
+/* =================== RESPONSYWNOŚĆ I ZWIJANE PANELE =================== */
+@media (min-width: 1181px) {
+  body.left-collapsed .app-shell {
+    grid-template-columns: 0px minmax(0, 1fr) 316px;
+  }
+
+  body.right-collapsed .app-shell {
+    grid-template-columns: 248px minmax(0, 1fr) 0px;
+  }
+
+  body.left-collapsed.right-collapsed .app-shell {
+    grid-template-columns: 0px minmax(0, 1fr) 0px;
+  }
+
+  body.right-collapsed .sidebar-right {
+    width: 0;
+    padding-left: 0;
+    padding-right: 0;
+    border-left-color: transparent;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+@media (min-width: 841px) {
+  body.left-collapsed .sidebar-left {
+    width: 0;
+    padding-left: 0;
+    padding-right: 0;
+    border-right-color: transparent;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+@media (min-width: 841px) and (max-width: 1180px) {
+  body.left-collapsed .app-shell {
+    grid-template-columns: 0px minmax(0, 1fr);
+  }
+}
+
 @media (max-width: 1180px) {
   .app-shell {
     grid-template-columns: 244px minmax(0, 1fr);
@@ -2485,6 +2561,13 @@ a:focus-visible {
   .mobile-only,
   .sidebar-left .drawer-close {
     display: inline-flex;
+  }
+
+  .panel-toggle-btn,
+  .drawer-close {
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
   }
 
   .sidebar-left {
@@ -2812,14 +2895,16 @@ a:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .app-shell,
   .sidebar-left,
   .sidebar-right,
+  .panel-toggle-btn,
   .new-chat-btn,
   .prompt-card,
   .space-card,
   .send-gold-btn,
   .switch-thumb {
-    transition-duration: 380ms;
+    transition-duration: 360ms;
   }
 
   .hero-emblem-wrap {

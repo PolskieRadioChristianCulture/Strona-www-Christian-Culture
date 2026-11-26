@@ -482,7 +482,9 @@ function loadState(uid = currentUser?.uid) {
     chats: [],
     notes: [],
     memory: [],
-    projects: [...DEFAULT_PROJECTS]
+    projects: [...DEFAULT_PROJECTS],
+    leftCollapsed: false,
+    rightCollapsed: false
   };
   try {
     const raw = JSON.parse(localStorage.getItem(getStorageKey(uid)) || localStorage.getItem(STORAGE_PREFIX) || 'null');
@@ -492,7 +494,9 @@ function loadState(uid = currentUser?.uid) {
       notes: Array.isArray(raw.notes) ? raw.notes.slice(0, 60) : [],
       memory: Array.isArray(raw.memory) ? raw.memory.slice(0, 20) : [],
       projects: Array.isArray(raw.projects) && raw.projects.length ? raw.projects.slice(0, 20) : [...DEFAULT_PROJECTS],
-      assistantId: typeof raw.assistantId === 'string' && AI_PERSONAS[raw.assistantId] ? raw.assistantId : DEFAULT_ASSISTANT_ID
+      assistantId: typeof raw.assistantId === 'string' && AI_PERSONAS[raw.assistantId] ? raw.assistantId : DEFAULT_ASSISTANT_ID,
+      leftCollapsed: Boolean(raw.leftCollapsed),
+      rightCollapsed: Boolean(raw.rightCollapsed)
     };
   } catch {
     return { ...empty, assistantId: DEFAULT_ASSISTANT_ID };
@@ -559,32 +563,123 @@ function openDialog(title, lines) {
   infoDialog.showModal();
 }
 
+function isLeftOverlayMode() {
+  return window.innerWidth <= 840;
+}
+
+function isRightOverlayMode() {
+  return window.innerWidth <= 1180;
+}
+
+let panelResizeTimer = null;
+
+function syncPanelButtons() {
+  const leftOverlay = isLeftOverlayMode();
+  const rightOverlay = isRightOverlayMode();
+  const leftCollapsedDesktop = Boolean(state.leftCollapsed) && !leftOverlay;
+  const rightCollapsedDesktop = Boolean(state.rightCollapsed) && !rightOverlay;
+
+  document.body.classList.toggle('left-collapsed', leftCollapsedDesktop);
+  document.body.classList.toggle('right-collapsed', rightCollapsedDesktop);
+
+  const leftOpen = leftOverlay
+    ? document.body.classList.contains('left-drawer-open')
+    : !leftCollapsedDesktop;
+  const rightOpen = rightOverlay
+    ? document.body.classList.contains('right-drawer-open')
+    : !rightCollapsedDesktop;
+
+  if (openLeftBtn) {
+    openLeftBtn.setAttribute('aria-expanded', leftOpen ? 'true' : 'false');
+    openLeftBtn.setAttribute('aria-label', leftOpen ? 'Ukryj lewy panel' : 'Pokaż lewy panel');
+    openLeftBtn.classList.toggle('is-collapsed', !leftOpen && !leftOverlay);
+  }
+  if (openRightBtn) {
+    openRightBtn.setAttribute('aria-expanded', rightOpen ? 'true' : 'false');
+    openRightBtn.setAttribute('aria-label', rightOpen ? 'Ukryj prawy panel' : 'Pokaż prawy panel');
+    openRightBtn.classList.toggle('is-collapsed', !rightOpen && !rightOverlay);
+  }
+
+  clearTimeout(panelResizeTimer);
+  panelResizeTimer = setTimeout(() => {
+    window.dispatchEvent(new Event('resize'));
+  }, 260);
+}
+
 function closeDrawers() {
   document.body.classList.remove('left-drawer-open', 'right-drawer-open');
   scrim.hidden = true;
-  openLeftBtn?.setAttribute('aria-expanded', 'false');
-  openRightBtn?.setAttribute('aria-expanded', 'false');
+  syncPanelButtons();
 }
 
 function openLeftDrawer() {
   closeDrawers();
   document.body.classList.add('left-drawer-open');
   scrim.hidden = false;
-  openLeftBtn?.setAttribute('aria-expanded', 'true');
+  syncPanelButtons();
 }
 
 function openRightDrawer() {
   closeDrawers();
   document.body.classList.add('right-drawer-open');
   scrim.hidden = false;
-  openRightBtn?.setAttribute('aria-expanded', 'true');
+  syncPanelButtons();
 }
 
-openLeftBtn?.addEventListener('click', openLeftDrawer);
-closeLeftBtn?.addEventListener('click', closeDrawers);
-openRightBtn?.addEventListener('click', openRightDrawer);
-closeRightBtn?.addEventListener('click', closeDrawers);
+function toggleLeftPanel() {
+  if (isLeftOverlayMode()) {
+    if (document.body.classList.contains('left-drawer-open')) closeDrawers();
+    else openLeftDrawer();
+    return;
+  }
+  state.leftCollapsed = !state.leftCollapsed;
+  saveState();
+  syncPanelButtons();
+}
+
+function closeLeftPanel() {
+  if (isLeftOverlayMode()) {
+    closeDrawers();
+    return;
+  }
+  state.leftCollapsed = true;
+  saveState();
+  syncPanelButtons();
+}
+
+function toggleRightPanel() {
+  if (isRightOverlayMode()) {
+    if (document.body.classList.contains('right-drawer-open')) closeDrawers();
+    else openRightDrawer();
+    return;
+  }
+  state.rightCollapsed = !state.rightCollapsed;
+  saveState();
+  syncPanelButtons();
+}
+
+function closeRightPanel() {
+  if (isRightOverlayMode()) {
+    closeDrawers();
+    return;
+  }
+  state.rightCollapsed = true;
+  saveState();
+  syncPanelButtons();
+}
+
+openLeftBtn?.addEventListener('click', toggleLeftPanel);
+closeLeftBtn?.addEventListener('click', closeLeftPanel);
+openRightBtn?.addEventListener('click', toggleRightPanel);
+closeRightBtn?.addEventListener('click', closeRightPanel);
 scrim?.addEventListener('click', closeDrawers);
+window.addEventListener('resize', () => {
+  if (!isLeftOverlayMode()) document.body.classList.remove('left-drawer-open');
+  if (!isRightOverlayMode()) document.body.classList.remove('right-drawer-open');
+  scrim.hidden = !document.body.classList.contains('left-drawer-open') && !document.body.classList.contains('right-drawer-open');
+  document.body.classList.toggle('left-collapsed', Boolean(state.leftCollapsed) && !isLeftOverlayMode());
+  document.body.classList.toggle('right-collapsed', Boolean(state.rightCollapsed) && !isRightOverlayMode());
+}, { passive: true });
 $('#closeDialogBtn')?.addEventListener('click', () => infoDialog.close());
 
 infoDialog?.addEventListener('click', (e) => {
@@ -592,6 +687,12 @@ infoDialog?.addEventListener('click', (e) => {
 });
 
 document.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'b') {
+    e.preventDefault();
+    if (e.shiftKey) toggleRightPanel();
+    else toggleLeftPanel();
+    return;
+  }
   if (e.key === 'Escape') {
     if (isListening) stopDictation();
     stopSpeaking();
@@ -2253,6 +2354,7 @@ function handleAuthUpdate(user) {
     renderRecentChats();
     renderRightProjects();
     syncAssistantButtons();
+    syncPanelButtons();
     if (currentNav === 'Czat') showWelcomeView();
     else renderModule(currentNav);
   }
@@ -2969,6 +3071,7 @@ setTimeout(() => {
 
 // Inicjalizacja
 syncAssistantButtons();
+syncPanelButtons();
 renderRecentChats();
 renderRightProjects();
 hydrateDailyVerse();

@@ -189,8 +189,14 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai7/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai7/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai8/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai8/);
+  assert.match(html, /id="openLeftDrawer"[^>]*panel-toggle-btn/);
+  assert.match(html, /id="openRightDrawer"[^>]*panel-toggle-btn/);
+  assert.match(appJs, /toggleLeftPanel/);
+  assert.match(appJs, /toggleRightPanel/);
+  assert.match(css, /body\.left-collapsed/);
+  assert.match(css, /body\.right-collapsed/);
   assert.match(html, /id="voiceBar"/);
   assert.match(html, /id="voiceWave"/);
   assert.match(html, /id="voiceStopBtn"/);
