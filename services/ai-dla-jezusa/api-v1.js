@@ -13,11 +13,12 @@ import {
 import { openApiSpec } from './openapi.js';
 import { handleMcpRequest } from './mcp-server.js';
 import { handleAiChatRequest } from './chat-service.js';
+import { handleOwnerSessionRequest, handleOwnerActionRequest } from './owner-workspace.js';
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Accept, X-Requested-With',
+  'Access-Control-Allow-Headers': 'Content-Type, Accept, Authorization, X-Requested-With, X-User-AI-Key, X-User-AI-Provider',
   'Access-Control-Max-Age': '86400'
 };
 
@@ -28,7 +29,7 @@ const JSON_HEADERS = {
   ...CORS_HEADERS
 };
 
-export async function handleAiDlaJezusaApi(request, env = {}) {
+export async function handleAiDlaJezusaApi(request, env = {}, deps = {}) {
   const url = new URL(request.url);
   const path = url.pathname.replace(/\/+$/, '') || '/';
 
@@ -44,7 +45,15 @@ export async function handleAiDlaJezusaApi(request, env = {}) {
 
   // 0b. Rozmowy konwersacyjne + RAG: /api/ai-dla-jezusa/v1/chat
   if (path === '/api/ai-dla-jezusa/v1/chat') {
-    return handleAiChatRequest(request, env);
+    return handleAiChatRequest(request, env, deps);
+  }
+
+  // 0c. Przestrzeń Właściciela (nazirczarek@gmail.com — Firebase RS256 Auth):
+  if (path === '/api/ai-dla-jezusa/v1/owner/session') {
+    return handleOwnerSessionRequest(request, env, deps, CORS_HEADERS);
+  }
+  if (path === '/api/ai-dla-jezusa/v1/owner/action') {
+    return handleOwnerActionRequest(request, env, deps, CORS_HEADERS);
   }
 
   // Tylko metoda GET w publicznym API odczytowym

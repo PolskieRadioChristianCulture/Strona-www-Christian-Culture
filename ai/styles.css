@@ -2375,6 +2375,82 @@ a:focus-visible {
   animation: aiToastIn 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+.owner-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 15px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(255, 122, 0, 0.16), rgba(230, 184, 76, 0.08));
+  border: 1px solid rgba(255, 122, 0, 0.45);
+  font-size: 13px;
+  color: #f8f1e3;
+}
+
+.owner-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(255, 122, 0, 0.22);
+  border: 1px solid rgba(255, 122, 0, 0.6);
+  color: #ffd9a8;
+}
+
+.skill-tag-pill {
+  display: inline-flex;
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold);
+  background: rgba(230, 184, 76, 0.12);
+  border: 1px solid rgba(230, 184, 76, 0.32);
+  border-radius: 6px;
+  padding: 2px 8px;
+}
+
+.integration-status-pill {
+  display: inline-flex;
+  align-self: flex-start;
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.integration-status-pill.status-cloud {
+  background: rgba(72, 168, 92, 0.16);
+  border: 1px solid rgba(72, 168, 92, 0.48);
+  color: #8be09a;
+}
+
+.integration-status-pill.status-bridge {
+  background: rgba(230, 184, 76, 0.14);
+  border: 1px solid rgba(230, 184, 76, 0.42);
+  color: #f5d887;
+}
+
+.integration-status-pill.status-missing {
+  background: rgba(160, 160, 160, 0.14);
+  border: 1px solid #3c3c3c;
+  color: #b4b2ac;
+}
+
+.owner-result-box {
+  padding: 13px 15px;
+  border-radius: 12px;
+  background: #141414;
+  border: 1px solid #2e2e2e;
+  font-size: 13.5px;
+  color: #e6e4de;
+}
+
 /* =================== RESPONSYWNOŚĆ =================== */
 @media (max-width: 1180px) {
   .app-shell {

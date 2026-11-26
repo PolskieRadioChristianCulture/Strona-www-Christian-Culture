@@ -189,8 +189,8 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai6/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai6/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai7/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai7/);
   assert.match(html, /id="voiceBar"/);
   assert.match(html, /id="voiceWave"/);
   assert.match(html, /id="voiceStopBtn"/);
@@ -314,4 +314,97 @@ test('AI chat returns default AI halo avatar, supports switching 4 female assist
   assert.ok(getJson.hubs.radioStreams.length >= 3);
   assert.ok(getJson.hubs.spotifyShows.length >= 4);
   assert.ok(getJson.hubs.socialHub.length >= 5);
+});
+
+test('Server-side GEMINI_API_KEYS pool failover + RS256 owner workspace (nazirczarek@gmail.com) gates secrets & unlocks 18 skills', async () => {
+  resetAiChatRuntimeState();
+  const fakePoolEnv = {
+    GEMINI_API_KEYS: 'AIzaPoolKeyAlpha1111, AIzaPoolKeyBeta2222',
+    YT_API_KEY: 'AIzaYouTubeTestKey9999'
+  };
+
+  // 1. Multi-key pool rotation: Key 1 hits 429 -> Key 2 succeeds on gemini-3.5-flash-lite
+  const seenUrls = [];
+  const poolFetch = async (url) => {
+    const u = String(url);
+    seenUrls.push(u);
+    if (u.includes('AIzaPoolKeyAlpha1111')) return new Response('rate limit', { status: 429 });
+    return new Response(
+      JSON.stringify({ candidates: [{ content: { parts: [{ text: 'Odpowiedź z rotującej puli kluczy Gemini 3.5.' }] } }] }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
+  };
+  const poolRes = await processAiChat({ message: 'Nadzieja' }, fakePoolEnv, { fetch: poolFetch });
+  assert.equal(poolRes.ok, true);
+  assert.equal(poolRes.provider, 'gemini');
+  assert.match(poolRes.modelUsed, /gemini-3\.5-flash-lite/);
+  assert.ok(seenUrls.some((u) => u.includes('AIzaPoolKeyAlpha1111')));
+  assert.ok(seenUrls.some((u) => u.includes('AIzaPoolKeyBeta2222')));
+
+  // 2. Owner session endpoint: 401 without token, 403 for non-owner, 200 for nazirczarek@gmail.com with zero leaked secrets
+  const verifyMock = async (tok) => {
+    if (tok === 'owner-jwt') return { sub: 'uid-owner', email: 'nazirczarek@gmail.com', email_verified: true };
+    if (tok === 'guest-jwt') return { sub: 'uid-guest', email: 'other@example.com', email_verified: true };
+    return null;
+  };
+
+  const unauthRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/owner/session'),
+    fakePoolEnv,
+    { verifyToken: verifyMock }
+  );
+  assert.equal(unauthRes.status, 401);
+
+  const nonOwnerRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/owner/session', {
+      headers: { Authorization: 'Bearer guest-jwt' }
+    }),
+    fakePoolEnv,
+    { verifyToken: verifyMock }
+  );
+  assert.equal(nonOwnerRes.status, 403);
+
+  const ownerRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/owner/session', {
+      headers: { Authorization: 'Bearer owner-jwt' }
+    }),
+    fakePoolEnv,
+    { verifyToken: verifyMock }
+  );
+  assert.equal(ownerRes.status, 200);
+  const ownerRaw = await ownerRes.text();
+  assert.ok(!ownerRaw.includes('AIzaPoolKeyAlpha1111'), 'Must never leak Gemini pool keys to client');
+  assert.ok(!ownerRaw.includes('AIzaYouTubeTestKey9999'), 'Must never leak YT_API_KEY to client');
+  assert.ok(!/Mission Control/i.test(ownerRaw), 'Owner JSON must never emit forbidden internal label');
+  const ownerJson = JSON.parse(ownerRaw);
+  assert.equal(ownerJson.isOwner, true);
+  assert.equal(ownerJson.apiPool.geminiKeys, 2);
+  assert.equal(ownerJson.apiPool.youtubeApi, true);
+  assert.equal(ownerJson.skills.length, 18);
+  assert.ok(ownerJson.integrations.length >= 8);
+  assert.ok(ownerJson.automations.length >= 5);
+
+  // 3. Owner actions: health_audit & youtube_search
+  const mockActionFetch = async (url) => {
+    const u = String(url);
+    if (u.includes('youtube/v3/search')) {
+      return new Response(JSON.stringify({
+        items: [{ id: { videoId: 'dQw4w9WgXcQ' }, snippet: { title: 'Test CC Video', channelTitle: 'Christian Culture TV' } }]
+      }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    }
+    return new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: 'Pokój' }] } }] }), { status: 200 });
+  };
+
+  const ytRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/owner/action', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer owner-jwt' },
+      body: JSON.stringify({ action: 'youtube_search', query: 'Biblia Audio' })
+    }),
+    fakePoolEnv,
+    { verifyToken: verifyMock, fetch: mockActionFetch }
+  );
+  assert.equal(ytRes.status, 200);
+  const ytJson = await ytRes.json();
+  assert.equal(ytJson.media[0].youtubeId, 'dQw4w9WgXcQ');
 });

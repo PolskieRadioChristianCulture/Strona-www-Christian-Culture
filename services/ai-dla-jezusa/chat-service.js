@@ -15,8 +15,14 @@ import {
   resolveEcosystemMedia,
   getAllEcosystemHubs
 } from './ecosystem-media.js';
+import {
+  parseGeminiKeyPool,
+  verifyOwnerFromRequest,
+  OWNER_MODELS
+} from './owner-workspace.js';
 
 const MAX_REQ_PER_MIN = 20;
+const OWNER_REQ_PER_MIN = 120;
 const RATE_WINDOW_MS = 60_000;
 const DAILY_AI_CALL_CAP = 600;
 const MAX_BODY_BYTES = 24 * 1024;
@@ -29,7 +35,7 @@ let reflectionCache = { expiresAt: 0, items: null };
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Accept, X-Requested-With, X-User-AI-Key, X-User-AI-Provider',
+  'Access-Control-Allow-Headers': 'Content-Type, Accept, Authorization, X-Requested-With, X-User-AI-Key, X-User-AI-Provider',
   'Access-Control-Max-Age': '86400'
 };
 
@@ -92,7 +98,7 @@ function extractCommaAndColonRefs(text = '') {
   return extractScriptureRefs(`${text} ${normalized}`);
 }
 
-function checkRate(ip = 'anon', now = Date.now()) {
+function checkRate(ip = 'anon', maxReq = MAX_REQ_PER_MIN, now = Date.now()) {
   const key = String(ip || 'anon').split(',')[0].trim() || 'anon';
   const entry = ipBuckets.get(key);
   if (!entry || now - entry.start >= RATE_WINDOW_MS) {
@@ -104,7 +110,7 @@ function checkRate(ip = 'anon', now = Date.now()) {
     }
     return true;
   }
-  if (entry.count >= MAX_REQ_PER_MIN) return false;
+  if (entry.count >= maxReq) return false;
   entry.count += 1;
   return true;
 }
@@ -211,12 +217,18 @@ function buildUserMessageWithAttachment(message, attachmentName, attachmentText)
   return `${message}\n\n---\nTreść ${safeName} do analizy:\n${attachmentText}`;
 }
 
-async function callGeminiChat(apiKey, preferredModel, systemInstruction, history, userPrompt, fetchImpl = fetch, diagnostics = []) {
-  if (!apiKey) return null;
+async function callGeminiChat(apiKeyOrPool, preferredModel, systemInstruction, history, userPrompt, fetchImpl = fetch, diagnostics = []) {
+  const keys = Array.isArray(apiKeyOrPool)
+    ? apiKeyOrPool.filter(Boolean).slice(0, 5)
+    : (apiKeyOrPool ? [String(apiKeyOrPool)] : []);
+  if (!keys.length) return null;
+
   const models = [...new Set([
-    preferredModel || 'gemini-2.5-flash',
-    'gemini-2.5-flash-lite',
-    'gemini-2.0-flash'
+    preferredModel,
+    'gemini-3.5-flash-lite',
+    'gemini-3.1-flash-lite',
+    'gemini-flash-lite-latest',
+    'gemini-3-flash-preview'
   ].filter(Boolean))];
 
   const contents = history.map((h) => ({
@@ -226,36 +238,39 @@ async function callGeminiChat(apiKey, preferredModel, systemInstruction, history
   contents.push({ role: 'user', parts: [{ text: userPrompt }] });
 
   for (const model of models) {
-    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 8000);
-    try {
-      const res = await fetchImpl(endpoint, {
-        method: 'POST',
-        signal: ctrl.signal,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          systemInstruction: { parts: [{ text: systemInstruction }] },
-          contents,
-          generationConfig: {
-            temperature: 0.5,
-            maxOutputTokens: 1400
-          }
-        })
-      });
-      if (!res.ok) {
-        diagnostics.push(`gemini:${res.status}`);
-        continue;
+    for (let kIdx = 0; kIdx < Math.min(keys.length, 3); kIdx += 1) {
+      const apiKey = keys[kIdx];
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 7500);
+      try {
+        const res = await fetchImpl(endpoint, {
+          method: 'POST',
+          signal: ctrl.signal,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            systemInstruction: { parts: [{ text: systemInstruction }] },
+            contents,
+            generationConfig: {
+              temperature: 0.5,
+              maxOutputTokens: 1400
+            }
+          })
+        });
+        if (!res.ok) {
+          diagnostics.push(`gemini:${res.status}`);
+          continue;
+        }
+        const data = await res.json();
+        const parts = data?.candidates?.[0]?.content?.parts;
+        const text = Array.isArray(parts) ? parts.map((p) => p?.text || '').join('').trim() : '';
+        if (text) return { reply: text, provider: 'gemini', model };
+        diagnostics.push('gemini:empty');
+      } catch {
+        diagnostics.push('gemini:timeout_or_net');
+      } finally {
+        clearTimeout(timer);
       }
-      const data = await res.json();
-      const parts = data?.candidates?.[0]?.content?.parts;
-      const text = Array.isArray(parts) ? parts.map((p) => p?.text || '').join('').trim() : '';
-      if (text) return { reply: text, provider: 'gemini', model };
-      diagnostics.push('gemini:empty');
-    } catch {
-      diagnostics.push('gemini:timeout_or_net');
-    } finally {
-      clearTimeout(timer);
     }
   }
   return null;
@@ -519,6 +534,12 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
   const userPrompt = buildUserMessageWithAttachment(effectiveMessage, attachmentName, attachmentText);
   const fetchImpl = deps.fetch || fetch;
   const diagnostics = [];
+  const ownerSession = deps.ownerSession || null;
+  const geminiPool = parseGeminiKeyPool(env);
+  const allowedOwnerModelIds = new Set(OWNER_MODELS.map((m) => m.id));
+  const requestedOwnerModel = ownerSession?.isOwner && allowedOwnerModelIds.has(payload.ownerModel)
+    ? payload.ownerModel
+    : env.GEMINI_MODEL;
 
   let aiResult = null;
   if (userByok && userByok.apiKey && userByok.provider) {
@@ -532,9 +553,9 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
     );
   }
 
-  if (!aiResult && canUseDailyQuota()) {
+  if (!aiResult && (ownerSession?.isOwner || canUseDailyQuota())) {
     aiResult =
-      (await callGeminiChat(env.GEMINI_API_KEY, env.GEMINI_MODEL, systemInstruction, history, userPrompt, fetchImpl, diagnostics)) ||
+      (await callGeminiChat(geminiPool, requestedOwnerModel, systemInstruction, history, userPrompt, fetchImpl, diagnostics)) ||
       (await callOpenAiCompatibleChat(
         {
           endpoint: 'https://api.groq.com/openai/v1/chat/completions',
@@ -549,7 +570,7 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
         diagnostics
       )) ||
       (await callWorkersAiChat(env, systemInstruction, history, userPrompt, diagnostics));
-    if (aiResult && aiResult.reply) {
+    if (aiResult && aiResult.reply && !ownerSession?.isOwner) {
       recordQuotaUsage();
     }
   }
@@ -559,6 +580,8 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
       ok: true,
       reply: aiResult.reply,
       provider: aiResult.provider,
+      modelUsed: aiResult.model || requestedOwnerModel || 'gemini-3.5-flash-lite',
+      ownerActive: Boolean(ownerSession?.isOwner),
       assistant: assistantMeta,
       mode,
       module: moduleName,
@@ -583,7 +606,8 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
       media
     }),
     provider: 'cc-knowledge-hub',
-    providerDiagnostic: diagnostics.length ? diagnostics.join(',') : (env.GEMINI_API_KEY ? 'gemini:unavailable' : 'no_key'),
+    providerDiagnostic: diagnostics.length ? diagnostics.join(',') : (geminiPool.length ? 'gemini:unavailable' : 'no_key'),
+    ownerActive: Boolean(ownerSession?.isOwner),
     assistant: assistantMeta,
     mode,
     module: moduleName,
@@ -603,16 +627,21 @@ export async function handleAiChatRequest(request, env = {}, deps = {}) {
   if (request.method === 'GET') {
     const docs = getCanonicalDocuments();
     const hubs = getAllEcosystemHubs();
+    const poolSize = parseGeminiKeyPool(env).length;
     return Response.json(
       {
         ok: true,
         service: 'ai-dla-jezusa-chat',
         indexDocuments: docs.length,
         zeroCostGuaranteed: true,
+        geminiKeyPoolSize: poolSize,
+        youtubeApi: Boolean(env.YT_API_KEY),
         assistants: hubs.assistants,
         hubs,
         providersConfigured: {
-          gemini: Boolean(env.GEMINI_API_KEY),
+          gemini: poolSize > 0,
+          geminiKeyPoolSize: poolSize,
+          youtubeApi: Boolean(env.YT_API_KEY),
           groq: Boolean(env.GROQ_API_KEY),
           workersAi: Boolean(env.AI && typeof env.AI.run === 'function'),
           byokSupported: ['gemini', 'openrouter', 'groq', 'openai'],
@@ -636,8 +665,9 @@ export async function handleAiChatRequest(request, env = {}, deps = {}) {
     );
   }
 
+  const ownerSession = await verifyOwnerFromRequest(request, deps);
   const ip = request.headers.get('cf-connecting-ip') || request.headers.get('x-forwarded-for') || 'anon';
-  if (!checkRate(ip)) {
+  if (!checkRate(ip, ownerSession?.isOwner ? OWNER_REQ_PER_MIN : MAX_REQ_PER_MIN)) {
     return Response.json(
       { ok: false, error: 'rate_limit_exceeded', detail: 'Zbyt wiele zapytań w ciągu minuty. Odczekaj chwilę i spróbuj ponownie.' },
       { status: 429, headers: { ...CORS_HEADERS, 'Retry-After': '60', 'Cache-Control': 'no-store' } }
@@ -666,6 +696,7 @@ export async function handleAiChatRequest(request, env = {}, deps = {}) {
   const userProvider = (request.headers.get('X-User-AI-Provider') || '').trim().slice(0, 32);
   const mergedDeps = {
     ...deps,
+    ownerSession,
     userByok: userKey && userProvider ? { provider: userProvider, apiKey: userKey } : deps.userByok
   };
 

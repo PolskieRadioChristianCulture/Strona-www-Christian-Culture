@@ -55,6 +55,94 @@ function getPersona(id) {
   return AI_PERSONAS[id] || AI_PERSONAS[DEFAULT_ASSISTANT_ID];
 }
 
+async function getAuthHeaders() {
+  try {
+    const fbUser = luminaDb?.getFirebaseAuthUser?.() || currentUser;
+    if (fbUser && typeof fbUser.getIdToken === 'function') {
+      const tok = await fbUser.getIdToken();
+      if (tok) return { Authorization: `Bearer ${tok}` };
+    }
+  } catch {}
+  return {};
+}
+
+function syncOwnerModelMenu() {
+  if (!modelMenu) return;
+  modelMenu.querySelectorAll('.owner-model-opt').forEach((el) => el.remove());
+  if (!ownerSession?.isOwner || !Array.isArray(ownerSession.models)) return;
+  for (const m of ownerSession.models) {
+    const opt = document.createElement('button');
+    opt.type = 'button';
+    opt.role = 'option';
+    opt.className = 'dropdown-option owner-model-opt' + (selectedOwnerModel === m.id ? ' active' : '');
+    opt.dataset.ownerModel = m.id;
+    const span = document.createElement('span');
+    span.textContent = m.note;
+    opt.append(document.createTextNode(`${m.label} `), span);
+    opt.addEventListener('click', () => {
+      selectedOwnerModel = m.id;
+      activeModelLabel.textContent = m.label;
+      modelMenu.hidden = true;
+      modelPickerBtn?.setAttribute('aria-expanded', 'false');
+      syncOwnerModelMenu();
+      showToast(`Wybrano silnik właściciela: ${m.label}`);
+    });
+    modelMenu.appendChild(opt);
+  }
+}
+
+async function refreshOwnerSession() {
+  const authHeaders = await getAuthHeaders();
+  if (!authHeaders.Authorization) {
+    ownerSession = null;
+    selectedOwnerModel = '';
+    syncOwnerModelMenu();
+    updateProfileFooterButton();
+    return;
+  }
+  try {
+    const res = await fetch('/api/ai-dla-jezusa/v1/owner/session', {
+      method: 'GET',
+      headers: authHeaders
+    });
+    if (!res.ok) {
+      ownerSession = null;
+      selectedOwnerModel = '';
+    } else {
+      const data = await res.json();
+      if (data?.isOwner) {
+        ownerSession = data;
+        if (!selectedOwnerModel && data.models?.[0]?.id) {
+          selectedOwnerModel = data.models[0].id;
+        }
+      } else {
+        ownerSession = null;
+      }
+    }
+  } catch {
+    ownerSession = null;
+  }
+  syncOwnerModelMenu();
+  updateProfileFooterButton();
+  if (['Umiejętności', 'Połączenia', 'Automatyzacje'].includes(currentNav)) {
+    renderModule(currentNav);
+  }
+}
+
+async function runOwnerAction(payload) {
+  const authHeaders = await getAuthHeaders();
+  if (!authHeaders.Authorization) {
+    showToast('Zaloguj się jako właściciel, aby wykonać tę akcję.');
+    return null;
+  }
+  const res = await fetch('/api/ai-dla-jezusa/v1/owner/action', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...authHeaders },
+    body: JSON.stringify(payload || {})
+  });
+  return res.json();
+}
+
 const DEFAULT_PROJECTS = [
   'Studium Listu do Rzymian',
   'Plan treści – grudzień',
@@ -200,6 +288,8 @@ let attachmentText = '';
 let attachmentMediaUrl = '';
 let attachmentMediaKind = '';
 let busy = false;
+let ownerSession = null;
+let selectedOwnerModel = '';
 let autoReadEnabled = false;
 let activeSpeakingBubble = null;
 let activeAudioEl = null;
@@ -1302,7 +1392,8 @@ async function sendChatMessage(textOverride, titleHint = '') {
     const activeTools = [...selectedTools];
     if (webSearchEnabled) activeTools.push('Przeszukiwanie CC');
 
-    const headers = { 'Content-Type': 'application/json' };
+    const authHeaders = await getAuthHeaders();
+    const headers = { 'Content-Type': 'application/json', ...authHeaders };
     if (byokConfig.provider && byokConfig.apiKey) {
       headers['X-User-AI-Provider'] = byokConfig.provider;
       headers['X-User-AI-Key'] = byokConfig.apiKey;
@@ -1322,6 +1413,7 @@ async function sendChatMessage(textOverride, titleHint = '') {
         tools: activeTools,
         memoryNotes: privateMode ? [] : state.memory.map((m) => m.text),
         privateMode,
+        ownerModel: selectedOwnerModel || '',
         userModel: byokConfig.model || ''
       })
     });
@@ -1712,7 +1804,9 @@ function renderModule(name) {
   }
 
   if (name === 'Połączenia') {
-    sub.textContent = 'Zintegrowane kanały Christian Culture: Radio 24/7, Biblia Audio, YouTube, Spotify, Facebook, WhatsApp, X/CCN i serwer MCP.';
+    sub.textContent = ownerSession?.isOwner
+      ? `Panel integracji właściciela (${ownerSession.email}): pula kluczy AI, YouTube API v3, kanały CC i mostki Antigravity.`
+      : 'Zintegrowane kanały Christian Culture: Radio 24/7, Biblia Audio, YouTube, Spotify, Facebook, WhatsApp, X/CCN i serwer MCP.';
     const wrap = document.createElement('div');
     wrap.className = 'module-stage';
     const loading = document.createElement('p');
@@ -1726,6 +1820,71 @@ function renderModule(name) {
       fetch('/api/ai-dla-jezusa/v1/chat').then((r) => r.json()).catch(() => null)
     ]).then(([health, chatStatus]) => {
       wrap.replaceChildren();
+
+      if (ownerSession?.isOwner) {
+        const banner = document.createElement('div');
+        banner.className = 'owner-banner';
+        const bText = document.createElement('span');
+        bText.textContent = `👑 Konto Właściciela: ${ownerSession.email} · Pula darmowych kluczy Google AI: ${ownerSession.apiPool?.geminiKeys || 0} · YouTube API: ${ownerSession.apiPool?.youtubeApi ? 'Aktywny ✓' : 'Brak'}`;
+        const bBadge = document.createElement('span');
+        bBadge.className = 'owner-badge';
+        bBadge.textContent = 'ANTIGRAVITY + CHMURA';
+        banner.append(bText, bBadge);
+        wrap.appendChild(banner);
+
+        if (ownerSession.apiPool?.youtubeApi) {
+          const ytForm = document.createElement('form');
+          ytForm.className = 'module-search-row';
+          const ytInput = document.createElement('input');
+          ytInput.type = 'search';
+          ytInput.placeholder = 'Wyszukaj dowolny film z YouTube API v3 prosto do czatu...';
+          const ytBtn = document.createElement('button');
+          ytBtn.type = 'submit';
+          ytBtn.className = 'send-gold-btn module-go-btn';
+          ytBtn.textContent = 'Szukaj YouTube';
+          ytForm.append(ytInput, ytBtn);
+
+          const ytOut = document.createElement('div');
+          ytForm.addEventListener('submit', async (ev) => {
+            ev.preventDefault();
+            const q = ytInput.value.trim() || 'Christian Culture';
+            ytOut.replaceChildren();
+            const waitP = document.createElement('p');
+            waitP.className = 'module-empty';
+            waitP.textContent = 'Przeszukuję YouTube Data API v3...';
+            ytOut.appendChild(waitP);
+            const res = await runOwnerAction({ action: 'youtube_search', query: q });
+            ytOut.replaceChildren();
+            if (res?.ok && Array.isArray(res.media) && res.media.length) {
+              const deck = renderMediaDeck(res.media);
+              if (deck) ytOut.appendChild(deck);
+            } else {
+              const errP = document.createElement('p');
+              errP.className = 'module-empty';
+              errP.textContent = res?.detail || 'Brak wyników z YouTube API.';
+              ytOut.appendChild(errP);
+            }
+          });
+          wrap.append(ytForm, ytOut);
+        }
+
+        const intGrid = document.createElement('div');
+        intGrid.className = 'module-grid';
+        for (const intg of ownerSession.integrations || []) {
+          const card = document.createElement('article');
+          card.className = 'module-card';
+          const badge = document.createElement('span');
+          badge.className = `integration-status-pill ${intg.status === 'active' ? 'status-cloud' : intg.status === 'bridge' ? 'status-bridge' : 'status-missing'}`;
+          badge.textContent = intg.status === 'active' ? 'CHMURA · AKTYWNA' : intg.status === 'bridge' ? 'ANTIGRAVITY · MOSTEK PC' : 'DO PODPIĘCIA';
+          const strong = document.createElement('strong');
+          strong.textContent = intg.name;
+          const p = document.createElement('p');
+          p.textContent = intg.detail;
+          card.append(badge, strong, p);
+          intGrid.appendChild(card);
+        }
+        wrap.appendChild(intGrid);
+      }
 
       const hubs = chatStatus?.hubs;
       if (hubs) {
@@ -1772,6 +1931,103 @@ function renderModule(name) {
       }
       wrap.appendChild(box);
     });
+    return;
+  }
+
+  if (name === 'Umiejętności' && ownerSession?.isOwner) {
+    sub.textContent = `Wszystkie ${ownerSession.skills?.length || 18} umiejętności Antigravity Christian Culture odblokowane dla ${ownerSession.email}.`;
+    const grid = document.createElement('div');
+    grid.className = 'module-grid';
+    for (const sk of ownerSession.skills || []) {
+      const card = document.createElement('article');
+      card.className = 'module-card';
+      const tag = document.createElement('span');
+      tag.className = 'skill-tag-pill';
+      tag.textContent = `${sk.tag} · ${sk.runtime === 'cloud' ? 'Chmura' : 'Chmura + PC'}`;
+      const strong = document.createElement('strong');
+      strong.textContent = sk.title;
+      const p = document.createElement('p');
+      p.textContent = sk.desc;
+      const foot = document.createElement('div');
+      foot.className = 'module-card-foot';
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'media-play-btn';
+      btn.textContent = 'Uruchom w czacie →';
+      btn.onclick = () => startPromptDirectly(sk.prompt, `${sk.tag} — ${sk.title}`, sk.mode);
+      foot.appendChild(btn);
+      card.append(tag, strong, p, foot);
+      grid.appendChild(card);
+    }
+    moduleStage.appendChild(grid);
+    return;
+  }
+
+  if (name === 'Automatyzacje' && ownerSession?.isOwner) {
+    sub.textContent = `Automatyzacje właściciela (${ownerSession.email}) — uruchamiane bezpośrednio z aplikacji przez chmurę Christian Culture.`;
+    const outBox = document.createElement('div');
+    outBox.className = 'owner-result-box';
+    outBox.hidden = true;
+
+    const grid = document.createElement('div');
+    grid.className = 'module-grid';
+    for (const auto of ownerSession.automations || []) {
+      const card = document.createElement('article');
+      card.className = 'module-card';
+      const strong = document.createElement('strong');
+      strong.textContent = auto.title;
+      const p = document.createElement('p');
+      p.textContent = auto.desc;
+      const foot = document.createElement('div');
+      foot.className = 'module-card-foot';
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'media-play-btn';
+      btn.textContent = 'Uruchom teraz →';
+      btn.onclick = async () => {
+        if (auto.kind === 'chat_prompt') {
+          startPromptDirectly(auto.prompt, auto.title, auto.mode);
+          return;
+        }
+        if (auto.kind === 'reflection_to_chat') {
+          const pack = await runOwnerAction({ action: 'today_reflection_pack' });
+          if (pack?.prompt) {
+            startPromptDirectly(pack.prompt, `Posty: ${pack.title}`, 'Twórczość CC');
+          } else {
+            showToast('Nie udało się pobrać dzisiejszego rozważania.');
+          }
+          return;
+        }
+        if (auto.kind === 'youtube_preset') {
+          btn.disabled = true;
+          const res = await runOwnerAction({ action: 'youtube_search', query: auto.query || 'Christian Culture' });
+          btn.disabled = false;
+          outBox.replaceChildren();
+          outBox.hidden = false;
+          if (res?.ok && res.media?.length) {
+            const deck = renderMediaDeck(res.media);
+            if (deck) outBox.appendChild(deck);
+          } else {
+            outBox.textContent = res?.detail || 'Brak odpowiedzi z YouTube API.';
+          }
+          return;
+        }
+        btn.disabled = true;
+        const res = await runOwnerAction({ action: 'health_audit' });
+        btn.disabled = false;
+        outBox.replaceChildren();
+        outBox.hidden = false;
+        if (res?.ok && res.summary) {
+          outBox.textContent = `Audyt na żywo (${res.summary.ownerEmail}): Klucze Google AI = ${res.summary.geminiPoolCount}, Ping Gemini 3.5 = HTTP ${res.summary.geminiPingStatus}, YouTube API = ${res.summary.youtubeApiConfigured ? 'OK' : 'Brak'}, Dokumenty RAG = ${res.summary.indexDocuments}.`;
+        } else {
+          outBox.textContent = res?.detail || 'Błąd audytu właściciela.';
+        }
+      };
+      foot.appendChild(btn);
+      card.append(strong, p, foot);
+      grid.appendChild(card);
+    }
+    moduleStage.append(outBox, grid);
     return;
   }
 
@@ -1963,7 +2219,9 @@ function updateProfileFooterButton() {
   const labelSpan = profileBtn.querySelector('span');
   const existingAvatar = profileBtn.querySelector('.footer-avatar');
   if (currentUser && !currentUser.isAnonymous) {
-    const label = currentUser.displayName || currentUser.email || 'Konto LUMINA';
+    const label = ownerSession?.isOwner
+      ? `👑 ${currentUser.displayName || 'Właściciel CC'}`
+      : (currentUser.displayName || currentUser.email || 'Konto LUMINA');
     if (labelSpan) labelSpan.textContent = label;
     if (currentUser.photoURL && !existingAvatar) {
       const img = document.createElement('img');
@@ -1999,6 +2257,7 @@ function handleAuthUpdate(user) {
     else renderModule(currentNav);
   }
   updateProfileFooterButton();
+  refreshOwnerSession();
 }
 
 async function ensureLuminaDb() {
@@ -2040,7 +2299,9 @@ function openSettingsModal() {
   summary.textContent = `Aktywny tryb: ${currentMode} · Tryb prywatny: ${privateMode ? 'Włączony' : 'Wyłączony'} · Wątki: ${state.chats.length} · Notatki: ${state.notes.length} · Pamięć: ${state.memory.length}.`;
 
   const byokIntro = document.createElement('p');
-  byokIntro.textContent = 'Domyślnie korzystasz z darmowych zasobów Christian Culture (0 zł). Jeśli chcesz podpiąć tu także swój własny klucz (OpenRouter, GPT, Gemini, Groq), jest on zapisywany wyłącznie w Twojej przeglądarce:';
+  byokIntro.textContent = ownerSession?.isOwner
+    ? `👑 Konto Właściciela (${ownerSession.email}): Twoja serwerowa pula ${ownerSession.apiPool?.geminiKeys || 0}× bezpłatnych kluczy Google AI (Gemini 3.5 / 3.1) oraz YouTube API v3 są już automatycznie aktywne bez wpisywania kluczy w przeglądarce.`
+    : 'Domyślnie korzystasz z darmowych zasobów Christian Culture (0 zł). Jeśli chcesz podpiąć tu także swój własny klucz (OpenRouter, GPT, Gemini, Groq), jest on zapisywany wyłącznie w Twojej przeglądarce:';
 
   const form = document.createElement('form');
   form.className = 'dialog-form';
@@ -2121,7 +2382,9 @@ function openProfileModal() {
 
   if (currentUser && !currentUser.isAnonymous) {
     const info = document.createElement('p');
-    info.textContent = `Zalogowano jako: ${currentUser.displayName || 'Użytkownik LUMINA'} (${currentUser.email || 'konto Google'}). Twoja historia, notatki, projekty i pamięć są odizolowane dla tego konta.`;
+    info.textContent = ownerSession?.isOwner
+      ? `👑 Zalogowano jako właściciel: ${currentUser.displayName || 'Cezary Rogowski'} (${currentUser.email}). Odblokowano pulę ${ownerSession.apiPool?.geminiKeys || 0}× kluczy Google AI, YouTube API v3, 18 umiejętności Antigravity oraz integracje chmury CC.`
+      : `Zalogowano jako: ${currentUser.displayName || 'Użytkownik LUMINA'} (${currentUser.email || 'konto Google'}). Twoja historia, notatki, projekty i pamięć są odizolowane dla tego konta.`;
 
     const btnRow = document.createElement('div');
     btnRow.className = 'dialog-actions-row';

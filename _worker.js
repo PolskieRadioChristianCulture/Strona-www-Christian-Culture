@@ -1917,7 +1917,7 @@ export default {
       return handleSpiritualSoundsPlaylist(request, env, ctx);
     }
     if (url.pathname.startsWith('/api/ai-dla-jezusa/v1')) {
-      return handleAiDlaJezusaApi(request, env);
+      return handleAiDlaJezusaApi(request, env, { verifyToken: (tok) => verifyFirebaseIdToken(tok) });
     }
     if (url.pathname.startsWith('/api/newsletter')) {
       return handleNewsletterApiRequest(request, env, (tok) => verifyFirebaseIdToken(tok));
