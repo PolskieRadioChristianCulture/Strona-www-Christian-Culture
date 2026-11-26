@@ -3598,7 +3598,7 @@ function openSettingsModal() {
   const byokIntro = document.createElement('p');
   byokIntro.textContent = ownerSession?.isOwner
     ? `👑 Konto Właściciela (${ownerSession.email}): Twoja serwerowa pula ${ownerSession.apiPool?.geminiKeys || 0}× bezpłatnych kluczy Google AI (Gemini 3.5 / 3.1) oraz YouTube API v3 są już automatycznie aktywne bez wpisywania kluczy w przeglądarce.`
-    : 'Domyślnie korzystasz z darmowych zasobów Christian Culture (0 zł). Jeśli chcesz podpiąć tu także swój własny klucz (OpenRouter, GPT, Gemini, Groq), jest on zapisywany wyłącznie w Twojej przeglądarce:';
+    : 'Domyślnie korzystasz z darmowych zasobów Christian Culture (0 zł). Jeśli chcesz podpiąć tu także swój własny klucz (OpenRouter, GPT, Gemini, Groq), jest on trzymany tylko w pamięci tej karty — znika po jej zamknięciu lub odświeżeniu i nigdzie nie jest zapisywany:';
 
   const form = document.createElement('form');
   form.className = 'dialog-form';
