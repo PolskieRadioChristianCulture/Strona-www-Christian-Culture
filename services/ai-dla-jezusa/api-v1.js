@@ -15,11 +15,25 @@ import { handleMcpRequest } from './mcp-server.js';
 import { handleAiChatRequest, handleAiTranscribeRequest } from './chat-service.js';
 import { handleOwnerSessionRequest, handleOwnerActionRequest } from './owner-workspace.js';
 import { handleAiFeedbackPost, handleOwnerFeedbackGet } from './feedback-service.js';
+import { readLimitedText } from './cost-guard.js';
+import { getMcpClientRegistry } from './mcp-client-registry.js';
+import {
+  getCanvaStatus,
+  listCanvaDesigns,
+  buildCanvaManualBrief,
+  createCanvaDraft
+} from './canva-adapter.js';
+import {
+  createTtsSession,
+  getTtsSessionStatus,
+  deleteTtsSession,
+  synthesizeTtsWithSession
+} from './tts-byok-service.js';
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Accept, Authorization, X-Requested-With, X-User-AI-Key, X-User-AI-Provider',
+  'Access-Control-Allow-Methods': 'GET, POST, DELETE, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Accept, Authorization, X-Requested-With, X-User-AI-Key, X-User-AI-Provider, X-TTS-Session-Token, X-Canva-Test-User',
   'Access-Control-Max-Age': '86400'
 };
 
@@ -34,8 +48,21 @@ export async function handleAiDlaJezusaApi(request, env = {}, deps = {}) {
   const url = new URL(request.url);
   const path = url.pathname.replace(/\/+$/, '') || '/';
 
-  const privateApi = ['/chat', '/transcribe', '/feedback', '/owner/session', '/owner/action', '/owner/feedback']
-    .some(suffix => path === '/api/ai-dla-jezusa/v1' + suffix);
+  const privateApi = [
+    '/chat',
+    '/transcribe',
+    '/feedback',
+    '/owner/session',
+    '/owner/action',
+    '/owner/feedback',
+    '/mcp-clients',
+    '/canva/status',
+    '/canva/designs',
+    '/canva/brief',
+    '/canva/draft',
+    '/tts/session',
+    '/tts/synthesize'
+  ].some(suffix => path === '/api/ai-dla-jezusa/v1' + suffix);
   if (privateApi && request.headers.has('Origin') &&
       request.headers.get('Origin') !== url.origin) {
     return Response.json({ ok: false, error: 'origin_not_allowed' }, { status: 403, headers: { 'Cache-Control': 'no-store' } });
@@ -47,9 +74,98 @@ export async function handleAiDlaJezusaApi(request, env = {}, deps = {}) {
     return new Response(null, { status: 204, headers: apiHeaders });
   }
 
+  async function readSafeJson(maxBytes = 16384) {
+    const raw = await readLimitedText(request, maxBytes);
+    if (raw === null) {
+      return { ok: false, status: 413, error: 'payload_too_large' };
+    }
+    if (!raw.trim()) {
+      return { ok: true, data: {} };
+    }
+    try {
+      return { ok: true, data: JSON.parse(raw) };
+    } catch {
+      return { ok: false, status: 400, error: 'invalid_json' };
+    }
+  }
+
+  function privateJson(result) {
+    const status = result?.status || 200;
+    return Response.json(result, {
+      status,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': 'no-store',
+        'X-Content-Type-Options': 'nosniff',
+        ...apiHeaders
+      }
+    });
+  }
+
   // 0. Remote MCP Server (Etap 3): /api/ai-dla-jezusa/v1/mcp
   if (path === '/api/ai-dla-jezusa/v1/mcp' || path.startsWith('/api/ai-dla-jezusa/v1/mcp/')) {
-    return handleMcpRequest(request, env);
+    return handleMcpRequest(request, env, deps);
+  }
+
+  // 0a. MCP Client Connectors Registry + Canva Pilot + TTS BYOK (P2/P3)
+  if (path === '/api/ai-dla-jezusa/v1/mcp-clients' && request.method === 'GET') {
+    return privateJson({ ok: true, status: 200, connectors: getMcpClientRegistry() });
+  }
+
+  if (path === '/api/ai-dla-jezusa/v1/canva/status' && request.method === 'GET') {
+    const userId = request.headers.get('X-Canva-Test-User') || url.searchParams.get('user') || 'test-user-1';
+    return privateJson(getCanvaStatus({ userId, env }));
+  }
+
+  if (path === '/api/ai-dla-jezusa/v1/canva/designs' && request.method === 'GET') {
+    const userId = request.headers.get('X-Canva-Test-User') || url.searchParams.get('user') || 'test-user-1';
+    const query = url.searchParams.get('q') || '';
+    return privateJson(listCanvaDesigns({ userId, query }));
+  }
+
+  if (path === '/api/ai-dla-jezusa/v1/canva/brief' && request.method === 'POST') {
+    const parsed = await readSafeJson(16384);
+    if (!parsed.ok) return privateJson(parsed);
+    return privateJson(buildCanvaManualBrief(parsed.data));
+  }
+
+  if (path === '/api/ai-dla-jezusa/v1/canva/draft' && request.method === 'POST') {
+    const parsed = await readSafeJson(16384);
+    if (!parsed.ok) return privateJson(parsed);
+    const userId = request.headers.get('X-Canva-Test-User') || parsed.data?.userId || 'test-user-1';
+    return privateJson(createCanvaDraft(parsed.data, { userId, env }));
+  }
+
+  if (path === '/api/ai-dla-jezusa/v1/tts/session') {
+    const token = request.headers.get('X-TTS-Session-Token') || url.searchParams.get('token') || '';
+    if (request.method === 'GET') {
+      return privateJson(getTtsSessionStatus(token, deps));
+    }
+    if (request.method === 'POST') {
+      const parsed = await readSafeJson(8192);
+      if (!parsed.ok) return privateJson(parsed);
+      return privateJson(createTtsSession(parsed.data, deps));
+    }
+    if (request.method === 'DELETE') {
+      return privateJson(deleteTtsSession(token, deps));
+    }
+  }
+
+  if (path === '/api/ai-dla-jezusa/v1/tts/synthesize' && request.method === 'POST') {
+    const parsed = await readSafeJson(16384);
+    if (!parsed.ok) return privateJson(parsed);
+    const sessionToken = request.headers.get('X-TTS-Session-Token') || parsed.data?.sessionToken || '';
+    return privateJson(await synthesizeTtsWithSession({
+      ...parsed.data,
+      sessionToken,
+      env,
+      deps
+    }));
+  }
+
+  // 0. Remote MCP Server (Etap 3): /api/ai-dla-jezusa/v1/mcp
+  if (path === '/api/ai-dla-jezusa/v1/mcp' || path.startsWith('/api/ai-dla-jezusa/v1/mcp/')) {
+    return handleMcpRequest(request, env, deps);
   }
 
   // 0b. Rozmowy konwersacyjne + RAG + Transkrypcja mowy:

@@ -160,9 +160,10 @@ test('AI DLA JEZUSA [Etap 3]: Remote MCP Server protocol & tool execution', asyn
   const listData = await resList.json();
   const tools = listData.result.tools;
   assert.ok(Array.isArray(tools));
-  assert.equal(tools.length, 5);
+  assert.ok(tools.length >= 6);
   const toolNames = tools.map(t => t.name);
   assert.ok(toolNames.includes('cc_search'));
+  assert.ok(toolNames.includes('cc_get_source'));
   assert.ok(toolNames.includes('cc_get_document'));
   assert.ok(toolNames.includes('cc_find_scripture'));
   assert.ok(toolNames.includes('cc_topics'));

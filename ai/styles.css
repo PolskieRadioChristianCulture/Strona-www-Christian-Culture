@@ -2800,6 +2800,43 @@ body.ambient-bg-off .main-workspace {
   min-height: 40px;
 }
 
+.speech-controls-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 9px 11px;
+  border-radius: 10px;
+  background: #141414;
+  border: 1px solid rgba(230, 184, 76, 0.28);
+}
+
+.speech-ctrl-btn,
+.speech-voice-select {
+  min-height: 36px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: #1d1d1d;
+  border: 1px solid #303030;
+  color: #eceae4;
+  font-size: 12.5px;
+}
+
+.speech-ctrl-btn:hover {
+  background: #272727;
+  border-color: rgba(230, 184, 76, 0.45);
+}
+
+.speech-voice-select {
+  max-width: 230px;
+}
+
+.speech-status-note {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
 .opinion-stars {
   display: flex;
   align-items: center;
@@ -4365,6 +4402,8 @@ body.ambient-bg-off .main-workspace {
   .badge-model-opt,
   .quick-reply-btn,
   .msg-action-btn,
+  .speech-ctrl-btn,
+  .speech-voice-select,
   .nav-more-toggle,
   .voice-chat-pill {
     min-height: 44px;
@@ -4974,5 +5013,130 @@ body.ambient-bg-off .main-workspace {
 
   .composer-box.is-dictating {
     animation-duration: 3.4s;
+  }
+}
+
+/* =========================================================================
+   P2a / P2b / P3 — Calendar Scope, TTS BYOK Settings & Canva Pilot UI
+   ========================================================================= */
+
+.calendar-scope-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.calendar-scope-btn {
+  flex: 1 1 220px;
+  min-height: 44px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-soft, #cbd5e1);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+}
+
+.calendar-scope-btn.is-active {
+  border-color: rgba(196, 163, 90, 0.72);
+  background: rgba(196, 163, 90, 0.15);
+  color: #f8fafc;
+}
+
+.calendar-ccmc-box {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(196, 163, 90, 0.35);
+  background: rgba(196, 163, 90, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tts-byok-status,
+.canva-pilot-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(196, 163, 90, 0.14);
+  border: 1px solid rgba(196, 163, 90, 0.36);
+  color: #f4e6c1;
+}
+
+.tts-byok-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.tts-byok-actions > button {
+  min-height: 44px;
+}
+
+.canva-pilot-card {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.canva-pilot-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.canva-pilot-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.canva-design-chip {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.canva-preview-box {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px dashed rgba(255, 122, 0, 0.55);
+  background: rgba(255, 122, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.canva-brief-output {
+  width: 100%;
+  min-height: 92px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+}
+
+@media (max-width: 960px) {
+  .calendar-scope-btn,
+  .canva-pilot-row > button,
+  .canva-pilot-row > a,
+  .canva-pilot-row > select,
+  .canva-pilot-row > input {
+    min-height: 44px;
   }
 }

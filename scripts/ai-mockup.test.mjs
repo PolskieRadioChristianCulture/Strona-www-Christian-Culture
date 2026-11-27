@@ -12,6 +12,12 @@ import {
   renderJomaFeedbackDigest,
   scrubForJoma
 } from './sync-ai-feedback-joma.mjs';
+import { resetCanvaMockStateForTest } from '../services/ai-dla-jezusa/canva-adapter.js';
+import {
+  resetTtsSessionsForTest,
+  scrubTelemetryPayload,
+  SAMPLE_PSALM_23_TEXT
+} from '../services/ai-dla-jezusa/tts-byok-service.js';
 
 const ROOT = process.cwd();
 
@@ -209,8 +215,8 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261127_ai36_flyout_bg/);
-  assert.match(html, /\/ai\/app\.js\?v=20261127_ai36_flyout_bg/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261127_ai38_briefing_complete/);
+  assert.match(html, /\/ai\/app\.js\?v=20261127_ai38_briefing_complete/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
@@ -1170,4 +1176,430 @@ test('AI dla Jezusa collapses desktop sidebars into compact icon rails like Chat
   assert.match(appJs, /ambientBgColor/);
   assert.match(appJs, /railHoverPreview/);
   assert.match(appJs, /#ambientBgToggle|#railHoverToggle|ambientBgToggle/);
+});
+
+test('P0/P1 pilot: /test/ai/ parity, CC MCP visibility + Rzymian + cc_get_source + kill-switch, and P1b speech controls', async () => {
+  const worker = fs.readFileSync(path.join(ROOT, '_worker.js'), 'utf8');
+  const redirects = fs.readFileSync(path.join(ROOT, '_redirects'), 'utf8');
+  const headers = fs.readFileSync(path.join(ROOT, '_headers'), 'utf8');
+  const testHtml = fs.readFileSync(path.join(ROOT, 'test/ai/index.html'), 'utf8');
+  const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
+
+  // 1. /test/ai/ serves same code with noindex + isolated storage prefix
+  assert.match(worker, /isTestAiRoute/);
+  assert.match(worker, /cc-ai-env/);
+  assert.match(redirects, /^\/test\/ai\s+\/ai\/index\.html\s+200$/m);
+  assert.match(headers, /^\/test\/ai\r?\n\s+X-Robots-Tag:\s*noindex,\s*nofollow/m);
+  assert.match(testHtml, /<meta name="robots" content="noindex, nofollow">/);
+  assert.doesNotMatch(testHtml, /rel="canonical"/);
+  assert.match(appJs, /cc_ai_test_v1/);
+
+  // 2. P1a CC MCP: Studium Listu do Rzymian + visibility guard (even when cached) + cc_get_source + Rz 8:28 bridge + kill-switch
+  const { setCanonicalDocumentsForTest } = await import('../services/ai-dla-jezusa/knowledge-hub.js');
+
+  const rzSearchRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/mcp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        id: 101,
+        method: 'tools/call',
+        params: { name: 'cc_search', arguments: { query: 'Studium Listu do Rzymian', limit: 3 } }
+      })
+    }),
+    {}
+  );
+  assert.equal(rzSearchRes.status, 200);
+  const rzPayload = JSON.parse((await rzSearchRes.json()).result.content[0].text);
+  assert.ok(rzPayload.total > 0);
+  assert.match(rzPayload.results[0].title, /Rzymian/i);
+
+  // Private & withdrawn items must never leak through cc_search or cc_get_source
+  setCanonicalDocumentsForTest([
+    { title: 'Publiczny Rzymian', url: '/prawo/rzymian-public', description: 'Publiczny opis', visibility: 'public', status: 'published' },
+    { title: 'Prywatny Rzymian', url: '/private/rzymian-secret', description: 'Sekret', visibility: 'private', status: 'published' },
+    { title: 'Wycofany Rzymian', url: '/art/rzymian-withdrawn', description: 'Wycofany', visibility: 'public', status: 'withdrawn' }
+  ]);
+  try {
+    const filteredRes = await handleAiDlaJezusaApi(
+      new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/mcp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ jsonrpc: '2.0', id: 102, method: 'tools/call', params: { name: 'cc_search', arguments: { query: 'Rzymian', limit: 5 } } })
+      })
+    );
+    const filteredData = JSON.parse((await filteredRes.json()).result.content[0].text);
+    assert.equal(filteredData.total, 1);
+    assert.equal(filteredData.results[0].title, 'Publiczny Rzymian');
+
+    const privSourceRes = await handleAiDlaJezusaApi(
+      new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/mcp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ jsonrpc: '2.0', id: 103, method: 'tools/call', params: { name: 'cc_get_source', arguments: { id: 'cc:page:private-rzymian-secret' } } })
+      })
+    );
+    const privSourceData = JSON.parse((await privSourceRes.json()).result.content[0].text);
+    assert.equal(privSourceData.found, false);
+  } finally {
+    setCanonicalDocumentsForTest(null);
+  }
+
+  // Rz 8:28 via mojabiblia-bridge mock + Biblia Audio link
+  const bridgeScriptureRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/mcp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ jsonrpc: '2.0', id: 104, method: 'tools/call', params: { name: 'cc_find_scripture', arguments: { reference: 'Rz 8:28' } } })
+    }),
+    {},
+    {
+      fetchAsset: async (assetPath) => {
+        if (assetPath.includes('ROM_08.json')) {
+          return { verses: [{ verse: 28, text: { UBG: 'A wiemy, że tym, którzy miłują Boga, wszystko współdziała ku dobremu...' }, interlinear: [] }] };
+        }
+        return null;
+      }
+    }
+  );
+  const bridgePayload = JSON.parse((await bridgeScriptureRes.json()).result.content[0].text);
+  assert.equal(bridgePayload.found, true);
+  assert.match(bridgePayload.scripture.text, /miłują Boga/);
+  assert.match(bridgePayload.scripture.biblia_audio_url, /polskieradio\.cc\/biblia-audio/);
+
+  // Kill-switch disables MCP (503) while /search still returns 200
+  const disabledMcp = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/mcp', { method: 'GET' }),
+    { AI_MCP_ENABLED: 'false' }
+  );
+  assert.equal(disabledMcp.status, 503);
+  const classicSearch = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/search?q=Rzymian', { method: 'GET' }),
+    { AI_MCP_ENABLED: 'false' }
+  );
+  assert.equal(classicSearch.status, 200);
+
+  // 3. P1b system speech controls + private-mode local-only guard
+  assert.match(appJs, /speech-controls-bar/);
+  assert.match(appJs, /splitSpeechChunks/);
+  assert.match(appJs, /pickSystemPlVoice/);
+  assert.match(appJs, /localService === true/);
+  assert.match(appJs, /speechRate/);
+  assert.match(appJs, /speechVoiceUri/);
+
+  // 4. Export .txt, Calendar scope distinction, TTS BYOK UI & Canva pilot UI markers
+  const testIndexHtml = fs.readFileSync(path.join(ROOT, 'test/ai/index.html'), 'utf8');
+  assert.match(testIndexHtml, /\/ai\/styles\.css\?v=20261127_ai38_briefing_complete/);
+  assert.match(testIndexHtml, /\/ai\/app\.js\?v=20261127_ai38_briefing_complete/);
+  assert.match(appJs, /export_txt/);
+  assert.match(appJs, /Eksportuj \.txt/);
+  assert.match(appJs, /calendar-scope-switch/);
+  assert.match(appJs, /polskieradio\.cc\/ccMC/);
+  assert.match(appJs, /buildTtsByokSettingsSection/);
+  assert.match(appJs, /buildCanvaPilotCard/);
+});
+
+test('P2a & P3 Canva MCP Mock enforces 2-account isolation, manual brief, untrusted-source block, capability gating, preview & idempotency', async () => {
+  resetCanvaMockStateForTest();
+
+  const originHeaders = {
+    Origin: 'https://polskieradio.cc',
+    'Content-Type': 'application/json'
+  };
+
+  // Registry & fixed endpoint
+  const regRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/mcp-clients', {
+      method: 'GET',
+      headers: { Origin: 'https://polskieradio.cc' }
+    })
+  );
+  assert.equal(regRes.status, 200);
+  const regData = await regRes.json();
+  const canvaConn = regData.connectors.find(c => c.id === 'canva');
+  assert.equal(canvaConn.endpoint, 'https://mcp.canva.com/mcp');
+  assert.equal(canvaConn.activeMode, 'mock');
+
+  // Status + gated capabilities
+  const statusRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/canva/status', {
+      method: 'GET',
+      headers: { Origin: 'https://polskieradio.cc', 'X-Canva-Test-User': 'test-user-1' }
+    })
+  );
+  const statusData = await statusRes.json();
+  assert.equal(statusData.mode, 'mock');
+  assert.equal(statusData.accounts.length, 2);
+  assert.equal(statusData.pilotTitle, 'AI dla Jezusa — Karta Pilota 2026');
+  assert.ok(statusData.disabledCapabilities.includes('brand_kit'));
+  assert.ok(statusData.disabledCapabilities.includes('autofill'));
+  assert.ok(statusData.disabledCapabilities.includes('resize'));
+
+  // Account isolation on design list
+  const listU1 = await (await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/canva/designs', {
+      method: 'GET',
+      headers: { Origin: 'https://polskieradio.cc', 'X-Canva-Test-User': 'test-user-1' }
+    })
+  )).json();
+  const listU2 = await (await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/canva/designs', {
+      method: 'GET',
+      headers: { Origin: 'https://polskieradio.cc', 'X-Canva-Test-User': 'test-user-2' }
+    })
+  )).json();
+  assert.ok(listU1.designs.every(d => d.ownerUserId === 'test-user-1'));
+  assert.ok(listU2.designs.every(d => d.ownerUserId === 'test-user-2'));
+
+  // Manual brief + "Otwórz w Canva"
+  const briefRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/canva/brief', {
+      method: 'POST',
+      headers: originHeaders,
+      body: JSON.stringify({
+        title: 'AI dla Jezusa — Karta Pilota 2026',
+        formatKey: 'instagram-post',
+        format: 'Instagram Post 1080×1350',
+        copy: 'Pan jest pasterzem moim (Ps 23,1)'
+      })
+    })
+  );
+  const briefData = await briefRes.json();
+  assert.equal(briefRes.status, 200);
+  assert.match(briefData.brief.openInCanvaUrl, /^https:\/\/www\.canva\.com\/create\//);
+  assert.match(briefData.brief.formattedBrief, /Pan jest pasterzem moim/);
+
+  // Block untrusted sources (prompt-injection protection)
+  for (const blockedSource of ['search_result', 'document_content']) {
+    const blockedRes = await handleAiDlaJezusaApi(
+      new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/canva/draft', {
+        method: 'POST',
+        headers: { ...originHeaders, 'X-Canva-Test-User': 'test-user-1' },
+        body: JSON.stringify({
+          title: 'Zablokowany szkic',
+          copy: 'Tekst',
+          source: blockedSource,
+          previewApproved: true,
+          userConfirmed: true,
+          idempotencyKey: 'k-block'
+        })
+      })
+    );
+    assert.equal(blockedRes.status, 403);
+  }
+
+  // Block gated capabilities
+  const gatedRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/canva/draft', {
+      method: 'POST',
+      headers: { ...originHeaders, 'X-Canva-Test-User': 'test-user-1' },
+      body: JSON.stringify({
+        title: 'Brand kit test',
+        copy: 'Tekst',
+        action: 'brand_kit',
+        previewApproved: true,
+        userConfirmed: true,
+        idempotencyKey: 'k-gated'
+      })
+    })
+  );
+  assert.equal(gatedRes.status, 403);
+
+  // Step 1: preview does not mutate state
+  const previewRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/canva/draft', {
+      method: 'POST',
+      headers: { ...originHeaders, 'X-Canva-Test-User': 'test-user-1' },
+      body: JSON.stringify({
+        stage: 'preview',
+        title: 'Nowy szkic pilota',
+        format: 'Instagram Post 1080×1350',
+        copy: 'Łaska i pokój od Boga Ojca'
+      })
+    })
+  );
+  const previewData = await previewRes.json();
+  assert.equal(previewRes.status, 200);
+  assert.equal(previewData.stage, 'preview');
+  assert.equal(previewData.requiresConfirmation, true);
+
+  // Step 2: confirmed write requires idempotencyKey and deduplicates repeats
+  const createPayload = {
+    title: 'Nowy szkic pilota',
+    format: 'Instagram Post 1080×1350',
+    copy: 'Łaska i pokój od Boga Ojca',
+    previewApproved: true,
+    userConfirmed: true,
+    idempotencyKey: 'idem-u1-001'
+  };
+  const createRes1 = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/canva/draft', {
+      method: 'POST',
+      headers: { ...originHeaders, 'X-Canva-Test-User': 'test-user-1' },
+      body: JSON.stringify(createPayload)
+    })
+  );
+  const createData1 = await createRes1.json();
+  assert.equal(createRes1.status, 201);
+  assert.equal(createData1.deduplicated, false);
+
+  const createRes2 = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/canva/draft', {
+      method: 'POST',
+      headers: { ...originHeaders, 'X-Canva-Test-User': 'test-user-1' },
+      body: JSON.stringify(createPayload)
+    })
+  );
+  const createData2 = await createRes2.json();
+  assert.equal(createRes2.status, 200);
+  assert.equal(createData2.deduplicated, true);
+  assert.equal(createData2.draft.id, createData1.draft.id);
+
+  // Account 2 must NOT see Account 1 draft
+  const listU2After = await (await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/canva/designs', {
+      method: 'GET',
+      headers: { Origin: 'https://polskieradio.cc', 'X-Canva-Test-User': 'test-user-2' }
+    })
+  )).json();
+  assert.equal(listU2After.designs.some(d => d.id === createData1.draft.id), false);
+});
+
+test('P2b TTS BYOK enforces 15m TTL, fixed endpoints, zero retries, secret redaction, sample/full char caps & system fallback', async () => {
+  resetTtsSessionsForTest();
+  let fakeNow = 1_700_000_000_000;
+  const depsClock = { now: () => fakeNow };
+
+  const originHeaders = {
+    Origin: 'https://polskieradio.cc',
+    'Content-Type': 'application/json'
+  };
+
+  // Custom endpoint rejected
+  const customUrlRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/tts/session', {
+      method: 'POST',
+      headers: originHeaders,
+      body: JSON.stringify({ provider: 'elevenlabs', apiKey: 'mock_valid_1234', endpoint: 'https://evil.example' })
+    }),
+    {},
+    depsClock
+  );
+  assert.equal(customUrlRes.status, 400);
+
+  // Create ElevenLabs mock session (no apiKey echoed back!)
+  const createRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/tts/session', {
+      method: 'POST',
+      headers: originHeaders,
+      body: JSON.stringify({ provider: 'elevenlabs', apiKey: 'mock_key_eleven_999' })
+    }),
+    {},
+    depsClock
+  );
+  const sessionData = await createRes.json();
+  assert.equal(createRes.status, 201);
+  assert.equal(sessionData.ttlSeconds, 900);
+  assert.equal(JSON.stringify(sessionData).includes('mock_key_eleven_999'), false);
+
+  // Psalm 23 sample succeeds in mock mode (0 cost)
+  const sampleRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/tts/synthesize', {
+      method: 'POST',
+      headers: { ...originHeaders, 'X-TTS-Session-Token': sessionData.sessionToken },
+      body: JSON.stringify({ text: SAMPLE_PSALM_23_TEXT, isSample: true })
+    }),
+    {},
+    depsClock
+  );
+  const sampleData = await sampleRes.json();
+  assert.equal(sampleRes.status, 200);
+  assert.equal(sampleData.mode, 'mock');
+  assert.equal(sampleData.mimeType, 'audio/wav');
+  assert.ok(sampleData.audioBase64.length > 20);
+
+  // Sample > 280 chars rejected; full > 2500 chars rejected
+  const longSampleRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/tts/synthesize', {
+      method: 'POST',
+      headers: { ...originHeaders, 'X-TTS-Session-Token': sessionData.sessionToken },
+      body: JSON.stringify({ text: 'A'.repeat(281), isSample: true })
+    }),
+    {},
+    depsClock
+  );
+  assert.equal(longSampleRes.status, 400);
+
+  const longFullRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/tts/synthesize', {
+      method: 'POST',
+      headers: { ...originHeaders, 'X-TTS-Session-Token': sessionData.sessionToken },
+      body: JSON.stringify({ text: 'A'.repeat(2501), isSample: false })
+    }),
+    {},
+    depsClock
+  );
+  assert.equal(longFullRes.status, 400);
+
+  // Zero retries + fallbackToSystem on upstream 429 using Gemini mock fetch
+  let fetchCalls = 0;
+  const geminiSess = await (await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/tts/session', {
+      method: 'POST',
+      headers: originHeaders,
+      body: JSON.stringify({ provider: 'gemini', apiKey: 'AIzaSyFakeTestKey123456' })
+    }),
+    {},
+    {
+      ...depsClock,
+      fetch: async () => new Response('{}', { status: 429 })
+    }
+  )).json();
+
+  const fail429 = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/tts/synthesize', {
+      method: 'POST',
+      headers: { ...originHeaders, 'X-TTS-Session-Token': geminiSess.sessionToken },
+      body: JSON.stringify({ text: 'Psalm 23 test', isSample: true })
+    }),
+    {},
+    {
+      ...depsClock,
+      fetch: async (target) => {
+        fetchCalls += 1;
+        assert.match(String(target), /^https:\/\/generativelanguage\.googleapis\.com\/v1beta\/models\//);
+        return new Response('{}', { status: 429 });
+      }
+    }
+  );
+  const failData = await fail429.json();
+  assert.equal(fail429.status, 429);
+  assert.equal(failData.fallbackToSystem, true);
+  assert.equal(fetchCalls, 1, 'BYOK TTS must never auto-retry on failure');
+
+  // Session expires after 15 minutes
+  fakeNow += 15 * 60 * 1000 + 1000;
+  const expiredRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/tts/synthesize', {
+      method: 'POST',
+      headers: { ...originHeaders, 'X-TTS-Session-Token': sessionData.sessionToken },
+      body: JSON.stringify({ text: 'Test po czasie', isSample: true })
+    }),
+    {},
+    depsClock
+  );
+  assert.equal(expiredRes.status, 401);
+  assert.equal((await expiredRes.json()).fallbackToSystem, true);
+
+  // Telemetry scrubbing redacts secrets
+  const scrubbed = scrubTelemetryPayload({
+    apiKey: 'secret123',
+    sessionToken: 'tts_abc',
+    nested: { 'xi-api-key': 'sk_test_12345678901234', note: 'key AIzaSyTestKeySecret1234567890' }
+  });
+  assert.equal(scrubbed.apiKey, '[REDACTED]');
+  assert.equal(scrubbed.sessionToken, '[REDACTED]');
+  assert.equal(scrubbed.nested['xi-api-key'], '[REDACTED]');
+  assert.doesNotMatch(JSON.stringify(scrubbed), /secret123|sk_test_|AIzaSyTestKeySecret/);
 });

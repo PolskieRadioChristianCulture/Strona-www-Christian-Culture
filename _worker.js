@@ -2455,21 +2455,47 @@ export default {
       redirectUrl.search = url.search;
       return Response.redirect(redirectUrl.toString(), 302);
     }
-    if ((decodedP === '/test/ai' && url.hostname.endsWith('.polskieradio.pages.dev')) || decodedP === '/ai' || decodedP === '/ai/index.html' || decodedP === '/ai/aplikacja' || decodedP === '/ai/aplikacja/index.html') {
+    const isTestAiRoute =
+      decodedP === '/test/ai' ||
+      decodedP === '/test/ai/' ||
+      decodedP === '/test/ai/index.html';
+    const isProdAiRoute =
+      decodedP === '/ai' ||
+      decodedP === '/ai/index.html' ||
+      decodedP === '/ai/aplikacja' ||
+      decodedP === '/ai/aplikacja/index.html';
+    if (isTestAiRoute || isProdAiRoute) {
       const targetUrl = new URL(request.url);
       targetUrl.pathname = '/ai/';
       const assetRes = await env.ASSETS.fetch(new Request(targetUrl, request));
-      const res = new Response(assetRes.body, assetRes);
-      res.headers.set('Cache-Control', 'public, max-age=0, must-revalidate');
-      res.headers.set('X-Robots-Tag', 'index, follow, max-image-preview:large');
-      res.headers.set('Link', '<https://polskieradio.cc/ai/aplikacja>; rel="canonical"');
-      if (url.hostname.endsWith('.polskieradio.pages.dev')) {
-        res.headers.set('X-Robots-Tag', 'noindex, nofollow');
-        res.headers.set('Cache-Control', 'no-store');
+      const isPreviewHost = url.hostname.endsWith('.polskieradio.pages.dev');
+      let body = assetRes.body;
+      const headers = new Headers(assetRes.headers);
+      if (isTestAiRoute) {
+        const html = await assetRes.text();
+        body = html
+          .replace(
+            /<meta name="robots" content="[^"]*">/i,
+            '<meta name="robots" content="noindex, nofollow">'
+          )
+          .replace(/<link rel="canonical"[^>]*>\s*/i, '')
+          .replace('</head>', '  <meta name="cc-ai-env" content="test">\n</head>');
+        headers.delete('Content-Length');
+        headers.set('X-Robots-Tag', 'noindex, nofollow');
+        headers.set('Cache-Control', 'no-store');
+        headers.delete('Link');
+      } else {
+        headers.set('Cache-Control', 'public, max-age=0, must-revalidate');
+        headers.set('X-Robots-Tag', 'index, follow, max-image-preview:large');
+        headers.set('Link', '<https://polskieradio.cc/ai/aplikacja>; rel="canonical"');
+        if (isPreviewHost) {
+          headers.set('X-Robots-Tag', 'noindex, nofollow');
+          headers.set('Cache-Control', 'no-store');
+        }
       }
-      res.headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com https://accounts.google.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.googleapis.com https://*.firebaseapp.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; img-src 'self' data: blob: https:; media-src 'self' blob: https:; frame-src https://*.firebaseapp.com https://accounts.google.com https://www.youtube-nocookie.com https://www.youtube.com https://open.spotify.com; worker-src 'self' blob:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'");
-      res.headers.set('Permissions-Policy', 'camera=(), microphone=(self), geolocation=()');
-      return res;
+      headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com https://accounts.google.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.googleapis.com https://*.firebaseapp.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; img-src 'self' data: blob: https:; media-src 'self' blob: https:; frame-src https://*.firebaseapp.com https://accounts.google.com https://www.youtube-nocookie.com https://www.youtube.com https://open.spotify.com; worker-src 'self' blob:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'");
+      headers.set('Permissions-Policy', 'camera=(), microphone=(self), geolocation=()');
+      return new Response(body, { status: assetRes.status, statusText: assetRes.statusText, headers });
     }
 
     

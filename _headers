@@ -404,6 +404,15 @@
   X-Robots-Tag: noindex, nofollow, noarchive
   Cache-Control: no-cache, no-store, must-revalidate
 
+# Środowisko testowe „AI dla Jezusa” — ten sam kod z noindex i bez cache
+/test/ai
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
+
+/test/ai/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
+
 # Wiadomość z Nieba — produkcja (zawsze świeży odczyt danych i strony)
 /wiadomosc-z-nieba/
   Cache-Control: public, max-age=0, must-revalidate

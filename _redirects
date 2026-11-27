@@ -763,6 +763,8 @@
 /ai/aplikacja/ /ai/index.html 200
 /ai/podglad /ai/aplikacja 302
 /ai/podglad/ /ai/aplikacja 302
+/test/ai /ai/index.html 200
+/test/ai/ /ai/index.html 200
 /sztucznainteligencja /si 301
 /sztuczna-inteligencja /si 301
 /synthetic-intelligence /si 301
