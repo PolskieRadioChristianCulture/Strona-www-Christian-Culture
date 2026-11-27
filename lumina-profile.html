@@ -3858,7 +3858,7 @@
                                 <span id="chatHeaderUnreadBadge" style="display:none; align-items:center; gap:4px; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.4); color:#fca5a5; font-size:0.72rem; font-weight:800; padding:2px 8px; border-radius:10px; line-height:1.2;"></span>
                             </div>
                             <div class="chat-header-sub">
-                                <span></span> Na żywo w Chrystusie ✨
+                                <span></span> Na żywo w Chrystusie
                             </div>
                         </div>
                     </div>
@@ -9299,7 +9299,6 @@ function renderPublicChatMessages(messages) {
                              style="max-width:75%; padding:10px 14px; border-radius:${radius}; background:${bg}; color:${color}; font-size:0.86rem; line-height:1.45; position:relative; -webkit-touch-callout:none;">
                             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px; gap:8px;">
                                 <span style="font-weight:800; font-size:0.75rem; color:${isMe ? '#fdf4ff' : '#c4b5fd'}; cursor:pointer;" onclick="${senderAction}">${escapeHtml(isMe ? ('Ty' + (msg.senderName ? ' (' + msg.senderName + ')' : '')) : (msg.senderName || 'Użytkownik'))}</span>
-                                ${(msg.senderBadge ? "<span style=\"font-size:0.65rem; background:rgba(0,0,0,0.25); padding:1px 6px; border-radius:8px; color:#fde047;\">" + escapeHtml(msg.senderBadge) + "</span>" : "")}
                             </div>
                             ${quoteHtml}
                             <div class="lumina-msg-text-body" style="word-break:break-word;">${renderChatMedia(escapeHtml(msg.text), msg.id)}</div>
@@ -9941,9 +9940,7 @@ function renderPublicChatMessages(messages) {
             const senderName = myProfile?.name || myUser?.name || currentProf?.name || localStorage.getItem('lumina_current_user_name') || 'Gość LUMINA';
             const senderAvatar = myProfile?.avatar || myUser?.avatar || currentProf?.avatar || 'lumina_icon.jpg';
             
-            let senderBadge = '✨ Społeczność';
-            if (senderId === 'cezaryrgowski') senderBadge = '✨ Założyciel';
-            else if (senderId === 'wiolettarogowska') senderBadge = '🌸 Liderka CC';
+            let senderBadge = '';
 
             const quotePayload = window._currentPublicChatQuote ? {
                 replyToMessageId: window._currentPublicChatQuote.messageId,

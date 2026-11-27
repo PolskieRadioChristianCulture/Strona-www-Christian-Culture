@@ -66,7 +66,8 @@ test('Markup across all Lumina surfaces contains clean semantic header structure
     assert.ok(html.includes('class="chat-header-brand"'), `${surface} missing chat-header-brand`);
     assert.ok(html.includes('class="chat-header-titles"'), `${surface} missing chat-header-titles`);
     assert.ok(html.includes('<h3>LUMI Messenger</h3>'), `${surface} missing h3 LUMI Messenger`);
-    assert.ok(html.includes('Na żywo w Chrystusie ✨'), `${surface} missing Na żywo w Chrystusie subtitle`);
+    assert.ok(html.includes('Na żywo w Chrystusie'), `${surface} missing Na żywo w Chrystusie subtitle`);
+    assert.ok(!html.includes('Na żywo w Chrystusie ✨'), `${surface} should not show sparkles next to Na żywo w Chrystusie`);
     assert.ok(html.includes('id="btnChatSettingsModal"'), `${surface} missing btnChatSettingsModal`);
     assert.ok(html.includes('id="btnChatFullscreen"'), `${surface} missing btnChatFullscreen`);
     assert.ok(html.includes('chat-close-btn'), `${surface} missing chat-close-btn`);
@@ -89,7 +90,7 @@ test('Header DOM hierarchy and widths 320, 375, 430, 600, 900 mount successfully
                 <div class="chat-header-logo-icon"><i></i></div>
                 <div class="chat-header-titles">
                   <h3>LUMI Messenger</h3>
-                  <div class="chat-header-sub"><span></span> Na żywo w Chrystusie ✨</div>
+                  <div class="chat-header-sub"><span></span> Na żywo w Chrystusie</div>
                 </div>
               </div>
               <div class="chat-header-actions">

@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 <style>html.cc-mess-embedded #lumiLanding,html.cc-mess-embedded #lumiIntroOverlay{display:none!important}</style>
 <link rel="stylesheet" href="/css/lumi-standalone.css?v=20261112_message_menu">
-<link rel="stylesheet" href="/css/lumi-messenger-design.css?v=20261127_light_contrast_v3">
+<link rel="stylesheet" href="/css/lumi-messenger-design.css?v=20261127_light_contrast_v4">
 <link rel="stylesheet" href="/css/cc-assistant.css?v=20261127_mobile_layout">
 ${assistantScript.replace(/cc-assistant\.js[^"]*/, 'cc-assistant.js?v=20261127_mobile_layout')}
 <script defer src="/js/lumi-standalone.js?v=20261127_compact_theme"></script>

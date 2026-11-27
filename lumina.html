@@ -5493,7 +5493,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                                 <span id="chatHeaderUnreadBadge" style="display:none; align-items:center; gap:4px; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.4); color:#fca5a5; font-size:0.72rem; font-weight:800; padding:2px 8px; border-radius:10px; line-height:1.2;"></span>
                             </div>
                             <div class="chat-header-sub">
-                                <span></span> Na żywo w Chrystusie ✨
+                                <span></span> Na żywo w Chrystusie
                             </div>
                         </div>
                     </div>
@@ -11674,7 +11674,6 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                              style="max-width:75%; padding:10px 14px; border-radius:${radius}; background:${bg}; color:${color}; font-size:0.86rem; line-height:1.45; position:relative; -webkit-touch-callout:none;">
                             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px; gap:8px;">
                                 <span style="font-weight:800; font-size:0.75rem; color:${isMe ? '#fdf4ff' : '#c4b5fd'}; cursor:pointer;" onclick="${senderAction}">${escapeHtml(isMe ? ('Ty' + (msg.senderName ? ' (' + msg.senderName + ')' : '')) : (msg.senderName || 'Użytkownik'))}</span>
-                                ${(msg.senderBadge ? "<span style=\"font-size:0.65rem; background:rgba(0,0,0,0.25); padding:1px 6px; border-radius:8px; color:#fde047;\">" + escapeHtml(msg.senderBadge) + "</span>" : "")}
                             </div>
                             ${quoteHtml}
                             <div class="lumina-msg-text-body" style="word-break:break-word;">${renderChatMedia(escapeHtml(msg.text), msg.id)}</div>
@@ -12461,7 +12460,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                     senderId: fromId,
                     senderName: myProfile?.name || myUser?.displayName || (fromId === 'cezaryrgowski' ? 'Cezary Rogowski' : (fromId === 'wiolettarogowska' ? 'Wioletta Rogowska' : 'Użytkownik LUMINA')),
                     senderAvatar: myProfile?.avatar || myUser?.photoURL || (fromId === 'cezaryrgowski' ? 'avatar_cezary_official.jpg' : (fromId === 'wiolettarogowska' ? 'avatar_wioletta_official.jpg' : 'lumina_icon.jpg')),
-                    senderBadge: (fromId === 'cezaryrgowski' ? '✨ Założyciel' : (fromId === 'wiolettarogowska' ? '🌸 Liderka CC' : '✨ Społeczność')),
+                    senderBadge: '',
                     text: text,
                     ...quotePayload
                 });
