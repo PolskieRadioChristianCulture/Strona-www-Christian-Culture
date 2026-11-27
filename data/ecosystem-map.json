@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-27",
+      "topic": "AI dla Jezusa (/ai/aplikacja, /test/ai/) — Canva Connect API OAuth 2.0 + PKCE (S256) z szyfrowanymi sesjami D1 (0003_canva_oauth.sql), obsługą UI i fallbackiem mock",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-27",
       "topic": "AI dla Jezusa (/ai/aplikacja, /test/ai/) — ujednolicenie /test/ai/, CC MCP Hub (cc_get_source, MojaBiblia, kill-switch), pasek głosu systemowego, Canva MCP Pilot (mock + brief + P3), TTS BYOK 15 min, eksport .txt oraz rozdzielenie kalendarza ccMC",
       "agent": "A"
     },
