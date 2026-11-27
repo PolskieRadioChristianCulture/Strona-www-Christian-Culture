@@ -22,6 +22,8 @@ jobs:
     steps:
       - name: Pobierz kod
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Ustaw Node.js
         uses: actions/setup-node@v5

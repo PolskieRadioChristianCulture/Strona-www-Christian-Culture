@@ -107,6 +107,11 @@ test('próba nic nie zapisuje', async () => {
 test(`publikacja Dnia ${N}: lekcja ×4, Dzień ${OSTATNI}, 8 plików spisu, wyszukiwarka, mapa, rozważania; drugi przebieg nic nie zmienia`, async () => {
   const { root, lekcjaOst, obrazOst } = kopiaRepo();
   paczka(root, lekcjaOst, obrazOst);
+  // Ustal format fixtury niezależnie od ustawień Git i systemu operacyjnego.
+  for (const p of SPIS) {
+    const file = path.join(root, p);
+    fs.writeFileSync(file, fs.readFileSync(file, 'utf8').replace(/\r?\n/g, '\r\n'));
+  }
   const w = await publikujDzien({ root, data: DATA, zapisz: true, teraz: PO_POLNOCY });
   assert.equal(w.status, 'opublikowano');
   assert.deepEqual(w.ostrzezenia, []);
