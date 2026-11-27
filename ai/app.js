@@ -1067,8 +1067,26 @@ function openImageLightbox(src, title = 'Podgląd grafiki Christian Culture') {
 const ALLOWED_SPEECH_RATES = [0.8, 1, 1.15, 1.3];
 let speechSessionToken = 0;
 
+let activeTtsByokSession = null;
+let activeTtsAudio = null;
+let activeTtsAbortController = null;
+const TTS_SAMPLE_PSALM_23 =
+  'Pan jest pasterzem moim, niczego mi nie braknie. Na zielonych niwach pasie mnie, nad wody spokojne prowadzi mnie.';
+
 function stopSpeaking() {
   speechSessionToken += 1;
+  if (activeTtsAbortController) {
+    try { activeTtsAbortController.abort(); } catch {}
+    activeTtsAbortController = null;
+  }
+  if (activeTtsAudio) {
+    try {
+      activeTtsAudio.pause();
+      activeTtsAudio.removeAttribute('src');
+      activeTtsAudio.load?.();
+    } catch {}
+    activeTtsAudio = null;
+  }
   try {
     window.speechSynthesis?.cancel?.();
   } catch {}
@@ -1149,13 +1167,11 @@ function pickSystemPlVoice(voices = [], persona, preferredUri = '', isPrivate = 
 
 function speakReply(text, assistantId, bubbleEl, btnEl, opts = {}) {
   const synth = window.speechSynthesis;
-  if (!synth || typeof window.SpeechSynthesisUtterance !== 'function') {
-    showToast('Twoja przeglądarka nie obsługuje syntezatora mowy.');
-    if (typeof opts?.onEnd === 'function') opts.onEnd();
-    return;
-  }
-
-  const wasSameBubble = bubbleEl && activeSpeakingBubble === bubbleEl && (synth.speaking || synth.paused);
+  const wasSameBubble = bubbleEl && activeSpeakingBubble === bubbleEl && (
+    Boolean(synth && (synth.speaking || synth.paused)) ||
+    Boolean(activeTtsAudio && !activeTtsAudio.ended) ||
+    Boolean(activeTtsAbortController)
+  );
   stopSpeaking();
   if (wasSameBubble) return;
 
@@ -1169,13 +1185,6 @@ function speakReply(text, assistantId, bubbleEl, btnEl, opts = {}) {
   const myToken = speechSessionToken;
   const persona = getPersona(assistantId);
   let rate = ALLOWED_SPEECH_RATES.includes(Number(state?.speechRate)) ? Number(state.speechRate) : 1;
-  let chunkIndex = 0;
-  let isPaused = false;
-  let barEl = null;
-  let pauseBtn = null;
-  let rateBtn = null;
-  let voiceSelect = null;
-  let statusNote = null;
 
   const finish = () => {
     if (myToken !== speechSessionToken) return;
@@ -1183,174 +1192,309 @@ function speakReply(text, assistantId, bubbleEl, btnEl, opts = {}) {
     if (typeof opts?.onEnd === 'function') opts.onEnd();
   };
 
-  const getActiveVoices = () => {
-    try {
-      return synth.getVoices?.() || [];
-    } catch {
-      return [];
-    }
-  };
-
-  const renderVoiceSelect = (eligible) => {
-    if (!voiceSelect) return;
-    voiceSelect.replaceChildren();
-    if (!eligible.length) {
-      const opt = document.createElement('option');
-      opt.value = '';
-      opt.textContent = privateMode ? 'Brak lokalnego głosu pl-PL' : 'Domyślny głos pl-PL';
-      voiceSelect.appendChild(opt);
-      voiceSelect.disabled = privateMode;
-      return;
-    }
-    voiceSelect.disabled = false;
-    for (const v of eligible) {
-      const opt = document.createElement('option');
-      opt.value = v.voiceURI || v.name || '';
-      const modeTag = v.localService === true ? 'lokalny' : 'zdalny';
-      opt.textContent = `${v.name || 'Polski'} (${modeTag})`;
-      if (state?.speechVoiceUri && opt.value === state.speechVoiceUri) opt.selected = true;
-      voiceSelect.appendChild(opt);
-    }
-  };
-
-  const speakCurrentChunk = () => {
+  const startSystemVoice = () => {
     if (myToken !== speechSessionToken) return;
-    if (chunkIndex >= chunks.length) {
+    if (!synth || typeof window.SpeechSynthesisUtterance !== 'function') {
+      showToast('Twoja przeglądarka nie obsługuje syntezatora mowy.');
       finish();
       return;
     }
 
-    const voices = getActiveVoices();
-    const { voice, eligible, plTotal } = pickSystemPlVoice(voices, persona, state?.speechVoiceUri || '', privateMode);
-    renderVoiceSelect(eligible);
+    let chunkIndex = 0;
+    let isPaused = false;
+    let barEl = null;
+    let pauseBtn = null;
+    let rateBtn = null;
+    let voiceSelect = null;
+    let statusNote = null;
 
-    if (privateMode && !voice) {
+    const getActiveVoices = () => {
+      try {
+        return synth.getVoices?.() || [];
+      } catch {
+        return [];
+      }
+    };
+
+    const renderVoiceSelect = (eligible) => {
+      if (!voiceSelect) return;
+      voiceSelect.replaceChildren();
+      if (!eligible.length) {
+        const opt = document.createElement('option');
+        opt.value = '';
+        opt.textContent = privateMode ? 'Brak lokalnego głosu pl-PL' : 'Domyślny głos pl-PL';
+        voiceSelect.appendChild(opt);
+        voiceSelect.disabled = privateMode;
+        return;
+      }
+      voiceSelect.disabled = false;
+      for (const v of eligible) {
+        const opt = document.createElement('option');
+        opt.value = v.voiceURI || v.name || '';
+        const modeTag = v.localService === true ? 'lokalny' : 'zdalny';
+        opt.textContent = `${v.name || 'Polski'} (${modeTag})`;
+        if (state?.speechVoiceUri && opt.value === state.speechVoiceUri) opt.selected = true;
+        voiceSelect.appendChild(opt);
+      }
+    };
+
+    const speakCurrentChunk = () => {
+      if (myToken !== speechSessionToken) return;
+      if (chunkIndex >= chunks.length) {
+        finish();
+        return;
+      }
+
+      const voices = getActiveVoices();
+      const { voice, eligible, plTotal } = pickSystemPlVoice(voices, persona, state?.speechVoiceUri || '', privateMode);
+      renderVoiceSelect(eligible);
+
+      if (privateMode && !voice) {
+        if (statusNote) {
+          statusNote.textContent = 'Tryb prywatny wymaga lokalnego głosu pl-PL na urządzeniu — użyj przycisku Kopiuj.';
+        }
+        if (pauseBtn) pauseBtn.disabled = true;
+        showToast('Tryb prywatny: brak lokalnego głosu pl-PL na urządzeniu.');
+        return;
+      }
+
       if (statusNote) {
-        statusNote.textContent = 'Tryb prywatny wymaga lokalnego głosu pl-PL na urządzeniu — użyj przycisku Kopiuj.';
+        statusNote.textContent = plTotal === 0
+          ? 'Brak polskiego głosu pl-PL — przeglądarka użyje głosu domyślnego.'
+          : `Fragment ${chunkIndex + 1} / ${chunks.length}${privateMode ? ' · głos lokalny' : ''}`;
       }
-      if (pauseBtn) pauseBtn.disabled = true;
-      showToast('Tryb prywatny: brak lokalnego głosu pl-PL na urządzeniu.');
-      return;
-    }
 
-    if (statusNote) {
-      statusNote.textContent = plTotal === 0
-        ? 'Brak polskiego głosu pl-PL — przeglądarka użyje głosu domyślnego.'
-        : `Fragment ${chunkIndex + 1} / ${chunks.length}${privateMode ? ' · głos lokalny' : ''}`;
-    }
-
-    const utter = new SpeechSynthesisUtterance(chunks[chunkIndex]);
-    utter.lang = 'pl-PL';
-    utter.rate = rate;
-    utter.pitch = persona.pitch || 1.0;
-    if (voice) {
-      utter.voice = voice;
-      if (voiceSelect && voice.voiceURI) voiceSelect.value = voice.voiceURI;
-      if (persona.gender !== 'female' && !/(marek|adam|krzysztof|piotr|pawe[łl]|jacek|jan|bartek|tomasz|male)/i.test(voice.name || '')) {
-        utter.pitch = Math.min(persona.pitch || 0.94, 0.88);
+      const utter = new SpeechSynthesisUtterance(chunks[chunkIndex]);
+      utter.lang = 'pl-PL';
+      utter.rate = rate;
+      utter.pitch = persona.pitch || 1.0;
+      if (voice) {
+        utter.voice = voice;
+        if (voiceSelect && voice.voiceURI) voiceSelect.value = voice.voiceURI;
+        if (persona.gender !== 'female' && !/(marek|adam|krzysztof|piotr|pawe[łl]|jacek|jan|bartek|tomasz|male)/i.test(voice.name || '')) {
+          utter.pitch = Math.min(persona.pitch || 0.94, 0.88);
+        }
       }
-    }
 
-    utter.onend = () => {
-      if (myToken !== speechSessionToken) return;
-      chunkIndex += 1;
-      speakCurrentChunk();
-    };
-    utter.onerror = () => {
-      if (myToken !== speechSessionToken) return;
-      if (statusNote) statusNote.textContent = 'Odtwarzanie zatrzymane lub niedostępne na tym urządzeniu.';
-      finish();
-    };
+      utter.onend = () => {
+        if (myToken !== speechSessionToken) return;
+        chunkIndex += 1;
+        speakCurrentChunk();
+      };
+      utter.onerror = () => {
+        if (myToken !== speechSessionToken) return;
+        if (statusNote) statusNote.textContent = 'Odtwarzanie zatrzymane lub niedostępne na tym urządzeniu.';
+        finish();
+      };
 
-    try {
-      synth.speak(utter);
-    } catch {
-      finish();
-    }
-  };
-
-  activeSpeakingBubble = bubbleEl || null;
-  bubbleEl?.classList.add('is-speaking');
-  if (btnEl) {
-    btnEl.classList.add('is-speaking-btn');
-    btnEl.textContent = '⏹ Zatrzymaj głos';
-  }
-
-  if (bubbleEl) {
-    barEl = document.createElement('div');
-    barEl.className = 'speech-controls-bar';
-    barEl.setAttribute('role', 'region');
-    barEl.setAttribute('aria-label', 'Sterowanie odtwarzaniem głosu');
-
-    pauseBtn = document.createElement('button');
-    pauseBtn.type = 'button';
-    pauseBtn.className = 'speech-ctrl-btn';
-    pauseBtn.textContent = '⏸ Pauza';
-    pauseBtn.onclick = () => {
-      if (isPaused) {
-        isPaused = false;
-        pauseBtn.textContent = '⏸ Pauza';
-        try { synth.resume?.(); } catch {}
-      } else {
-        isPaused = true;
-        pauseBtn.textContent = '▶ Wznów';
-        try { synth.pause?.(); } catch {}
+      try {
+        synth.speak(utter);
+      } catch {
+        finish();
       }
     };
 
-    const stopBtn = document.createElement('button');
-    stopBtn.type = 'button';
-    stopBtn.className = 'speech-ctrl-btn';
-    stopBtn.textContent = '⏹ Stop';
-    stopBtn.onclick = () => finish();
+    activeSpeakingBubble = bubbleEl || null;
+    bubbleEl?.classList.add('is-speaking');
+    if (btnEl) {
+      btnEl.classList.add('is-speaking-btn');
+      btnEl.textContent = '⏹ Zatrzymaj głos';
+    }
 
-    rateBtn = document.createElement('button');
-    rateBtn.type = 'button';
-    rateBtn.className = 'speech-ctrl-btn';
-    rateBtn.textContent = `Tempo ${rate}×`;
-    rateBtn.onclick = () => {
-      const nextIdx = (ALLOWED_SPEECH_RATES.indexOf(rate) + 1) % ALLOWED_SPEECH_RATES.length;
-      rate = ALLOWED_SPEECH_RATES[nextIdx];
-      state.speechRate = rate;
-      saveState();
+    if (bubbleEl) {
+      bubbleEl.querySelectorAll('.speech-controls-bar').forEach((el) => el.remove());
+      barEl = document.createElement('div');
+      barEl.className = 'speech-controls-bar';
+      barEl.setAttribute('role', 'region');
+      barEl.setAttribute('aria-label', 'Sterowanie odtwarzaniem głosu');
+
+      pauseBtn = document.createElement('button');
+      pauseBtn.type = 'button';
+      pauseBtn.className = 'speech-ctrl-btn';
+      pauseBtn.textContent = '⏸ Pauza';
+      pauseBtn.onclick = () => {
+        if (isPaused) {
+          isPaused = false;
+          pauseBtn.textContent = '⏸ Pauza';
+          try { synth.resume?.(); } catch {}
+        } else {
+          isPaused = true;
+          pauseBtn.textContent = '▶ Wznów';
+          try { synth.pause?.(); } catch {}
+        }
+      };
+
+      const stopBtn = document.createElement('button');
+      stopBtn.type = 'button';
+      stopBtn.className = 'speech-ctrl-btn';
+      stopBtn.textContent = '⏹ Stop';
+      stopBtn.onclick = () => finish();
+
+      rateBtn = document.createElement('button');
+      rateBtn.type = 'button';
+      rateBtn.className = 'speech-ctrl-btn';
       rateBtn.textContent = `Tempo ${rate}×`;
-      if (!privateMode || pickSystemPlVoice(getActiveVoices(), persona, state?.speechVoiceUri || '', true).voice) {
+      rateBtn.onclick = () => {
+        const nextIdx = (ALLOWED_SPEECH_RATES.indexOf(rate) + 1) % ALLOWED_SPEECH_RATES.length;
+        rate = ALLOWED_SPEECH_RATES[nextIdx];
+        state.speechRate = rate;
+        saveState();
+        rateBtn.textContent = `Tempo ${rate}×`;
+        if (!privateMode || pickSystemPlVoice(getActiveVoices(), persona, state?.speechVoiceUri || '', true).voice) {
+          isPaused = false;
+          if (pauseBtn) pauseBtn.textContent = '⏸ Pauza';
+          try { synth.cancel?.(); } catch {}
+          speakCurrentChunk();
+        }
+      };
+
+      voiceSelect = document.createElement('select');
+      voiceSelect.className = 'speech-voice-select';
+      voiceSelect.setAttribute('aria-label', 'Wybór polskiego głosu systemowego');
+      voiceSelect.onchange = () => {
+        state.speechVoiceUri = voiceSelect.value || '';
+        saveState();
         isPaused = false;
         if (pauseBtn) pauseBtn.textContent = '⏸ Pauza';
         try { synth.cancel?.(); } catch {}
         speakCurrentChunk();
-      }
-    };
+      };
 
-    voiceSelect = document.createElement('select');
-    voiceSelect.className = 'speech-voice-select';
-    voiceSelect.setAttribute('aria-label', 'Wybór polskiego głosu systemowego');
-    voiceSelect.onchange = () => {
-      state.speechVoiceUri = voiceSelect.value || '';
-      saveState();
-      isPaused = false;
-      if (pauseBtn) pauseBtn.textContent = '⏸ Pauza';
-      try { synth.cancel?.(); } catch {}
-      speakCurrentChunk();
-    };
+      statusNote = document.createElement('span');
+      statusNote.className = 'speech-status-note';
 
-    statusNote = document.createElement('span');
-    statusNote.className = 'speech-status-note';
+      barEl.append(pauseBtn, stopBtn, rateBtn, voiceSelect, statusNote);
+      bubbleEl.appendChild(barEl);
+    }
 
-    barEl.append(pauseBtn, stopBtn, rateBtn, voiceSelect, statusNote);
-    bubbleEl.appendChild(barEl);
+    if (typeof synth.addEventListener === 'function') {
+      const onVoices = () => {
+        if (myToken !== speechSessionToken) return;
+        const { eligible } = pickSystemPlVoice(getActiveVoices(), persona, state?.speechVoiceUri || '', privateMode);
+        renderVoiceSelect(eligible);
+      };
+      synth.addEventListener('voiceschanged', onVoices, { once: true });
+    }
+
+    speakCurrentChunk();
+  };
+
+  if (activeTtsByokSession && activeTtsByokSession.expiresAt > Date.now() && !privateMode) {
+    activeSpeakingBubble = bubbleEl || null;
+    bubbleEl?.classList.add('is-speaking');
+    if (btnEl) {
+      btnEl.classList.add('is-speaking-btn');
+      btnEl.textContent = '⏹ Zatrzymaj głos';
+    }
+
+    let barEl = null;
+    let pauseBtn = null;
+    let statusNote = null;
+    if (bubbleEl) {
+      barEl = document.createElement('div');
+      barEl.className = 'speech-controls-bar';
+      barEl.setAttribute('role', 'region');
+      barEl.setAttribute('aria-label', 'Sterowanie odtwarzaniem głosu BYOK');
+
+      pauseBtn = document.createElement('button');
+      pauseBtn.type = 'button';
+      pauseBtn.className = 'speech-ctrl-btn';
+      pauseBtn.textContent = '⏸ Pauza';
+      pauseBtn.disabled = true;
+      pauseBtn.onclick = () => {
+        if (!activeTtsAudio) return;
+        if (activeTtsAudio.paused) {
+          activeTtsAudio.play().catch(() => {});
+          pauseBtn.textContent = '⏸ Pauza';
+        } else {
+          activeTtsAudio.pause();
+          pauseBtn.textContent = '▶ Wznów';
+        }
+      };
+
+      const stopBtn = document.createElement('button');
+      stopBtn.type = 'button';
+      stopBtn.className = 'speech-ctrl-btn';
+      stopBtn.textContent = '⏹ Stop';
+      stopBtn.onclick = () => finish();
+
+      const rateBtn = document.createElement('button');
+      rateBtn.type = 'button';
+      rateBtn.className = 'speech-ctrl-btn';
+      rateBtn.textContent = `Tempo ${rate}×`;
+      rateBtn.onclick = () => {
+        const nextIdx = (ALLOWED_SPEECH_RATES.indexOf(rate) + 1) % ALLOWED_SPEECH_RATES.length;
+        rate = ALLOWED_SPEECH_RATES[nextIdx];
+        state.speechRate = rate;
+        saveState();
+        rateBtn.textContent = `Tempo ${rate}×`;
+        if (activeTtsAudio) activeTtsAudio.playbackRate = rate;
+      };
+
+      statusNote = document.createElement('span');
+      statusNote.className = 'speech-status-note';
+      statusNote.textContent = `BYOK ${activeTtsByokSession.provider} · synteza...`;
+
+      barEl.append(pauseBtn, stopBtn, rateBtn, statusNote);
+      bubbleEl.appendChild(barEl);
+    }
+
+    const controller = new AbortController();
+    activeTtsAbortController = controller;
+    fetch('/api/ai-dla-jezusa/v1/tts/synthesize', {
+      method: 'POST',
+      signal: controller.signal,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-TTS-Session-Token': activeTtsByokSession.sessionToken
+      },
+      body: JSON.stringify({
+        text: clean.slice(0, 2500),
+        isSample: false
+      })
+    })
+      .then(async (res) => ({ ok: res.ok, status: res.status, data: await res.json().catch(() => ({})) }))
+      .then(({ ok, status, data }) => {
+        if (myToken !== speechSessionToken) return;
+        activeTtsAbortController = null;
+        if (!ok || !data?.ok || !data?.audioBase64) {
+          if (status === 401) activeTtsByokSession = null;
+          showToast(data?.message || 'Błąd TTS BYOK — przełączono na głos systemowy.');
+          barEl?.remove();
+          startSystemVoice();
+          return;
+        }
+        const audio = new Audio(`data:${data.mimeType || 'audio/wav'};base64,${data.audioBase64}`);
+        audio.playbackRate = rate;
+        activeTtsAudio = audio;
+        if (pauseBtn) pauseBtn.disabled = false;
+        if (statusNote) {
+          statusNote.textContent = `BYOK ${data.provider} (${data.mode === 'mock' ? 'mock' : 'live'}) · ${data.charCount} zn.`;
+        }
+        audio.onended = () => finish();
+        audio.onerror = () => {
+          if (myToken !== speechSessionToken) return;
+          showToast('Nie udało się odtworzyć audio BYOK — przełączono na głos systemowy.');
+          barEl?.remove();
+          startSystemVoice();
+        };
+        audio.play().catch(() => {
+          if (myToken !== speechSessionToken) return;
+          barEl?.remove();
+          startSystemVoice();
+        });
+      })
+      .catch((err) => {
+        if (myToken !== speechSessionToken || err?.name === 'AbortError') return;
+        activeTtsAbortController = null;
+        showToast('Błąd sieci TTS BYOK — przełączono na głos systemowy.');
+        barEl?.remove();
+        startSystemVoice();
+      });
+    return;
   }
 
-  if (typeof synth.addEventListener === 'function') {
-    const onVoices = () => {
-      if (myToken !== speechSessionToken) return;
-      const { eligible } = pickSystemPlVoice(getActiveVoices(), persona, state?.speechVoiceUri || '', privateMode);
-      renderVoiceSelect(eligible);
-    };
-    synth.addEventListener('voiceschanged', onVoices, { once: true });
-  }
-
-  speakCurrentChunk();
+  startSystemVoice();
 }
 
 function getUidScope(uid = currentUser?.uid) {
@@ -2739,7 +2883,40 @@ function openCalendarModal(msg, prevUserText = '') {
   infoDialogBody.replaceChildren();
 
   const intro = document.createElement('p');
-  intro.textContent = 'Zaplanuj to słowo, modlitwę lub zadanie w swoim kalendarzu (Google Calendar albo plik .ics do Apple / Outlook / Android).';
+  intro.textContent = 'Rozdzielamy Twój prywatny kalendarz osobisty od publicznego Kalendarza Misji (ccMC, wyłącznie podgląd).';
+
+  const scopeSwitch = document.createElement('div');
+  scopeSwitch.className = 'calendar-scope-switch';
+  scopeSwitch.setAttribute('role', 'tablist');
+  scopeSwitch.setAttribute('aria-label', 'Wybór kalendarza');
+
+  const privateScopeBtn = document.createElement('button');
+  privateScopeBtn.type = 'button';
+  privateScopeBtn.className = 'calendar-scope-btn is-active';
+  privateScopeBtn.dataset.scope = 'private';
+  privateScopeBtn.textContent = 'Mój kalendarz prywatny (Google / .ics)';
+
+  const missionScopeBtn = document.createElement('button');
+  missionScopeBtn.type = 'button';
+  missionScopeBtn.className = 'calendar-scope-btn';
+  missionScopeBtn.dataset.scope = 'ccmc';
+  missionScopeBtn.textContent = 'Kalendarz Misji ccMC (tylko podgląd)';
+
+  scopeSwitch.append(privateScopeBtn, missionScopeBtn);
+
+  const ccmcBox = document.createElement('div');
+  ccmcBox.className = 'calendar-ccmc-box';
+  ccmcBox.hidden = true;
+  const ccmcDesc = document.createElement('p');
+  ccmcDesc.textContent =
+    'Kalendarz Misji Christian Culture (ccMC) służy wyłącznie do podglądu harmonogramu audycji i spotkań misyjnych. Prywatne przypomnienia i plany modlitewne zapisuj wyłącznie w swoim prywatnym kalendarzu Google lub pliku .ics.';
+  const ccmcLink = document.createElement('a');
+  ccmcLink.className = 'gold-card-link';
+  ccmcLink.href = 'https://polskieradio.cc/ccMC';
+  ccmcLink.target = '_blank';
+  ccmcLink.rel = 'noopener noreferrer';
+  ccmcLink.textContent = 'Otwórz podgląd Kalendarza Misji ccMC ↗';
+  ccmcBox.append(ccmcDesc, ccmcLink);
 
   const form = document.createElement('form');
   form.className = 'dialog-form';
@@ -2806,9 +2983,22 @@ function openCalendarModal(msg, prevUserText = '') {
     infoDialog.close();
   };
 
+  privateScopeBtn.onclick = () => {
+    privateScopeBtn.classList.add('is-active');
+    missionScopeBtn.classList.remove('is-active');
+    form.hidden = false;
+    ccmcBox.hidden = true;
+  };
+  missionScopeBtn.onclick = () => {
+    missionScopeBtn.classList.add('is-active');
+    privateScopeBtn.classList.remove('is-active');
+    form.hidden = true;
+    ccmcBox.hidden = false;
+  };
+
   btnRow.append(googleLink, icsBtn);
   form.append(titleInput, dtInput, notesInput, btnRow);
-  infoDialogBody.append(intro, form);
+  infoDialogBody.append(intro, scopeSwitch, form, ccmcBox);
   showInfoDialog();
 }
 
@@ -3642,6 +3832,26 @@ function renderConversation(animateMsgId = '') {
         }
       };
 
+      const exportTxtBtn = document.createElement('button');
+      exportTxtBtn.type = 'button';
+      exportTxtBtn.className = 'msg-action-btn';
+      exportTxtBtn.dataset.action = 'export_txt';
+      exportTxtBtn.textContent = '⬇ Eksportuj .txt';
+      exportTxtBtn.onclick = () => {
+        trackAiEvent('ai_response_action', { action: 'export_txt', ...reactionMeta });
+        const content = `${msg.text || ''}\n\n---\nAI dla Jezusa · Christian Culture\n`;
+        const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+        const href = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = href;
+        link.download = `ai-dla-jezusa-${(msg.id || 'odpowiedz').replace(/[^a-zA-Z0-9_-]/g, '')}.txt`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(href), 2000);
+        showToast('Pobrano odpowiedź jako plik .txt.');
+      };
+
       const alreadyRemembered = (state.memory || []).some((m) => m.msgId === msg.id);
       const rememberBtn = document.createElement('button');
       rememberBtn.type = 'button';
@@ -3688,7 +3898,7 @@ function renderConversation(animateMsgId = '') {
         openReminderModal(msg, prevUserMsg?.text || '');
       };
 
-      moreActions.append(speakBtn, copyBtn, rememberBtn, saveNoteBtn, calendarBtn, reminderBtn);
+      moreActions.append(speakBtn, copyBtn, exportTxtBtn, rememberBtn, saveNoteBtn, calendarBtn, reminderBtn);
 
       if (i === thread.messages.length - 1 && thread.messages[i - 1]?.role === 'user') {
         const retryBtn = document.createElement('button');
@@ -4672,8 +4882,263 @@ function renderModule(name) {
         box.appendChild(card);
       }
       wrap.appendChild(box);
+      wrap.appendChild(buildCanvaPilotCard());
     });
     return;
+  }
+
+  function buildCanvaPilotCard() {
+    const card = document.createElement('article');
+    card.className = 'module-card canva-pilot-card';
+
+    const badge = document.createElement('span');
+    badge.className = 'canva-pilot-badge';
+    badge.textContent = 'Canva MCP Pilot · Mock Read-Only + Szkic P3 (0 zł · bez OAuth)';
+
+    const title = document.createElement('strong');
+    title.textContent = 'Canva (Pilot) — Izolowane konta testowe, brief ręczny i kontrolowany szkic P3';
+
+    const desc = document.createElement('p');
+    desc.textContent =
+      'Konta są ściśle rozdzielone per użytkownik. Funkcje Brand Kit, Autofill i Resize są wyłączone w pilocie. Tworzenie szkicu wymaga podglądu i wyraźnego potwierdzenia.';
+
+    const topRow = document.createElement('div');
+    topRow.className = 'canva-pilot-row';
+
+    const accountSelect = document.createElement('select');
+    accountSelect.className = 'dialog-input';
+    accountSelect.setAttribute('aria-label', 'Konto testowe Canva');
+    [
+      ['test-user-1', 'Konto Testowe 1 (Ewangelizacja)'],
+      ['test-user-2', 'Konto Testowe 2 (Akademia)']
+    ].forEach(([val, label]) => {
+      const opt = document.createElement('option');
+      opt.value = val;
+      opt.textContent = label;
+      accountSelect.appendChild(opt);
+    });
+
+    const queryInput = document.createElement('input');
+    queryInput.type = 'search';
+    queryInput.className = 'dialog-input';
+    queryInput.placeholder = 'Szukaj projektów w wybranym koncie...';
+    queryInput.setAttribute('aria-label', 'Szukaj projektów Canva');
+
+    const loadBtn = document.createElement('button');
+    loadBtn.type = 'button';
+    loadBtn.className = 'msg-action-btn';
+    loadBtn.textContent = 'Odśwież projekty';
+
+    topRow.append(accountSelect, queryInput, loadBtn);
+
+    const statusLine = document.createElement('p');
+    statusLine.className = 'dialog-hint';
+    statusLine.textContent = 'Ładowanie statusu Canva MCP Pilot...';
+
+    const designsList = document.createElement('div');
+    designsList.className = 'canva-pilot-list';
+
+    const refreshCanvaList = async () => {
+      const user = accountSelect.value || 'test-user-1';
+      const q = queryInput.value.trim();
+      try {
+        const [stRes, dsRes] = await Promise.all([
+          fetch(`/api/ai-dla-jezusa/v1/canva/status?user=${encodeURIComponent(user)}`, {
+            headers: { 'X-Canva-Test-User': user }
+          }),
+          fetch(`/api/ai-dla-jezusa/v1/canva/designs?user=${encodeURIComponent(user)}&q=${encodeURIComponent(q)}`, {
+            headers: { 'X-Canva-Test-User': user }
+          })
+        ]);
+        const st = await stRes.json();
+        const ds = await dsRes.json();
+        statusLine.textContent = st?.ok
+          ? `Aktywne: ${st.activeUser?.label || user} · Wyłączone: ${(st.disabledCapabilities || []).join(', ')}`
+          : 'Nie udało się pobrać statusu pilota Canva.';
+        designsList.replaceChildren();
+        for (const d of ds?.designs || []) {
+          const chip = document.createElement('div');
+          chip.className = 'canva-design-chip';
+          const name = document.createElement('strong');
+          name.textContent = d.title;
+          const meta = document.createElement('span');
+          meta.className = 'dialog-hint';
+          meta.textContent = `${d.format} · ${d.isDraft ? 'Szkic P3 (Mock)' : 'Odczyt'}`;
+          chip.append(name, meta);
+          designsList.appendChild(chip);
+        }
+        if (!ds?.designs?.length) {
+          const empty = document.createElement('p');
+          empty.className = 'module-empty';
+          empty.textContent = 'Brak projektów pasujących do filtra na tym koncie.';
+          designsList.appendChild(empty);
+        }
+      } catch {
+        statusLine.textContent = 'Offline lub brak odpowiedzi endpointu Canva Mock.';
+      }
+    };
+
+    accountSelect.onchange = refreshCanvaList;
+    loadBtn.onclick = refreshCanvaList;
+
+    const briefTitle = document.createElement('input');
+    briefTitle.type = 'text';
+    briefTitle.className = 'dialog-input';
+    briefTitle.value = 'AI dla Jezusa — Karta Pilota 2026';
+    briefTitle.setAttribute('aria-label', 'Tytuł projektu Canva');
+
+    const formatSel = document.createElement('select');
+    formatSel.className = 'dialog-input';
+    formatSel.setAttribute('aria-label', 'Format grafiki Canva');
+    [
+      ['instagram-post', 'Instagram Post 1080×1350'],
+      ['instagram-story', 'Instagram Story 1080×1920'],
+      ['presentation', 'Prezentacja 16:9 (1920×1080)'],
+      ['youtube-thumb', 'Miniatura YouTube 1280×720']
+    ].forEach(([val, label]) => {
+      const opt = document.createElement('option');
+      opt.value = val;
+      opt.textContent = label;
+      formatSel.appendChild(opt);
+    });
+
+    const copyArea = document.createElement('textarea');
+    copyArea.className = 'dialog-input';
+    copyArea.rows = 2;
+    copyArea.value = 'Pan jest pasterzem moim, niczego mi nie braknie (Ps 23,1).';
+    copyArea.setAttribute('aria-label', 'Treść na grafikę Canva');
+
+    const actionsRow = document.createElement('div');
+    actionsRow.className = 'canva-pilot-row';
+
+    const genBriefBtn = document.createElement('button');
+    genBriefBtn.type = 'button';
+    genBriefBtn.className = 'msg-action-btn';
+    genBriefBtn.textContent = 'Generuj brief ręczny (P2a)';
+
+    const openCanvaLink = document.createElement('a');
+    openCanvaLink.className = 'gold-card-link';
+    openCanvaLink.href = 'https://www.canva.com/create/instagram-posts/';
+    openCanvaLink.target = '_blank';
+    openCanvaLink.rel = 'noopener noreferrer';
+    openCanvaLink.textContent = 'Otwórz w Canva ↗';
+
+    const previewDraftBtn = document.createElement('button');
+    previewDraftBtn.type = 'button';
+    previewDraftBtn.className = 'connect-btn';
+    previewDraftBtn.textContent = 'Podgląd szkicu P3';
+
+    actionsRow.append(genBriefBtn, openCanvaLink, previewDraftBtn);
+
+    const briefOut = document.createElement('textarea');
+    briefOut.className = 'dialog-input canva-brief-output';
+    briefOut.readOnly = true;
+    briefOut.hidden = true;
+    briefOut.setAttribute('aria-label', 'Wygenerowany brief dla Canva');
+
+    const previewBox = document.createElement('div');
+    previewBox.className = 'canva-preview-box';
+    previewBox.hidden = true;
+
+    genBriefBtn.onclick = async () => {
+      const formatLabel = formatSel.options[formatSel.selectedIndex]?.textContent || 'Instagram Post';
+      const res = await fetch('/api/ai-dla-jezusa/v1/canva/brief', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: briefTitle.value.trim(),
+          formatKey: formatSel.value,
+          format: formatLabel,
+          copy: copyArea.value.trim()
+        })
+      });
+      const data = await res.json();
+      if (data?.ok && data.brief) {
+        briefOut.hidden = false;
+        briefOut.value = data.brief.formattedBrief;
+        openCanvaLink.href = data.brief.openInCanvaUrl;
+        showToast('Przygotowano brief ręczny — możesz otworzyć w Canva.');
+      }
+    };
+
+    previewDraftBtn.onclick = async () => {
+      const user = accountSelect.value || 'test-user-1';
+      const formatLabel = formatSel.options[formatSel.selectedIndex]?.textContent || 'Instagram Post';
+      const res = await fetch('/api/ai-dla-jezusa/v1/canva/draft', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Canva-Test-User': user
+        },
+        body: JSON.stringify({
+          stage: 'preview',
+          title: briefTitle.value.trim(),
+          format: formatLabel,
+          copy: copyArea.value.trim()
+        })
+      });
+      const data = await res.json();
+      if (!data?.ok || !data.preview) {
+        showToast(data?.message || 'Nie udało się przygotować podglądu szkicu.');
+        return;
+      }
+      previewBox.hidden = false;
+      previewBox.replaceChildren();
+      const head = document.createElement('strong');
+      head.textContent = `Podgląd szkicu P3 (${data.preview.targetAccountLabel})`;
+      const info = document.createElement('p');
+      info.textContent = `${data.preview.title} · ${data.preview.format} — "${data.preview.copy}"`;
+      const confirmBtn = document.createElement('button');
+      confirmBtn.type = 'button';
+      confirmBtn.className = 'connect-btn';
+      confirmBtn.textContent = 'Zatwierdź i utwórz szkic (Mock)';
+      const idemKey = `draft_${user}_${Date.now().toString(36)}`;
+      confirmBtn.onclick = async () => {
+        confirmBtn.disabled = true;
+        const cRes = await fetch('/api/ai-dla-jezusa/v1/canva/draft', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Canva-Test-User': user
+          },
+          body: JSON.stringify({
+            title: data.preview.title,
+            format: data.preview.format,
+            copy: data.preview.copy,
+            previewApproved: true,
+            userConfirmed: true,
+            idempotencyKey: idemKey
+          })
+        });
+        const cData = await cRes.json();
+        if (cData?.ok && cData.draft) {
+          showToast(`Utworzono szkic "${cData.draft.title}" na koncie ${user}.`);
+          previewBox.hidden = true;
+          await refreshCanvaList();
+        } else {
+          confirmBtn.disabled = false;
+          showToast(cData?.message || 'Błąd zapisu szkicu.');
+        }
+      };
+      previewBox.append(head, info, confirmBtn);
+    };
+
+    card.append(
+      badge,
+      title,
+      desc,
+      topRow,
+      statusLine,
+      designsList,
+      briefTitle,
+      formatSel,
+      copyArea,
+      actionsRow,
+      briefOut,
+      previewBox
+    );
+    setTimeout(() => { refreshCanvaList(); }, 0);
+    return card;
   }
 
   if (name === 'Umiejętności' && ownerSession?.isOwner) {
@@ -5384,8 +5849,161 @@ function openSettingsModal() {
   localPrivacyBtn.title = 'Rozmowy zapisywane lokalnie w Twojej przeglądarce';
   localPrivacyBtn.onclick = openPrivacyModal;
 
-  infoDialogBody.append(summary, proLine, buildDesktopVisualSettingsSection(), byokIntro, form, localPrivacyBtn, help);
+  infoDialogBody.append(
+    summary,
+    proLine,
+    buildDesktopVisualSettingsSection(),
+    buildTtsByokSettingsSection(),
+    byokIntro,
+    form,
+    localPrivacyBtn,
+    help
+  );
   showInfoDialog();
+}
+
+function buildTtsByokSettingsSection() {
+  const box = document.createElement('section');
+  box.className = 'settings-panel-box';
+  box.setAttribute('aria-label', 'Głos premium BYOK TTS');
+
+  const heading = document.createElement('h3');
+  heading.className = 'settings-panel-title';
+  heading.textContent = 'Głos premium (BYOK TTS — ElevenLabs / Gemini TTS)';
+
+  const notice = document.createElement('p');
+  notice.className = 'dialog-hint';
+  notice.textContent =
+    'Klucz TTS nie trafia do localStorage ani historii — sesja wygasa na serwerze po 15 minutach. Wysłanie tekstu do Twojego konta ElevenLabs lub Google AI może wiązać się z opłatą po stronie dostawcy.';
+
+  const statusPill = document.createElement('div');
+  statusPill.className = 'tts-byok-status';
+  const syncStatusPill = () => {
+    if (activeTtsByokSession && activeTtsByokSession.expiresAt > Date.now()) {
+      const mins = Math.max(1, Math.ceil((activeTtsByokSession.expiresAt - Date.now()) / 60000));
+      statusPill.textContent = `Sesja aktywna: ${activeTtsByokSession.provider} (${activeTtsByokSession.mode}) · ok. ${mins} min`;
+    } else {
+      statusPill.textContent = 'Tryb domyślny: Bezpłatny głos systemowy przeglądarki (0 zł)';
+    }
+  };
+  syncStatusPill();
+
+  const providerSelect = document.createElement('select');
+  providerSelect.className = 'dialog-input';
+  providerSelect.id = 'ttsByokProviderSelect';
+  providerSelect.setAttribute('aria-label', 'Dostawca głosu BYOK TTS');
+  [
+    ['elevenlabs', 'ElevenLabs (BYOK)'],
+    ['gemini', 'Gemini TTS (BYOK)']
+  ].forEach(([val, label]) => {
+    const opt = document.createElement('option');
+    opt.value = val;
+    opt.textContent = label;
+    if (activeTtsByokSession?.provider === val) opt.selected = true;
+    providerSelect.appendChild(opt);
+  });
+
+  const keyInput = document.createElement('input');
+  keyInput.type = 'password';
+  keyInput.className = 'dialog-input';
+  keyInput.id = 'ttsByokKeyInput';
+  keyInput.autocomplete = 'off';
+  keyInput.placeholder = 'Wklej klucz TTS (np. mock_psalm23 albo własny klucz API)';
+  keyInput.setAttribute('aria-label', 'Klucz API TTS BYOK');
+
+  const actions = document.createElement('div');
+  actions.className = 'tts-byok-actions';
+
+  const activateBtn = document.createElement('button');
+  activateBtn.type = 'button';
+  activateBtn.className = 'connect-btn';
+  activateBtn.textContent = 'Aktywuj sesję (15 min)';
+  activateBtn.onclick = async () => {
+    const apiKey = keyInput.value.trim();
+    if (!apiKey) {
+      showToast('Wklej klucz API TTS przed aktywacją.');
+      return;
+    }
+    const res = await fetch('/api/ai-dla-jezusa/v1/tts/session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        provider: providerSelect.value,
+        apiKey
+      })
+    });
+    const data = await res.json().catch(() => ({}));
+    keyInput.value = '';
+    if (!res.ok || !data?.ok) {
+      showToast(data?.message || 'Nie udało się aktywować sesji TTS.');
+      return;
+    }
+    activeTtsByokSession = {
+      sessionToken: data.sessionToken,
+      provider: data.provider,
+      voiceId: data.voiceId,
+      model: data.model,
+      mode: data.mode,
+      expiresAt: data.expiresAt || (Date.now() + 15 * 60 * 1000)
+    };
+    syncStatusPill();
+    showToast(`Aktywowano sesję BYOK TTS (${data.provider}) na 15 minut.`);
+  };
+
+  const sampleBtn = document.createElement('button');
+  sampleBtn.type = 'button';
+  sampleBtn.className = 'msg-action-btn';
+  sampleBtn.id = 'ttsSamplePsalmBtn';
+  sampleBtn.textContent = '▶ Przetestuj próbkę (Psalm 23 · maks. 280 zn.)';
+  sampleBtn.onclick = async () => {
+    if (!activeTtsByokSession || activeTtsByokSession.expiresAt <= Date.now()) {
+      showToast('Najpierw aktywuj sesję TTS BYOK (15 min).');
+      return;
+    }
+    const res = await fetch('/api/ai-dla-jezusa/v1/tts/synthesize', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-TTS-Session-Token': activeTtsByokSession.sessionToken
+      },
+      body: JSON.stringify({
+        text: TTS_SAMPLE_PSALM_23,
+        isSample: true
+      })
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data?.ok || !data?.audioBase64) {
+      statusPill.textContent = data?.message || 'Błąd próbki TTS — zalecany powrót do głosu systemowego.';
+      showToast(data?.message || 'Błąd próbki TTS BYOK.');
+      return;
+    }
+    statusPill.textContent = `Próbka Psalm 23 OK (${data.provider} · ${data.mode} · ${data.charCount}/280 zn.)`;
+    const sampleAudio = new Audio(`data:${data.mimeType || 'audio/wav'};base64,${data.audioBase64}`);
+    sampleAudio.play().catch(() => {});
+    showToast('Wygenerowano próbkę Psalm 23.');
+  };
+
+  const clearBtn = document.createElement('button');
+  clearBtn.type = 'button';
+  clearBtn.className = 'dialog-btn-secondary';
+  clearBtn.textContent = 'Wyłącz sesję TTS';
+  clearBtn.onclick = async () => {
+    const token = activeTtsByokSession?.sessionToken || '';
+    activeTtsByokSession = null;
+    keyInput.value = '';
+    if (token) {
+      await fetch('/api/ai-dla-jezusa/v1/tts/session', {
+        method: 'DELETE',
+        headers: { 'X-TTS-Session-Token': token }
+      }).catch(() => {});
+    }
+    syncStatusPill();
+    showToast('Sesja TTS BYOK została wyłączona.');
+  };
+
+  actions.append(activateBtn, sampleBtn, clearBtn);
+  box.append(heading, notice, statusPill, providerSelect, keyInput, actions);
+  return box;
 }
 
 function buildDesktopVisualSettingsSection() {
