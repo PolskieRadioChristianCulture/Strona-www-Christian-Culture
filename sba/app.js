@@ -274,7 +274,8 @@ feed.addEventListener('contextmenu', (event) => {
   if (!dialog.open && selected()) openVerseMenu(selected());
 });
 
-function show(title, items) {
+function show(title, items, { edge = false } = {}) {
+  dialog.classList.toggle('sba-edge-panel', edge);
   $('#dialog-title').textContent = title;
   dialogContent.replaceChildren(...items);
   if (!dialog.open) {
@@ -615,18 +616,44 @@ $('#chat').addEventListener('click', (event) => {
   event.preventDefault();
   window.CCUnifiedChat.open({ tab: 'public' });
 });
+function edgeChannelLinks() {
+  const group = element('section', 'sba-edge-channels');
+  group.setAttribute('aria-label', 'Kanały Christian Culture na YouTube');
+  group.append(
+    element('h3', 'sba-edge-label', 'YouTube'),
+    link('Osobowość PLUS', 'https://www.youtube.com/@osobowo%C5%9B%C4%87PLUS'),
+    link('Christian Culture TV', 'https://www.youtube.com/@ChristianCultureTV'),
+    link('Polskie Radio Christian Culture', 'https://www.youtube.com/@RadioChristianCulture')
+  );
+  const support = link('wspieramTO', site('/wspieramto'));
+  support.classList.add('sba-edge-support');
+  group.append(support);
+  return group;
+}
+
 $('#edge').addEventListener('click', () => {
   if (window.CCEdgePlus?.open && window.CCMobileEdge) {
     window.CCEdgePlus.open();
-    return;
+    const panel = $('#cc-mobile-edge-dialog');
+    const navigation = panel?.querySelector('nav');
+    if (panel?.open && navigation) {
+      panel.classList.add('sba-edge-panel');
+      if (!navigation.querySelector('.sba-edge-channels')) {
+        const close = navigation.querySelector('[data-edge-key="close"]');
+        if (close) close.after(edgeChannelLinks());
+        else navigation.prepend(edgeChannelLinks());
+      }
+      return;
+    }
   }
   show('Panel Christian Culture', [
+    edgeChannelLinks(),
     link('Wyszukiwarka Christian Culture', site('/wyszukiwarka')),
     link('MojaBiblia', selected() ? mojaBiblia(selected()) : site('/mojabiblia?book=JHN&ch=1&chapter=1&mode=reader')),
     link('AI dla Jezusa', site('/ai/aplikacja')),
     link('Biblia Audio', site('/biblia-audio')),
     link('LumiMes', site('/mess'))
-  ]);
+  ], { edge: true });
 });
 
 function bootCommunity() {

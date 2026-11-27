@@ -75,3 +75,65 @@ textarea { width: 100%; min-height: 110px; padding: 10px; margin: 10px 0; border
 @media (max-width: 780px) { .reader-controls { display: none !important; } .verse .body { max-width: 91vw; } }
 @media (max-height: 570px) { .verse { padding-block: 13px; } .verse blockquote { font-size: clamp(1.2rem, 3.7vh, 1.9rem); margin-block: 8px; } .gesture { display: none; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* The shared edge dialog also injects a narrow layout for ecosystem pages. */
+#cc-mobile-edge-dialog.sba-edge-panel {
+  width: min(310px, 90vw) !important;
+}
+#cc-mobile-edge-dialog.sba-edge-panel nav {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+dialog.sba-edge-panel {
+  color-scheme: dark;
+  color: #fff !important;
+  background: #000 !important;
+}
+#dialog.sba-edge-panel {
+  position: fixed;
+  inset: 0 auto 0 0;
+  height: 100dvh;
+  max-height: 100dvh;
+  width: min(310px, 90vw);
+  margin: 0;
+  border-color: #333;
+  border-radius: 0 16px 16px 0;
+}
+.sba-edge-channels {
+  grid-column: 1 / -1;
+  margin: 0 0 10px;
+  min-width: 0;
+}
+.sba-edge-label {
+  margin: 4px 0 8px;
+  font-size: .8rem;
+}
+.sba-edge-panel .menu-row {
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 44px;
+  width: 100% !important;
+  height: auto !important;
+  color: #fff !important;
+  background: #202020 !important;
+  white-space: normal;
+  padding: 10px 12px;
+}
+.sba-edge-panel .menu-row:hover {
+  background: #333 !important;
+}
+.sba-edge-panel .sba-edge-support {
+  justify-content: center;
+  min-height: 54px;
+  margin-top: 12px;
+  background: #c41230 !important;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+.sba-edge-panel .sba-edge-support:hover {
+  background: #aa1029 !important;
+}
+.sba-edge-panel :is(a, button):focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
