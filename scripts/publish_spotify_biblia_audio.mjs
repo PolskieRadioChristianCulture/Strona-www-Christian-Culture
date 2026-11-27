@@ -215,7 +215,8 @@ export function buildV7EpisodesInventory() {
     '37_1-36': 'Sny Józefa, Zdrada Braci i Sprzedaż do Egiptu',
     '38_1-30': 'Juda i Tamar, Prawda, Skrucha oraz Narodziny Peresa i Zeracha',
     '39_1-23': 'Józef w Domu Potifara, Próba Wierności i Łaska PANA w Więzieniu',
-    '40_1-23': 'Sny w Więzieniu, Wykładnia Józefa i Zapomnienie Podczaszego'
+    '40_1-23': 'Sny w Więzieniu, Wykładnia Józefa i Zapomnienie Podczaszego',
+    '41_1-57': 'Sny Faraona, Wywyższenie Józefa i Ocalenie przed Głodem'
   };
 
   const items = [];
