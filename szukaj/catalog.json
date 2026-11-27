@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
   "updatedAt": "2026-11-27T17:35:33.274Z",
-  "totalItems": 712,
+  "totalItems": 713,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -1103,6 +1103,20 @@
     }
   },
   "items": [
+    {
+      "title": "Biblia UBG – losowe wersety i Biblia Audio",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/sba",
+      "description": "Przewijaj losowe wersety Uwspółcześnionej Biblii Gdańskiej, czytaj kontekst, zapisuj ulubione fragmenty i słuchaj Biblii Audio Christian Culture.",
+      "tags": [
+        "biblia ubg",
+        "scrolluj biblię",
+        "losowe wersety",
+        "czytaj i słuchaj",
+        "biblia audio",
+        "ulubione wersety"
+      ]
+    },
     {
       "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
       "category": "Narzędzia i misja",
