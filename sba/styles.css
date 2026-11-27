@@ -378,6 +378,36 @@ dialog.sba-edge-panel {
   font-weight: 700;
   color: var(--sba-surface-fg);
 }
+.sba-scope-group {
+  display: grid;
+  gap: 8px;
+  margin: 10px 0 16px;
+}
+.sba-scope-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 46px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  background: var(--sba-surface-row-bg);
+  color: var(--sba-surface-fg);
+  font-weight: 600;
+  font-size: .9rem;
+  text-align: left;
+}
+.sba-scope-btn:hover {
+  background: var(--sba-surface-row-hover);
+}
+.sba-scope-btn[aria-pressed="true"] {
+  border-color: var(--red);
+  box-shadow: 0 0 0 2px rgba(183, 25, 51, 0.24);
+}
+.sba-scope-check {
+  color: var(--red);
+  font-weight: 800;
+}
 .sba-theme-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

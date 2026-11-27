@@ -18,6 +18,7 @@ export async function loadBible() {
   }
   const names = new Map(metadata.map(({ id, namePl }) => [id, namePl]));
   names.set('JHN', 'Ewangelia Jana');
+  const testaments = new Map(metadata.map(({ id, testament }) => [id, testament === 'NT' ? 'NT' : 'OT']));
   const chapters = new Map();
   const byKey = new Map();
   for (const [bookIndex, chapter, number, text] of index.r) {
@@ -26,7 +27,7 @@ export async function loadBible() {
     const chapterKey = book + '.' + chapter;
     const key = chapterKey + '.' + number;
     if (byKey.has(key)) continue;
-    const verse = { book, chapter, number, text, key, name: names.get(book) };
+    const verse = { book, chapter, number, text, key, name: names.get(book), testament: testaments.get(book) || 'OT' };
     const rows = chapters.get(chapterKey) || [];
     if (!chapters.has(chapterKey)) chapters.set(chapterKey, rows);
     rows.push(verse);

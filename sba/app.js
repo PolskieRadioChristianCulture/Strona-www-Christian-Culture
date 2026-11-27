@@ -1,4 +1,4 @@
-import { loadBible, loadRecordings, officialTrack, site, inEcosystem } from './data.js?v=1';
+import { loadBible, loadRecordings, officialTrack, site, inEcosystem } from './data.js?v=2';
 
 const $ = (query) => document.querySelector(query);
 const icons = {
@@ -85,6 +85,10 @@ for (const item of document.querySelectorAll('[data-icon]')) icon(item, item.dat
 const LOCALE_STORAGE_KEY = 'ekocc_ui_lang';
 const LOCALE_COOKIE_KEY = 'ekocc_lang';
 const THEME_STORAGE_KEY = 'cc-sba-theme-v1';
+const SCOPE_STORAGE_KEY = 'cc-sba-scope-v1';
+
+const normalizeScope = (val) => (val === 'ot' || val === 'nt' ? val : 'all');
+let testamentScope = normalizeScope(readLocal(SCOPE_STORAGE_KEY));
 
 const I18N = {
   pl: {
@@ -172,6 +176,11 @@ const I18N = {
     ytAria: 'Ustawienia i kanały Christian Culture',
     settingsBtn: 'Ustawienia',
     settingsTitle: 'Ustawienia',
+    settingsScopeHeading: 'Zakres losowania wersetów',
+    scope_all: 'Cała Biblia',
+    scope_ot: 'Tylko Stary Testament',
+    scope_nt: 'Tylko Nowy Testament',
+    scopeSavedToast: 'Zapisano zakres: {scope}.',
     settingsBgHeading: 'Kolor tła panelu głównego',
     settingsCustomLabel: 'Własny kolor',
     settingsReset: 'Domyślny (Biel)',
@@ -280,6 +289,11 @@ const I18N = {
     ytAria: 'Settings and Christian Culture channels',
     settingsBtn: 'Settings',
     settingsTitle: 'Settings',
+    settingsScopeHeading: 'Bible verse range',
+    scope_all: 'Whole Bible',
+    scope_ot: 'Old Testament only',
+    scope_nt: 'New Testament only',
+    scopeSavedToast: 'Saved range: {scope}.',
     settingsBgHeading: 'Main panel background color',
     settingsCustomLabel: 'Custom color',
     settingsReset: 'Default (White)',
@@ -388,6 +402,11 @@ const I18N = {
     ytAria: 'Einstellungen und Christian-Culture-Kanäle',
     settingsBtn: 'Einstellungen',
     settingsTitle: 'Einstellungen',
+    settingsScopeHeading: 'Bibelbereich für Zufallsverse',
+    scope_all: 'Ganze Bibel',
+    scope_ot: 'Nur Altes Testament',
+    scope_nt: 'Nur Neues Testament',
+    scopeSavedToast: 'Bereich gespeichert: {scope}.',
     settingsBgHeading: 'Hintergrundfarbe des Hauptbereichs',
     settingsCustomLabel: 'Eigene Farbe',
     settingsReset: 'Standard (Weiß)',
@@ -685,8 +704,20 @@ const ref = (verse) => bookName(verse) + ' ' + verse.chapter + ':' + verse.numbe
 const chapterRef = (verse) => bookName(verse) + ' ' + verse.chapter;
 const selected = () => cards[active]?.verse;
 
+function verseMatchesScope(verse, scope = testamentScope) {
+  if (!verse) return false;
+  if (scope === 'ot') return verse.testament === 'OT';
+  if (scope === 'nt') return verse.testament === 'NT';
+  return true;
+}
+
+function filteredVerses() {
+  const list = bible.verses.filter((verse) => verseMatchesScope(verse));
+  return list.length ? list : bible.verses;
+}
+
 function shuffleVerses() {
-  pool = [...bible.verses];
+  pool = [...filteredVerses()];
   for (let index = pool.length - 1; index > 0; index--) {
     const swap = Math.floor(Math.random() * (index + 1));
     [pool[index], pool[swap]] = [pool[swap], pool[index]];
@@ -708,6 +739,8 @@ function addCards(count, initial = null) {
     }
     const card = element('article', 'verse' + (verse.text.length > 175 ? ' long' : ''));
     card.setAttribute('aria-hidden', 'true');
+    card.dataset.testament = verse.testament || 'OT';
+    card.dataset.book = verse.book;
     const body = element('div', 'body');
     const quote = element('blockquote');
     const actions = element('div', 'verse-actions');
@@ -1436,8 +1469,60 @@ function closeEdgePanelIfOpen() {
   }
 }
 
+function resetFeedForScope() {
+  if (!bible) return;
+  const current = selected();
+  const keepCurrent = verseMatchesScope(current);
+  shuffleVerses();
+  feed.replaceChildren();
+  cards = [];
+  active = -1;
+  addCards(1);
+  addCards(15, keepCurrent ? current : null);
+  layout();
+  goTo(1, true);
+}
+
+function setTestamentScope(nextScope) {
+  const normalized = normalizeScope(nextScope);
+  if (normalized === testamentScope) return;
+  testamentScope = normalized;
+  saveLocal(SCOPE_STORAGE_KEY, testamentScope);
+  trackEvent('sba_scope_change', { scope: testamentScope });
+  resetFeedForScope();
+  notify(tr('scopeSavedToast', { scope: tr('scope_' + testamentScope) }));
+}
+
 function openSettingsDialog() {
   const section = element('div', 'sba-settings-section');
+
+  section.append(element('h3', 'sba-settings-heading', tr('settingsScopeHeading')));
+  const scopeGroup = element('div', 'sba-scope-group');
+  scopeGroup.setAttribute('role', 'group');
+  scopeGroup.setAttribute('aria-label', tr('settingsScopeHeading'));
+  const syncScopeButtons = () => {
+    scopeGroup.querySelectorAll('.sba-scope-btn').forEach((btn) => {
+      const isSelected = btn.dataset.scopeId === testamentScope;
+      btn.setAttribute('aria-pressed', String(isSelected));
+      const check = btn.querySelector('.sba-scope-check');
+      if (check) check.textContent = isSelected ? '✓' : '';
+    });
+  };
+  for (const scopeId of ['all', 'ot', 'nt']) {
+    const scopeBtn = element('button', 'sba-scope-btn');
+    scopeBtn.dataset.scopeId = scopeId;
+    const check = element('span', 'sba-scope-check');
+    check.setAttribute('aria-hidden', 'true');
+    scopeBtn.append(element('span', '', tr('scope_' + scopeId)), check);
+    scopeBtn.addEventListener('click', () => {
+      setTestamentScope(scopeId);
+      syncScopeButtons();
+    });
+    scopeGroup.append(scopeBtn);
+  }
+  syncScopeButtons();
+  section.append(scopeGroup);
+
   section.append(element('h3', 'sba-settings-heading', tr('settingsBgHeading')));
 
   const grid = element('div', 'sba-theme-grid');
