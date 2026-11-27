@@ -347,7 +347,7 @@
       
       <div class="cc-wt-header">
         <span class="cc-wt-badge">MECENAT CHRISTIAN CULTURE</span>
-        <h2 class="cc-wt-title" id="ccWtTitle">WspieramTO &bull; Wolne Słowo</h2>
+        <h2 class="cc-wt-title" id="ccWtTitle">WspieramTO</h2>
         <p class="cc-wt-sub">Utrzymanie mediów 24/7 i budowa nowego studia radiowo-telewizyjnego CC.</p>
       </div>
 

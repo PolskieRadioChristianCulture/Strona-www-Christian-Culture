@@ -1729,7 +1729,7 @@ function bootCommunity() {
     '/js/cc-edge-plus.js?v=20261110_edgep2',
     '/js/cc-chat-integration.js?v=20261120_prayer40dm',
     '/components/cc-global-chat-button.js?v=20261125_chat13',
-    '/components/cc-wspieramto-modal.js?v=20261127_wt3'
+    '/components/cc-wspieramto-modal.js?v=20261127_wt4'
   ];
   // Classic scripts execute in insertion order. CC modules resolve their own same-origin dependencies.
   for (const path of scripts) {
