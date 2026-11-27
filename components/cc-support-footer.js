@@ -18,7 +18,7 @@
   // Doładowanie modułu WspieramTO 2.0 Modal
   if (!window._ccWspieramToModalInitialized && !document.querySelector('script[src*="cc-wspieramto-modal"]')) {
     var s = document.createElement('script');
-    s.src = '/components/cc-wspieramto-modal.js?v=20261127_wt2';
+    s.src = '/components/cc-wspieramto-modal.js?v=20261127_wt3';
     s.defer = true;
     document.head.appendChild(s);
   }

@@ -244,6 +244,7 @@
     .cc-wt-secondary-btn {
       width: 100%;
       min-height: 46px;
+      padding: 0 20px;
       border-radius: 999px;
       background: rgba(196, 163, 90, 0.14);
       border: 1px solid rgba(196, 163, 90, 0.45);
@@ -255,6 +256,9 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
+      text-align: center;
+      white-space: nowrap;
+      box-sizing: border-box;
       text-decoration: none;
       transition: background-color 0.2s, border-color 0.2s;
       margin-bottom: 14px;
@@ -369,8 +373,7 @@
 
       <!-- Wsparcie regularne miesięczne (Patronite) -->
       <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" class="cc-wt-secondary-btn" id="ccWtPatroniteCta" data-support-method="patronite_monthly">
-        <span>Lub zostań stałym Patronem co miesiąc (Patronite)</span>
-        <span>&rarr;</span>
+        <span>Zostaję patronem</span>
       </a>
 
       <!-- Szybkie metody bezpośrednie -->
