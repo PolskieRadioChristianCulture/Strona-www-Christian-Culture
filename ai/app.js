@@ -1,7 +1,10 @@
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => Array.from(document.querySelectorAll(sel));
 
-const STORAGE_PREFIX = 'cc_ai_dla_jezusa_v2';
+const IS_TEST_ENV =
+  document.querySelector('meta[name="cc-ai-env"]')?.getAttribute('content') === 'test' ||
+  window.location.pathname.startsWith('/test/ai');
+const STORAGE_PREFIX = IS_TEST_ENV ? 'cc_ai_test_v1' : 'cc_ai_dla_jezusa_v2';
 const DEFAULT_ASSISTANT_ID = 'ai-dla-jezusa';
 const ALLOWED_MODES = new Set(['CC Auto', 'Studium Biblijne', 'Twórczość CC', 'Deep Research']);
 const ALLOWED_BYOK_PROVIDERS = new Set(['openrouter', 'openai', 'gemini', 'groq']);
