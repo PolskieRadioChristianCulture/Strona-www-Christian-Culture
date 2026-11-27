@@ -6,6 +6,13 @@
 
 import searchIndexData from '../../data/cc-search-index.json' with { type: 'json' };
 import bibleRagData from '../../data/bible-rag-registry.json' with { type: 'json' };
+import { resolveMojaBibliaVerses } from './mojabiblia-bridge.js';
+
+const INDEX_FRESHNESS = searchIndexData.generatedAt || searchIndexData.updatedAt || null;
+const STOP_TOKENS = new Set([
+  'i', 'w', 'z', 'do', 'na', 'o', 'a', 'od', 'dla', 'we', 'ze', 'po',
+  'czy', 'jak', 'co', 'to', 'jest', 'sie', 'oraz', 'studium', 'list', 'listu'
+]);
 
 /**
  * Normalizacja polskich znaków diakrytycznych i małych liter do porównań
@@ -17,6 +24,15 @@ export function normalizeText(str = '') {
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/ł/g, 'l')
     .trim();
+}
+
+export function isDocumentPubliclyVisible(doc) {
+  if (!doc || typeof doc !== 'object') return false;
+  if (doc.visibility !== 'public') return false;
+  if (doc.status !== 'published') return false;
+  const u = String(doc.canonical_url || '');
+  if (/\/(test|admin|mission-control|private|draft|joma)(\/|$)/i.test(u)) return false;
+  return true;
 }
 
 /**
@@ -35,39 +51,65 @@ export function extractScriptureRefs(text = '') {
 /**
  * Konwersja obiektu surowego z indeksu do kontraktu CanonicalDocument (Sekcja 5 specyfikacji)
  */
-export function toCanonicalDocument(raw, index = 0) {
+export function toCanonicalDocument(raw, index = 0, seenIds = null) {
   const title = String(raw.title || raw.name || '').trim();
   const rawUrl = String(raw.url || raw.href || '').trim();
   const canonicalUrl = rawUrl.startsWith('http') ? rawUrl : `https://polskieradio.cc${rawUrl.startsWith('/') ? '' : '/'}${rawUrl}`;
-  const description = String(raw.description || raw.desc || raw.snippet || '').trim();
+  const description = [
+    raw.description || raw.desc || raw.snippet,
+    raw.contentSnippet,
+    raw.scripture
+  ]
+    .filter((v) => typeof v === 'string' && v.trim())
+    .join(' · ')
+    .trim();
   const category = String(raw.category || raw.section || 'ogólne').trim();
   const tags = Array.isArray(raw.tags) ? raw.tags.map(t => String(t).trim()) : [];
   
-  // Identyfikator deterministyczny: cc:{typ}:{slug}
+  // Identyfikator deterministyczny: cc:{typ}:{slug} (unikalny przy powtórzonych URL np. /dzj)
   const slug = canonicalUrl
     .replace(/^https?:\/\/[^/]+/i, '')
     .replace(/[^a-z0-9_-]+/gi, '-')
     .replace(/^-+|-+$/g, '') || `item-${index}`;
   const docType = determineDocType(canonicalUrl, category);
+  let docId = `cc:${docType}:${slug}`;
+  if (seenIds) {
+    if (seenIds.has(docId)) {
+      docId = `${docId}-${simpleHash(`${title}|${raw.published_at || index}`).slice(0, 6)}`;
+    }
+    seenIds.add(docId);
+  }
 
   const scriptureRefs = extractScriptureRefs(`${title} ${description}`);
+  const hasBibliaAudio =
+    docType === 'scripture' ||
+    docType === 'audio' ||
+    scriptureRefs.length > 0 ||
+    /biblia|list do|psalm|ewangel/i.test(`${title} ${description}`);
+  const visibility = typeof raw.visibility === 'string' && raw.visibility.trim()
+    ? raw.visibility.trim().toLowerCase()
+    : 'public';
+  const status = typeof raw.status === 'string' && raw.status.trim()
+    ? raw.status.trim().toLowerCase()
+    : 'published';
 
   return {
-    id: `cc:${docType}:${slug}`,
+    id: docId,
     version: 1,
     type: docType,
     title,
     language: 'pl',
     canonical_url: canonicalUrl,
     source_system: determineSourceSystem(canonicalUrl, category),
-    published_at: raw.published_at || '2026-10-29T08:00:00+01:00',
-    updated_at: raw.updated_at || '2026-10-29T08:00:00+01:00',
-    indexed_at: '2026-10-29T08:00:00+01:00',
-    status: raw.status || 'published',
-    visibility: 'public',
+    published_at: raw.published_at || INDEX_FRESHNESS,
+    updated_at: raw.updated_at || raw.published_at || INDEX_FRESHNESS,
+    indexed_at: INDEX_FRESHNESS,
+    status,
+    visibility,
     license: 'owned-or-authorized',
     attribution: 'Christian Culture',
     scripture_refs: scriptureRefs,
+    biblia_audio_url: raw.biblia_audio_url || (hasBibliaAudio ? 'https://polskieradio.cc/biblia-audio' : undefined),
     tags,
     category,
     featured: !!raw.featured,
@@ -113,13 +155,23 @@ function simpleHash(str) {
  * Pamięciowy rejestr kanoniczny (Lazy-initialized)
  */
 let canonicalDocumentsCache = null;
+let customDocumentsOverride = null;
+
+export function setCanonicalDocumentsForTest(docsOrNull) {
+  customDocumentsOverride = Array.isArray(docsOrNull)
+    ? docsOrNull.map((item, idx) => (item?.id ? item : toCanonicalDocument(item, idx)))
+    : null;
+  if (!docsOrNull) canonicalDocumentsCache = null;
+}
 
 export function getCanonicalDocuments() {
+  if (customDocumentsOverride) return customDocumentsOverride;
   if (canonicalDocumentsCache) return canonicalDocumentsCache;
   const items = Array.isArray(searchIndexData) ? searchIndexData : (searchIndexData.items || []);
+  const seenIds = new Set();
   canonicalDocumentsCache = items
     .filter(item => item && (item.title || item.name))
-    .map((item, idx) => toCanonicalDocument(item, idx));
+    .map((item, idx) => toCanonicalDocument(item, idx, seenIds));
   return canonicalDocumentsCache;
 }
 
@@ -130,7 +182,6 @@ export function getCanonicalDocuments() {
 export function searchKnowledgeHub(query = '', options = {}) {
   const docs = getCanonicalDocuments();
   const qNorm = normalizeText(query);
-  const lang = String(options.lang || 'pl').toLowerCase();
   const typeFilter = options.type ? String(options.type).toLowerCase() : null;
   const limit = Math.min(50, Math.max(1, parseInt(options.limit, 10) || 10));
   const offset = Math.max(0, parseInt(options.cursor, 10) || 0);
@@ -138,7 +189,7 @@ export function searchKnowledgeHub(query = '', options = {}) {
   if (!qNorm) {
     // Puste zapytanie: zwróć materiały wyróżnione (featured)
     const featuredDocs = docs
-      .filter(d => d.status === 'published' && (!typeFilter || d.type === typeFilter))
+      .filter(d => isDocumentPubliclyVisible(d) && (!typeFilter || d.type === typeFilter))
       .filter(d => d.featured)
       .slice(offset, offset + limit);
     return {
@@ -146,48 +197,51 @@ export function searchKnowledgeHub(query = '', options = {}) {
       total: featuredDocs.length,
       results: featuredDocs.map(formatSearchResult),
       next_cursor: null,
-      index_freshness: '2026-10-29T08:00:00+01:00'
+      index_freshness: INDEX_FRESHNESS
     };
   }
 
   const queryTokens = qNorm.split(/\s+/).filter(Boolean);
+  const meaningfulTokens = queryTokens.filter(t => t.length >= 2 && !STOP_TOKENS.has(t));
+  const requiredTokens = meaningfulTokens.length ? meaningfulTokens : queryTokens;
 
   const scored = [];
   for (const doc of docs) {
-    if (doc.status !== 'published') continue;
+    if (!isDocumentPubliclyVisible(doc)) continue;
     if (typeFilter && doc.type !== typeFilter) continue;
 
     const titleNorm = normalizeText(doc.title);
     const descNorm = normalizeText(doc.text);
-    const tagsNorm = doc.tags.map(t => normalizeText(t));
-    const scriptureNorm = doc.scripture_refs.map(r => normalizeText(r));
+    const urlNorm = normalizeText(doc.canonical_url);
+    const tagsNorm = (doc.tags || []).map(t => normalizeText(t));
+    const scriptureNorm = (doc.scripture_refs || []).map(r => normalizeText(r));
 
     let score = 0;
 
-    // 1. Dokładne dopasowanie frazy w tytule
-    if (titleNorm.includes(qNorm)) score += 100;
-    // 2. Dokładne dopasowanie frazy w opisie
-    if (descNorm.includes(qNorm)) score += 40;
+    // 1. Dokładne dopasowanie frazy w tytule / opisie
+    if (titleNorm.includes(qNorm)) score += 120;
+    if (descNorm.includes(qNorm)) score += 45;
 
-    // 3. Dopasowanie referencji biblijnej (np. J 3:16)
+    // 2. Dopasowanie referencji biblijnej (np. J 3:16)
     for (const ref of scriptureNorm) {
       if (ref.includes(qNorm) || qNorm.includes(ref)) {
         score += 80;
       }
     }
 
-    // 4. Dopasowanie tokenów
-    let matchedTokens = 0;
-    for (const tok of queryTokens) {
+    // 3. Dopasowanie tokenów merytorycznych (bez szumu polskich spójników)
+    let matchedRequired = 0;
+    for (const tok of requiredTokens) {
       let hit = false;
-      if (titleNorm.includes(tok)) { score += 20; hit = true; }
-      if (tagsNorm.some(t => t.includes(tok))) { score += 15; hit = true; }
-      if (descNorm.includes(tok)) { score += 5; hit = true; }
-      if (hit) matchedTokens++;
+      if (titleNorm.includes(tok)) { score += 35; hit = true; }
+      if (tagsNorm.some(t => t.includes(tok))) { score += 20; hit = true; }
+      if (urlNorm.includes(tok)) { score += 15; hit = true; }
+      if (descNorm.includes(tok)) { score += 10; hit = true; }
+      if (hit) matchedRequired++;
     }
 
-    // Wymóg dopasowania przynajmniej połowy słów zapytania
-    if (score > 0 && matchedTokens >= Math.ceil(queryTokens.length / 2)) {
+    // Wymóg dopasowania przeważającej części słów merytorycznych (dla 1 słowa — 100%)
+    if (score > 0 && matchedRequired >= Math.ceil(requiredTokens.length * 0.7)) {
       if (doc.featured) score += 10;
       scored.push({ doc, score });
     }
@@ -204,7 +258,7 @@ export function searchKnowledgeHub(query = '', options = {}) {
     total: scored.length,
     results: paginated.map(item => formatSearchResult(item.doc, item.score)),
     next_cursor: nextCursor,
-    index_freshness: '2026-10-29T08:00:00+01:00'
+    index_freshness: INDEX_FRESHNESS
   };
 }
 
@@ -218,6 +272,7 @@ function formatSearchResult(doc, score = 0) {
     source_type: doc.source_system,
     language: doc.language,
     scripture_refs: doc.scripture_refs,
+    biblia_audio_url: doc.biblia_audio_url,
     license: doc.license,
     attribution: doc.attribution,
     published_at: doc.published_at,
@@ -227,11 +282,11 @@ function formatSearchResult(doc, score = 0) {
 }
 
 /**
- * Pobranie pojedynczego dokumentu
+ * Pobranie pojedynczego dokumentu (kontrola widoczności przy każdym odczycie)
  */
 export function getDocumentById(id) {
   const docs = getCanonicalDocuments();
-  return docs.find(d => d.id === id && d.status === 'published') || null;
+  return docs.find(d => d.id === id && isDocumentPubliclyVisible(d)) || null;
 }
 
 /**
@@ -241,7 +296,7 @@ export function getTopicsCatalog(lang = 'pl') {
   const docs = getCanonicalDocuments();
   const categoryCounts = {};
   for (const doc of docs) {
-    if (doc.status !== 'published') continue;
+    if (!isDocumentPubliclyVisible(doc)) continue;
     const cat = doc.category || 'Ogólne';
     categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
   }
@@ -288,6 +343,34 @@ export function findScripture(reference = '', translation = 'UBG') {
   }
 
   return null;
+}
+
+/**
+ * Asynchroniczne wyszukiwanie wersetu z automatycznym wsparciem MojaBiblia UBG
+ */
+export async function findScriptureWithBridge(reference = '', translation = 'UBG', env = {}, deps = {}) {
+  const direct = findScripture(reference, translation);
+  if (direct) {
+    return {
+      ...direct,
+      biblia_audio_url: 'https://polskieradio.cc/biblia-audio'
+    };
+  }
+  const cleanRef = String(reference || '').trim();
+  if (!cleanRef) return null;
+  const resolved = await resolveMojaBibliaVerses([cleanRef], env, deps);
+  const first = resolved?.[0];
+  if (!first || !first.ubg) return null;
+  return {
+    reference: first.reference,
+    short_ref: first.shortRef,
+    translation: 'Uwspółcześniona Biblia Gdańska (UBG)',
+    license: 'UBG_AUTHORIZED',
+    topic: 'Pismo Święte',
+    text: first.ubg,
+    canonical_url: first.interlinearUrl || first.readerUrl || 'https://polskieradio.cc/mojabiblia',
+    biblia_audio_url: 'https://polskieradio.cc/biblia-audio'
+  };
 }
 
 /**

@@ -49,7 +49,7 @@ export async function handleAiDlaJezusaApi(request, env = {}, deps = {}) {
 
   // 0. Remote MCP Server (Etap 3): /api/ai-dla-jezusa/v1/mcp
   if (path === '/api/ai-dla-jezusa/v1/mcp' || path.startsWith('/api/ai-dla-jezusa/v1/mcp/')) {
-    return handleMcpRequest(request, env);
+    return handleMcpRequest(request, env, deps);
   }
 
   // 0b. Rozmowy konwersacyjne + RAG + Transkrypcja mowy:
