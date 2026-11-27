@@ -6298,12 +6298,26 @@
   // ── Wiadomość z Nieba (@007, L0 23.11.2026): karta 1:1 na szablonie L0 + Pobierz PNG + Udostępnij ──
   const WZN_TEMPLATE = '/images/wiadomosc-z-nieba/szablon-1x1.jpg';
   function wznEnsureFonts() {
-    if (document.getElementById('wzn-chat-fonts')) return;
-    const l = document.createElement('link');
-    l.id = 'wzn-chat-fonts';
-    l.rel = 'stylesheet';
-    l.href = 'https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Cormorant+Garamond:ital,wght@1,600&display=swap';
-    document.head.appendChild(l);
+    if (!document.getElementById('wzn-chat-fonts')) {
+      const l = document.createElement('link');
+      l.id = 'wzn-chat-fonts';
+      l.rel = 'stylesheet';
+      l.href = 'https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Cormorant+Garamond:ital,wght@1,600&display=swap';
+      document.head.appendChild(l);
+    }
+    if (!document.getElementById('wzn-card-light-guard')) {
+      const st = document.createElement('style');
+      st.id = 'wzn-card-light-guard';
+      const modal3 = ':is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal)';
+      st.textContent =
+        `html[data-lumina-theme="light"] ${modal3} .cc-wzn-card .cc-wzn-eyebrow, html[data-lumina-theme="light"] ${modal3} .cc-wzn-card > div > span:first-child{color:#ff4d4d!important;-webkit-text-fill-color:#ff4d4d!important;text-shadow:0 1px 6px rgba(0,0,0,.85)!important}` +
+        `html[data-lumina-theme="light"] ${modal3} .cc-wzn-card .cc-wzn-verse, html[data-lumina-theme="light"] ${modal3} .cc-wzn-card p{color:#ffffff!important;-webkit-text-fill-color:#ffffff!important;text-shadow:0 2px 10px rgba(0,0,0,.92)!important}` +
+        `html[data-lumina-theme="light"] ${modal3} .cc-wzn-card .cc-wzn-ref, html[data-lumina-theme="light"] ${modal3} .cc-wzn-card > div > span:last-child{color:#e5e7eb!important;-webkit-text-fill-color:#e5e7eb!important;text-shadow:0 1px 6px rgba(0,0,0,.85)!important}` +
+        `html[data-lumina-theme="light"] ${modal3} .cc-wzn-card .cc-wzn-version, html[data-lumina-theme="light"] ${modal3} .cc-wzn-card small{color:#cbd5e1!important;-webkit-text-fill-color:#cbd5e1!important}` +
+        `html[data-lumina-theme="light"] ${modal3} .cc-wzn-btn-download, html[data-lumina-theme="light"] ${modal3} .cc-wzn-card-wrap button[onclick*="wznChatDownload"]{background:#FF7A00!important;color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important;border:none!important}` +
+        `html[data-lumina-theme="light"] ${modal3} .cc-wzn-btn-share, html[data-lumina-theme="light"] ${modal3} .cc-wzn-card-wrap button[onclick*="wznChatShare"]{background:#f4f6fa!important;color:#172033!important;-webkit-text-fill-color:#172033!important;border:1.5px solid #cbd5e1!important}`;
+      document.head.appendChild(st);
+    }
   }
   function wznVerseSize(len) {
     return len <= 70 ? 4.8 : len <= 100 ? 4.2 : len <= 130 ? 3.7 : len <= 170 ? 3.2 : 2.8;

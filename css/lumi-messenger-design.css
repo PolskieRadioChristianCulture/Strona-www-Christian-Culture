@@ -449,51 +449,57 @@ html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessa
 html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .lumina-send-btn-premium:active {
   background: #E66A00 !important;
 }
-html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card .cc-wzn-eyebrow,
-html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card > div > span:first-child {
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-card .cc-wzn-eyebrow,
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-card > div > span:first-child {
   color: #ff4d4d !important;
+  -webkit-text-fill-color: #ff4d4d !important;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85) !important;
 }
-html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card .cc-wzn-verse,
-html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card p {
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-card .cc-wzn-verse,
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-card p {
   color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.92) !important;
 }
-html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card .cc-wzn-ref,
-html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card > div > span:last-child {
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-card .cc-wzn-ref,
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-card > div > span:last-child {
   color: #e5e7eb !important;
+  -webkit-text-fill-color: #e5e7eb !important;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85) !important;
 }
-html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card .cc-wzn-version,
-html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card small {
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-card .cc-wzn-version,
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-card small {
   color: #cbd5e1 !important;
+  -webkit-text-fill-color: #cbd5e1 !important;
 }
-html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-btn-download,
-html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card-wrap button[onclick*="wznChatDownload"] {
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-btn-download,
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-card-wrap button[onclick*="wznChatDownload"] {
   background: #FF7A00 !important;
   color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
   border: none !important;
   box-shadow: 0 3px 10px rgba(255, 122, 0, 0.28) !important;
 }
-html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-btn-download:hover,
-html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card-wrap button[onclick*="wznChatDownload"]:hover {
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-btn-download:hover,
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-card-wrap button[onclick*="wznChatDownload"]:hover {
   background: #FF8C33 !important;
   color: #FFFFFF !important;
 }
-html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-btn-download:active,
-html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card-wrap button[onclick*="wznChatDownload"]:active {
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-btn-download:active,
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-card-wrap button[onclick*="wznChatDownload"]:active {
   background: #E66A00 !important;
   color: #FFFFFF !important;
 }
-html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-btn-share,
-html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card-wrap button[onclick*="wznChatShare"] {
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-btn-share,
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-card-wrap button[onclick*="wznChatShare"] {
   background: #f4f6fa !important;
   color: #172033 !important;
+  -webkit-text-fill-color: #172033 !important;
   border: 1.5px solid #cbd5e1 !important;
   box-shadow: none !important;
 }
-html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-btn-share:hover,
-html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card-wrap button[onclick*="wznChatShare"]:hover {
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-btn-share:hover,
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-card-wrap button[onclick*="wznChatShare"]:hover {
   background: #e9eef5 !important;
   border-color: #94a3b8 !important;
 }
@@ -524,4 +530,5 @@ html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessa
 }
 html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .lumina-reply-btn {
   color: #854d0e !important;
+  white-space: nowrap !important;
 }

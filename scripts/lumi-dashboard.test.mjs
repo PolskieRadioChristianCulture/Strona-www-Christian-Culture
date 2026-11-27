@@ -351,10 +351,10 @@ test('embedded 40DM never switches to public chat during authentication', async 
 test('LUMI Messenger default white theme protects WZN card text, colors buttons #FF7A00, keeps white composer with dark text, and cleans header logo', async () => {
   const lumiPage = await readFile('scripts/lumi-page.mjs', 'utf8');
   assert.match(lumiPage, /<html lang="pl" data-lumina-theme="light" class="lumi-mess-page"/);
-  assert.match(lumiPage, /lumi-messenger-design\.css\?v=20261127_light_contrast_v2/);
+  assert.match(lumiPage, /lumi-messenger-design\.css\?v=20261127_light_contrast_v3/);
 
   const designCss = await readFile('css/lumi-messenger-design.css', 'utf8');
-  assert.match(designCss, /\.cc-wzn-card \.cc-wzn-verse,[\s\S]*?color:\s*#ffffff\s*!important/);
+  assert.match(designCss, /#directMessagesModal#directMessagesModal#directMessagesModal[\s\S]*?\.cc-wzn-card \.cc-wzn-verse,[\s\S]*?color:\s*#ffffff\s*!important/);
   assert.match(designCss, /\.cc-wzn-btn-download,[\s\S]*?background:\s*#FF7A00\s*!important;[\s\S]*?color:\s*#FFFFFF\s*!important/);
   assert.match(designCss, /#publicChatInput[\s\S]*?background:\s*#ffffff\s*!important;[\s\S]*?color:\s*#0f172a\s*!important/);
   assert.match(designCss, /\.chat-header-logo-icon[\s\S]*?background:\s*linear-gradient\(135deg,\s*#FF8C33\s*0%,\s*#FF7A00\s*100%\)\s*!important/);

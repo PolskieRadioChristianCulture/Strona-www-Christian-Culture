@@ -4660,29 +4660,34 @@ html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) span:is
 /* ══════════════════════════════════════════════════════════════════════════
    LUMI MESSENGER / CZAT — OCHRONA KARTY „WIADOMOŚĆ Z NIEBA” & KONTRAST BIELI
    ══════════════════════════════════════════════════════════════════════════ */
-html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-card .cc-wzn-eyebrow,
-html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-card > div > span:first-child {
+html[data-lumina-theme="light"] :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-card .cc-wzn-eyebrow,
+html[data-lumina-theme="light"] :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-card > div > span:first-child {
     color: #ff4d4d !important;
+    -webkit-text-fill-color: #ff4d4d !important;
     text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85) !important;
 }
-html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-card .cc-wzn-verse,
-html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-card p {
+html[data-lumina-theme="light"] :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-card .cc-wzn-verse,
+html[data-lumina-theme="light"] :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-card p {
     color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.92) !important;
 }
-html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-card .cc-wzn-ref,
-html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-card > div > span:last-child {
+html[data-lumina-theme="light"] :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-card .cc-wzn-ref,
+html[data-lumina-theme="light"] :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-card > div > span:last-child {
     color: #e5e7eb !important;
+    -webkit-text-fill-color: #e5e7eb !important;
     text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85) !important;
 }
-html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-card .cc-wzn-version,
-html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-card small {
+html[data-lumina-theme="light"] :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-card .cc-wzn-version,
+html[data-lumina-theme="light"] :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-card small {
     color: #cbd5e1 !important;
+    -webkit-text-fill-color: #cbd5e1 !important;
 }
-html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-btn-download,
-html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-card-wrap button[onclick*="wznChatDownload"] {
+html[data-lumina-theme="light"] :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-btn-download,
+html[data-lumina-theme="light"] :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .cc-wzn-card-wrap button[onclick*="wznChatDownload"] {
     background: #FF7A00 !important;
     color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
     border: none !important;
     box-shadow: 0 3px 10px rgba(255, 122, 0, 0.28) !important;
 }
