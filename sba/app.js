@@ -378,10 +378,23 @@ function link(title, url) {
   return anchor;
 }
 
+function withSbaContext(url, verse = selected()) {
+  url.searchParams.set('skin', 'sba');
+  url.searchParams.set('source', 'sba');
+  if (verse?.key) url.searchParams.set('ref', verse.key);
+  return url;
+}
+
+function ccSearchUrl(verse, path = '/wyszukiwarka') {
+  const url = withSbaContext(site(path), verse);
+  if (verse) url.searchParams.set('q', ref(verse));
+  return url;
+}
+
 function mojaBiblia(verse) {
   const url = site('/mojabiblia');
   url.search = new URLSearchParams({ book: verse.book, ch: verse.chapter, chapter: verse.chapter, mode: 'reader', verse: verse.number });
-  return url;
+  return withSbaContext(url, verse);
 }
 
 function verseLink(verse) {
@@ -460,19 +473,15 @@ function askAiQuestion(verse) {
 }
 
 function askAiUrl(verse) {
-  const url = site('/ai/aplikacja');
+  const url = withSbaContext(site('/ai/aplikacja'), verse);
   url.searchParams.set('q', askAiQuestion(verse));
   url.searchParams.set('mode', 'Studium Biblijne');
-  url.searchParams.set('source', 'sba');
-  url.searchParams.set('ref', verse.key);
   return url;
 }
 
 function openVerseMenu(verse) {
   const saved = settings[verse.key];
   const recording = officialTrack(recordings, verse);
-  const search = site('/szukaj');
-  search.searchParams.set('q', ref(verse));
   const askLink = link('Zapytaj AI dla Jezusa o ten fragment', askAiUrl(verse));
   askLink.addEventListener('click', () => {
     dialog.close();
@@ -501,8 +510,8 @@ function openVerseMenu(verse) {
       void startMedia(recording);
     })] : []),
     row(saved?.note ? 'Edytuj notatkę' : 'Dodaj notatkę', () => showNote(verse)),
-    link('Wyszukaj ten fragment w Christian Culture', search),
-    link('Otwórz Wyszukiwarkę Christian Culture', site('/wyszukiwarka')),
+    link('Wyszukaj ten fragment w Christian Culture', ccSearchUrl(verse, '/szukaj')),
+    link('Otwórz Wyszukiwarkę Christian Culture', ccSearchUrl(verse, '/wyszukiwarka')),
     askLink
   ]);
   trackEvent('sba_verse_menu_open', { verse_key: verse.key });
@@ -674,7 +683,7 @@ $('#audio-options').addEventListener('click', () => {
   show('Biblia Audio', [
     row((playingTrack?.type !== 'radio' && audioMode === 'automatic' ? '✓  ' : '') + 'Nagrania CC, gdy są dostępne', () => setAudioMode('automatic')),
     row((playingTrack?.type !== 'radio' && audioMode === 'voice' ? '✓  ' : '') + 'Zawsze używaj głosu urządzenia', () => setAudioMode('voice')),
-    link('Otwórz katalog Biblii Audio', site('/biblia-audio')),
+    link('Otwórz katalog Biblii Audio', withSbaContext(site('/biblia-audio'), selected())),
     element('h3', '', 'Radio na żywo'),
     ...stations.map((station) => row((playingTrack === station ? '✓  ' : '') + station.title, () => {
       dialog.close();
@@ -832,10 +841,10 @@ $('#edge').addEventListener('click', () => {
   }
   show('Panel Christian Culture', [
     edgeChannelLinks(),
-    link('Wyszukiwarka Christian Culture', site('/wyszukiwarka')),
-    link('MojaBiblia', selected() ? mojaBiblia(selected()) : site('/mojabiblia?book=JHN&ch=1&chapter=1&mode=reader')),
-    link('AI dla Jezusa', selected() ? askAiUrl(selected()) : site('/ai/aplikacja')),
-    link('Biblia Audio', site('/biblia-audio')),
+    link('Wyszukiwarka Christian Culture', ccSearchUrl(selected(), '/wyszukiwarka')),
+    link('MojaBiblia', selected() ? mojaBiblia(selected()) : withSbaContext(site('/mojabiblia?book=JHN&ch=1&chapter=1&mode=reader'))),
+    link('AI dla Jezusa', selected() ? askAiUrl(selected()) : withSbaContext(site('/ai/aplikacja'))),
+    link('Biblia Audio', withSbaContext(site('/biblia-audio'), selected())),
     link('LumiMes', site('/mess'))
   ], { edge: true });
 });

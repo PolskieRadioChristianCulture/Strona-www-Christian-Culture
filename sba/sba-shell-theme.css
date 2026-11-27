@@ -1,0 +1,275 @@
+/* ==========================================================================
+   Scrolluj Biblię (/sba) — Unified Visual Shell for Neighboring Ecosystem Apps
+   Activated strictly when html[data-cc-skin="sba"] is present (via ?skin=sba,
+   ?source=sba or same-tab SBA session context). Zero impact on direct visits.
+   Palette: Obsidian (#0d0d0f / #141418) + White (#ffffff) + Crimson (#b71933 / #e74763)
+   ========================================================================== */
+
+html[data-cc-skin="sba"] {
+  color-scheme: dark;
+  --sba-bg: #0d0d0f;
+  --sba-surface: #141418;
+  --sba-card: #171517;
+  --sba-card-elevated: #1e191b;
+  --sba-red: #b71933;
+  --sba-crimson: #e74763;
+  --sba-rose: #ff8ea2;
+  --sba-ink: #f8f6f6;
+  --sba-muted: #b8afb2;
+  --sba-border: rgba(183, 25, 51, 0.42);
+  --sba-border-subtle: rgba(183, 25, 51, 0.24);
+  --sba-glow: rgba(183, 25, 51, 0.34);
+
+  /* MojaBiblia (/mojabiblia) tokens */
+  --bg-dark: #0d0d0f;
+  --bg-surface: #141418;
+  --border-color: rgba(183, 25, 51, 0.42);
+  --border-subtle: rgba(183, 25, 51, 0.22);
+  --gold-primary: #e74763;
+  --gold-bright: #ff8ea2;
+  --gold-glow: rgba(183, 25, 51, 0.34);
+  --text-main: #f8f6f6;
+  --text-muted: #b8afb2;
+  --accent-greek: #ff8ea2;
+  --cc-gold: #e74763;
+  --cc-gold-soft: #ff8ea2;
+  --cc-void: #0d0d0f;
+  --cc-void-2: #141418;
+
+  /* Biblia Audio (/biblia-audio) tokens */
+  --bg: #0d0d0f;
+  --bg-deep: #09090b;
+  --surface: #141418;
+  --surface-alt: #1b191c;
+  --surface-glass: rgba(13, 13, 15, 0.90);
+  --surface-active: #24191c;
+  --gold: #e74763;
+  --gold-hover: #ff627d;
+  --gold-light: #ff8ea2;
+  --gold-dark: #991329;
+  --line-gold: rgba(183, 25, 51, 0.38);
+  --text: #f8f6f6;
+
+  /* AI dla Jezusa (/ai/aplikacja) tokens */
+  --bg-main: #0a0a0c;
+  --bg-sidebar: #0e0d0f;
+  --bg-surface-hover: #1f1a1c;
+  --bg-input: #171517;
+  --border-card: rgba(183, 25, 51, 0.30);
+  --border-strong: rgba(231, 71, 99, 0.45);
+  --gold-soft: #ff8ea2;
+  --gold-wash: rgba(183, 25, 51, 0.16);
+  --ambient-rgb: 231, 71, 99;
+  --ambient-rgb-soft: 255, 142, 162;
+}
+
+/* Szukaj CC (/szukaj) tokens across light/dark attribute overrides */
+html[data-cc-skin="sba"],
+html[data-cc-skin="sba"][data-theme="dark"],
+html[data-cc-skin="sba"][data-theme="light"] {
+  --bg-page: #0d0d0f !important;
+  --bg-body-radial1: rgba(183, 25, 51, 0.18) !important;
+  --bg-body-radial2: rgba(140, 16, 38, 0.10) !important;
+  --card-bg: #151417 !important;
+  --card-surface-elevated: #1d1a1c !important;
+  --text-main: #f8f6f6 !important;
+  --text-secondary: #cfc7c9 !important;
+  --text-muted: #9e9598 !important;
+  --card-border: rgba(183, 25, 51, 0.26) !important;
+  --card-hover-border: #e74763 !important;
+  --result-link: #ff8ea2 !important;
+  --gold-accent: #e74763 !important;
+  --gold-hover: #ff627d !important;
+  --gold-soft: #ffb3c0 !important;
+  --focus-ring: #b71933 !important;
+  --search-bg: #171517 !important;
+  --search-border: rgba(183, 25, 51, 0.42) !important;
+  --search-text: #ffffff !important;
+  --chip-bg: #171517 !important;
+  --chip-border: rgba(255, 255, 255, 0.12) !important;
+  --chip-hover-bg: #221b1e !important;
+  --chip-active-bg: rgba(183, 25, 51, 0.22) !important;
+  --chip-active-border: #e74763 !important;
+  --chip-active-shadow: 0 0 0 2px rgba(231, 71, 99, 0.28) !important;
+  --tag-bg: rgba(183, 25, 51, 0.16) !important;
+  --tag-text: #ff8ea2 !important;
+}
+
+/* Base obsidian surface across neighboring documents */
+html[data-cc-skin="sba"],
+html[data-cc-skin="sba"] body {
+  background-color: #0d0d0f !important;
+  background-image: radial-gradient(ellipse at 50% 0%, rgba(183, 25, 51, 0.15) 0%, #0d0d0f 62%) !important;
+  color: #f8f6f6 !important;
+}
+
+/* MojaBiblia specific chrome harmonization */
+html[data-cc-skin="sba"] .mb-header {
+  background: rgba(13, 13, 15, 0.96) !important;
+  border-bottom: 1.5px solid rgba(183, 25, 51, 0.45) !important;
+}
+html[data-cc-skin="sba"] .mb-card,
+html[data-cc-skin="sba"] .verse-card,
+html[data-cc-skin="sba"] .word-card {
+  background-color: #151417 !important;
+  border-color: rgba(183, 25, 51, 0.28) !important;
+}
+
+/* Wyszukiwarka Christian Culture (/wyszukiwarka & #ccOmniOverlay) */
+html[data-cc-skin="sba"] .ccw-fallback h1 {
+  color: #ff8ea2 !important;
+}
+html[data-cc-skin="sba"] .ccw-fallback button[type="submit"],
+html[data-cc-skin="sba"] .ccw-mcp-trigger-btn {
+  background: linear-gradient(135deg, #c81d3a 0%, #991329 100%) !important;
+  border-color: rgba(231, 71, 99, 0.55) !important;
+  color: #ffffff !important;
+}
+html[data-cc-skin="sba"] #ccOmniOverlay {
+  --omni-gold: #e74763 !important;
+  --omni-gold-hover: #ff627d !important;
+  --omni-gold-deep: #b71933 !important;
+  --omni-ink: #f8f6f6 !important;
+  --omni-muted: #bdb4b7 !important;
+  --omni-title: #ff8ea2 !important;
+  --omni-line: rgba(183, 25, 51, 0.36) !important;
+  background: #0d0d0f radial-gradient(ellipse at 50% 0%, rgba(183, 25, 51, 0.18) 0%, #0d0d0f 62%) !important;
+  background-image: radial-gradient(ellipse at 50% 0%, rgba(183, 25, 51, 0.18) 0%, #0d0d0f 62%) !important;
+  scrollbar-color: rgba(231, 71, 99, 0.45) transparent !important;
+}
+html[data-cc-skin="sba"] #ccOmniOverlay::before {
+  background: transparent !important;
+}
+html[data-cc-skin="sba"] .cc-omni-top {
+  background: linear-gradient(180deg, rgba(13, 13, 15, 0.92) 0%, rgba(13, 13, 15, 0) 100%) !important;
+}
+html[data-cc-skin="sba"] .cc-omni-box {
+  background: #171517 !important;
+  border-color: rgba(183, 25, 51, 0.46) !important;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(231, 71, 99, 0.16) !important;
+}
+html[data-cc-skin="sba"] .cc-omni-box:focus-within {
+  border-color: #e74763 !important;
+  box-shadow: 0 0 0 3px rgba(231, 71, 99, 0.26) !important;
+}
+html[data-cc-skin="sba"] #ccOmniInput {
+  color: #ffffff !important;
+}
+html[data-cc-skin="sba"] #ccOmniOverlay .cc-omni-tab.is-active,
+html[data-cc-skin="sba"] #ccOmniOverlay .cc-omni-filter.is-active,
+html[data-cc-skin="sba"] #ccOmniOverlay .cc-omni-submit,
+html[data-cc-skin="sba"] #ccOmniOverlay .cc-search-cta {
+  background: linear-gradient(135deg, #c81d3a 0%, #991329 100%) !important;
+  border-color: rgba(231, 71, 99, 0.55) !important;
+  color: #ffffff !important;
+}
+html[data-cc-skin="sba"] #ccOmniOverlay .cc-omni-card,
+html[data-cc-skin="sba"] #ccOmniOverlay .cc-scripture-card,
+html[data-cc-skin="sba"] #ccOmniOverlay .cc-omni-preview {
+  background: #151417 !important;
+  border-color: rgba(183, 25, 51, 0.28) !important;
+}
+html[data-cc-skin="sba"] #ccOmniOverlay .cc-omni-card:hover {
+  border-color: #e74763 !important;
+}
+
+/* Szukaj CC (/szukaj) chrome overrides */
+html[data-cc-skin="sba"] .search-btn,
+html[data-cc-skin="sba"] .chip.active {
+  background: linear-gradient(135deg, #c81d3a 0%, #991329 100%) !important;
+  border-color: #e74763 !important;
+  color: #ffffff !important;
+}
+
+/* Shared ecosystem chrome (Auth, Favorites, Edge panel) inside SBA shell */
+html[data-cc-skin="sba"] .cc-auth-google-btn,
+html[data-cc-skin="sba"] .cc-auth-user-pill,
+html[data-cc-skin="sba"] .user-nav-profile.cc-auth-user-pill {
+  background: linear-gradient(165deg, #171516 0%, #0d0d0f 100%) !important;
+  border-color: rgba(183, 25, 51, 0.45) !important;
+}
+html[data-cc-skin="sba"] .cc-auth-lumina-tag,
+html[data-cc-skin="sba"] .cc-auth-user-chevron {
+  -webkit-text-fill-color: #ff8ea2 !important;
+  color: #ff8ea2 !important;
+}
+html[data-cc-skin="sba"] .cc-auth-avatar-img {
+  border-color: #e74763 !important;
+}
+html[data-cc-skin="sba"] .cc-auth-dropdown {
+  background: linear-gradient(165deg, #161415 0%, #0b0b0d 100%) !important;
+  border-color: rgba(183, 25, 51, 0.42) !important;
+}
+html[data-cc-skin="sba"] .cc-auth-dropdown-item:hover {
+  background: rgba(183, 25, 51, 0.18) !important;
+  color: #ff8ea2 !important;
+}
+html[data-cc-skin="sba"] .cc-auth-dropdown-item i {
+  color: #e74763 !important;
+}
+html[data-cc-skin="sba"] #ccTopBarFavBtn {
+  border-color: rgba(231, 71, 99, 0.45) !important;
+  color: #ff8ea2 !important;
+}
+html[data-cc-skin="sba"] #ccTopBarFavBtn svg {
+  stroke: #ff8ea2 !important;
+}
+html[data-cc-skin="sba"] #ccTopBarFavBtn.is-active svg {
+  fill: #e74763 !important;
+  stroke: #e74763 !important;
+}
+html[data-cc-skin="sba"] #cc-mobile-edge-dialog {
+  border-right: 1px solid rgba(183, 25, 51, 0.52) !important;
+}
+
+/* Return Pill back to Scrolluj Biblię (/sba) */
+.sba-return-pill {
+  position: fixed;
+  left: max(12px, env(safe-area-inset-left));
+  bottom: max(14px, env(safe-area-inset-bottom));
+  z-index: 2147483640;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: rgba(17, 17, 20, 0.94);
+  border: 1px solid rgba(231, 71, 99, 0.58);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), 0 0 16px rgba(183, 25, 51, 0.25);
+  color: #ffffff !important;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-decoration: none !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.sba-return-pill::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e74763;
+  box-shadow: 0 0 8px #e74763;
+  flex: none;
+}
+.sba-return-pill:hover,
+.sba-return-pill:focus-visible {
+  background: #b71933;
+  border-color: #ff8ea2;
+  outline: none;
+}
+.sba-return-pill.sba-return-pill--top {
+  bottom: auto;
+  top: max(10px, env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .sba-return-pill {
+    transition: none !important;
+  }
+}
