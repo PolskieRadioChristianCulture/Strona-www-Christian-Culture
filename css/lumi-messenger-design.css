@@ -365,3 +365,163 @@ html.lumi-mess-page[data-lumina-theme="light"] body #lumiLanding :is(
   .lumi-dashboard-footer button, .lumi-dashboard-footer small, #lumiOpen) {
   color: #243048 !important;
 }
+
+/* White default contrast & Wiadomość z Nieba protection on /mess */
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .chat-header-bar {
+  background: #ffffff !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05) !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .chat-header-logo-icon,
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .chat-header-bar > div:first-child > div:first-child > div:first-child {
+  background: linear-gradient(135deg, #FF8C33 0%, #FF7A00 100%) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 3px 10px rgba(255, 122, 0, 0.28) !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .chat-header-logo-icon i,
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .chat-header-bar > div:first-child > div:first-child > div:first-child i {
+  color: #FFFFFF !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .chat-header-bar h3 {
+  color: #0f172a !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal :is(#btnChatHeaderMore, #btnChatSettingsModal, .chat-close-btn) {
+  background: #f8fafc !important;
+  color: #1e293b !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow: none !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal :is(#btnChatHeaderMore, #btnChatSettingsModal, .chat-close-btn):focus-visible {
+  outline: 2px solid #FF7A00 !important;
+  outline-offset: 2px !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal :is(.fb-msg-bubble-them, .lumina-bubble-theirs) {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05) !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal :is(.fb-msg-bubble-me, .lumina-bubble-mine) {
+  background: linear-gradient(135deg, #FF8C33 0%, #FF7A00 100%) !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+  box-shadow: 0 4px 12px rgba(255, 122, 0, 0.24) !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .chat-input-bar {
+  background: #ffffff !important;
+  border-top: 1px solid #e2e8f0 !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal :is(#publicChatInput, #activeChatInput, #commanderChatInput, #ccChatInput) {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  -webkit-text-fill-color: #0f172a !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal :is(#publicChatInput, #activeChatInput, #commanderChatInput, #ccChatInput):focus {
+  border-color: #FF7A00 !important;
+  box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.16) !important;
+  outline: none !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal :is(#publicChatInput, #activeChatInput, #commanderChatInput, #ccChatInput)::placeholder {
+  color: #64748b !important;
+  -webkit-text-fill-color: #64748b !important;
+  opacity: 1 !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal :is(#btnPublicChatEmoji, .lumi-composer-emoji-btn, .lumi-composer-tool-btn) {
+  color: #475569 !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal :is(#btnPublicChatEmoji, .lumi-composer-emoji-btn, .lumi-composer-tool-btn):hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .lumina-send-btn-premium {
+  background: #FF7A00 !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  box-shadow: 0 2px 10px rgba(255, 122, 0, 0.32) !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .lumina-send-btn-premium:hover {
+  background: #FF8C33 !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .lumina-send-btn-premium:active {
+  background: #E66A00 !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card .cc-wzn-eyebrow,
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card > div > span:first-child {
+  color: #ff4d4d !important;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85) !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card .cc-wzn-verse,
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card p {
+  color: #ffffff !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.92) !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card .cc-wzn-ref,
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card > div > span:last-child {
+  color: #e5e7eb !important;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85) !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card .cc-wzn-version,
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card small {
+  color: #cbd5e1 !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-btn-download,
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card-wrap button[onclick*="wznChatDownload"] {
+  background: #FF7A00 !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  box-shadow: 0 3px 10px rgba(255, 122, 0, 0.28) !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-btn-download:hover,
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card-wrap button[onclick*="wznChatDownload"]:hover {
+  background: #FF8C33 !important;
+  color: #FFFFFF !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-btn-download:active,
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card-wrap button[onclick*="wznChatDownload"]:active {
+  background: #E66A00 !important;
+  color: #FFFFFF !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-btn-share,
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card-wrap button[onclick*="wznChatShare"] {
+  background: #f4f6fa !important;
+  color: #172033 !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: none !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-btn-share:hover,
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-card-wrap button[onclick*="wznChatShare"]:hover {
+  background: #e9eef5 !important;
+  border-color: #94a3b8 !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-wzn-feedback {
+  color: #475569 !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal :is(.fb-msg-bubble-them, .lumina-bubble-theirs) a {
+  color: #0369a1 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 2px !important;
+  overflow-wrap: anywhere !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .lumina-reaction-add-btn {
+  background: #f4f6fa !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #475569 !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .lumina-reaction-add-btn:hover {
+  background: #e9eef5 !important;
+  border-color: #94a3b8 !important;
+  color: #0f172a !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-chat-share-btn {
+  color: #475569 !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .cc-chat-share-btn:hover {
+  color: #0f172a !important;
+}
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone #directMessagesModal .lumina-reply-btn {
+  color: #854d0e !important;
+}

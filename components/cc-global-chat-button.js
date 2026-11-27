@@ -6324,15 +6324,15 @@
         <div class="cc-wzn-card" role="img" aria-label="Grafika Wiadomość z Nieba: „${vEsc}” — ${rEsc}"
           style="position:relative;width:100%;max-width:340px;aspect-ratio:1/1;border-radius:14px;overflow:hidden;container-type:inline-size;background:#000 url('${WZN_TEMPLATE}') center/cover no-repeat;box-shadow:0 8px 24px rgba(0,0,0,.5);">
           <div style="position:absolute;left:45%;right:5%;top:23%;bottom:17%;display:flex;flex-direction:column;justify-content:center;gap:2cqw;text-align:left;">
-            <span style="font:600 2.1cqw/1.2 'Cinzel',Georgia,serif;letter-spacing:.2em;text-transform:uppercase;color:#ff3b3b;">Masz nową wiadomość</span>
-            <p style="margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:${size}cqw;line-height:1.28;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.85);">„${vEsc}”</p>
-            <span style="font:600 2.6cqw/1.3 'Cinzel',Georgia,serif;color:#d9d9de;">${rEsc}<small style="display:block;margin-top:.5cqw;font:500 1.8cqw/1.3 system-ui,sans-serif;color:#9a9aa3;">Biblia UBG-2025</small></span>
+            <span class="cc-wzn-eyebrow" style="font:600 2.1cqw/1.2 'Cinzel',Georgia,serif;letter-spacing:.2em;text-transform:uppercase;color:#ff3b3b;">Masz nową wiadomość</span>
+            <p class="cc-wzn-verse" style="margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:${size}cqw;line-height:1.28;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.85);">„${vEsc}”</p>
+            <span class="cc-wzn-ref" style="font:600 2.6cqw/1.3 'Cinzel',Georgia,serif;color:#d9d9de;">${rEsc}<small class="cc-wzn-version" style="display:block;margin-top:.5cqw;font:500 1.8cqw/1.3 system-ui,sans-serif;color:#9a9aa3;">Biblia UBG-2025</small></span>
           </div>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">
-          <button type="button" onclick="window.wznChatDownload(this)" data-wzn-verse="${vEsc}" data-wzn-ref="${rEsc}" data-wzn-date="${dEsc}" data-wzn-url="${uEsc}"
-            style="${btn}background:linear-gradient(180deg,#ff3b3b,#e3121b);color:#fff;border:0;" aria-label="Pobierz grafikę z wersetem">⬇ Pobierz grafikę</button>
-          <button type="button" onclick="window.wznChatShare(this)" data-wzn-verse="${vEsc}" data-wzn-ref="${rEsc}" data-wzn-date="${dEsc}" data-wzn-url="${uEsc}"
+          <button type="button" class="cc-wzn-btn-download" onclick="window.wznChatDownload(this)" data-wzn-verse="${vEsc}" data-wzn-ref="${rEsc}" data-wzn-date="${dEsc}" data-wzn-url="${uEsc}"
+            style="${btn}background:#FF7A00;color:#ffffff;border:0;box-shadow:0 3px 10px rgba(255,122,0,.28);" aria-label="Pobierz grafikę z wersetem">⬇ Pobierz grafikę</button>
+          <button type="button" class="cc-wzn-btn-share" onclick="window.wznChatShare(this)" data-wzn-verse="${vEsc}" data-wzn-ref="${rEsc}" data-wzn-date="${dEsc}" data-wzn-url="${uEsc}"
             style="${btn}background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.25);" aria-label="Udostępnij grafikę z wersetem">↗ Udostępnij</button>
         </div>
         <div class="cc-wzn-feedback" aria-live="polite" style="min-height:1.2em;margin-top:4px;font-size:0.75rem;color:#A5AEC4;"></div>

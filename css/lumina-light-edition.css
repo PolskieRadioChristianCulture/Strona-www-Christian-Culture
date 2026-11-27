@@ -3489,7 +3489,7 @@ html[data-lumina-theme="light"] .chat-bubble.bubble-other {
     border: 1px solid #e3ddec !important;
     box-shadow: 0 2px 8px rgba(30,24,56,.04) !important;
 }
-html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) :is(.fb-msg-bubble-them, .lumina-bubble-theirs) [style*="color"] {
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) :is(.fb-msg-bubble-them, .lumina-bubble-theirs) [style*="color"]:not(.cc-wzn-card, .cc-wzn-card *, .cc-wzn-btn-download, .cc-wzn-btn-download *, .cc-wzn-btn-share, .cc-wzn-btn-share *, a) {
     color: #526079 !important;
 }
 html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .lumina-bubble-mine [style*="color"] {
@@ -4607,38 +4607,38 @@ html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal)
       [style*="color: #f1f5f9"], [style*="color: #e2e8f0"], [style*="color:#e2e8f0"],
       [style*="color: #cbd5e1"], [style*="color:#cbd5e1"])
   :not(button, a, [style*="gradient"], .lumina-bubble-mine, .fb-msg-bubble-me,
-       .lumina-bubble-mine *, .fb-msg-bubble-me *, button[style*="gradient"] *, button *, #msgComposerImgPreviewBox *) {
+       .lumina-bubble-mine *, .fb-msg-bubble-me *, button[style*="gradient"] *, button *, #msgComposerImgPreviewBox *, .cc-wzn-card, .cc-wzn-card *) {
     color: #1c1917 !important;
 }
 html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal)
   :is([style*="color: #facc15"], [style*="color:#facc15"], [style*="color: #fde047"], [style*="color:#fde047"],
       [style*="color: #fef08a"], [style*="color:#fef08a"], [style*="color: #eab308"], [style*="color:#eab308"],
       [style*="color: #fbbf24"], [style*="color:#fbbf24"], [style*="color: #f59e0b"], [style*="color:#f59e0b"])
-  :not(.lumina-bubble-mine *, .fb-msg-bubble-me *, button[style*="gradient"] *) {
+  :not(.lumina-bubble-mine *, .fb-msg-bubble-me *, button[style*="gradient"] *, .cc-wzn-card, .cc-wzn-card *) {
     color: #74520f !important;
 }
 html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal)
   :is([style*="color: #f472b6"], [style*="color:#f472b6"], [style*="color: #ec4899"], [style*="color:#ec4899"],
       [style*="color: #c084fc"], [style*="color:#c084fc"], [style*="color: #a855f7"], [style*="color:#a855f7"])
-  :not(.lumina-bubble-mine *, .fb-msg-bubble-me *, button[style*="gradient"] *) {
+  :not(.lumina-bubble-mine *, .fb-msg-bubble-me *, button[style*="gradient"] *, .cc-wzn-card, .cc-wzn-card *) {
     color: #9d174d !important;
 }
 html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal)
   :is([style*="color: #38bdf8"], [style*="color:#38bdf8"], [style*="color: #7dd3fc"], [style*="color:#7dd3fc"],
       [style*="color: #93c5fd"], [style*="color:#93c5fd"], [style*="color: #60a5fa"], [style*="color:#60a5fa"],
       [style*="color: #06b6d4"], [style*="color:#06b6d4"], [style*="color: #22d3ee"], [style*="color:#22d3ee"])
-  :not(.lumina-bubble-mine *, .fb-msg-bubble-me *, button[style*="gradient"] *) {
+  :not(.lumina-bubble-mine *, .fb-msg-bubble-me *, button[style*="gradient"] *, .cc-wzn-card, .cc-wzn-card *) {
     color: #0369a1 !important;
 }
 html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal)
   :is([style*="color: #10b981"], [style*="color:#10b981"], [style*="color: #34d399"], [style*="color:#34d399"],
       [style*="color: #4ade80"], [style*="color:#4ade80"], [style*="color: #22c55e"], [style*="color:#22c55e"])
-  :not(.lumina-bubble-mine *, .fb-msg-bubble-me *, button[style*="gradient"] *) {
+  :not(.lumina-bubble-mine *, .fb-msg-bubble-me *, button[style*="gradient"] *, .cc-wzn-card, .cc-wzn-card *) {
     color: #047857 !important;
 }
 html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal)
   :is([style*="color: #94a3b8"], [style*="color:#94a3b8"], [style*="color: #64748b"], [style*="color:#64748b"])
-  :not(.lumina-bubble-mine *, .fb-msg-bubble-me *, button[style*="gradient"] *) {
+  :not(.lumina-bubble-mine *, .fb-msg-bubble-me *, button[style*="gradient"] *, .cc-wzn-card, .cc-wzn-card *) {
     color: #57534e !important;
 }
 
@@ -4655,4 +4655,102 @@ html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .lumina
 /* Ciemne plakietki (nadawca, „Misja CC”) — jasne tło w jasnym motywie */
 html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) span:is([style*="background:rgba(0,0,0,0.35)"], [style*="background:rgba(0,0,0,0.25)"], [style*="background: rgba(0,0,0,0.35)"], [style*="background: rgba(0,0,0,0.25)"]) {
     background: #f3eddf !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   LUMI MESSENGER / CZAT — OCHRONA KARTY „WIADOMOŚĆ Z NIEBA” & KONTRAST BIELI
+   ══════════════════════════════════════════════════════════════════════════ */
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-card .cc-wzn-eyebrow,
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-card > div > span:first-child {
+    color: #ff4d4d !important;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85) !important;
+}
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-card .cc-wzn-verse,
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-card p {
+    color: #ffffff !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.92) !important;
+}
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-card .cc-wzn-ref,
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-card > div > span:last-child {
+    color: #e5e7eb !important;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85) !important;
+}
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-card .cc-wzn-version,
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-card small {
+    color: #cbd5e1 !important;
+}
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-btn-download,
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-card-wrap button[onclick*="wznChatDownload"] {
+    background: #FF7A00 !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    box-shadow: 0 3px 10px rgba(255, 122, 0, 0.28) !important;
+}
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-btn-download:hover,
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-card-wrap button[onclick*="wznChatDownload"]:hover {
+    background: #FF8C33 !important;
+    color: #FFFFFF !important;
+}
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-btn-download:active,
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-card-wrap button[onclick*="wznChatDownload"]:active {
+    background: #E66A00 !important;
+    color: #FFFFFF !important;
+}
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-btn-share,
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-card-wrap button[onclick*="wznChatShare"] {
+    background: #f4f6fa !important;
+    color: #172033 !important;
+    border: 1.5px solid #cbd5e1 !important;
+    box-shadow: none !important;
+}
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-btn-share:hover,
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-card-wrap button[onclick*="wznChatShare"]:hover {
+    background: #e9eef5 !important;
+    border-color: #94a3b8 !important;
+}
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-wzn-feedback {
+    color: #475569 !important;
+}
+html[data-lumina-theme="light"] #directMessagesModal .chat-header-logo-icon,
+html[data-lumina-theme="light"] #directMessagesModal .chat-header-bar > div:first-child > div:first-child > div:first-child {
+    background: linear-gradient(135deg, #FF8C33 0%, #FF7A00 100%) !important;
+    border: none !important;
+    border-radius: 12px !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 3px 10px rgba(255, 122, 0, 0.28) !important;
+}
+html[data-lumina-theme="light"] #directMessagesModal .chat-header-logo-icon i,
+html[data-lumina-theme="light"] #directMessagesModal .chat-header-bar > div:first-child > div:first-child > div:first-child i {
+    color: #FFFFFF !important;
+}
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) :is(.fb-msg-bubble-them, .lumina-bubble-theirs) a {
+    color: #0369a1 !important;
+    text-decoration: underline !important;
+    text-underline-offset: 2px !important;
+    overflow-wrap: anywhere !important;
+}
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .lumina-reaction-add-btn {
+    background: #f4f6fa !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #475569 !important;
+}
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .lumina-reaction-add-btn:hover {
+    background: #e9eef5 !important;
+    border-color: #94a3b8 !important;
+    color: #0f172a !important;
+}
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .lumina-reaction-chip {
+    background: #f4f6fa !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #172033 !important;
+}
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-chat-share-btn {
+    color: #475569 !important;
+}
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-chat-share-btn:hover,
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .cc-chat-share-btn:focus-visible {
+    color: #0f172a !important;
+}
+html[data-lumina-theme="light"] :is(#directMessagesModal, #messageModal) .lumina-reply-btn {
+    color: #854d0e !important;
 }

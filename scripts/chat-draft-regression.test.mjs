@@ -43,7 +43,8 @@ test('LUMI install fallback, cancellation and existing chat entry execute withou
   await new Promise(resolve=>setImmediate(resolve));
   assert.equal(prompts,1); assert.match(win.document.getElementById('lumiInstallStatus').textContent,/anulowana/); assert.equal(install.disabled,false);
   assert.equal(calls.filter(x=>x[0]==='worker').length,1);
-  assert.ok(!/caches\.delete|localStorage|requestPermission/.test(source));
+  assert.ok(!/caches\.delete|requestPermission/.test(source));
+  assert.ok(!/localStorage\.(?:getItem|setItem|removeItem)\((?!['"]lumi_messenger_theme['"])/.test(source));
 });
 test('notification bubble routes to the exact conversation, including fallback and keyboard',async()=>{
  const source=await readFile('lumina-db.js','utf8');
