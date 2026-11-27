@@ -53,6 +53,54 @@
           "failedAt": "2026-11-25T11:03:18.461Z"
         }
       }
+    },
+    "2026-11-26": {
+      "type": "quiz",
+      "id": "quiz_kc_57",
+      "channels": {
+        "Osobowość +": {
+          "status": "error",
+          "channelId": "UCHmPxDM2zzlUAf5ZvlotPLw",
+          "error": "page.goto: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.youtube.com/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+          "failedAt": "2026-11-26T11:03:43.683Z"
+        },
+        "Christian Culture TV": {
+          "status": "error",
+          "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
+          "error": "locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('ytd-compact-link-renderer, tp-yt-paper-item').filter({ hasText: /Przełącz konto|Switch account/i }).first() to be visible\u001b[22m\n",
+          "failedAt": "2026-11-26T11:04:30.291Z"
+        },
+        "Polskie Radio CHRISTIAN CULTURE": {
+          "status": "error",
+          "channelId": "UCNnCdsJ-K6FXulZzXZHWkjQ",
+          "error": "locator.waitFor: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('ytd-backstage-post-dialog-renderer').filter({ has: locator('button[aria-label=\"Opublikuj\"]:visible, button[aria-label=\"Post\"]:visible') }).first().locator('ytd-quiz-choice-input-renderer input, input[placeholder*=\"Odpowiedź\"], input[placeholder*=\"Answer\"]').first() to be visible\u001b[22m\n",
+          "failedAt": "2026-11-26T11:05:21.324Z"
+        },
+        "CC Women": {
+          "status": "error",
+          "channelId": "UC-LPFt-vmJCeap746DOWMgw",
+          "error": "locator.waitFor: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('ytd-backstage-post-dialog-renderer').filter({ has: locator('button[aria-label=\"Opublikuj\"]:visible, button[aria-label=\"Post\"]:visible') }).first().locator('ytd-quiz-choice-input-renderer input, input[placeholder*=\"Odpowiedź\"], input[placeholder*=\"Answer\"]').first() to be visible\u001b[22m\n",
+          "failedAt": "2026-11-26T11:06:39.563Z"
+        },
+        "CC Men": {
+          "status": "error",
+          "channelId": "UCUpuq9JS7jitIcm9iBn0jnA",
+          "error": "locator.waitFor: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('ytd-backstage-post-dialog-renderer').filter({ has: locator('button[aria-label=\"Opublikuj\"]:visible, button[aria-label=\"Post\"]:visible') }).first().locator('ytd-quiz-choice-input-renderer input, input[placeholder*=\"Odpowiedź\"], input[placeholder*=\"Answer\"]').first() to be visible\u001b[22m\n",
+          "failedAt": "2026-11-26T11:07:45.171Z"
+        },
+        "Werset Dnia - Chrześcijański Serwis Biblijny": {
+          "status": "error",
+          "channelId": "UCyOvW5DuDLVq5XWFyijgtbw",
+          "error": "Brak formularza tworzenia posta na karcie /posts (kanał może wymagać włączenia zakładki Posty lub nie przełączył konta).",
+          "failedAt": "2026-11-26T11:08:18.794Z"
+        },
+        "Biblia Audio Christian Culture": {
+          "status": "error",
+          "channelId": "UCCqHRCEuSDhlRcvcQ6qM1Kw",
+          "error": "Brak formularza tworzenia posta na karcie /posts (kanał może wymagać włączenia zakładki Posty lub nie przełączył konta).",
+          "failedAt": "2026-11-26T11:08:42.851Z"
+        }
+      }
     }
   },
   "promoIndex": 2,

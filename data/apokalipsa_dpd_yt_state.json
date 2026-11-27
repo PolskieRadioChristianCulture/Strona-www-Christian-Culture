@@ -160,6 +160,54 @@
           "failedAt": "2026-11-25T07:02:51.728Z"
         }
       }
+    },
+    "4": {
+      "epNum": 4,
+      "title": "APOKALIPSA Dzień Po Dniu - Wierny Świadek #004",
+      "channels": {
+        "Biblia Audio Christian Culture": {
+          "status": "error",
+          "channelId": "UCCqHRCEuSDhlRcvcQ6qM1Kw",
+          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
+          "failedAt": "2026-11-26T06:45:01.691Z"
+        },
+        "Werset Dnia - Chrześcijański Serwis Biblijny": {
+          "status": "error",
+          "channelId": "UCyOvW5DuDLVq5XWFyijgtbw",
+          "error": "page.goto: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.youtube.com/channel_switcher\", waiting until \"domcontentloaded\"\u001b[22m\n",
+          "failedAt": "2026-11-26T06:52:27.137Z"
+        },
+        "Christian Culture TV": {
+          "status": "error",
+          "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
+          "error": "page.goto: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.youtube.com/channel_switcher\", waiting until \"domcontentloaded\"\u001b[22m\n",
+          "failedAt": "2026-11-26T06:59:11.214Z"
+        },
+        "Polskie Radio CHRISTIAN CULTURE": {
+          "status": "error",
+          "channelId": "UCNnCdsJ-K6FXulZzXZHWkjQ",
+          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
+          "failedAt": "2026-11-26T07:18:21.931Z"
+        },
+        "Osobowość +": {
+          "status": "error",
+          "channelId": "UCHmPxDM2zzlUAf5ZvlotPLw",
+          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
+          "failedAt": "2026-11-26T07:34:41.856Z"
+        },
+        "CC Men": {
+          "status": "error",
+          "channelId": "UCUpuq9JS7jitIcm9iBn0jnA",
+          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
+          "failedAt": "2026-11-26T07:38:30.622Z"
+        },
+        "CC Women": {
+          "status": "error",
+          "channelId": "UC-LPFt-vmJCeap746DOWMgw",
+          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
+          "failedAt": "2026-11-26T07:42:35.743Z"
+        }
+      }
     }
   }
 }

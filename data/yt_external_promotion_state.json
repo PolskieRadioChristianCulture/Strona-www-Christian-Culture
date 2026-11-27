@@ -1,7 +1,7 @@
 {
-  "lastIndex": 16,
-  "lastChannelId": "cc_pop",
-  "lastTimestamp": "2026-11-25T09:00:25.315Z",
+  "lastIndex": 18,
+  "lastChannelId": "cc_news",
+  "lastTimestamp": "2026-11-26T17:00:34.611Z",
   "history": [
     {
       "index": 0,
@@ -187,6 +187,28 @@
       "url": "https://www.youtube.com/@ChristianCulturePOP",
       "targetAudience": "Młodzi słuchacze szukający chrześcijańskiego popu i alternatywy dla komercyjnego mainstreamu",
       "hook": "Światowy poziom produkcji i teksty, które budują zamiast niszczyć. Zobacz Christian Culture POP!"
+    },
+    {
+      "index": 17,
+      "channelId": "cc_hip_hop",
+      "timestamp": "2026-11-26T09:00:29.848Z",
+      "status": "PROMOTED",
+      "channelName": "Christian Culture Hip Hop",
+      "handle": "@christianculturehiphop",
+      "url": "https://www.youtube.com/@christianculturehiphop",
+      "targetAudience": "Młodzi ludzie, fani kultury ulicznej i rapu szukający autentycznego świadectwa nawrócenia",
+      "hook": "Bezkompromisowy rap z ulicznym sznytem i prawdą o zbawieniu w Chrystusie."
+    },
+    {
+      "index": 18,
+      "channelId": "cc_news",
+      "timestamp": "2026-11-26T17:00:34.611Z",
+      "status": "PROMOTED",
+      "channelName": "CC News (Wideo CCN)",
+      "handle": "@ccnews7",
+      "url": "https://www.youtube.com/@ccnews7",
+      "targetAudience": "Osoby szukające rzetelnych wiadomości, obrony wolności religijnej i komentarzy społecznych",
+      "hook": "Wiadomości ze świata i z Polski bez medialnej cenzury i ideologicznej poprawności."
     }
   ]
 }

@@ -2,6 +2,366 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "22-chrzescijanskie-zachowanie.html",
+      "title": "Kurs 28 Kroków — Lekcja 22: Chrześcijańskie Zachowanie — Czystość Serca, Ubiór i Styl Życia",
+      "url": "https://polskieradio.cc/kursy/22-chrzescijanskie-zachowanie.html",
+      "type": "course",
+      "topicId": null,
+      "image": "22.png",
+      "publishedAt": "2026-11-27T05:06:38.073Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "holistyczny-coaching",
+      "title": "Holistyczny Coaching & Terapia Wolności — Paweł Murawski",
+      "url": "https://polskieradio.cc/holistyczny-coaching",
+      "type": "profile",
+      "topicId": null,
+      "image": "avatar_pawel_murawski.jpg",
+      "publishedAt": "2026-11-27T05:06:03.170Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "radio",
+      "title": "Radio Christian Culture",
+      "url": "https://polskieradio.cc/music/radio",
+      "type": "music",
+      "topicId": null,
+      "image": "art-chan-muzyka.jpg",
+      "publishedAt": "2026-11-26T23:01:26.167Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "modlitwa",
+      "title": "Modlitwa & Zjednoczeni za Polskę",
+      "url": "https://polskieradio.cc/modlitwa",
+      "type": "module",
+      "topicId": null,
+      "image": "topic-modlitwa-40f10df1.jpg",
+      "publishedAt": "2026-11-26T22:32:17.035Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "fundacje",
+      "title": "CC Pomoc: Fundacje i organizacje chrześcijańskie",
+      "url": "https://polskieradio.cc/fundacje",
+      "type": "help",
+      "topicId": "fundacje",
+      "image": "topic-fundacje-d74c5114.jpg",
+      "publishedAt": "2026-11-26T22:01:08.583Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "werset-dnia?day=357",
+      "title": "Werset Dnia: „Nie wojskiem ani siłą, lecz moim Duchem — mówi Pan Zastępów” (Księga Zachariasza 4:6, UBG)",
+      "url": "https://polskieradio.cc/werset-dnia?day=357",
+      "type": "verse",
+      "topicId": null,
+      "image": "werset-day-357-ksiega-zachariasza-4-6.jpg",
+      "publishedAt": "2026-11-26T21:31:28.359Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "dlaczego-czuje-sie-samotny-choc-mam-setki-znajomych",
+      "title": "Dlaczego czuję się samotny, chociaż mam setki znajomych w sieci? Prawdziwa więź w erze cyfrowej izolacji",
+      "url": "https://polskieradio.cc/news/dlaczego-czuje-sie-samotny-choc-mam-setki-znajomych",
+      "type": "news",
+      "topicId": null,
+      "image": "topic-dlaczego-czuje-sie-samotny-choc-mam-setki-znajom-29c1208c.jpg",
+      "publishedAt": "2026-11-26T21:01:17.616Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "bog-jest-miloscia",
+      "title": "Książka: Bóg jest MIŁOŚCIĄ? — Cezary Rogowski. Powieść dialogowa o charakterze Boga",
+      "url": "https://polskieradio.cc/bog-jest-miloscia",
+      "type": "book",
+      "topicId": null,
+      "image": "bog-jest-miloscia-og.jpg",
+      "publishedAt": "2026-11-26T19:31:06.093Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "21-szafarstwo.html",
+      "title": "Kurs 28 Kroków — Lekcja 21: Szafarstwo — Wierność w Zarządzaniu Czasem, Ciałem i Dobrami",
+      "url": "https://polskieradio.cc/kursy/21-szafarstwo.html",
+      "type": "course",
+      "topicId": null,
+      "image": "21.png",
+      "publishedAt": "2026-11-26T19:01:08.262Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "przeboje",
+      "title": "Biblioteka muzyki i nagrań",
+      "url": "https://polskieradio.cc/music/przeboje",
+      "type": "music",
+      "topicId": null,
+      "image": "art-chan-muzyka.jpg",
+      "publishedAt": "2026-11-26T18:31:12.197Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "premier-heatfix",
+      "title": "Premier HeatFix UK — Certyfikowane Usługi Gazowe i Hydrauliczne w Londynie",
+      "url": "https://polskieradio.cc/premier-heatfix",
+      "type": "profile",
+      "topicId": null,
+      "image": "ogloszenia-premier-heatfix.jpg",
+      "publishedAt": "2026-11-26T18:01:07.344Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "%C5%BBaneta",
+      "title": "Kącik Ewangelizacyjny Żanety — CC WOMEN",
+      "url": "https://polskieradio.cc/%C5%BBaneta",
+      "type": "module",
+      "topicId": null,
+      "image": "art-ewa-cc-women.jpg",
+      "publishedAt": "2026-11-26T17:31:15.789Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "pomoc-spoleczna",
+      "title": "CC Pomoc: Pomoc społeczna – gdzie jej szukać?",
+      "url": "https://polskieradio.cc/pomoc-spoleczna",
+      "type": "help",
+      "topicId": "pomoc-spoleczna",
+      "image": "topic-pomoc-spoleczna-d54451ea.jpg",
+      "publishedAt": "2026-11-26T17:01:38.480Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "vod",
+      "title": "Kino Chrześcijańskie VOD — Dobre Kino 24/7 i bezpłatne filmy z polskim lektorem",
+      "url": "https://polskieradio.cc/vod",
+      "type": "vod",
+      "topicId": null,
+      "image": "vod-christian-culture-02-rodzina-24-7.jpg",
+      "publishedAt": "2026-11-26T16:31:34.678Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "werset-dnia?day=356",
+      "title": "Werset Dnia: „Pan, twój Bóg, jest pośród ciebie, Mocarz, który zbawi; weselić się będzie z ciebie z radością” (Księga Sofoniasza 3:17, UBG)",
+      "url": "https://polskieradio.cc/werset-dnia?day=356",
+      "type": "verse",
+      "topicId": null,
+      "image": "werset-day-356-ksiega-sofoniasza-3-17.jpg",
+      "publishedAt": "2026-11-26T16:01:50.672Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "czy-ai-zastapi-ludzka-madrosc",
+      "title": "Czy sztuczna inteligencja może zastąpić ludzką mądrość? Pytanie, które zdecyduje o naszej przyszłości",
+      "url": "https://polskieradio.cc/news/czy-ai-zastapi-ludzka-madrosc",
+      "type": "news",
+      "topicId": null,
+      "image": "art-czy-ai-zastapi-ludzka-madrosc.jpg",
+      "publishedAt": "2026-11-26T15:31:44.451Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "prawda-bez-filtra",
+      "title": "Książka: Prawda Bez Filtra — Cezary Rogowski. Bezkompromisowe chrześcijaństwo",
+      "url": "https://polskieradio.cc/prawda-bez-filtra",
+      "type": "book",
+      "topicId": null,
+      "image": "art-prawda-bez-filtra.jpg",
+      "publishedAt": "2026-11-26T15:01:31.983Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "20-szabat.html",
+      "title": "Kurs 28 Kroków — Lekcja 20: Szabat — Dzień Odpoczynku, Pamiątka Stworzenia i Znak Przymierza",
+      "url": "https://polskieradio.cc/kursy/20-szabat.html",
+      "type": "course",
+      "topicId": null,
+      "image": "20.png",
+      "publishedAt": "2026-11-26T14:31:42.519Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "premiery",
+      "title": "Odkrywaj nagrania",
+      "url": "https://polskieradio.cc/music/premiery",
+      "type": "music",
+      "topicId": null,
+      "image": "art-chan-muzyka.jpg",
+      "publishedAt": "2026-11-26T14:01:38.810Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "lumina-tablica",
+      "title": "LUMINA — Wolna od Algorytmów Przestrzeń Społeczności Chrześcijańskiej",
+      "url": "https://polskieradio.cc/lumina-tablica",
+      "type": "profile",
+      "topicId": null,
+      "image": "card-lumina.jpg",
+      "publishedAt": "2026-11-26T13:31:38.874Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "aplikacja",
+      "title": "AI dla Jezusa — Chrześcijańska Aplikacja AI & Asystenci CC (PRO)",
+      "url": "https://polskieradio.cc/ai/aplikacja",
+      "type": "module",
+      "topicId": null,
+      "image": "icon-512.png",
+      "publishedAt": "2026-11-26T13:01:42.057Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "family-carers",
+      "title": "CC Help: Family carers",
+      "url": "https://polskieradio.cc/en/family-carers",
+      "type": "help",
+      "topicId": "opiekun-rodzinny",
+      "image": "topic-family-carers-dc6d6e6d.jpg",
+      "publishedAt": "2026-11-26T12:31:39.782Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "werset-dnia?day=355",
+      "title": "Werset Dnia: „Choćby drzewo figowe nie zakwitło... ja jednak będę się radował w Panu, cieszył w Bogu mego zbawienia” (Księga Habakuka 3:17-18, UBG)",
+      "url": "https://polskieradio.cc/werset-dnia?day=355",
+      "type": "verse",
+      "topicId": null,
+      "image": "werset-day-355-ksiega-habakuka-3-17-18.jpg",
+      "publishedAt": "2026-11-26T12:01:41.938Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "czy-jezus-istnial-dowody-historyczne",
+      "title": "Czy Jezus naprawdę istniał? Co mówią źródła historyczne poza Biblią?",
+      "url": "https://polskieradio.cc/news/czy-jezus-istnial-dowody-historyczne",
+      "type": "news",
+      "topicId": null,
+      "image": "art-czy-jezus-istnial-dowody-historyczne.jpg",
+      "publishedAt": "2026-11-26T11:32:25.859Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "u-boku-diabla",
+      "title": "Książka: U boku Diabła — Cezary Rogowski. Anatomia duchowej walki i zwycięstwa",
+      "url": "https://polskieradio.cc/u-boku-diabla",
+      "type": "book",
+      "topicId": null,
+      "image": "u-boku-diabla-og.jpg",
+      "publishedAt": "2026-11-26T11:02:08.235Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "19-prawo-boze.html",
+      "title": "Kurs 28 Kroków — Lekcja 19: Prawo Boże — Niezmienny Dekalog i Wyraz Bożej Miłości",
+      "url": "https://polskieradio.cc/kursy/19-prawo-boze.html",
+      "type": "course",
+      "topicId": null,
+      "image": "19.png",
+      "publishedAt": "2026-11-26T10:31:20.512Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "pl",
+      "title": "Gerald Welch — Oficjalna Wizytówka Artysty",
+      "url": "https://polskieradio.cc/Welch/pl",
+      "type": "music",
+      "topicId": null,
+      "image": "gerald-hero-og.jpg",
+      "publishedAt": "2026-11-26T10:01:40.591Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "en",
+      "title": "40 Days of Prayer · Christian Culture",
+      "url": "https://polskieradio.cc/40DM/en/",
+      "type": "module",
+      "topicId": null,
+      "image": "topic-en-ed8bae12.jpg",
+      "publishedAt": "2026-11-26T09:31:45.258Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "mess",
+      "title": "LumiMess — Chrześcijański Komunikator",
+      "url": "https://polskieradio.cc/mess",
+      "type": "profile",
+      "topicId": null,
+      "image": "lumi-mess-bg.webp",
+      "publishedAt": "2026-11-26T09:01:34.127Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "vod",
+      "title": "Kino Chrześcijańskie VOD — Dobre Kino 24/7 i bezpłatne filmy z polskim lektorem",
+      "url": "https://polskieradio.cc/vod",
+      "type": "vod",
+      "topicId": null,
+      "image": "vod-christian-culture-01-smarttv.jpg",
+      "publishedAt": "2026-11-26T08:31:20.963Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "praca",
+      "title": "CC Pomoc: Praca – znajdź kierunek zawodowy",
+      "url": "https://polskieradio.cc/praca",
+      "type": "help",
+      "topicId": "praca",
+      "image": "topic-praca-2f7e36b6.jpg",
+      "publishedAt": "2026-11-26T08:01:15.251Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "werset-dnia?day=354",
+      "title": "Werset Dnia: „Oto pyszny nie ma serca prawego, ale sprawiedliwy z wiary swej żyć będzie” (Księga Habakuka 2:4, UBG)",
+      "url": "https://polskieradio.cc/werset-dnia?day=354",
+      "type": "verse",
+      "topicId": null,
+      "image": "werset-day-354-ksiega-habakuka-2-4.jpg",
+      "publishedAt": "2026-11-26T07:31:56.912Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "czy-swiat-potrzebuje-przebudzenia-duchowego",
+      "title": "Czy świat potrzebuje nowego przebudzenia duchowego? Chrześcijaństwo wobec globalnych przemian",
+      "url": "https://polskieradio.cc/news/czy-swiat-potrzebuje-przebudzenia-duchowego",
+      "type": "news",
+      "topicId": null,
+      "image": "art-czy-swiat-potrzebuje-przebudzenia-duchowego.jpg",
+      "publishedAt": "2026-11-26T07:02:49.168Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "biblioteka",
+      "title": "CCN Biblioteka – Książki, Audiobooki, E-booki Chrześcijańskie",
+      "url": "https://polskieradio.cc/biblioteka",
+      "type": "book",
+      "topicId": null,
+      "image": "topic-biblioteka-bda53afb.jpg",
+      "publishedAt": "2026-11-26T06:31:54.222Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "18-dar-proroctwa.html",
+      "title": "Kurs 28 Kroków — Lekcja 18: Dar Proroctwa — Świadectwo Jezusa w Historii Kościoła",
+      "url": "https://polskieradio.cc/kursy/18-dar-proroctwa.html",
+      "type": "course",
+      "topicId": null,
+      "image": "18.png",
+      "publishedAt": "2026-11-26T06:02:08.249Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "tv",
+      "title": "Spiritual Sounds 24/7 – Kanał Biblijny",
+      "url": "https://polskieradio.cc/SpiritualSounds/tv",
+      "type": "music",
+      "topicId": null,
+      "image": "ss-og-1200x630.jpg",
+      "publishedAt": "2026-11-26T05:31:25.209Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "en",
       "title": "Christian Culture Apps — Android (Google Play) & Web/PWA Hub (EN)",
       "url": "https://polskieradio.cc/aplikacje/en/",

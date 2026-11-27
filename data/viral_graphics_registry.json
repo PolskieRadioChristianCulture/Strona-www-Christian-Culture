@@ -2,6 +2,125 @@
   "version": "2.1",
   "items": [
     {
+      "id": "social-topic-https-polskieradio-cc-modlitwa-b3439db9",
+      "format": "16:9",
+      "headline": "Modlitwa & Zjednoczeni za Polskę",
+      "reference": "https://polskieradio.cc/modlitwa",
+      "motif": "MODLITWA • ZJEDNOCZENI ZA POLSKĘ",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#C4A35A"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-modlitwa-40f10df1.jpg",
+      "hash": "b3439db9",
+      "createdAt": "2026-11-26T22:31:58.740Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-fundacje-be1d3d33",
+      "format": "16:9",
+      "headline": "Fundacje i organizacje chrześcijańskie",
+      "reference": "https://polskieradio.cc/fundacje",
+      "motif": "CC POMOC • INSTYTUCJE CHRZEŚCIJAŃSKIE, ORGANIZACJE I WYPOCZYNEK",
+      "palette": {
+        "bg": "#0A111F",
+        "text": "#FFFFFF",
+        "accent": "#C4A35A"
+      },
+      "layout": "help-photo-card",
+      "emotion": "Nadzieja",
+      "file": "images/social/generated/topic-fundacje-d74c5114.jpg",
+      "hash": "be1d3d33",
+      "createdAt": "2026-11-26T22:00:51.841Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-news-dlaczego-czuje-sie-sa-0ec08eac",
+      "format": "16:9",
+      "headline": "Dlaczego czuję się samotny, chociaż mam setki znajomych w sieci? Prawdziwa więź ",
+      "reference": "https://polskieradio.cc/news/dlaczego-czuje-sie-samotny-choc-mam-setki-znajomych",
+      "motif": "CCN NEWS • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-dlaczego-czuje-sie-samotny-choc-mam-setki-znajom-29c1208c.jpg",
+      "hash": "0ec08eac",
+      "createdAt": "2026-11-26T21:00:59.931Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-pomoc-spoleczna-37d35811",
+      "format": "16:9",
+      "headline": "Pomoc społeczna – gdzie jej szukać?",
+      "reference": "https://polskieradio.cc/pomoc-spoleczna",
+      "motif": "CC POMOC • POMOC SPOŁECZNA I SYTUACJE KRYZYSOWE",
+      "palette": {
+        "bg": "#0A111F",
+        "text": "#FFFFFF",
+        "accent": "#C4A35A"
+      },
+      "layout": "help-photo-card",
+      "emotion": "Nadzieja",
+      "file": "images/social/generated/topic-pomoc-spoleczna-d54451ea.jpg",
+      "hash": "37d35811",
+      "createdAt": "2026-11-26T17:01:14.746Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-en-family-carers-65455b5d",
+      "format": "16:9",
+      "headline": "Family carers",
+      "reference": "https://polskieradio.cc/en/family-carers",
+      "motif": "CC HELP • OLDER PEOPLE, DISABILITY AND CARE",
+      "palette": {
+        "bg": "#0A111F",
+        "text": "#FFFFFF",
+        "accent": "#C4A35A"
+      },
+      "layout": "help-photo-card",
+      "emotion": "Nadzieja",
+      "file": "images/social/generated/topic-family-carers-dc6d6e6d.jpg",
+      "hash": "65455b5d",
+      "createdAt": "2026-11-26T12:31:12.195Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-40dm-en-9be494ad",
+      "format": "16:9",
+      "headline": "40 Days of Prayer · Christian Culture",
+      "reference": "https://polskieradio.cc/40DM/en/",
+      "motif": "PRAYER AND COMMUNITY • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-en-ed8bae12.jpg",
+      "hash": "9be494ad",
+      "createdAt": "2026-11-26T09:31:10.031Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-praca-72e79afc",
+      "format": "16:9",
+      "headline": "Praca – znajdź kierunek zawodowy",
+      "reference": "https://polskieradio.cc/praca",
+      "motif": "CC POMOC • PRACA, PRZEDSIĘBIORCZOŚĆ I ROZWÓJ",
+      "palette": {
+        "bg": "#0A111F",
+        "text": "#FFFFFF",
+        "accent": "#C4A35A"
+      },
+      "layout": "help-photo-card",
+      "emotion": "Nadzieja",
+      "file": "images/social/generated/topic-praca-2f7e36b6.jpg",
+      "hash": "72e79afc",
+      "createdAt": "2026-11-26T08:00:52.360Z"
+    },
+    {
       "id": "social-topic-https-polskieradio-cc-pastor-201bc3f2",
       "format": "16:9",
       "headline": "Pastor – rozmowa o wierze i życiu",

@@ -1891,17 +1891,18 @@ async function publishToX(tweetText, imagePath, dryRun = false) {
     }
 
     await textarea.waitFor({ state: 'visible', timeout: 25000 });
-    await textarea.click({ force: true }).catch(async () => {
-      await textarea.focus();
+    await textarea.click({ timeout: 5000 }).catch(async () => {
+      await textarea.focus().catch(() => {});
     });
     await page.waitForTimeout(500);
 
     // Wyczyść ewentualny stary szkic przed wpisaniem nowego posta
     const existingText = (await textarea.innerText().catch(() => '')).trim();
     if (existingText.length > 0) {
+      await textarea.focus().catch(() => {});
       await page.keyboard.press('Control+A');
       await page.keyboard.press('Backspace');
-      await page.waitForTimeout(300);
+      await page.waitForTimeout(400);
     }
 
     // 1. Wpisanie sformatowanego tekstu
@@ -1954,20 +1955,28 @@ async function publishToX(tweetText, imagePath, dryRun = false) {
       throw new Error(`[CCN Broadcaster BŁĄD PUBLIKACJI] Przycisk Post niedostępny lub nieaktywny (visible=${btnVisible}, disabled=${btnDisabledBefore}, ariaDisabled=${ariaDisabledBefore}).`);
     }
     await postBtn.click({ timeout: 10000 }).catch(async () => {
-      console.log('⚠️ [CCN Broadcaster] Kliknięcie standardowe zablokowane — ponawiam z force: true...');
-      await postBtn.click({ force: true });
+      console.log('⚠️ [CCN Broadcaster] Kliknięcie standardowe zablokowane — ponawiam kliknięciem DOM + force: true...');
+      await postBtn.evaluate((el) => el.click()).catch(() => {});
+      await page.waitForTimeout(800);
+      if (await postBtn.isVisible({ timeout: 500 }).catch(() => false)) {
+        await postBtn.click({ force: true }).catch(() => {});
+      }
     });
 
-    // Jeśli formularz nadal otwarty po 1.5s, ponów kliknięcie / skrót Control+Enter
+    // Jeśli formularz nadal otwarty po 1.5s, ponów kliknięcie DOM oraz skrót Control+Enter
     await page.waitForTimeout(1500);
     const stillVisibleAfterClick = await postBtn.isVisible({ timeout: 1000 }).catch(() => false);
     const stillEnabledAfterClick = stillVisibleAfterClick
       ? !(await postBtn.isDisabled().catch(() => true)) && (await postBtn.getAttribute('aria-disabled').catch(() => 'false')) !== 'true'
       : false;
     if (stillEnabledAfterClick) {
-      console.log('🔄 [CCN Broadcaster] Ponawiam próbę wysłania skrótem Control+Enter...');
-      await textarea.focus();
-      await page.keyboard.press('Control+Enter');
+      console.log('🔄 [CCN Broadcaster] Ponawiam próbę wysłania (DOM click + Control+Enter)...');
+      await postBtn.evaluate((el) => el.click()).catch(() => {});
+      await page.waitForTimeout(800);
+      if (await postBtn.isVisible({ timeout: 500 }).catch(() => false)) {
+        await textarea.focus().catch(() => {});
+        await page.keyboard.press('Control+Enter');
+      }
     }
 
     // Weryfikacja: powiadomienie o wysłaniu, zamknięcie modalu dialogowego lub wyczyszczenie pola inline

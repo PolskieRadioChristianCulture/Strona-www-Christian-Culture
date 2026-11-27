@@ -3,7 +3,7 @@
   "series": "What's Up Prof? — Walter Veith & Martin Smith (Clash of Minds)",
   "scheduleOffsetHours": 48,
   "dailyCron": "CRON_TZ=Europe/Warsaw 0 15 * * *",
-  "lastRunAt": "2026-11-25T14:21:04.889Z",
+  "lastRunAt": "2026-11-26T14:26:13.001Z",
   "episodes": {
     "1": {
       "seq": 1,
@@ -806,6 +806,79 @@
         }
       },
       "scheduledYmd": "2026-11-27",
+      "scheduledTime": "15:00"
+    },
+    "12": {
+      "seq": 12,
+      "epCode": "012",
+      "completed": true,
+      "channels": {
+        "Personality Plus": {
+          "status": "ok",
+          "channelId": "UCSwb927uMg2PxIl_Aakht0Q",
+          "videoUrl": "https://youtu.be/WBHnvO927bI",
+          "title": "012. Behold, The Bridegroom Cometh | Prof. Walter Veith & Martin Smith",
+          "skipped": false,
+          "publishedAt": "2026-11-26T14:26:13.001Z"
+        },
+        "Biblia Audio Christian Culture": {
+          "status": "ok",
+          "channelId": "UCCqHRCEuSDhlRcvcQ6qM1Kw",
+          "videoUrl": "https://youtu.be/DGbDMU2wzX0",
+          "title": "012. Oto Oblubieniec nadchodzi | Prof. Walter Veith (What's Up Prof?)",
+          "skipped": false,
+          "publishedAt": "2026-11-26T14:09:20.612Z"
+        },
+        "Werset Dnia - Chrześcijański Serwis Biblijny": {
+          "status": "ok",
+          "channelId": "UCyOvW5DuDLVq5XWFyijgtbw",
+          "videoUrl": "https://youtu.be/jKdmnu2G4U8",
+          "title": "012. Oto Oblubieniec nadchodzi | Prof. Walter Veith (What's Up Prof?)",
+          "skipped": false,
+          "publishedAt": "2026-11-26T14:11:50.557Z"
+        },
+        "Polskie Radio CHRISTIAN CULTURE": {
+          "status": "ok",
+          "channelId": "UCNnCdsJ-K6FXulZzXZHWkjQ",
+          "videoUrl": "https://youtu.be/7w9CjaNcRZs",
+          "title": "012. Oto Oblubieniec nadchodzi | Prof. Walter Veith (What's Up Prof?)",
+          "skipped": false,
+          "publishedAt": "2026-11-26T14:14:11.977Z"
+        },
+        "Christian Culture TV": {
+          "status": "ok",
+          "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
+          "videoUrl": "https://youtu.be/luuBHlmsMrY",
+          "title": "012. Oto Oblubieniec nadchodzi | Prof. Walter Veith (What's Up Prof?)",
+          "skipped": false,
+          "publishedAt": "2026-11-26T14:16:31.670Z"
+        },
+        "Osobowość +": {
+          "status": "ok",
+          "channelId": "UCHmPxDM2zzlUAf5ZvlotPLw",
+          "videoUrl": "https://youtu.be/zcYwE4EmYSA",
+          "title": "012. Oto Oblubieniec nadchodzi | Prof. Walter Veith (What's Up Prof?)",
+          "skipped": false,
+          "publishedAt": "2026-11-26T14:18:41.184Z"
+        },
+        "CC Women": {
+          "status": "ok",
+          "channelId": "UC-LPFt-vmJCeap746DOWMgw",
+          "videoUrl": "https://youtu.be/3tqqmy_i5gI",
+          "title": "012. Oto Oblubieniec nadchodzi | Prof. Walter Veith (What's Up Prof?)",
+          "skipped": false,
+          "publishedAt": "2026-11-26T14:21:00.978Z"
+        },
+        "CC Men": {
+          "status": "ok",
+          "channelId": "UCUpuq9JS7jitIcm9iBn0jnA",
+          "videoUrl": "https://youtu.be/eDVThux0yqk",
+          "title": "012. Oto Oblubieniec nadchodzi | Prof. Walter Veith (What's Up Prof?)",
+          "skipped": false,
+          "publishedAt": "2026-11-26T14:23:21.337Z"
+        }
+      },
+      "scheduledYmd": "2026-11-28",
       "scheduledTime": "15:00"
     }
   }

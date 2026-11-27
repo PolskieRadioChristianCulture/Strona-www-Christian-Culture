@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-25T06:00:02.117Z",
+  "generatedAt": "2026-11-26T06:00:05.822Z",
   "environment": "PRODUCTION",
   "mode": "PRODUCTION_LIVE",
   "autoPublishEnabled": true,
@@ -339,7 +339,7 @@
     {
       "dayIndex": 4,
       "runDate": "2026-11-26",
-      "status": "SCHEDULED_VERIFIED",
+      "status": "PUBLISHED_LIVE",
       "postId": "wzn_post_2026-11-26",
       "idempotencyKey": "wzn:2026-11-26:day:330",
       "verse": {

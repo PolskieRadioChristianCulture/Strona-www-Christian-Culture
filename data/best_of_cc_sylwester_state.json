@@ -32,10 +32,104 @@
       "lastSentIso": "2026-11-25T16:15:03.917Z",
       "waveId": "wave-1-premiera",
       "groupName": "Pościliście więc... Ezch 8:23"
+    },
+    "120363398783435848@g.us": {
+      "lastSentIso": "2026-11-26T10:15:07.195Z",
+      "waveId": "wave-1-premiera",
+      "groupName": "Śniadanie z Mistrzem"
+    },
+    "120363213998808959@g.us": {
+      "lastSentIso": "2026-11-26T10:15:07.195Z",
+      "waveId": "wave-1-premiera",
+      "groupName": "Inspiruj*Motywuj*Wspieraj*Pocieszaj"
+    },
+    "120363342346951058@g.us": {
+      "lastSentIso": "2026-11-26T16:15:05.076Z",
+      "waveId": "wave-1-premiera",
+      "groupName": "W poszukiwaniu Jezusa"
+    },
+    "120363333834952828@g.us": {
+      "lastSentIso": "2026-11-26T16:15:05.076Z",
+      "waveId": "wave-1-premiera",
+      "groupName": "Radio CC Christian Culture TV"
     }
   },
   "waNazirLastSentAt": "2026-11-24T15:11:04.555Z",
   "history": [
+    {
+      "timestamp": "2026-11-26T16:15:05.076Z",
+      "waveId": "wave-1-premiera",
+      "ymd": "2026-11-26",
+      "x": {
+        "ok": true,
+        "skipped": true,
+        "reason": "interval_48h"
+      },
+      "tablica": {
+        "ok": true,
+        "skipped": true,
+        "reason": "interval_96h"
+      },
+      "whatsapp": [
+        {
+          "ok": true,
+          "targetGroupId": "120363342346951058@g.us",
+          "d1": {
+            "success": true,
+            "id": "cmd_1795709705099_6lbbs",
+            "status": "pending"
+          },
+          "name": "W poszukiwaniu Jezusa"
+        },
+        {
+          "ok": true,
+          "targetGroupId": "120363333834952828@g.us",
+          "d1": {
+            "success": true,
+            "id": "cmd_1795709705384_oz2hm",
+            "status": "pending"
+          },
+          "name": "Radio CC Christian Culture TV"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-11-26T10:15:07.195Z",
+      "waveId": "wave-1-premiera",
+      "ymd": "2026-11-26",
+      "x": {
+        "ok": true,
+        "skipped": true,
+        "reason": "interval_48h"
+      },
+      "tablica": {
+        "ok": true,
+        "skipped": true,
+        "reason": "interval_96h"
+      },
+      "whatsapp": [
+        {
+          "ok": true,
+          "targetGroupId": "120363398783435848@g.us",
+          "d1": {
+            "success": true,
+            "id": "cmd_1795688107230_f7riu",
+            "status": "pending"
+          },
+          "name": "Śniadanie z Mistrzem"
+        },
+        {
+          "ok": true,
+          "targetGroupId": "120363213998808959@g.us",
+          "d1": {
+            "success": true,
+            "id": "cmd_1795688107476_e8757",
+            "status": "pending"
+          },
+          "name": "Inspiruj*Motywuj*Wspieraj*Pocieszaj"
+        }
+      ]
+    },
     {
       "timestamp": "2026-11-25T16:15:03.917Z",
       "waveId": "wave-1-premiera",

@@ -1,7 +1,31 @@
 {
-  "lastPromotedIndex": 8,
-  "lastPromotedDate": "2026-11-25",
+  "lastPromotedIndex": 9,
+  "lastPromotedDate": "2026-11-26",
   "history": [
+    {
+      "date": "2026-11-26",
+      "channelName": "CC Prayer 24",
+      "handle": "@CCPrayer24",
+      "url": "https://www.youtube.com/@CCPrayer24/live",
+      "results": {
+        "lumina": {
+          "status": "published",
+          "docId": "BzSpWaW2Qimn83Ma8AL5"
+        },
+        "x": {
+          "status": "error",
+          "error": "page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"tweetTextarea_0\"], div[role=\"textbox\"][contenteditable=\"true\"]') to be visible\u001b[22m\n"
+        },
+        "fb": {
+          "status": "skipped_disabled",
+          "reason": "fb_disabled_by_owner_20261124"
+        },
+        "wa": {
+          "status": "queued",
+          "targets": 3
+        }
+      }
+    },
     {
       "date": "2026-11-25",
       "channelName": "RCC TV 24",
