@@ -209,8 +209,8 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai34_align/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai34_align/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261127_ai35_flyout_bg/);
+  assert.match(html, /\/ai\/app\.js\?v=20261127_ai35_flyout_bg/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
@@ -1158,4 +1158,16 @@ test('AI dla Jezusa collapses desktop sidebars into compact icon rails like Chat
   assert.match(css, /:where\(\.sidebar-left\)\s*:is\(\.nav-item,\s*\.recent-item,\s*\.footer-item,\s*\.search-box\)\s*svg\s*\{[\s\S]*?width:\s*16px;\s*height:\s*16px;/);
   assert.match(css, /\.footer-item\.privacy-toggle\.sidebar-privacy-toggle\s*\{[\s\S]*?padding:\s*6px 10px;\s*gap:\s*10px;/);
   assert.match(appJs, /svg\.setAttribute\('hidden', ''\)/);
+
+  // Hover thematic flyout for collapsed rails + ambient background animation & color settings
+  assert.match(html, /id="railFlyout"[^>]*class="rail-flyout"/);
+  assert.match(css, /--ambient-rgb:\s*230,\s*184,\s*76/);
+  assert.match(css, /body\.ambient-bg-off\s+\.ambient-canvas/);
+  assert.match(css, /\.rail-flyout\[data-side="left"\]/);
+  assert.match(css, /\.settings-panel-box\b/);
+  assert.match(appJs, /initRailHoverFlyout/);
+  assert.match(appJs, /ambientBgEnabled/);
+  assert.match(appJs, /ambientBgColor/);
+  assert.match(appJs, /railHoverPreview/);
+  assert.match(appJs, /#ambientBgToggle|#railHoverToggle|ambientBgToggle/);
 });

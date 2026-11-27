@@ -429,6 +429,20 @@ const voiceWave = $('#voiceWave');
 const voiceInterimEl = $('#voiceInterim');
 const voiceStopBtn = $('#voiceStopBtn');
 const ambientCanvas = $('#aiAmbientCanvas');
+const railFlyout = $('#railFlyout');
+const DEFAULT_AMBIENT_COLOR = '#e6b84c';
+const AMBIENT_COLOR_PRESETS = [
+  { hex: '#e6b84c', label: 'Złoty CC' },
+  { hex: '#ff7a00', label: 'Pomarańczowy CC' },
+  { hex: '#38bdf8', label: 'Błękit nieba' },
+  { hex: '#34d399', label: 'Szmaragdowy' },
+  { hex: '#a78bfa', label: 'Fiolet' },
+  { hex: '#f472b6', label: 'Różany' }
+];
+let ambientThemeRgb = { primary: [230, 184, 76], secondary: [244, 199, 87] };
+let ambientResumeFn = null;
+let ambientStopFn = null;
+let closeRailFlyoutFn = () => {};
 const assistantStrip = $('#assistantStrip');
 const voiceAutoReadBtn = $('#voiceAutoReadBtn');
 const micBtn = $('#micBtn');
@@ -1170,7 +1184,10 @@ function loadState(uid = currentUser?.uid) {
     byokProvider: '',
     byokModel: '',
     leftCollapsed: false,
-    rightCollapsed: false
+    rightCollapsed: false,
+    ambientBgEnabled: true,
+    ambientBgColor: DEFAULT_AMBIENT_COLOR,
+    railHoverPreview: true
   };
   try {
     const raw = JSON.parse(localStorage.getItem(getStorageKey(uid)) || 'null');
@@ -1207,7 +1224,10 @@ function loadState(uid = currentUser?.uid) {
       byokProvider: ALLOWED_BYOK_PROVIDERS.has(rawByokProvider) ? rawByokProvider : '',
       byokModel: typeof raw.byokModel === 'string' ? raw.byokModel.trim().slice(0, 80) : '',
       leftCollapsed: Boolean(raw.leftCollapsed),
-      rightCollapsed: Boolean(raw.rightCollapsed)
+      rightCollapsed: Boolean(raw.rightCollapsed),
+      ambientBgEnabled: raw.ambientBgEnabled !== false,
+      ambientBgColor: normalizeHexColor(raw.ambientBgColor) || DEFAULT_AMBIENT_COLOR,
+      railHoverPreview: raw.railHoverPreview !== false
     };
   } catch {
     return empty;
@@ -1274,6 +1294,33 @@ function setResponseDepth(depth, { announce = true } = {}) {
   }
 }
 
+function normalizeHexColor(val) {
+  if (typeof val !== 'string') return '';
+  const m = val.trim().match(/^#([0-9a-f]{6})$/i);
+  return m ? `#${m[1].toLowerCase()}` : '';
+}
+
+function hexToRgbTuple(hex) {
+  const clean = normalizeHexColor(hex) || DEFAULT_AMBIENT_COLOR;
+  const n = parseInt(clean.slice(1), 16);
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+}
+
+function applyAmbientBgPreference() {
+  const enabled = state?.ambientBgEnabled !== false;
+  const hex = normalizeHexColor(state?.ambientBgColor) || DEFAULT_AMBIENT_COLOR;
+  const primary = hexToRgbTuple(hex);
+  const secondary = primary.map((c) => Math.min(255, Math.round(c + (255 - c) * 0.28)));
+  ambientThemeRgb = { primary, secondary };
+
+  document.documentElement.style.setProperty('--ambient-rgb', primary.join(', '));
+  document.documentElement.style.setProperty('--ambient-rgb-soft', secondary.join(', '));
+  document.body.classList.toggle('ambient-bg-off', !enabled);
+
+  if (enabled) ambientResumeFn?.();
+  else ambientStopFn?.();
+}
+
 function applyPreferencesFromState() {
   const modeFromState = typeof state?.mode === 'string' && ALLOWED_MODES.has(state.mode) ? state.mode : 'CC Auto';
   currentMode = modeFromState;
@@ -1319,6 +1366,7 @@ function applyPreferencesFromState() {
   syncDepthUI();
   updateTopbarModelLabel();
   syncSendButtonMode();
+  applyAmbientBgPreference();
 }
 
 function clearLegacyByok() {
@@ -1388,6 +1436,7 @@ function syncPanelButtons() {
 
   document.body.classList.toggle('left-collapsed', leftCollapsedDesktop);
   document.body.classList.toggle('right-collapsed', rightCollapsedDesktop);
+  if (!leftCollapsedDesktop || !rightCollapsedDesktop) closeRailFlyoutFn();
 
   if ((focusedPanel?.id === 'leftSidebar' && leftCollapsedDesktop) ||
       (focusedPanel?.id === 'rightSidebar' && rightCollapsedDesktop)) {
@@ -5132,8 +5181,110 @@ function openSettingsModal() {
   localPrivacyBtn.title = 'Rozmowy zapisywane lokalnie w Twojej przeglądarce';
   localPrivacyBtn.onclick = openPrivacyModal;
 
-  infoDialogBody.append(summary, proLine, byokIntro, form, localPrivacyBtn, help);
+  infoDialogBody.append(summary, proLine, buildDesktopVisualSettingsSection(), byokIntro, form, localPrivacyBtn, help);
   showInfoDialog();
+}
+
+function buildDesktopVisualSettingsSection() {
+  const box = document.createElement('section');
+  box.className = 'settings-panel-box';
+  box.setAttribute('aria-label', 'Wygląd pulpitu i panele boczne');
+
+  const heading = document.createElement('h3');
+  heading.className = 'settings-panel-title';
+  heading.textContent = 'Wygląd pulpitu i panele boczne';
+
+  const bgRow = document.createElement('label');
+  bgRow.className = 'settings-toggle-row';
+  const bgLabel = document.createElement('span');
+  bgLabel.textContent = 'Animacja tła na pulpicie';
+  const bgToggle = document.createElement('input');
+  bgToggle.type = 'checkbox';
+  bgToggle.id = 'ambientBgToggle';
+  bgToggle.checked = state.ambientBgEnabled !== false;
+  bgRow.append(bgLabel, bgToggle);
+
+  const colorRow = document.createElement('div');
+  colorRow.className = 'settings-color-row' + (bgToggle.checked ? '' : ' is-disabled');
+  const colorLabel = document.createElement('span');
+  colorLabel.className = 'settings-color-label';
+  colorLabel.textContent = 'Kolor animacji tła:';
+
+  const swatchesWrap = document.createElement('div');
+  swatchesWrap.className = 'settings-color-swatches';
+  const currentHex = normalizeHexColor(state.ambientBgColor) || DEFAULT_AMBIENT_COLOR;
+  const swatchButtons = [];
+
+  const colorInput = document.createElement('input');
+  colorInput.type = 'color';
+  colorInput.id = 'ambientBgColorPicker';
+  colorInput.className = 'settings-color-input';
+  colorInput.value = currentHex;
+  colorInput.setAttribute('aria-label', 'Wybierz własny kolor animacji tła');
+
+  const syncSwatches = (activeHex) => {
+    for (const { btn, hex } of swatchButtons) {
+      const isAct = hex === activeHex;
+      btn.classList.toggle('is-active', isAct);
+      btn.setAttribute('aria-pressed', String(isAct));
+    }
+    colorInput.value = activeHex;
+  };
+
+  const applyColor = (nextHex) => {
+    const normalized = normalizeHexColor(nextHex) || DEFAULT_AMBIENT_COLOR;
+    state.ambientBgColor = normalized;
+    saveState();
+    applyAmbientBgPreference();
+    syncSwatches(normalized);
+  };
+
+  for (const preset of AMBIENT_COLOR_PRESETS) {
+    const swBtn = document.createElement('button');
+    swBtn.type = 'button';
+    swBtn.className = 'settings-swatch' + (preset.hex === currentHex ? ' is-active' : '');
+    swBtn.dataset.bgColor = preset.hex;
+    swBtn.style.setProperty('--swatch-color', preset.hex);
+    swBtn.title = preset.label;
+    swBtn.setAttribute('aria-label', `Kolor animacji tła: ${preset.label}`);
+    swBtn.setAttribute('aria-pressed', String(preset.hex === currentHex));
+    swBtn.addEventListener('click', () => applyColor(preset.hex));
+    swatchButtons.push({ btn: swBtn, hex: preset.hex });
+    swatchesWrap.appendChild(swBtn);
+  }
+
+  const pickerLabel = document.createElement('label');
+  pickerLabel.className = 'settings-color-picker-wrap';
+  pickerLabel.append(colorInput, document.createTextNode('Własny'));
+  colorInput.addEventListener('input', () => applyColor(colorInput.value));
+  colorInput.addEventListener('change', () => applyColor(colorInput.value));
+  swatchesWrap.appendChild(pickerLabel);
+  colorRow.append(colorLabel, swatchesWrap);
+
+  bgToggle.addEventListener('change', () => {
+    state.ambientBgEnabled = bgToggle.checked;
+    colorRow.classList.toggle('is-disabled', !bgToggle.checked);
+    saveState();
+    applyAmbientBgPreference();
+  });
+
+  const hoverRow = document.createElement('label');
+  hoverRow.className = 'settings-toggle-row';
+  const hoverLabel = document.createElement('span');
+  hoverLabel.textContent = 'Wysuwany podgląd funkcji po najechaniu na ikony';
+  const hoverToggle = document.createElement('input');
+  hoverToggle.type = 'checkbox';
+  hoverToggle.id = 'railHoverToggle';
+  hoverToggle.checked = state.railHoverPreview !== false;
+  hoverToggle.addEventListener('change', () => {
+    state.railHoverPreview = hoverToggle.checked;
+    saveState();
+    if (!hoverToggle.checked) closeRailFlyoutFn();
+  });
+  hoverRow.append(hoverLabel, hoverToggle);
+
+  box.append(heading, bgRow, colorRow, hoverRow);
+  return box;
 }
 
 function openProfileModal() {
@@ -6546,6 +6697,7 @@ function initAmbientCanvas() {
   let height = 0;
   let particles = [];
   let lastFrame = 0;
+  let rafId = 0;
 
   const createParticles = (w, h) => {
     const count = w < 720 ? 16 : 28;
@@ -6572,13 +6724,20 @@ function initAmbientCanvas() {
   };
 
   const draw = (now) => {
-    requestAnimationFrame(draw);
+    if (state?.ambientBgEnabled === false) {
+      rafId = 0;
+      ctx.clearRect(0, 0, width, height);
+      return;
+    }
+    rafId = requestAnimationFrame(draw);
     if (document.hidden || !width || !height) return;
     if (now - lastFrame < 33) return;
     lastFrame = now;
 
     ctx.clearRect(0, 0, width, height);
     const speedFactor = (prefersCalm ? 0.65 : 1) * (isListening ? 1.45 : 1);
+    const [r1, g1, b1] = ambientThemeRgb.primary;
+    const [r2, g2, b2] = ambientThemeRgb.secondary;
 
     for (const p of particles) {
       p.y -= p.vy * speedFactor;
@@ -6597,15 +6756,321 @@ function initAmbientCanvas() {
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
       ctx.fillStyle = p.driftPhase > Math.PI
-        ? `rgba(255, 138, 43, ${(a * 0.85).toFixed(3)})`
-        : `rgba(244, 199, 87, ${a.toFixed(3)})`;
+        ? `rgba(${r2}, ${g2}, ${b2}, ${(a * 0.85).toFixed(3)})`
+        : `rgba(${r1}, ${g1}, ${b1}, ${a.toFixed(3)})`;
       ctx.fill();
+    }
+  };
+
+  ambientStopFn = () => {
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = 0;
+    }
+    if (width && height) ctx.clearRect(0, 0, width, height);
+  };
+
+  ambientResumeFn = () => {
+    resize();
+    if (state?.ambientBgEnabled !== false && !rafId) {
+      rafId = requestAnimationFrame(draw);
     }
   };
 
   resize();
   window.addEventListener('resize', resize, { passive: true });
-  requestAnimationFrame(draw);
+  if (state?.ambientBgEnabled !== false) {
+    rafId = requestAnimationFrame(draw);
+  }
+}
+
+function initRailHoverFlyout() {
+  if (!railFlyout) return;
+  let hideTimer = null;
+  let activeButton = null;
+
+  const cancelHide = () => {
+    if (hideTimer) {
+      clearTimeout(hideTimer);
+      hideTimer = null;
+    }
+  };
+
+  const close = () => {
+    cancelHide();
+    activeButton = null;
+    railFlyout.hidden = true;
+    railFlyout.replaceChildren();
+    delete railFlyout.dataset.side;
+  };
+  closeRailFlyoutFn = close;
+
+  const scheduleHide = () => {
+    cancelHide();
+    hideTimer = setTimeout(close, 220);
+  };
+
+  const makeHeader = (titleText, descText = '') => {
+    const head = document.createElement('div');
+    head.className = 'rail-flyout-head';
+    const title = document.createElement('h3');
+    title.className = 'rail-flyout-title';
+    title.textContent = titleText;
+    head.appendChild(title);
+    const els = [head];
+    if (descText) {
+      const p = document.createElement('p');
+      p.className = 'rail-flyout-desc';
+      p.textContent = descText;
+      els.push(p);
+    }
+    return els;
+  };
+
+  const makeActionBtn = (label, metaText, onClick, isCta = false) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = isCta ? 'rail-flyout-cta' : 'rail-flyout-item';
+    const span = document.createElement('span');
+    span.textContent = label;
+    btn.appendChild(span);
+    if (metaText && !isCta) {
+      const meta = document.createElement('span');
+      meta.className = 'rail-flyout-meta';
+      meta.textContent = metaText;
+      btn.appendChild(meta);
+    }
+    btn.addEventListener('click', () => {
+      close();
+      onClick();
+    });
+    return btn;
+  };
+
+  const renderFlyoutContent = (button) => {
+    railFlyout.replaceChildren();
+    const { railOpen, railClick, railFocus, railNav } = button.dataset;
+    const list = document.createElement('div');
+    list.className = 'rail-flyout-list';
+
+    if (railOpen === 'left') {
+      railFlyout.append(...makeHeader('Lewy panel nawigacji', 'Rozwiń pełny panel rozmów, notatek i modułów AI dla Jezusa.'));
+      list.appendChild(makeActionBtn('Rozwiń lewy panel', 'Ctrl+B', () => toggleLeftPanel(), true));
+      railFlyout.appendChild(list);
+      return;
+    }
+
+    if (railOpen === 'right') {
+      railFlyout.append(...makeHeader('Twoja przestrzeń', 'Pokaż werset dnia, projekty i połączone aplikacje CC.'));
+      list.appendChild(makeActionBtn('Rozwiń prawy panel', 'Ctrl+Shift+B', () => toggleRightPanel(), true));
+      railFlyout.appendChild(list);
+      return;
+    }
+
+    if (railClick === 'newChatBtn') {
+      railFlyout.append(...makeHeader('Nowa rozmowa', 'Rozpocznij czat z wybranym asystentem Christian Culture.'));
+      list.appendChild(makeActionBtn('+ Nowa rozmowa', '', () => $('#newChatBtn')?.click(), true));
+      for (const p of Object.values(AI_PERSONAS)) {
+        list.appendChild(makeActionBtn(`Rozmawiaj z: ${p.name}`, p.role || '', () => {
+          $('#newChatBtn')?.click();
+          $(`.assistant-strip .assistant-pill[data-assistant="${CSS.escape(p.id)}"]`)?.click();
+        }));
+      }
+      railFlyout.appendChild(list);
+      return;
+    }
+
+    if (railFocus === 'chatSearchInput') {
+      railFlyout.append(...makeHeader('Szukaj rozmów', 'Wpisz frazę, aby odfiltrować zapisane rozmowy.'));
+      const input = document.createElement('input');
+      input.type = 'search';
+      input.className = 'rail-flyout-search';
+      input.placeholder = 'Szukaj rozmów…';
+      input.value = chatSearchInput?.value || '';
+      const renderMatches = () => {
+        list.replaceChildren();
+        const q = input.value.trim().toLowerCase();
+        const source = state.chats.length
+          ? state.chats.map((c, idx) => ({ title: c.title, idx }))
+          : STARTER_CHATS.map((s, idx) => ({ title: s.title, idx }));
+        const matched = source.filter((it) => !q || it.title.toLowerCase().includes(q)).slice(0, 6);
+        if (!matched.length) {
+          const empty = document.createElement('p');
+          empty.className = 'rail-flyout-desc';
+          empty.textContent = 'Brak pasujących rozmów.';
+          list.appendChild(empty);
+          return;
+        }
+        for (const it of matched) {
+          list.appendChild(makeActionBtn(it.title, 'Otwórz', () => {
+            recentChatsList?.querySelectorAll('.recent-item')?.[it.idx]?.click();
+          }));
+        }
+      };
+      input.addEventListener('input', () => {
+        if (chatSearchInput) {
+          chatSearchInput.value = input.value;
+          renderRecentChats();
+        }
+        renderMatches();
+      });
+      renderMatches();
+      railFlyout.append(input, list);
+      return;
+    }
+
+    if (railFocus === 'recentHeading') {
+      railFlyout.append(...makeHeader('Ostatnie rozmowy', 'Kliknij wątek, aby wrócić od razu do rozmowy.'));
+      const liveBtns = Array.from(recentChatsList?.querySelectorAll('.recent-item') || []).slice(0, 6);
+      for (const b of liveBtns) {
+        const title = b.textContent?.trim() || 'Rozmowa';
+        list.appendChild(makeActionBtn(title, 'Otwórz', () => b.click()));
+      }
+      railFlyout.appendChild(list);
+      return;
+    }
+
+    if (railNav === 'Czat') {
+      railFlyout.append(...makeHeader('Czat i asystenci', `Aktywny tryb: ${currentMode}`));
+      for (const p of Object.values(AI_PERSONAS)) {
+        const activeMark = getActiveAssistantId() === p.id ? 'Aktywna' : '';
+        list.appendChild(makeActionBtn(p.name, activeMark, () => {
+          $(`.assistant-strip .assistant-pill[data-assistant="${CSS.escape(p.id)}"]`)?.click();
+          if (getActiveThread()?.messages?.length) showConversationView();
+          else showWelcomeView();
+        }));
+      }
+      railFlyout.appendChild(list);
+      return;
+    }
+
+    if (railNav === 'Biblia') {
+      railFlyout.append(...makeHeader('Biblia (UBG)', 'Wyszukuj wersety i otwórz MojaBiblia Interlinear.'));
+      list.append(
+        makeActionBtn('Otwórz moduł Biblia', 'UBG', () => showModuleView('Biblia'), true),
+        makeActionBtn('MojaBiblia Interlinear', 'Strong', () => $('.connect-btn[data-app="MojaBiblia"]')?.click()),
+        makeActionBtn('Rozważ Rzymian 8:28', 'Pytanie', () => startPromptDirectly('Wyjaśnij znaczenie Rzymian 8:28 według tekstu UBG.', 'Rzymian 8:28', 'Studium Biblijne')),
+        makeActionBtn('Rozważ Jana 3:16', 'Pytanie', () => startPromptDirectly('Wyjaśnij kontekst i przesłanie Ewangelii Jana 3:16 (UBG).', 'Jana 3:16', 'Studium Biblijne'))
+      );
+      railFlyout.appendChild(list);
+      return;
+    }
+
+    if (railNav === 'Projekty') {
+      railFlyout.append(...makeHeader('Projekty', `Liczba projektów: ${state.projects.length}`));
+      for (const linkBtn of Array.from($$('#rightSidebar .project-link')).slice(0, 5)) {
+        list.appendChild(makeActionBtn(linkBtn.textContent?.trim() || 'Projekt', 'Projekt', () => linkBtn.click()));
+      }
+      list.appendChild(makeActionBtn('Zobacz wszystkie projekty', 'Moduł', () => showModuleView('Projekty'), true));
+      railFlyout.appendChild(list);
+      return;
+    }
+
+    if (railNav === 'Notatniki') {
+      railFlyout.append(...makeHeader('Notatniki i pamięć', `Notatki: ${state.notes.length} · Pamięć: ${state.memory.length}`));
+      list.append(
+        makeActionBtn('Otwórz Notatniki', `${state.notes.length}`, () => showModuleView('Notatniki'), true),
+        makeActionBtn('Otwórz Pamięć AI', `${state.memory.length}`, () => showModuleView('Pamięć'))
+      );
+      railFlyout.appendChild(list);
+      return;
+    }
+
+    if (railNav === 'Ustawienia') {
+      const bgActive = state.ambientBgEnabled !== false;
+      railFlyout.append(...makeHeader('Ustawienia i wygląd', `Animacja tła: ${bgActive ? 'włączona' : 'wyłączona'} (${state.ambientBgColor || DEFAULT_AMBIENT_COLOR})`));
+      list.append(
+        makeActionBtn(bgActive ? 'Wyłącz animację tła' : 'Włącz animację tła', bgActive ? 'ON' : 'OFF', () => {
+          state.ambientBgEnabled = !bgActive;
+          saveState();
+          applyAmbientBgPreference();
+          showToast(state.ambientBgEnabled ? 'Animacja tła włączona.' : 'Animacja tła wyłączona.');
+        }),
+        makeActionBtn('Otwórz pełne Ustawienia i kolor tła…', '', () => openSettingsModal(), true)
+      );
+      railFlyout.appendChild(list);
+      return;
+    }
+
+    if (railNav === 'Mój profil') {
+      const label = currentUser && !currentUser.isAnonymous
+        ? (currentUser.displayName || currentUser.email || 'Zalogowano (LUMINA)')
+        : 'Konto lokalne gościa';
+      railFlyout.append(...makeHeader('Mój profil', label));
+      list.appendChild(makeActionBtn('Otwórz profil i konto LUMINA', '', () => openProfileModal(), true));
+      railFlyout.appendChild(list);
+      return;
+    }
+
+    if (railFocus === 'verseHeading') {
+      const vText = $('.daily-verse')?.textContent?.trim() || '„Zaufaj Panu z całego swego serca...”';
+      const vRef = $('.verse-ref')?.textContent?.trim() || 'Przysłów 3,5';
+      railFlyout.append(...makeHeader('Werset dnia', vRef));
+      const quote = document.createElement('blockquote');
+      quote.className = 'rail-flyout-verse';
+      quote.textContent = vText;
+      list.appendChild(makeActionBtn('Rozważ ten werset z AI', 'Czat', () => $('.space-card')?.click(), true));
+      railFlyout.append(quote, list);
+      return;
+    }
+
+    if (railFocus === 'projectsHeading') {
+      railFlyout.append(...makeHeader('Aktywne projekty', 'Kliknij projekt, aby otworzyć powiązane treści.'));
+      for (const linkBtn of Array.from($$('#rightSidebar .project-link')).slice(0, 5)) {
+        list.appendChild(makeActionBtn(linkBtn.textContent?.trim() || 'Projekt', 'Otwórz', () => linkBtn.click()));
+      }
+      list.appendChild(makeActionBtn('Wszystkie projekty →', '', () => showModuleView('Projekty'), true));
+      railFlyout.appendChild(list);
+      return;
+    }
+
+    if (railFocus === 'integrationsHeading') {
+      railFlyout.append(...makeHeader('Połączone aplikacje', 'Szybki dostęp do aplikacji Christian Culture i narzędzi.'));
+      for (const btn of Array.from($$('#rightSidebar .connect-btn')).slice(0, 6)) {
+        const appName = btn.dataset.app || 'Aplikacja';
+        const statusText = btn.textContent?.trim() || 'Połącz';
+        list.appendChild(makeActionBtn(appName, statusText, () => btn.click()));
+      }
+      list.appendChild(makeActionBtn('Zobacz więcej integracji →', '', () => showModuleView('Połączenia'), true));
+      railFlyout.appendChild(list);
+    }
+  };
+
+  const openForButton = (button) => {
+    if (state?.railHoverPreview === false) return;
+    const isLeft = Boolean(button.closest('#leftSidebar'));
+    const collapsed = isLeft
+      ? document.body.classList.contains('left-collapsed')
+      : document.body.classList.contains('right-collapsed');
+    if (!collapsed || isLeftOverlayMode() || (!isLeft && isRightOverlayMode())) return;
+
+    cancelHide();
+    activeButton = button;
+    renderFlyoutContent(button);
+    railFlyout.dataset.side = isLeft ? 'left' : 'right';
+    railFlyout.hidden = false;
+
+    const btnRect = button.getBoundingClientRect();
+    const flyHeight = railFlyout.offsetHeight || 220;
+    const maxTop = Math.max(12, window.innerHeight - flyHeight - 12);
+    const clampedTop = Math.max(12, Math.min(Math.round(btnRect.top), maxTop));
+    railFlyout.style.top = `${clampedTop}px`;
+  };
+
+  $$('.panel-rail-btn').forEach((button) => {
+    button.addEventListener('mouseenter', () => openForButton(button));
+    button.addEventListener('mouseleave', scheduleHide);
+    button.addEventListener('click', () => close());
+  });
+
+  railFlyout.addEventListener('mouseenter', cancelHide);
+  railFlyout.addEventListener('mouseleave', scheduleHide);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !railFlyout.hidden) close();
+  });
+  window.addEventListener('resize', () => {
+    if (!railFlyout.hidden && activeButton) openForButton(activeButton);
+  }, { passive: true });
 }
 
 function initCardSpotlights() {
@@ -6833,5 +7298,6 @@ setInterval(checkDueReminders, 30000);
 hydrateDailyVerse();
 initLuminaAuthConnector();
 initAmbientCanvas();
+initRailHoverFlyout();
 initCardSpotlights();
 initPromptCascade();
