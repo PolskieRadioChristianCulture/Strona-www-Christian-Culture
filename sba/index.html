@@ -5,14 +5,29 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#ffffff">
   <meta name="description" content="Odkrywaj losowe wersety Uwspółcześnionej Biblii Gdańskiej. Czytaj, słuchaj i zapisuj ulubione fragmenty.">
-  <title>Biblia UBG | Christian Culture</title>
+  <title>Scrolluj Biblię — Czytaj i słuchaj jednocześnie | Biblia UBG | Christian Culture</title>
   <link rel="canonical" href="https://polskieradio.cc/sba">
-  <link rel="stylesheet" href="/sba/styles.css?v=3">
+  <link rel="icon" type="image/png" sizes="192x192" href="/sba/icon-192.png?v=1">
+  <link rel="apple-touch-icon" href="/sba/icon-192.png?v=1">
+  <link rel="manifest" href="/sba/manifest.json?v=1">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://polskieradio.cc/sba">
+  <meta property="og:site_name" content="Christian Culture">
+  <meta property="og:title" content="Scrolluj Biblię — Czytaj i słuchaj jednocześnie">
+  <meta property="og:description" content="Odkrywaj losowe wersety Uwspółcześnionej Biblii Gdańskiej. Czytaj kontekst, zapisuj ulubione fragmenty i słuchaj Biblii Audio Christian Culture.">
+  <meta property="og:image" content="https://polskieradio.cc/sba/og-scrolluj-biblie.jpg?v=1">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Scrolluj Biblię — Czytaj i słuchaj jednocześnie">
+  <meta name="twitter:description" content="Odkrywaj losowe wersety Uwspółcześnionej Biblii Gdańskiej. Czytaj, słuchaj i zapisuj ulubione fragmenty.">
+  <meta name="twitter:image" content="https://polskieradio.cc/sba/og-scrolluj-biblie.jpg?v=1">
+  <link rel="stylesheet" href="/sba/styles.css?v=4">
   <script type="module" src="/sba/app.js?v=2"></script>
 </head>
 <body>
   <header class="top">
-    <a class="brand" href="https://polskieradio.cc/biblia-audio"><span class="brand-mark" data-icon="book"></span><span><strong>Biblia Audio</strong><small>CHRISTIAN CULTURE</small></span></a>
+    <a class="brand" href="https://polskieradio.cc/biblia-audio"><img class="brand-logo" src="/sba/icon-mark.webp?v=1" alt="Scrolluj Biblię" width="42" height="42"><span class="brand-text"><strong>Scrolluj Biblię</strong><small>CZYTAJ I SŁUCHAJ JEDNOCZEŚNIE</small></span></a>
     <nav class="top-actions" aria-label="Czytnik i konto">
       <button class="icon" id="saved-verses" data-icon="heart" title="Ulubione wersety" aria-label="Ulubione wersety"></button>
       <button class="icon" id="ccTopBarFavBtn" data-cc-favorite-toggle="true" data-icon="star" title="Dodaj aplikację do ulubionych" aria-label="Dodaj aplikację do ulubionych" aria-pressed="false"></button>
@@ -22,6 +37,7 @@
 
   <main class="reader" aria-label="Czytnik losowych wersetów">
     <div id="reader-status" class="startup" role="status">
+      <img class="startup-logo" src="/sba/logo.webp?v=1" alt="Scrolluj Biblię — Czytaj i słuchaj jednocześnie" width="180" height="180">
       <p id="loading-message">Wczytuję wersety UBG…</p>
       <button type="button" id="retry" hidden>Wczytaj ponownie</button>
     </div>

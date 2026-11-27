@@ -1104,7 +1104,7 @@
   },
   "items": [
     {
-      "title": "Biblia UBG – losowe wersety i Biblia Audio",
+      "title": "Scrolluj Biblię — Czytaj i słuchaj jednocześnie (Biblia UBG)",
       "category": "Biblia i formacja",
       "url": "https://polskieradio.cc/sba",
       "description": "Przewijaj losowe wersety Uwspółcześnionej Biblii Gdańskiej, czytaj kontekst, zapisuj ulubione fragmenty i słuchaj Biblii Audio Christian Culture.",
@@ -1114,8 +1114,11 @@
         "losowe wersety",
         "czytaj i słuchaj",
         "biblia audio",
-        "ulubione wersety"
-      ]
+        "ulubione wersety",
+        "czytaj i słuchaj jednocześnie",
+        "sba"
+      ],
+      "image": "/sba/logo.webp"
     },
     {
       "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
