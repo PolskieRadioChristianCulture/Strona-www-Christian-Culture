@@ -4783,6 +4783,14 @@ html[data-lumina-theme="light"] :is(#directMessagesModal#directMessagesModal#dir
     color: #FFFFFF !important;
     -webkit-text-fill-color: #FFFFFF !important;
 }
+html[data-lumina-theme="light"] :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) :is(.lumina-bubble-mine, .fb-msg-bubble-me) :is(.lumina-reply-btn, .cc-chat-share-btn) {
+    background: transparent !important;
+    background-image: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+}
 html[data-lumina-theme="light"] :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) .lumina-send-btn-premium {
     background: #FF7A00 !important;
     color: #FFFFFF !important;
@@ -4811,14 +4819,14 @@ html[data-lumina-theme="light"] :is(#directMessagesModal#directMessagesModal#dir
     border-bottom: 1px solid #e2e8f0 !important;
     box-shadow: none !important;
 }
-html[data-lumina-theme="light"] :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) :is(.lumina-smart-bar-container, #publicChatSmartBar, #activeChatSmartBar) :is(button, .smart-chip-btn, .smart-chip-btn.scripture-chip, .smart-action-btn, .smart-cycle-btn) {
+html[data-lumina-theme="light"] :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) :is(.lumina-smart-bar-container, #publicChatSmartBar, #activeChatSmartBar) :is(.smart-time-badge, button, .smart-chip-btn, .smart-chip-btn.scripture-chip, .smart-action-btn, .smart-cycle-btn) {
     background: #f4f6fa !important;
     border: 1px solid #cbd5e1 !important;
     color: #1e293b !important;
     -webkit-text-fill-color: #1e293b !important;
     box-shadow: none !important;
 }
-html[data-lumina-theme="light"] :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) :is(.lumina-smart-bar-container, #publicChatSmartBar, #activeChatSmartBar) :is(button, .smart-chip-btn, .smart-chip-btn.scripture-chip, .smart-action-btn, .smart-cycle-btn) * {
+html[data-lumina-theme="light"] :is(#directMessagesModal#directMessagesModal#directMessagesModal, #messageModal#messageModal#messageModal) :is(.lumina-smart-bar-container, #publicChatSmartBar, #activeChatSmartBar) :is(.smart-time-badge, button, .smart-chip-btn, .smart-chip-btn.scripture-chip, .smart-action-btn, .smart-cycle-btn) * {
     color: #1e293b !important;
     -webkit-text-fill-color: #1e293b !important;
 }
