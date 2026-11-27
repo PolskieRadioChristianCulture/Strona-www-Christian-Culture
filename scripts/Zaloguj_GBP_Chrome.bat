@@ -1,0 +1,2 @@
+@echo off
+start "" "C:\Program Files\Google\Chrome\Application\chrome.exe" --user-data-dir="C:\Users\czark\.gbp_browser_profile" --no-first-run --new-window "https://accounts.google.com/AccountChooser?continue=https%%3A%%2F%%2Fwww.google.com%%2Fsearch%%3Fq%%3DPolskie%%2BRadio%%2BChristian%%2BCulture%%2BTV%%26stick%%3DH4sIAAAAAAAA_-NgU1I1qDAxN7QwsExKMzOxTE41MjK1MqgwTTIzN0lMSkpLSkmzsLC0XMSqFJCfU5ydmaoQlJiSma_gnFGUWVySmZin4FyaU1JalKoQEgYAqAZQ2U4AAAA%%26hl%%3Dpl&Email=radiochristianculture%%40gmail.com"

@@ -76,7 +76,9 @@ async function hasOwnerControls(page) {
         txt.includes('add update') ||
         txt.includes('edytuj profil') ||
         txt.includes('edit profile') ||
-        txt.includes('dodaj wpis')
+        txt.includes('dodaj wpis') ||
+        txt.includes('twoja firma w google') ||
+        txt.includes('utwórz post')
       );
     })
     .catch(() => false);
@@ -178,7 +180,7 @@ async function runDryRun(queue, state, ignoreCooldown) {
   const trackedUrl = buildTrackedCtaUrl(post.ctaUrl, post.id);
   const srcImg = path.resolve(REPO_ROOT, post.imagePath);
   const outImg = path.join(STAGING_DIR, `${post.id}.jpg`);
-  const imgResult = prepareGbpImage4x3(srcImg, outImg);
+  const imgResult = prepareGbpImage4x3(srcImg, outImg, { fit: post.imageFit || 'cover' });
 
   console.log('\n--- Podgląd kolejnego wpisu do publikacji ---');
   console.log(`ID:          ${post.id}`);
@@ -250,19 +252,19 @@ async function runCheckSession() {
   }
 }
 
-async function findComposerContext(page) {
-  for (const frame of page.frames()) {
-    const u = frame.url();
-    if (/business\.google\.com|local\/posts|customer-profile/i.test(u) || frame === page.mainFrame()) {
-      const hasBox = await frame
-        .locator('textarea, div[contenteditable="true"]')
-        .first()
-        .isVisible()
-        .catch(() => false);
-      if (hasBox) return frame;
+async function findComposerContext(page, timeoutMs = 12000) {
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    for (const frame of page.frames()) {
+      const u = frame.url();
+      if (/local\/business\/.*promote\/updates\/add|business\.google\.com/i.test(u)) {
+        const hasBox = await frame.locator('textarea').first().isVisible().catch(() => false);
+        if (hasBox) return frame;
+      }
     }
+    await sleep(500);
   }
-  return page;
+  throw new Error('Nie znaleziono otwartego modalu edytora wpisu Google (iframe promote/updates/add).');
 }
 
 async function runPublishOnce(queue, state, ignoreCooldown) {
@@ -281,13 +283,13 @@ async function runPublishOnce(queue, state, ignoreCooldown) {
   const trackedUrl = buildTrackedCtaUrl(post.ctaUrl, post.id);
   const srcImg = path.resolve(REPO_ROOT, post.imagePath);
   const stagingImg = path.join(STAGING_DIR, `${post.id}.jpg`);
-  const { sizeBytes } = prepareGbpImage4x3(srcImg, stagingImg);
+  const { sizeBytes } = prepareGbpImage4x3(srcImg, stagingImg, { fit: post.imageFit || 'cover' });
 
   fs.mkdirSync(SCREENSHOTS_DIR, { recursive: true });
   const { ctx, page } = await launchGbpBrowser();
   try {
     await page.goto(CANONICAL_GBP_URL, { waitUntil: 'domcontentloaded', timeout: 60000 });
-    await sleep(3500);
+    await sleep(3000);
 
     const auth = await detectAuthOrChallenge(page);
     if (auth) {
@@ -298,23 +300,22 @@ async function runPublishOnce(queue, state, ignoreCooldown) {
     }
 
     const addUpdateBtn = page
-      .locator('a, button, div[role="button"], span[role="button"]')
-      .filter({ hasText: /Dodaj aktualizację|Add update|Utwórz post|Create post/i })
+      .locator('button')
+      .filter({ hasText: /^Dodaj aktualizację$|^Add update$/i })
       .first();
     await addUpdateBtn.waitFor({ state: 'visible', timeout: 15000 });
     await addUpdateBtn.click();
-    await sleep(3000);
 
-    const ctxFrame = await findComposerContext(page);
+    const ctxFrame = await findComposerContext(page, 12000);
 
     if (post.postType === 'EVENT') {
-      const tab = ctxFrame.locator('[role="tab"], button, div[role="button"]').filter({ hasText: /Dodaj wydarzenie|Add event/i }).first();
+      const tab = ctxFrame.locator('button[aria-label="Wydarzenie"], button[aria-label="Event"]').first();
       if (await tab.isVisible().catch(() => false)) await tab.click();
     } else if (post.postType === 'OFFER') {
-      const tab = ctxFrame.locator('[role="tab"], button, div[role="button"]').filter({ hasText: /Dodaj ofertę|Add offer/i }).first();
+      const tab = ctxFrame.locator('button[aria-label="Oferta"], button[aria-label="Offer"]').first();
       if (await tab.isVisible().catch(() => false)) await tab.click();
     } else {
-      const tab = ctxFrame.locator('[role="tab"], button, div[role="button"]').filter({ hasText: /Dodaj aktualizację|Add update/i }).first();
+      const tab = ctxFrame.locator('button[aria-label="Aktualizacja"], button[aria-label="Update"]').first();
       if (await tab.isVisible().catch(() => false)) await tab.click();
     }
     await sleep(800);
@@ -336,57 +337,72 @@ async function runPublishOnce(queue, state, ignoreCooldown) {
     }
 
     // Description field
-    const descBox = ctxFrame.locator('textarea, div[contenteditable="true"]').first();
+    const descBox = ctxFrame.locator('textarea').first();
     await descBox.waitFor({ state: 'visible', timeout: 15000 });
     await descBox.click();
     await descBox.fill(post.summary);
 
     // Upload 1200x900 photo
     const fileInp = ctxFrame.locator('input[type="file"]').first();
-    if ((await fileInp.count()) > 0) {
-      await fileInp.setInputFiles(stagingImg);
-      await sleep(2500);
-    }
+    await fileInp.waitFor({ state: 'attached', timeout: 10000 });
+    await fileInp.setInputFiles(stagingImg);
+    await sleep(4000);
 
-    // Add CTA button
-    const addBtnToggle = ctxFrame
-      .locator('button, div[role="button"], div[role="combobox"]')
-      .filter({ hasText: /Dodaj przycisk|Add a button/i })
+    // Add CTA button (2026 Polish GBP composer flow)
+    const addLinkToggle = ctxFrame
+      .locator('button[aria-label="Dodaj pola linku"], button[aria-label="Add link fields"]')
       .first();
-    if (await addBtnToggle.isVisible().catch(() => false)) {
-      await addBtnToggle.click();
-      await sleep(700);
-      const optionRe =
-        post.ctaLabel === 'Skorzystaj z oferty'
-          ? /Skorzystaj z oferty|Get offer|Dowiedz się więcej|Więcej informacji/i
-          : /Więcej informacji|Dowiedz się więcej|Learn more/i;
-      const opt = ctxFrame.locator('[role="option"], li, div[role="menuitem"]').filter({ hasText: optionRe }).first();
-      if (await opt.isVisible().catch(() => false)) {
-        await opt.click();
-        await sleep(500);
-      }
-      const linkInp = ctxFrame
-        .locator('input[type="url"], input[aria-label*="Link" i], input[placeholder*="Link" i], input[aria-label*="przycisku" i]')
-        .first();
-      if (await linkInp.isVisible().catch(() => false)) {
-        await linkInp.fill(trackedUrl);
-      }
-    }
+    await addLinkToggle.waitFor({ state: 'visible', timeout: 10000 });
+    await addLinkToggle.click();
+    await sleep(800);
 
-    await sleep(1000);
+    const ctaDropdown = ctxFrame.locator('button').filter({ hasText: /^Brak$|^None$/i }).first();
+    await ctaDropdown.waitFor({ state: 'visible', timeout: 10000 });
+    await ctaDropdown.click();
+    await sleep(700);
+
+    const optionRe =
+      post.ctaLabel === 'Skorzystaj z oferty'
+        ? /Skorzystaj z oferty|Get offer|Więcej informacji|Dowiedz się więcej/i
+        : /Więcej informacji|Dowiedz się więcej|Learn more/i;
+    const opt = ctxFrame.locator('[role="menuitem"], [role="option"], li').filter({ hasText: optionRe }).first();
+    await opt.waitFor({ state: 'visible', timeout: 10000 });
+    await opt.click();
+    await sleep(700);
+
+    const linkInp = ctxFrame
+      .locator(
+        'input[type="url"], input[aria-label*="Link" i], input[placeholder*="Link" i], input[type="text"]:visible, input:not([type="file"]):not([type="hidden"]):not([type="checkbox"])'
+      )
+      .last();
+    await linkInp.waitFor({ state: 'visible', timeout: 10000 });
+    await linkInp.click();
+    await linkInp.fill(trackedUrl);
+
+    await sleep(1200);
     const preShot = path.join(SCREENSHOTS_DIR, `pre_publish_${post.id}.png`);
     await page.screenshot({ path: preShot, fullPage: false });
 
     const publishBtn = ctxFrame
-      .locator('button:not([disabled]), div[role="button"]:not([aria-disabled="true"])')
-      .filter({ hasText: /^Opublikuj$|^Post$|^Publish$/i })
+      .locator('button[type="submit"]:not([disabled]), button:not([disabled])')
+      .filter({ hasText: /^Wpis$|^Opublikuj$|^Post$|^Publish$/i })
       .first();
     await publishBtn.waitFor({ state: 'visible', timeout: 10000 });
     await publishBtn.click();
 
-    await sleep(5000);
+    await sleep(6000);
     const pubShot = path.join(SCREENSHOTS_DIR, `published_${post.id}.png`);
     await page.screenshot({ path: pubShot, fullPage: false });
+
+    const stillOpen = await ctxFrame
+      .locator('button[type="submit"]')
+      .filter({ hasText: /^Wpis$|^Opublikuj$|^Post$|^Publish$/i })
+      .first()
+      .isVisible()
+      .catch(() => false);
+    if (stillOpen) {
+      throw new Error(`Modal publikacji nie zamknął się po kliknięciu "Wpis". Sprawdź zrzut ekranu: ${pubShot}`);
+    }
 
     state.lastPublishedAt = new Date().toISOString();
     state.totalPublished = (state.totalPublished || 0) + 1;

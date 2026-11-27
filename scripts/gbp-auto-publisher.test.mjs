@@ -11,16 +11,17 @@ import {
   prepareGbpImage4x3,
   pickNextQueuedPost
 } from './gbp_policy_guard.mjs';
+import { syncNoveltiesIntoQueue } from './gbp_novelties_sync.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const REPO_ROOT = path.resolve(__dirname, '..');
 const QUEUE_PATH = path.join(REPO_ROOT, 'data', 'gbp_posts_queue.json');
 
-test('gbp_posts_queue.json zawiera 12 poprawnych postów i wszystkie grafiki istnieją na dysku', () => {
+test('gbp_posts_queue.json zawiera co najmniej 12 poprawnych postów i wszystkie grafiki istnieją na dysku', () => {
   const queue = JSON.parse(fs.readFileSync(QUEUE_PATH, 'utf8'));
   assert.equal(Array.isArray(queue.posts), true);
-  assert.equal(queue.posts.length, 12);
+  assert.ok(queue.posts.length >= 12);
 
   for (const post of queue.posts) {
     const res = validateGbpPost(post, REPO_ROOT);
@@ -116,5 +117,55 @@ test('prepareGbpImage4x3 przycina i skaluje grafikę do dokładnie 1200x900 (<5 
     assert.equal(probe, '1200x900');
   } finally {
     if (fs.existsSync(out)) fs.unlinkSync(out);
+  }
+});
+
+test('prepareGbpImage4x3 z fit=contain zachowuje cały baner 1200x900 (<5 MB)', () => {
+  const src = path.join(REPO_ROOT, 'images', 'promo', 'scrolluj-biblie-gbp-2026.jpg');
+  const out = path.join(os.tmpdir(), `gbp_contain_${Date.now()}.jpg`);
+  try {
+    const res = prepareGbpImage4x3(src, out, { fit: 'contain' });
+    assert.equal(fs.existsSync(res.outAbsPath), true);
+    assert.ok(res.sizeBytes > 1000 && res.sizeBytes < 5 * 1024 * 1024);
+
+    const probe = execFileSync(
+      'ffprobe',
+      ['-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=width,height', '-of', 'csv=s=x:p=0', out],
+      { encoding: 'utf8' }
+    ).trim();
+    assert.equal(probe, '1200x900');
+  } finally {
+    if (fs.existsSync(out)) fs.unlinkSync(out);
+  }
+});
+
+test('syncNoveltiesIntoQueue w trybie dryRun generuje poprawne nowości i zapobiega duplikatom', async () => {
+  const tmpQueue = path.join(os.tmpdir(), `gbp_q_${Date.now()}.json`);
+  const tmpState = path.join(os.tmpdir(), `gbp_s_${Date.now()}.json`);
+  fs.writeFileSync(tmpQueue, JSON.stringify({ version: '1.0', posts: [] }), 'utf8');
+  fs.writeFileSync(tmpState, JSON.stringify({ publishedIds: [], history: [] }), 'utf8');
+  try {
+    const res = await syncNoveltiesIntoQueue({
+      repoRoot: REPO_ROOT,
+      queuePath: tmpQueue,
+      statePath: tmpState,
+      maxNew: 20,
+      dryRun: false
+    });
+    assert.ok(res.totalCandidatesValid >= 1, 'Powinien wykryć co najmniej jedną poprawną nowość z ekosystemu');
+    assert.ok(res.addedCount >= 1 && res.addedCount <= res.totalCandidatesValid);
+
+    // Ponowne wywołanie na tej samej kolejce nie może dodać duplikatów
+    const second = await syncNoveltiesIntoQueue({
+      repoRoot: REPO_ROOT,
+      queuePath: tmpQueue,
+      statePath: tmpState,
+      maxNew: 20,
+      dryRun: true
+    });
+    assert.equal(second.addedCount, 0);
+  } finally {
+    if (fs.existsSync(tmpQueue)) fs.unlinkSync(tmpQueue);
+    if (fs.existsSync(tmpState)) fs.unlinkSync(tmpState);
   }
 });

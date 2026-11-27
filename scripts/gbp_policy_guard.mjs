@@ -91,11 +91,15 @@ export function buildTrackedCtaUrl(rawUrl, postId) {
   return url.toString();
 }
 
-export function prepareGbpImage4x3(srcAbsPath, outAbsPath) {
+export function prepareGbpImage4x3(srcAbsPath, outAbsPath, options = {}) {
   if (!fs.existsSync(srcAbsPath)) {
     throw new Error(`Brak pliku źródłowego grafiki: ${srcAbsPath}`);
   }
   fs.mkdirSync(path.dirname(outAbsPath), { recursive: true });
+  const vf =
+    options?.fit === 'contain'
+      ? 'scale=1200:900:force_original_aspect_ratio=decrease,pad=1200:900:(ow-iw)/2:(oh-ih)/2:color=white'
+      : 'scale=1200:900:force_original_aspect_ratio=increase,crop=1200:900';
   execFileSync(
     'ffmpeg',
     [
@@ -103,7 +107,7 @@ export function prepareGbpImage4x3(srcAbsPath, outAbsPath) {
       '-i',
       srcAbsPath,
       '-vf',
-      'scale=1200:900:force_original_aspect_ratio=increase,crop=1200:900',
+      vf,
       '-q:v',
       '2',
       outAbsPath

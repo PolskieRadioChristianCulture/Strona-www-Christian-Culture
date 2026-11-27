@@ -2,8 +2,20 @@
   "version": "1.0",
   "accountEmail": "radiochristianculture@gmail.com",
   "profileName": "Polskie Radio Christian Culture TV",
-  "lastPublishedAt": null,
-  "totalPublished": 0,
-  "publishedIds": [],
-  "history": []
+  "lastPublishedAt": "2026-11-27T21:50:48.011Z",
+  "totalPublished": 1,
+  "publishedIds": [
+    "gbp_w0_sba_launch"
+  ],
+  "history": [
+    {
+      "id": "gbp_w0_sba_launch",
+      "postType": "UPDATE",
+      "pillar": "news",
+      "ctaUrl": "https://polskieradio.cc/sba?utm_source=gbp&utm_medium=organic&utm_campaign=gbp_w0_sba_launch",
+      "imageBytes": 202106,
+      "publishedAt": "2026-11-27T21:50:48.011Z",
+      "screenshot": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\data\\gbp_screenshots\\published_gbp_w0_sba_launch.png"
+    }
+  ]
 }

@@ -5,6 +5,86 @@
   "schedule": "wtorek 10:30, czwartek 16:30, sobota 10:30 (Europe/Warsaw)",
   "posts": [
     {
+      "id": "gbp_nov_ai_dla_jezusa_chrzescijanska_aplikacja_ai",
+      "week": 0,
+      "day": "nowość",
+      "pillar": "offer",
+      "postType": "OFFER",
+      "eventTitle": "AI dla Jezusa — Chrześcijańska Aplikacja AI",
+      "eventDurationDays": 14,
+      "source": "novelties-sync",
+      "imageFit": "cover",
+      "summary": "Nowość w Christian Culture: AI dla Jezusa — Chrześcijańska Aplikacja AI. Rozmowy oparte na Biblii (UBG), 5 asystentów głosowych, multimedia CC i 7 dni PRO na start. Wszystkie narzędzia i treści budujące wiarę udostępniamy całkowicie bezpłatnie dla każdego słuchacza i czytelnika. Kliknij poniżej, aby przejść bezpośrednio do serwisu.",
+      "ctaLabel": "Skorzystaj z oferty",
+      "ctaUrl": "https://polskieradio.cc/ai/aplikacja",
+      "imagePath": "images/promo/the-best-of-christian-culture-2026.jpg"
+    },
+    {
+      "id": "gbp_nov_lekcja_dnia_z_biblia_za_pan_brat_dzien_58",
+      "week": 0,
+      "day": "nowość",
+      "pillar": "news",
+      "postType": "UPDATE",
+      "source": "novelties-sync",
+      "imageFit": "cover",
+      "summary": "Nowość w Christian Culture: Lekcja Dnia: Z Biblią za Pan Brat (Dzień 58). Codzienne studium Pisma Świętego werset po wersecie z komentarzem. Wszystkie narzędzia i treści budujące wiarę udostępniamy całkowicie bezpłatnie dla każdego słuchacza i czytelnika. Kliknij poniżej, aby przejść bezpośrednio do serwisu.",
+      "ctaLabel": "Więcej informacji",
+      "ctaUrl": "https://polskieradio.cc/akademia/kurscodzienny/dzien-58",
+      "imagePath": "images/mapa-bg-earth.jpg"
+    },
+    {
+      "id": "gbp_nov_reformacja_nie_skonczy_a_sie_w_1517_roku_film_lu",
+      "week": 0,
+      "day": "nowość",
+      "pillar": "news",
+      "postType": "UPDATE",
+      "source": "novelties-sync",
+      "imageFit": "cover",
+      "summary": "Nowość w Christian Culture: Reformacja nie skończyła się w 1517 roku — film „Luter”. 509 lat od 1517 r. Sola Scriptura, Sola Gratia i odnowa sumienia (Cezary Rogowski). Wszystkie narzędzia i treści budujące wiarę udostępniamy całkowicie bezpłatnie dla każdego słuchacza i czytelnika. Kliknij poniżej, aby przejść bezpośrednio do serwisu.",
+      "ctaLabel": "Więcej informacji",
+      "ctaUrl": "https://polskieradio.cc/news/dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski",
+      "imagePath": "images/mapa-bg-earth.jpg"
+    },
+    {
+      "id": "gbp_nov_ccn_czy_zaplace_kare_finansowa_w_kosciele_grzywny_la",
+      "week": 0,
+      "day": "nowość",
+      "pillar": "news",
+      "postType": "UPDATE",
+      "source": "novelties-sync",
+      "imageFit": "cover",
+      "summary": "Nowe opracowanie w portalu CCN News: „Czy Zaplace Kare Finansowa W Kosciele Grzywny Laska”. Rzetelna analiza współczesnych wydarzeń, historii i codziennych decyzji w świetle Pisma Świętego — bez sensacji i powierzchowności. Przeczytaj bezpłatnie cały artykuł na naszej stronie.",
+      "ctaLabel": "Więcej informacji",
+      "ctaUrl": "https://polskieradio.cc/news/czy-zaplace-kare-finansowa-w-kosciele-grzywny-laska",
+      "imagePath": "images/news/art-czy-zaplace-kare-finansowa-w-kosciele-grzywny-laska.jpg"
+    },
+    {
+      "id": "gbp_nov_ccn_co_na_to_bog_chrzescijan_jan_pawel_ii_koran",
+      "week": 0,
+      "day": "nowość",
+      "pillar": "news",
+      "postType": "UPDATE",
+      "source": "novelties-sync",
+      "imageFit": "cover",
+      "summary": "Nowe opracowanie w portalu CCN News: „Co Na To Bog Chrzescijan Jan Pawel Ii Koran”. Rzetelna analiza współczesnych wydarzeń, historii i codziennych decyzji w świetle Pisma Świętego — bez sensacji i powierzchowności. Przeczytaj bezpłatnie cały artykuł na naszej stronie.",
+      "ctaLabel": "Więcej informacji",
+      "ctaUrl": "https://polskieradio.cc/news/co-na-to-bog-chrzescijan-jan-pawel-ii-koran",
+      "imagePath": "images/news/art-co-na-to-bog-chrzescijan-jan-pawel-ii-koran.jpg"
+    },
+    {
+      "id": "gbp_w0_sba_launch",
+      "week": 0,
+      "day": "piątek",
+      "pillar": "news",
+      "postType": "UPDATE",
+      "source": "launch-priority",
+      "imageFit": "contain",
+      "summary": "Poznaj naszą nową aplikację Scrolluj Biblię! Czytaj i słuchaj Pisma Świętego w przekładzie UBG jednocześnie — przesuwając wersety w naturalnym, płynnym rytmie na telefonie i komputerze. Wybieraj zakres losowania (cała Biblia, Stary lub Nowy Testament), wracaj do pełnego kontekstu rozdziału i karm serce Słowem Bożym każdego dnia. Kliknij przycisk poniżej i sprawdź całkowicie za darmo.",
+      "ctaLabel": "Więcej informacji",
+      "ctaUrl": "https://polskieradio.cc/sba",
+      "imagePath": "images/promo/scrolluj-biblie-gbp-2026.jpg"
+    },
+    {
       "id": "gbp_w1_tue_akademia",
       "week": 1,
       "day": "wtorek",
@@ -152,5 +232,6 @@
       "ctaUrl": "https://polskieradio.cc/wspieramto",
       "imagePath": "images/banners/banner-global-support.jpg"
     }
-  ]
+  ],
+  "lastNoveltiesSyncAt": "2026-11-27T21:51:01.193Z"
 }
