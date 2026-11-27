@@ -5,6 +5,16 @@
   "updatesLog": [
     {
       "date": "2026-11-27",
+      "topic": "Kalendarz 365 Artykułów EkoCC — opracowanie i pakietowanie slotu lp. 30 (Rodzina, 2026-12-03: „Nie jesteś mniej wartościowy. Godność człowieka według Jezusa”) ze statusem Do autoryzacji L0 (T4)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-27",
+      "topic": "Kalendarz 365 Artykułów EkoCC — weryfikacja i pakietowanie slotu dnia lp. 24 (Black Friday, Finanse) oraz opracowanie i pakietowanie slotu lp. 29 (Rodzina, 2026-12-02) ze statusem Do autoryzacji L0 (T4)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-27",
       "topic": "AI dla Jezusa (/ai/aplikacja, /test/ai/) — pełne ujednolicenie wszystkich okien, modali, menu rozwijanych, powiadomień i kart ze stylem paneli bocznych (Obsidian Sidebar Standard) + zapis reguły architektonicznej na przyszłość",
       "agent": "A"
     },
@@ -6209,8 +6219,13 @@
       ]
     }
   ],
-  "lastUpdated": "2026-11-26",
+  "lastUpdated": "2026-11-27T14:06:00+01:00",
   "recentUpdates": [
+    {
+      "date": "2026-11-27",
+      "topic": "Kalendarz 365 Artykułów EkoCC — opracowanie i pakietowanie slotu lp. 30 (Rodzina, 2026-12-03: „Nie jesteś mniej wartościowy. Godność człowieka według Jezusa”) ze statusem Do autoryzacji L0 (T4)",
+      "agent": "A"
+    },
     {
       "topic": "Kurs Codzienny Dzień 57 (Wj 27:1–21) — publikacja na WWW, w aplikacji, na Tablicy LUMINA, w LUMI MESS i kanałach TV",
       "date": "2026-11-26",
