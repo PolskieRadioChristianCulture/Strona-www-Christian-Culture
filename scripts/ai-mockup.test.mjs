@@ -14,6 +14,10 @@ import {
 } from './sync-ai-feedback-joma.mjs';
 import { resetCanvaMockStateForTest } from '../services/ai-dla-jezusa/canva-adapter.js';
 import {
+  resetCanvaOAuthMemoryForTest,
+  inspectCanvaOAuthMemoryForTest
+} from '../services/ai-dla-jezusa/canva-oauth.js';
+import {
   resetTtsSessionsForTest,
   scrubTelemetryPayload,
   SAMPLE_PSALM_23_TEXT
@@ -215,8 +219,8 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261127_ai38_briefing_complete/);
-  assert.match(html, /\/ai\/app\.js\?v=20261127_ai38_briefing_complete/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261127_ai39_canva_oauth/);
+  assert.match(html, /\/ai\/app\.js\?v=20261127_ai39_canva_oauth/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
@@ -1290,8 +1294,8 @@ test('P0/P1 pilot: /test/ai/ parity, CC MCP visibility + Rzymian + cc_get_source
 
   // 4. Export .txt, Calendar scope distinction, TTS BYOK UI & Canva pilot UI markers
   const testIndexHtml = fs.readFileSync(path.join(ROOT, 'test/ai/index.html'), 'utf8');
-  assert.match(testIndexHtml, /\/ai\/styles\.css\?v=20261127_ai38_briefing_complete/);
-  assert.match(testIndexHtml, /\/ai\/app\.js\?v=20261127_ai38_briefing_complete/);
+  assert.match(testIndexHtml, /\/ai\/styles\.css\?v=20261127_ai39_canva_oauth/);
+  assert.match(testIndexHtml, /\/ai\/app\.js\?v=20261127_ai39_canva_oauth/);
   assert.match(appJs, /export_txt/);
   assert.match(appJs, /Eksportuj \.txt/);
   assert.match(appJs, /calendar-scope-switch/);
@@ -1602,4 +1606,234 @@ test('P2b TTS BYOK enforces 15m TTL, fixed endpoints, zero retries, secret redac
   assert.equal(scrubbed.sessionToken, '[REDACTED]');
   assert.equal(scrubbed.nested['xi-api-key'], '[REDACTED]');
   assert.doesNotMatch(JSON.stringify(scrubbed), /secret123|sk_test_|AIzaSyTestKeySecret/);
+});
+
+test('Canva Connect API OAuth 2.0 + PKCE (S256) encrypts D1 sessions, isolates users, refreshes, revokes & gates P3 writes', async () => {
+  resetCanvaOAuthMemoryForTest();
+  resetCanvaMockStateForTest();
+
+  // 1. Without client secrets, /oauth/start returns 503 with exact setup guide
+  const unconfigured = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/canva/oauth/start')
+  );
+  assert.equal(unconfigured.status, 503);
+  const unconfData = await unconfigured.json();
+  assert.equal(unconfData.setup.redirectUri, 'https://polskieradio.cc/api/ai-dla-jezusa/v1/canva/oauth/callback');
+  assert.ok(unconfData.setup.requiredScopes.includes('design:content:write'));
+
+  const envOAuth = {
+    CANVA_CLIENT_ID: 'oc_test_client_id',
+    CANVA_CLIENT_SECRET: 'oc_test_client_secret',
+    CANVA_SESSION_SECRET: '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef'
+  };
+
+  let fakeNow = 1_700_000_000_000;
+  let tokenExchangeCount = 0;
+  let revokeCount = 0;
+  let activeAccountTag = 'user_A';
+
+  const mockFetch = async (target, init = {}) => {
+    const urlStr = String(target);
+    if (urlStr === 'https://api.canva.com/rest/v1/oauth/token') {
+      tokenExchangeCount += 1;
+      assert.match(init.headers?.Authorization || '', /^Basic /);
+      const bodyStr = String(init.body || '');
+      if (bodyStr.includes('grant_type=refresh_token')) {
+        return Response.json({
+          access_token: `access_refreshed_${activeAccountTag}`,
+          refresh_token: `refresh_v2_${activeAccountTag}`,
+          expires_in: 14400
+        });
+      }
+      return Response.json({
+        access_token: `access_v1_${activeAccountTag}`,
+        refresh_token: `refresh_v1_${activeAccountTag}`,
+        expires_in: 3600,
+        scope: 'design:meta:read design:content:read design:content:write profile:read'
+      });
+    }
+    if (urlStr === 'https://api.canva.com/rest/v1/users/me/profile') {
+      return Response.json({
+        profile: {
+          user_id: activeAccountTag,
+          display_name: activeAccountTag === 'user_A' ? 'Konto A' : 'Konto B'
+        }
+      });
+    }
+    if (urlStr === 'https://api.canva.com/rest/v1/oauth/revoke') {
+      revokeCount += 1;
+      return Response.json({ ok: true });
+    }
+    if (urlStr.startsWith('https://api.canva.com/rest/v1/designs') && (!init.method || init.method === 'GET')) {
+      const auth = String(init.headers?.Authorization || '');
+      const owner = auth.includes('user_A') ? 'user_A' : 'user_B';
+      return Response.json({
+        items: [{
+          id: `live_${owner}_01`,
+          title: `Projekt ${owner}`,
+          page_count: 1,
+          updated_at: 1700000000,
+          urls: { edit_url: `https://www.canva.com/design/live_${owner}_01/edit` }
+        }]
+      });
+    }
+    if (urlStr === 'https://api.canva.com/rest/v1/designs' && init.method === 'POST') {
+      const parsed = JSON.parse(String(init.body || '{}'));
+      assert.equal(parsed.design_type.type, 'custom');
+      assert.equal(parsed.design_type.width, 1080);
+      assert.equal(parsed.design_type.height, 1350);
+      return Response.json({
+        design: {
+          id: 'live_created_123',
+          title: parsed.title,
+          urls: { edit_url: 'https://www.canva.com/design/live_created_123/edit' }
+        }
+      });
+    }
+    return new Response('not_found', { status: 404 });
+  };
+
+  const deps = { fetch: mockFetch, now: () => fakeNow };
+
+  // 2. OAuth start generates S256 PKCE & strictly allowlists return_to
+  const startRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/canva/oauth/start?return_to=https://evil.example'),
+    envOAuth,
+    deps
+  );
+  assert.equal(startRes.status, 302);
+  const authLoc = new URL(startRes.headers.get('Location'));
+  assert.equal(authLoc.origin + authLoc.pathname, 'https://www.canva.com/api/oauth/authorize');
+  assert.equal(authLoc.searchParams.get('code_challenge_method'), 'S256');
+  const stateA = authLoc.searchParams.get('state');
+
+  // 3. Access denied cancellation redirects back safely with ?canva=cancelled
+  const cancelRes = await handleAiDlaJezusaApi(
+    new Request(`https://polskieradio.cc/api/ai-dla-jezusa/v1/canva/oauth/callback?error=access_denied&state=${encodeURIComponent(stateA)}`),
+    envOAuth,
+    deps
+  );
+  assert.equal(cancelRes.status, 302);
+  assert.equal(cancelRes.headers.get('Location'), 'https://polskieradio.cc/ai/aplikacja?canva=cancelled');
+
+  // 4. Reusing consumed state is rejected
+  const replayRes = await handleAiDlaJezusaApi(
+    new Request(`https://polskieradio.cc/api/ai-dla-jezusa/v1/canva/oauth/callback?code=abc&state=${encodeURIComponent(stateA)}`),
+    envOAuth,
+    deps
+  );
+  assert.equal(replayRes.status, 302);
+  assert.equal(replayRes.headers.get('Location'), 'https://polskieradio.cc/ai/aplikacja?canva=error');
+
+  // 5. Connect 2 separate users -> encrypted cookies + user isolation
+  async function connectAccount(tag, returnTo) {
+    activeAccountTag = tag;
+    const s = await handleAiDlaJezusaApi(
+      new Request(`https://polskieradio.cc/api/ai-dla-jezusa/v1/canva/oauth/start?return_to=${encodeURIComponent(returnTo)}`),
+      envOAuth,
+      deps
+    );
+    const st = new URL(s.headers.get('Location')).searchParams.get('state');
+    const cb = await handleAiDlaJezusaApi(
+      new Request(`https://polskieradio.cc/api/ai-dla-jezusa/v1/canva/oauth/callback?code=code_${tag}&state=${encodeURIComponent(st)}`),
+      envOAuth,
+      deps
+    );
+    assert.equal(cb.status, 302);
+    assert.equal(cb.headers.get('Location'), `https://polskieradio.cc${returnTo}?canva=connected`);
+    return cb.headers.get('Set-Cookie').split(';')[0];
+  }
+
+  const cookieA = await connectAccount('user_A', '/test/ai/');
+  const cookieB = await connectAccount('user_B', '/ai/aplikacja');
+
+  // Ensure stored tokens are encrypted (never plaintext)
+  const storedDump = JSON.stringify(inspectCanvaOAuthMemoryForTest());
+  assert.equal(storedDump.includes('access_v1_user_A'), false);
+  assert.equal(storedDump.includes('refresh_v1_user_A'), false);
+  assert.match(storedDump, /v1:/);
+
+  const listA = await (await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/canva/designs', {
+      headers: { Origin: 'https://polskieradio.cc', Cookie: cookieA }
+    }),
+    envOAuth,
+    deps
+  )).json();
+  const listB = await (await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/canva/designs', {
+      headers: { Origin: 'https://polskieradio.cc', Cookie: cookieB }
+    }),
+    envOAuth,
+    deps
+  )).json();
+  assert.equal(listA.designs[0].id, 'live_user_A_01');
+  assert.equal(listB.designs[0].id, 'live_user_B_01');
+
+  // 6. P3 live write respects guards and creates live design after preview+confirm
+  const blockedLive = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/canva/draft', {
+      method: 'POST',
+      headers: { Origin: 'https://polskieradio.cc', 'Content-Type': 'application/json', Cookie: cookieA },
+      body: JSON.stringify({
+        title: 'Blocked',
+        copy: 'Text',
+        source: 'search_result',
+        previewApproved: true,
+        userConfirmed: true,
+        idempotencyKey: 'k-live-block'
+      })
+    }),
+    envOAuth,
+    deps
+  );
+  assert.equal(blockedLive.status, 403);
+
+  const createdLive = await (await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/canva/draft', {
+      method: 'POST',
+      headers: { Origin: 'https://polskieradio.cc', 'Content-Type': 'application/json', Cookie: cookieA },
+      body: JSON.stringify({
+        title: 'AI dla Jezusa — Karta OAuth',
+        formatKey: 'instagram-post',
+        format: 'Instagram Post 1080×1350',
+        copy: 'Łaska i pokój',
+        previewApproved: true,
+        userConfirmed: true,
+        idempotencyKey: 'k-live-001'
+      })
+    }),
+    envOAuth,
+    deps
+  )).json();
+  assert.equal(createdLive.stage, 'created');
+  assert.equal(createdLive.mode, 'oauth_live');
+  assert.equal(createdLive.draft.id, 'live_created_123');
+
+  // 7. Near expiry triggers automatic token refresh
+  fakeNow += 3580 * 1000;
+  activeAccountTag = 'user_A';
+  const beforeCalls = tokenExchangeCount;
+  const refreshedSt = await (await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/canva/status', {
+      headers: { Origin: 'https://polskieradio.cc', Cookie: cookieA }
+    }),
+    envOAuth,
+    deps
+  )).json();
+  assert.equal(refreshedSt.connected, true);
+  assert.equal(tokenExchangeCount, beforeCalls + 1);
+
+  // 8. Disconnect revokes token and clears cookie
+  const discRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/canva/oauth/disconnect', {
+      method: 'POST',
+      headers: { Origin: 'https://polskieradio.cc', Cookie: cookieA }
+    }),
+    envOAuth,
+    deps
+  );
+  assert.equal(discRes.status, 200);
+  assert.equal(revokeCount, 1);
+  assert.match(discRes.headers.get('Set-Cookie') || '', /Max-Age=0/);
 });

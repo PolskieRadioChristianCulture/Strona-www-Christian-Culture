@@ -9,6 +9,13 @@ import {
   CANONICAL_MCP_CONNECTORS,
   assertSafeWriteExecution
 } from './mcp-client-registry.js';
+import {
+  isCanvaOAuthConfigured,
+  getCanvaOAuthSetupInfo,
+  getActiveCanvaSession,
+  listLiveCanvaDesigns,
+  createLiveCanvaDraft
+} from './canva-oauth.js';
 
 export const PILOT_DESIGN_TITLE = 'AI dla Jezusa — Karta Pilota 2026';
 
@@ -97,20 +104,88 @@ export function resetCanvaMockStateForTest() {
   idempotencyCache.clear();
 }
 
-export function getCanvaStatus({ userId = 'test-user-1', env = {} } = {}) {
+export async function getCanvaStatus({
+  userId = 'test-user-1',
+  env = {},
+  request = null,
+  origin = 'https://polskieradio.cc',
+  deps = {}
+} = {}) {
+  const connector = CANONICAL_MCP_CONNECTORS.canva;
+  const oauthConfigured = isCanvaOAuthConfigured(env);
+  const oauthSetup = getCanvaOAuthSetupInfo(origin);
+
+  const availableCapabilities = env.CANVA_LIVE_CAPABILITIES
+    ? String(env.CANVA_LIVE_CAPABILITIES).split(',').map(s => s.trim()).filter(Boolean)
+    : [...connector.defaultCapabilities];
+
+  if (oauthConfigured) {
+    const session = request ? await getActiveCanvaSession(request, env, deps) : null;
+    if (session && !session.expired) {
+      const liveCaps = ['designs:read', 'brief:build'];
+      if (session.scopes.includes('design:content:write')) liveCaps.push('draft:create');
+      return {
+        ok: true,
+        status: 200,
+        mode: 'oauth_live',
+        connected: true,
+        oauthConfigured: true,
+        oauthSetup,
+        endpoint: connector.endpoint,
+        activeUser: {
+          id: session.canvaUserId,
+          label: session.displayName || 'Połączone konto Canva'
+        },
+        scopes: session.scopes,
+        pilotTitle: PILOT_DESIGN_TITLE,
+        capabilities: liveCaps,
+        disabledCapabilities: connector.gatedCapabilities.filter(c => !liveCaps.includes(c)),
+        writePolicy: {
+          requiresPreview: true,
+          requiresExplicitConfirmation: true,
+          requiresIdempotencyKey: true,
+          blockedSources: [...connector.blockedPromptSources]
+        }
+      };
+    }
+
+    const resolvedUser = resolveCanvaTestUser(userId) || 'test-user-1';
+    return {
+      ok: true,
+      status: 200,
+      mode: 'oauth_ready',
+      connected: false,
+      expired: Boolean(session?.expired),
+      oauthConfigured: true,
+      oauthSetup,
+      authorizeUrl: '/api/ai-dla-jezusa/v1/canva/oauth/start',
+      endpoint: connector.endpoint,
+      activeUser: CANVA_TEST_ACCOUNTS[resolvedUser],
+      accounts: Object.values(CANVA_TEST_ACCOUNTS),
+      pilotTitle: PILOT_DESIGN_TITLE,
+      capabilities: availableCapabilities,
+      disabledCapabilities: connector.gatedCapabilities.filter(c => !availableCapabilities.includes(c)),
+      writePolicy: {
+        requiresPreview: true,
+        requiresExplicitConfirmation: true,
+        requiresIdempotencyKey: true,
+        blockedSources: [...connector.blockedPromptSources]
+      }
+    };
+  }
+
   const resolvedUser = resolveCanvaTestUser(userId);
   if (!resolvedUser) {
     return { ok: false, status: 400, error: 'invalid_test_account' };
   }
-  const connector = CANONICAL_MCP_CONNECTORS.canva;
-  const availableCapabilities = env.CANVA_LIVE_CAPABILITIES
-    ? String(env.CANVA_LIVE_CAPABILITIES).split(',').map(s => s.trim()).filter(Boolean)
-    : [...connector.defaultCapabilities];
 
   return {
     ok: true,
     status: 200,
     mode: 'mock',
+    connected: true,
+    oauthConfigured: false,
+    oauthSetup,
     endpoint: connector.endpoint,
     activeUser: CANVA_TEST_ACCOUNTS[resolvedUser],
     accounts: Object.values(CANVA_TEST_ACCOUNTS),
@@ -126,7 +201,27 @@ export function getCanvaStatus({ userId = 'test-user-1', env = {} } = {}) {
   };
 }
 
-export function listCanvaDesigns({ userId = 'test-user-1', query = '' } = {}) {
+export async function listCanvaDesigns({
+  userId = 'test-user-1',
+  query = '',
+  env = {},
+  request = null,
+  forceMock = false,
+  deps = {}
+} = {}) {
+  if (isCanvaOAuthConfigured(env) && !forceMock) {
+    const session = request ? await getActiveCanvaSession(request, env, deps) : null;
+    if (!session || session.expired) {
+      return {
+        ok: false,
+        status: 401,
+        error: session?.expired ? 'canva_session_expired' : 'canva_not_connected',
+        reconnectRequired: true
+      };
+    }
+    return listLiveCanvaDesigns(session, query, deps);
+  }
+
   const resolvedUser = resolveCanvaTestUser(userId);
   if (!resolvedUser) {
     return { ok: false, status: 400, error: 'invalid_test_account' };
@@ -188,14 +283,36 @@ export function buildCanvaManualBrief(input = {}) {
   };
 }
 
-export function createCanvaDraft(payload = {}, { userId = 'test-user-1', env = {} } = {}) {
-  const resolvedUser = resolveCanvaTestUser(userId);
+export async function createCanvaDraft(payload = {}, {
+  userId = 'test-user-1',
+  env = {},
+  request = null,
+  deps = {}
+} = {}) {
+  const oauthConfigured = isCanvaOAuthConfigured(env);
+  const useLiveOAuth = oauthConfigured && String(payload.mode || '').toLowerCase() !== 'mock';
+  let liveSession = null;
+
+  if (useLiveOAuth) {
+    liveSession = request ? await getActiveCanvaSession(request, env, deps) : null;
+    if (!liveSession || liveSession.expired) {
+      return {
+        ok: false,
+        status: 401,
+        error: liveSession?.expired ? 'canva_session_expired' : 'canva_not_connected',
+        reconnectRequired: true
+      };
+    }
+  }
+
+  const resolvedUser = useLiveOAuth ? liveSession.canvaUserId : resolveCanvaTestUser(userId);
   if (!resolvedUser) {
     return { ok: false, status: 400, error: 'invalid_test_account' };
   }
 
   const title = String(payload.title || '').trim().slice(0, 140) || PILOT_DESIGN_TITLE;
   const format = String(payload.format || 'Instagram Post 1080×1350').trim().slice(0, 80);
+  const formatKey = String(payload.formatKey || 'instagram-post').trim().toLowerCase();
   const copy = String(payload.copy || '').trim().slice(0, 1800);
   const visualHints = String(payload.visualHints || '').trim().slice(0, 600);
   const stage = String(payload.stage || '').trim().toLowerCase();
@@ -236,14 +353,17 @@ export function createCanvaDraft(payload = {}, { userId = 'test-user-1', env = {
       status: 200,
       stage: 'preview',
       requiresConfirmation: true,
-      mode: 'mock',
+      mode: useLiveOAuth ? 'oauth_live' : 'mock',
       preview: {
         title,
         format,
+        formatKey,
         copy,
         visualHints,
         targetUserId: resolvedUser,
-        targetAccountLabel: CANVA_TEST_ACCOUNTS[resolvedUser].label
+        targetAccountLabel: useLiveOAuth
+          ? (liveSession.displayName || 'Połączone konto Canva')
+          : CANVA_TEST_ACCOUNTS[resolvedUser].label
       }
     };
   }
@@ -269,8 +389,24 @@ export function createCanvaDraft(payload = {}, { userId = 'test-user-1', env = {
       status: 200,
       stage: 'created',
       deduplicated: true,
-      mode: 'mock',
+      mode: useLiveOAuth ? 'oauth_live' : 'mock',
       draft: idempotencyCache.get(cacheKey)
+    };
+  }
+
+  if (useLiveOAuth) {
+    const liveDraft = await createLiveCanvaDraft(liveSession, { title, formatKey, format }, deps);
+    if (liveDraft?.ok === false) {
+      return liveDraft;
+    }
+    idempotencyCache.set(cacheKey, liveDraft);
+    return {
+      ok: true,
+      status: 201,
+      stage: 'created',
+      deduplicated: false,
+      mode: 'oauth_live',
+      draft: liveDraft
     };
   }
 

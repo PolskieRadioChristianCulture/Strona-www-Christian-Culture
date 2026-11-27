@@ -24,6 +24,11 @@ import {
   createCanvaDraft
 } from './canva-adapter.js';
 import {
+  handleCanvaOAuthStart,
+  handleCanvaOAuthCallback,
+  handleCanvaOAuthDisconnect
+} from './canva-oauth.js';
+import {
   createTtsSession,
   getTtsSessionStatus,
   deleteTtsSession,
@@ -60,6 +65,7 @@ export async function handleAiDlaJezusaApi(request, env = {}, deps = {}) {
     '/canva/designs',
     '/canva/brief',
     '/canva/draft',
+    '/canva/oauth/disconnect',
     '/tts/session',
     '/tts/synthesize'
   ].some(suffix => path === '/api/ai-dla-jezusa/v1' + suffix);
@@ -112,15 +118,29 @@ export async function handleAiDlaJezusaApi(request, env = {}, deps = {}) {
     return privateJson({ ok: true, status: 200, connectors: getMcpClientRegistry() });
   }
 
+  if (path === '/api/ai-dla-jezusa/v1/canva/oauth/start' && request.method === 'GET') {
+    return handleCanvaOAuthStart(request, env, deps);
+  }
+
+  if (path === '/api/ai-dla-jezusa/v1/canva/oauth/callback' && request.method === 'GET') {
+    return handleCanvaOAuthCallback(request, env, deps);
+  }
+
+  if (path === '/api/ai-dla-jezusa/v1/canva/oauth/disconnect' && request.method === 'POST') {
+    return handleCanvaOAuthDisconnect(request, env, deps);
+  }
+
   if (path === '/api/ai-dla-jezusa/v1/canva/status' && request.method === 'GET') {
     const userId = request.headers.get('X-Canva-Test-User') || url.searchParams.get('user') || 'test-user-1';
-    return privateJson(getCanvaStatus({ userId, env }));
+    const origin = url.origin;
+    return privateJson(await getCanvaStatus({ userId, env, request, origin, deps }));
   }
 
   if (path === '/api/ai-dla-jezusa/v1/canva/designs' && request.method === 'GET') {
     const userId = request.headers.get('X-Canva-Test-User') || url.searchParams.get('user') || 'test-user-1';
     const query = url.searchParams.get('q') || '';
-    return privateJson(listCanvaDesigns({ userId, query }));
+    const forceMock = url.searchParams.get('mode') === 'mock';
+    return privateJson(await listCanvaDesigns({ userId, query, env, request, forceMock, deps }));
   }
 
   if (path === '/api/ai-dla-jezusa/v1/canva/brief' && request.method === 'POST') {
@@ -133,7 +153,7 @@ export async function handleAiDlaJezusaApi(request, env = {}, deps = {}) {
     const parsed = await readSafeJson(16384);
     if (!parsed.ok) return privateJson(parsed);
     const userId = request.headers.get('X-Canva-Test-User') || parsed.data?.userId || 'test-user-1';
-    return privateJson(createCanvaDraft(parsed.data, { userId, env }));
+    return privateJson(await createCanvaDraft(parsed.data, { userId, env, request, deps }));
   }
 
   if (path === '/api/ai-dla-jezusa/v1/tts/session') {

@@ -4902,6 +4902,25 @@ function renderModule(name) {
     desc.textContent =
       'Konta są ściśle rozdzielone per użytkownik. Funkcje Brand Kit, Autofill i Resize są wyłączone w pilocie. Tworzenie szkicu wymaga podglądu i wyraźnego potwierdzenia.';
 
+    const oauthBar = document.createElement('div');
+    oauthBar.className = 'canva-pilot-row';
+
+    const oauthConnectLink = document.createElement('a');
+    oauthConnectLink.className = 'connect-btn';
+    oauthConnectLink.id = 'canvaOAuthConnectBtn';
+    oauthConnectLink.href = `/api/ai-dla-jezusa/v1/canva/oauth/start?return_to=${encodeURIComponent(window.location.pathname || '/ai/aplikacja')}`;
+    oauthConnectLink.textContent = 'Połącz z Canva (OAuth PKCE)';
+    oauthConnectLink.hidden = true;
+
+    const oauthDisconnectBtn = document.createElement('button');
+    oauthDisconnectBtn.type = 'button';
+    oauthDisconnectBtn.className = 'dialog-btn-secondary';
+    oauthDisconnectBtn.id = 'canvaOAuthDisconnectBtn';
+    oauthDisconnectBtn.textContent = 'Odłącz Canva';
+    oauthDisconnectBtn.hidden = true;
+
+    oauthBar.append(oauthConnectLink, oauthDisconnectBtn);
+
     const topRow = document.createElement('div');
     topRow.className = 'canva-pilot-row';
 
@@ -4938,22 +4957,40 @@ function renderModule(name) {
     const designsList = document.createElement('div');
     designsList.className = 'canva-pilot-list';
 
+    let activeCanvaMode = 'mock';
+
     const refreshCanvaList = async () => {
       const user = accountSelect.value || 'test-user-1';
       const q = queryInput.value.trim();
       try {
-        const [stRes, dsRes] = await Promise.all([
-          fetch(`/api/ai-dla-jezusa/v1/canva/status?user=${encodeURIComponent(user)}`, {
-            headers: { 'X-Canva-Test-User': user }
-          }),
-          fetch(`/api/ai-dla-jezusa/v1/canva/designs?user=${encodeURIComponent(user)}&q=${encodeURIComponent(q)}`, {
-            headers: { 'X-Canva-Test-User': user }
-          })
-        ]);
+        const stRes = await fetch(`/api/ai-dla-jezusa/v1/canva/status?user=${encodeURIComponent(user)}`, {
+          headers: { 'X-Canva-Test-User': user }
+        });
         const st = await stRes.json();
+        activeCanvaMode = st?.mode || 'mock';
+        const isLiveConnected = activeCanvaMode === 'oauth_live' && st?.connected === true;
+        const isOAuthReady = Boolean(st?.oauthConfigured) && !isLiveConnected;
+
+        badge.textContent = isLiveConnected
+          ? 'Canva Connect OAuth · Połączono (PKCE S256 · Sesja szyfrowana)'
+          : isOAuthReady
+            ? 'Canva Connect OAuth · Gotowe do połączenia (PKCE S256)'
+            : 'Canva MCP Pilot · Mock Read-Only + Szkic P3 (0 zł · bez OAuth)';
+
+        accountSelect.hidden = isLiveConnected;
+        oauthConnectLink.hidden = !isOAuthReady;
+        oauthDisconnectBtn.hidden = !isLiveConnected;
+
+        const designsUrl = isLiveConnected
+          ? `/api/ai-dla-jezusa/v1/canva/designs?q=${encodeURIComponent(q)}`
+          : `/api/ai-dla-jezusa/v1/canva/designs?user=${encodeURIComponent(user)}&q=${encodeURIComponent(q)}&mode=mock`;
+        const dsRes = await fetch(designsUrl, {
+          headers: isLiveConnected ? {} : { 'X-Canva-Test-User': user }
+        });
         const ds = await dsRes.json();
+
         statusLine.textContent = st?.ok
-          ? `Aktywne: ${st.activeUser?.label || user} · Wyłączone: ${(st.disabledCapabilities || []).join(', ')}`
+          ? `Tryb: ${activeCanvaMode} · Aktywne: ${st.activeUser?.label || user} · Wyłączone: ${(st.disabledCapabilities || []).join(', ')}`
           : 'Nie udało się pobrać statusu pilota Canva.';
         designsList.replaceChildren();
         for (const d of ds?.designs || []) {
@@ -4963,8 +5000,17 @@ function renderModule(name) {
           name.textContent = d.title;
           const meta = document.createElement('span');
           meta.className = 'dialog-hint';
-          meta.textContent = `${d.format} · ${d.isDraft ? 'Szkic P3 (Mock)' : 'Odczyt'}`;
+          meta.textContent = `${d.format} · ${d.isDraft ? (d.mode === 'oauth_live' ? 'Szkic OAuth P3' : 'Szkic P3 (Mock)') : 'Odczyt'}`;
           chip.append(name, meta);
+          if (d.canvaUrl) {
+            const link = document.createElement('a');
+            link.className = 'gold-card-link';
+            link.href = d.canvaUrl;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.textContent = 'Otwórz w Canva ↗';
+            chip.appendChild(link);
+          }
           designsList.appendChild(chip);
         }
         if (!ds?.designs?.length) {
@@ -4974,8 +5020,16 @@ function renderModule(name) {
           designsList.appendChild(empty);
         }
       } catch {
-        statusLine.textContent = 'Offline lub brak odpowiedzi endpointu Canva Mock.';
+        statusLine.textContent = 'Offline lub brak odpowiedzi endpointu Canva.';
       }
+    };
+
+    oauthDisconnectBtn.onclick = async () => {
+      oauthDisconnectBtn.disabled = true;
+      await fetch('/api/ai-dla-jezusa/v1/canva/oauth/disconnect', { method: 'POST' }).catch(() => {});
+      oauthDisconnectBtn.disabled = false;
+      showToast('Odłączono konto Canva.');
+      await refreshCanvaList();
     };
 
     accountSelect.onchange = refreshCanvaList;
@@ -5104,7 +5158,9 @@ function renderModule(name) {
           body: JSON.stringify({
             title: data.preview.title,
             format: data.preview.format,
+            formatKey: formatSel.value,
             copy: data.preview.copy,
+            mode: activeCanvaMode === 'oauth_live' ? 'oauth_live' : 'mock',
             previewApproved: true,
             userConfirmed: true,
             idempotencyKey: idemKey
@@ -5112,12 +5168,12 @@ function renderModule(name) {
         });
         const cData = await cRes.json();
         if (cData?.ok && cData.draft) {
-          showToast(`Utworzono szkic "${cData.draft.title}" na koncie ${user}.`);
+          showToast(`Utworzono szkic "${cData.draft.title}" (${cData.draft.mode === 'oauth_live' ? 'Canva OAuth' : user}).`);
           previewBox.hidden = true;
           await refreshCanvaList();
         } else {
           confirmBtn.disabled = false;
-          showToast(cData?.message || 'Błąd zapisu szkicu.');
+          showToast(cData?.message || (cData?.reconnectRequired ? 'Połącz ponownie z Canva (OAuth).' : 'Błąd zapisu szkicu.'));
         }
       };
       previewBox.append(head, info, confirmBtn);
@@ -5127,6 +5183,7 @@ function renderModule(name) {
       badge,
       title,
       desc,
+      oauthBar,
       topRow,
       statusLine,
       designsList,
@@ -8122,3 +8179,15 @@ initAmbientCanvas();
 initRailHoverFlyout();
 initCardSpotlights();
 initPromptCascade();
+
+try {
+  const canvaParam = new URLSearchParams(window.location.search).get('canva');
+  if (canvaParam) {
+    if (canvaParam === 'connected') showToast('Połączono z kontem Canva (OAuth PKCE).');
+    else if (canvaParam === 'cancelled') showToast('Anulowano autoryzację Canva.');
+    else showToast('Błąd autoryzacji Canva OAuth — spróbuj ponownie.');
+    const cleaned = new URL(window.location.href);
+    cleaned.searchParams.delete('canva');
+    window.history.replaceState({}, '', cleaned.pathname + (cleaned.search || '') + (cleaned.hash || ''));
+  }
+} catch {}
