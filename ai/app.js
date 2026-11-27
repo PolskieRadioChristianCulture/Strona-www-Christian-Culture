@@ -7688,9 +7688,15 @@ function initRailHoverFlyout() {
     hideTimer = setTimeout(close, 220);
   };
 
-  const makeHeader = (titleText, descText = '') => {
+  const makeHeader = (titleText, descText = '', sourceBtn = null) => {
     const head = document.createElement('div');
     head.className = 'rail-flyout-head';
+    const srcSvg = sourceBtn?.querySelector?.('svg');
+    if (srcSvg) {
+      const iconClone = srcSvg.cloneNode(true);
+      iconClone.setAttribute('aria-hidden', 'true');
+      head.appendChild(iconClone);
+    }
     const title = document.createElement('h3');
     title.className = 'rail-flyout-title';
     title.textContent = titleText;
@@ -7732,21 +7738,21 @@ function initRailHoverFlyout() {
     list.className = 'rail-flyout-list';
 
     if (railOpen === 'left') {
-      railFlyout.append(...makeHeader('Lewy panel nawigacji', 'Rozwiń pełny panel rozmów, notatek i modułów AI dla Jezusa.'));
+      railFlyout.append(...makeHeader('Lewy panel nawigacji', 'Rozwiń pełny panel rozmów, notatek i modułów AI dla Jezusa.', button));
       list.appendChild(makeActionBtn('Rozwiń lewy panel', 'Ctrl+B', () => toggleLeftPanel(), true));
       railFlyout.appendChild(list);
       return;
     }
 
     if (railOpen === 'right') {
-      railFlyout.append(...makeHeader('Twoja przestrzeń', 'Pokaż werset dnia, projekty i połączone aplikacje CC.'));
+      railFlyout.append(...makeHeader('Twoja przestrzeń', 'Pokaż werset dnia, projekty i połączone aplikacje CC.', button));
       list.appendChild(makeActionBtn('Rozwiń prawy panel', 'Ctrl+Shift+B', () => toggleRightPanel(), true));
       railFlyout.appendChild(list);
       return;
     }
 
     if (railClick === 'newChatBtn') {
-      railFlyout.append(...makeHeader('Nowa rozmowa', 'Rozpocznij czat z wybranym asystentem Christian Culture.'));
+      railFlyout.append(...makeHeader('Nowa rozmowa', 'Rozpocznij czat z wybranym asystentem Christian Culture.', button));
       list.appendChild(makeActionBtn('+ Nowa rozmowa', '', () => $('#newChatBtn')?.click(), true));
       for (const p of Object.values(AI_PERSONAS)) {
         list.appendChild(makeActionBtn(`Rozmawiaj z: ${p.name}`, p.role || '', () => {
@@ -7759,7 +7765,7 @@ function initRailHoverFlyout() {
     }
 
     if (railFocus === 'chatSearchInput') {
-      railFlyout.append(...makeHeader('Szukaj rozmów', 'Wpisz frazę, aby odfiltrować zapisane rozmowy.'));
+      railFlyout.append(...makeHeader('Szukaj rozmów', 'Wpisz frazę, aby odfiltrować zapisane rozmowy.', button));
       const input = document.createElement('input');
       input.type = 'search';
       input.className = 'rail-flyout-search';
@@ -7798,7 +7804,7 @@ function initRailHoverFlyout() {
     }
 
     if (railFocus === 'recentHeading') {
-      railFlyout.append(...makeHeader('Ostatnie rozmowy', 'Kliknij wątek, aby wrócić od razu do rozmowy.'));
+      railFlyout.append(...makeHeader('Ostatnie rozmowy', 'Kliknij wątek, aby wrócić od razu do rozmowy.', button));
       const liveBtns = Array.from(recentChatsList?.querySelectorAll('.recent-item') || []).slice(0, 6);
       for (const b of liveBtns) {
         const title = b.textContent?.trim() || 'Rozmowa';
@@ -7809,7 +7815,7 @@ function initRailHoverFlyout() {
     }
 
     if (railNav === 'Czat') {
-      railFlyout.append(...makeHeader('Czat i asystenci', `Aktywny tryb: ${currentMode}`));
+      railFlyout.append(...makeHeader('Czat i asystenci', `Aktywny tryb: ${currentMode}`, button));
       for (const p of Object.values(AI_PERSONAS)) {
         const activeMark = getActiveAssistantId() === p.id ? 'Aktywna' : '';
         list.appendChild(makeActionBtn(p.name, activeMark, () => {
@@ -7823,7 +7829,7 @@ function initRailHoverFlyout() {
     }
 
     if (railNav === 'Biblia') {
-      railFlyout.append(...makeHeader('Biblia (UBG)', 'Wyszukuj wersety i otwórz MojaBiblia Interlinear.'));
+      railFlyout.append(...makeHeader('Biblia (UBG)', 'Wyszukuj wersety i otwórz MojaBiblia Interlinear.', button));
       list.append(
         makeActionBtn('Otwórz moduł Biblia', 'UBG', () => showModuleView('Biblia'), true),
         makeActionBtn('MojaBiblia Interlinear', 'Strong', () => $('.connect-btn[data-app="MojaBiblia"]')?.click()),
@@ -7835,7 +7841,7 @@ function initRailHoverFlyout() {
     }
 
     if (railNav === 'Projekty') {
-      railFlyout.append(...makeHeader('Projekty', `Liczba projektów: ${state.projects.length}`));
+      railFlyout.append(...makeHeader('Projekty', `Liczba projektów: ${state.projects.length}`, button));
       for (const linkBtn of Array.from($$('#rightSidebar .project-link')).slice(0, 5)) {
         list.appendChild(makeActionBtn(linkBtn.textContent?.trim() || 'Projekt', 'Projekt', () => linkBtn.click()));
       }
@@ -7845,7 +7851,7 @@ function initRailHoverFlyout() {
     }
 
     if (railNav === 'Notatniki') {
-      railFlyout.append(...makeHeader('Notatniki i pamięć', `Notatki: ${state.notes.length} · Pamięć: ${state.memory.length}`));
+      railFlyout.append(...makeHeader('Notatniki i pamięć', `Notatki: ${state.notes.length} · Pamięć: ${state.memory.length}`, button));
       list.append(
         makeActionBtn('Otwórz Notatniki', `${state.notes.length}`, () => showModuleView('Notatniki'), true),
         makeActionBtn('Otwórz Pamięć AI', `${state.memory.length}`, () => showModuleView('Pamięć'))
@@ -7856,7 +7862,7 @@ function initRailHoverFlyout() {
 
     if (railNav === 'Ustawienia') {
       const bgActive = state.ambientBgEnabled !== false;
-      railFlyout.append(...makeHeader('Ustawienia i wygląd', `Animacja tła: ${bgActive ? 'włączona' : 'wyłączona'} (${state.ambientBgColor || DEFAULT_AMBIENT_COLOR})`));
+      railFlyout.append(...makeHeader('Ustawienia i wygląd', `Animacja tła: ${bgActive ? 'włączona' : 'wyłączona'} (${state.ambientBgColor || DEFAULT_AMBIENT_COLOR})`, button));
       list.append(
         makeActionBtn(bgActive ? 'Wyłącz animację tła' : 'Włącz animację tła', bgActive ? 'ON' : 'OFF', () => {
           state.ambientBgEnabled = !bgActive;
@@ -7874,7 +7880,7 @@ function initRailHoverFlyout() {
       const label = currentUser && !currentUser.isAnonymous
         ? (currentUser.displayName || currentUser.email || 'Zalogowano (LUMINA)')
         : 'Konto lokalne gościa';
-      railFlyout.append(...makeHeader('Mój profil', label));
+      railFlyout.append(...makeHeader('Mój profil', label, button));
       list.appendChild(makeActionBtn('Otwórz profil i konto LUMINA', '', () => openProfileModal(), true));
       railFlyout.appendChild(list);
       return;
@@ -7883,7 +7889,7 @@ function initRailHoverFlyout() {
     if (railFocus === 'verseHeading') {
       const vText = $('.daily-verse')?.textContent?.trim() || '„Zaufaj Panu z całego swego serca...”';
       const vRef = $('.verse-ref')?.textContent?.trim() || 'Przysłów 3,5';
-      railFlyout.append(...makeHeader('Werset dnia', vRef));
+      railFlyout.append(...makeHeader('Werset dnia', vRef, button));
       const quote = document.createElement('blockquote');
       quote.className = 'rail-flyout-verse';
       quote.textContent = vText;
@@ -7893,24 +7899,28 @@ function initRailHoverFlyout() {
     }
 
     if (railFocus === 'projectsHeading') {
-      railFlyout.append(...makeHeader('Aktywne projekty', 'Kliknij projekt, aby otworzyć powiązane treści.'));
+      railFlyout.append(...makeHeader('Aktywne projekty', 'Kliknij projekt, aby otworzyć powiązane treści.', button));
+      const cardBox = document.createElement('div');
+      cardBox.className = 'rail-flyout-card';
       for (const linkBtn of Array.from($$('#rightSidebar .project-link')).slice(0, 5)) {
         list.appendChild(makeActionBtn(linkBtn.textContent?.trim() || 'Projekt', 'Otwórz', () => linkBtn.click()));
       }
-      list.appendChild(makeActionBtn('Wszystkie projekty →', '', () => showModuleView('Projekty'), true));
-      railFlyout.appendChild(list);
+      cardBox.appendChild(list);
+      railFlyout.append(cardBox, makeActionBtn('Wszystkie projekty →', '', () => showModuleView('Projekty'), true));
       return;
     }
 
     if (railFocus === 'integrationsHeading') {
-      railFlyout.append(...makeHeader('Połączone aplikacje', 'Szybki dostęp do aplikacji Christian Culture i narzędzi.'));
+      railFlyout.append(...makeHeader('Połączone aplikacje', 'Szybki dostęp do aplikacji Christian Culture i narzędzi.', button));
+      const cardBox = document.createElement('div');
+      cardBox.className = 'rail-flyout-card';
       for (const btn of Array.from($$('#rightSidebar .connect-btn')).slice(0, 6)) {
         const appName = btn.dataset.app || 'Aplikacja';
         const statusText = btn.textContent?.trim() || 'Połącz';
         list.appendChild(makeActionBtn(appName, statusText, () => btn.click()));
       }
-      list.appendChild(makeActionBtn('Zobacz więcej integracji →', '', () => showModuleView('Połączenia'), true));
-      railFlyout.appendChild(list);
+      cardBox.appendChild(list);
+      railFlyout.append(cardBox, makeActionBtn('Zobacz więcej integracji →', '', () => showModuleView('Połączenia'), true));
     }
   };
 
@@ -7930,8 +7940,8 @@ function initRailHoverFlyout() {
 
     const btnRect = button.getBoundingClientRect();
     const flyHeight = railFlyout.offsetHeight || 220;
-    const maxTop = Math.max(12, window.innerHeight - flyHeight - 12);
-    const clampedTop = Math.max(12, Math.min(Math.round(btnRect.top), maxTop));
+    const maxTop = Math.max(8, window.innerHeight - flyHeight - 8);
+    const clampedTop = Math.max(8, Math.min(Math.round(btnRect.top - 10), maxTop));
     railFlyout.style.top = `${clampedTop}px`;
   };
 

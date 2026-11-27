@@ -219,8 +219,8 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261127_ai39_canva_oauth/);
-  assert.match(html, /\/ai\/app\.js\?v=20261127_ai39_canva_oauth/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261127_ai40_flyout_sidebar_style/);
+  assert.match(html, /\/ai\/app\.js\?v=20261127_ai40_flyout_sidebar_style/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
@@ -1294,8 +1294,8 @@ test('P0/P1 pilot: /test/ai/ parity, CC MCP visibility + Rzymian + cc_get_source
 
   // 4. Export .txt, Calendar scope distinction, TTS BYOK UI & Canva pilot UI markers
   const testIndexHtml = fs.readFileSync(path.join(ROOT, 'test/ai/index.html'), 'utf8');
-  assert.match(testIndexHtml, /\/ai\/styles\.css\?v=20261127_ai39_canva_oauth/);
-  assert.match(testIndexHtml, /\/ai\/app\.js\?v=20261127_ai39_canva_oauth/);
+  assert.match(testIndexHtml, /\/ai\/styles\.css\?v=20261127_ai40_flyout_sidebar_style/);
+  assert.match(testIndexHtml, /\/ai\/app\.js\?v=20261127_ai40_flyout_sidebar_style/);
   assert.match(appJs, /export_txt/);
   assert.match(appJs, /Eksportuj \.txt/);
   assert.match(appJs, /calendar-scope-switch/);
