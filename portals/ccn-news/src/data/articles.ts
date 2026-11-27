@@ -1628,7 +1628,7 @@ export const INITIAL_ARTICLES: Article[] = [
     ],
     "explanation": "Człowiek nie potrafi wykrzesać trwałej miłości agape wyłącznie o własnych siłach moralnych. Dopiero doświadczenie niezasłużonej dobroci Boga w Chrystusie uzdalnia serce do przebaczenia i ofiarnej życzliwości."
   },
-  "primaryPortalUrl": "https://polskieradio.cc/eM",
+  "primaryPortalUrl": "https://polskieradio.cc/news/dobroc-nie-jest-slaboscia-7-decyzji-ktore-zmieniaja-relacje",
   "primaryPortalLabel": "eM • Motywacja Christian Culture",
   "resourceLinks": [
     {
@@ -2305,7 +2305,7 @@ export const INITIAL_ARTICLES: Article[] = [
       'biblia',
       'EkoCC365'
     ],
-    primaryPortalUrl: 'https://polskieradio.cc/eM',
+    primaryPortalUrl: 'https://polskieradio.cc/news/czy-zyczliwosc-bez-granic-moze-nas-wyczerpac-biblia-o-madrym-pomaganiu',
     primaryPortalLabel: 'eM • Motywacja Christian Culture',
     scriptureReference: {
       verse: 'List do Galacjan 6:2, 5 (UBG)',
@@ -3722,7 +3722,7 @@ export const INITIAL_ARTICLES: Article[] = [
     "łaska",
     "rozliczenie"
   ],
-  "primaryPortalUrl": "https://polskieradio.cc/eM",
+  "primaryPortalUrl": "https://polskieradio.cc/news/kim-jestem-gdy-nikt-nie-patrzy-uczciwosc-sumienie",
   "primaryPortalLabel": "eM • Motywacja Christian Culture",
   "resourceLinks": [
     {
