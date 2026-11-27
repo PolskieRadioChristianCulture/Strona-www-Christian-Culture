@@ -599,7 +599,7 @@
             color: #FFFFFF !important;
         }
         @media (max-width: 900px) {
-            :root { --ticker-height: 44px; }
+            :root { --ticker-height: 52px; }
             .ccn-ticker-brand img { max-width: 140px; }
             .ccn-live-badge { padding: 0 12px; font-size: 0.8rem; }
             .ccn-ticker-content { font-size: 0.95rem; }
@@ -1668,6 +1668,7 @@
                 const audioQuery = isMutedDefault ? "muted=1&autoplay=1" : "autoplay=1";
                 const safeParam = isSafeMonetizationMode ? "&safe_monetization=1" : "&safe_monetization=0";
                 activeFrame.src = newChannel + sepChar + audioQuery + "&in_mcr=1&noticker=1" + safeParam + "&t=" + Date.now();
+                burstSuppressSubframe(activeFrame);
                 fade.style.display = "block";
                 fade.style.opacity = "1";
                 switchTimers.push(setTimeout(() => {
@@ -1712,6 +1713,7 @@
                     const sep = newChannel.includes('?') ? '&' : '?';
                     const safeParam = isSafeMonetizationMode ? "&safe_monetization=1" : "&safe_monetization=0";
                     inactiveFrame.src = newChannel + sep + "muted=1&autoplay=1&in_mcr=1&noticker=1" + safeParam + "&t=" + Date.now();
+                    burstSuppressSubframe(inactiveFrame);
                 }, 500));
 
                 // 4) Determine video duration (default 8s fallback)
@@ -1794,6 +1796,15 @@
         }, 2000);
 
         // ── SUPPRESS SUB-CHANNEL TICKERS (ENSURE ONLY 1 CCN NEWS LOWER THIRD) ──
+        function burstSuppressSubframe(frame) {
+            if (!frame) return;
+            [0, 60, 150, 350, 700, 1200].forEach(ms => {
+                setTimeout(() => {
+                    suppressSubframeTicker(frame);
+                    applySubframeLanguage(frame);
+                }, ms);
+            });
+        }
         function suppressSubframeTicker(frame) {
             if (!frame) return;
             try {
@@ -2644,7 +2655,7 @@
 
     /* TELEFON PIONOWO: paski proporcjonalne, obraz 16:9 na pełną szerokość, pod nim autopromocja */
     @media (orientation: portrait) and (max-width: 900px) {
-        :root { --dekalog-height: 44px; --ticker-height: 48px; --ml-video-h: calc(100vw * 9 / 16); }
+        :root { --dekalog-height: 44px; --ticker-height: 52px; --ml-video-h: calc(100vw * 9 / 16); }
         .dekalog-brand-badge { padding: 0 8px; }
         .dekalog-brand-title { font-size: .6rem; letter-spacing: .6px; }
         .dekalog-content { font-size: .88rem; }
