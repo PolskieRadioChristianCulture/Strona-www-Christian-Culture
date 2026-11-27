@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-27",
+      "topic": "AI dla Jezusa (/ai/aplikacja, /test/ai/) — pełne ujednolicenie wszystkich okien, modali, menu rozwijanych, powiadomień i kart ze stylem paneli bocznych (Obsidian Sidebar Standard) + zapis reguły architektonicznej na przyszłość",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-27",
       "topic": "AI dla Jezusa (/ai/aplikacja, /test/ai/) — ujednolicenie wyglądu dedykowanych paneli po najechaniu (.rail-flyout) ze stylem głównych paneli bocznych (tło --bg-sidebar, szerokość 248/316 px, karty --bg-surface, ikony nagłówków)",
       "agent": "A"
     },
