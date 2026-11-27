@@ -222,20 +222,27 @@
             position: absolute !important;
             top: calc(100% + 8px) !important;
             right: 0 !important;
-            width: 220px !important;
+            width: 236px !important;
+            max-height: calc(100dvh - 150px) !important;
+            overflow-y: auto !important;
+            overscroll-behavior: contain !important;
+            scrollbar-width: none !important;
             background: linear-gradient(165deg, rgba(16, 16, 18, 0.98) 0%, rgba(8, 8, 10, 0.99) 100%) !important;
             border: 1px solid rgba(212, 175, 55, 0.2) !important;
             border-radius: 20px !important;
-            padding: 8px !important;
+            padding: 6px !important;
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 25px rgba(212, 175, 55, 0.12), inset 0 1px 1px rgba(255, 235, 170, 0.18) !important;
             backdrop-filter: blur(28px) !important;
             -webkit-backdrop-filter: blur(28px) !important;
             display: none;
             flex-direction: column !important;
-            gap: 4px !important;
+            gap: 2px !important;
             z-index: 10001 !important;
             transform-origin: top right !important;
             animation: ccDropIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+        .cc-auth-dropdown::-webkit-scrollbar {
+            display: none;
         }
 
         .cc-auth-dropdown.open {
@@ -251,7 +258,7 @@
             display: flex !important;
             align-items: center !important;
             gap: 10px !important;
-            padding: 8px 12px !important;
+            padding: 7px 12px !important;
             border-radius: 12px !important;
             color: #ffffff !important;
             text-decoration: none !important;
@@ -617,6 +624,21 @@
         }
     };
 
+    window.ccOpenAppSettings = function(event, fallbackHref) {
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        document.querySelectorAll('.cc-auth-dropdown.open').forEach(drop => {
+            drop.classList.remove('open');
+        });
+        if (window.CCAppSettings && typeof window.CCAppSettings.open === 'function') {
+            window.CCAppSettings.open();
+            return;
+        }
+        window.location.href = fallbackHref || '/lumina-profile.html';
+    };
+
     document.addEventListener('click', () => {
         document.querySelectorAll('.cc-auth-dropdown.open').forEach(drop => {
             drop.classList.remove('open');
@@ -700,6 +722,30 @@
                             <i class="fa-solid fa-heart"></i>
                             <span>Odkrywaj Portal</span>
                         </a>
+                        <a href="/wizytowka" class="cc-auth-dropdown-item">
+                            <i class="fa-solid fa-address-card"></i>
+                            <span>Załóż wizytówkę</span>
+                        </a>
+                        <a href="/news" class="cc-auth-dropdown-item">
+                            <i class="fa-solid fa-newspaper"></i>
+                            <span>Portal CCN</span>
+                        </a>
+                        <a href="/Ewangelia" class="cc-auth-dropdown-item">
+                            <i class="fa-solid fa-dove"></i>
+                            <span>Dobra Nowina</span>
+                        </a>
+                        <a href="/topTEN/" class="cc-auth-dropdown-item">
+                            <i class="fa-solid fa-trophy"></i>
+                            <span>Top 10</span>
+                        </a>
+                        <a href="/wyszukiwarka" class="cc-auth-dropdown-item">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <span>Wyszukiwarka</span>
+                        </a>
+                        <a href="/ai/aplikacja" class="cc-auth-dropdown-item">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <span>AI dla Jezusa</span>
+                        </a>
                         <a href="/biznes" class="cc-auth-dropdown-item">
                             <i class="fa-solid fa-briefcase"></i>
                             <span>Biznes Hub CC</span>
@@ -717,6 +763,10 @@
                             <span>Kino VOD</span>
                         </a>
                         <div class="cc-auth-dropdown-sep"></div>
+                        <button type="button" class="cc-auth-dropdown-item" data-cc-app-settings="true" onclick="window.ccOpenAppSettings(event, '${profileHref}')">
+                            <i class="fa-solid fa-gear"></i>
+                            <span>Ustawienia aplikacji</span>
+                        </button>
                         <button type="button" class="cc-auth-dropdown-item logout" onclick="if(window.handleLogout) handleLogout(); else ccLogout();">
                             <i class="fa-solid fa-arrow-right-from-bracket"></i>
                             <span>Wyloguj się</span>

@@ -1365,9 +1365,22 @@ pageStar.addEventListener('click', () => {
 
 $('#chat').addEventListener('click', (event) => {
   trackEvent('sba_lumimes_open', { mode: window.CCUnifiedChat?.open ? 'widget' : 'link' });
+  document.getElementById('ccChatTeaserClose')?.click();
   if (!window.CCUnifiedChat?.open) return;
   event.preventDefault();
   window.CCUnifiedChat.open({ tab: 'public' });
+});
+
+document.addEventListener('click', (event) => {
+  const anchor = event.target?.closest?.('.cc-auth-dropdown a[href="/wyszukiwarka"], .cc-auth-dropdown a[href="/ai/aplikacja"]');
+  if (!anchor) return;
+  try {
+    const rawHref = anchor.getAttribute('href');
+    const contextual = withSbaContext(new URL(rawHref, location.origin), selected());
+    anchor.href = contextual.pathname + contextual.search;
+  } catch {
+    /* keep static href if URL construction fails */
+  }
 });
 function closeEdgePanelIfOpen() {
   const drawer = $('#cc-mobile-edge-dialog');
@@ -1498,6 +1511,8 @@ function openSettingsDialog() {
   trackEvent('sba_settings_open');
 }
 
+window.CCAppSettings = { open: openSettingsDialog };
+
 function syncEdgeChannelsLocale(root) {
   const container = root?.querySelector('.sba-edge-channels');
   if (!container) return;
@@ -1533,6 +1548,9 @@ function edgeChannelLinks() {
   );
   const support = link('wspieramTO', site('/wspieramto'));
   support.classList.add('sba-edge-support');
+  support.addEventListener('click', () => {
+    closeEdgePanelIfOpen();
+  });
   group.append(support);
   return group;
 }
@@ -1554,10 +1572,23 @@ $('#edge').addEventListener('click', () => {
       } else {
         syncEdgeChannelsLocale(navigation);
       }
+      const closeBtn = navigation.querySelector('button[data-edge-key="close"]');
+      const langGroup = navigation.querySelector('.cc-edge-lang-group');
+      if (closeBtn && langGroup && !navigation.querySelector('.sba-edge-footer-bar')) {
+        const footerBar = element('div', 'sba-edge-footer-bar');
+        footerBar.append(langGroup, closeBtn);
+        navigation.append(footerBar);
+      }
+      const supportHeart = navigation.querySelector('[data-edge-key="heart"]');
+      if (supportHeart && !supportHeart.dataset.sbaCloseBound) {
+        supportHeart.dataset.sbaCloseBound = '1';
+        supportHeart.addEventListener('click', () => closeEdgePanelIfOpen());
+      }
       return;
     }
   }
-  const langBar = element('div', 'sba-edge-lang-fallback');
+  const footerBar = element('div', 'sba-edge-footer-bar');
+  const langBar = element('div', 'sba-edge-lang-fallback cc-edge-lang-group');
   langBar.setAttribute('role', 'group');
   langBar.setAttribute('aria-label', tr('langGroupAria'));
   for (const code of ['pl', 'en', 'de']) {
@@ -1574,6 +1605,10 @@ $('#edge').addEventListener('click', () => {
     });
     langBar.append(btn);
   }
+  const closeFallbackBtn = iconButton('close', tr('close'), () => dialog.close());
+  closeFallbackBtn.className = 'sba-edge-close-fallback';
+  closeFallbackBtn.dataset.edgeKey = 'close';
+  footerBar.append(langBar, closeFallbackBtn);
   show(tr('panelFallbackTitle'), [
     link('Wyszukiwarka Christian Culture', ccSearchUrl(selected(), '/wyszukiwarka')),
     link('MojaBiblia', selected() ? mojaBiblia(selected()) : withSbaContext(site('/mojabiblia?book=JHN&ch=1&chapter=1&mode=reader'))),
@@ -1581,7 +1616,7 @@ $('#edge').addEventListener('click', () => {
     link('Biblia Audio', withSbaContext(site('/biblia-audio'), selected())),
     link('LumiMes', site('/mess')),
     edgeChannelLinks(),
-    langBar
+    footerBar
   ], { edge: true });
 });
 
@@ -1688,11 +1723,13 @@ document.addEventListener('ekocc:locale-changed', (event) => {
 function bootCommunity() {
   if (!inEcosystem) return;
   const scripts = [
-    '/js/cc-global-auth.js?v=20261116_a007_auth',
+    '/js/cc-global-auth.js?v=20261127_sba_menu1',
     '/js/cc-favorites.js?v=20261120_fav4',
     '/js/cc-mobile-edge.js?v=20261119_gold3',
     '/js/cc-edge-plus.js?v=20261110_edgep2',
-    '/js/cc-chat-integration.js?v=20261120_prayer40dm'
+    '/js/cc-chat-integration.js?v=20261120_prayer40dm',
+    '/components/cc-global-chat-button.js?v=20261125_chat13',
+    '/components/cc-wspieramto-modal.js?v=20261127_wt2'
   ];
   // Classic scripts execute in insertion order. CC modules resolve their own same-origin dependencies.
   for (const path of scripts) {

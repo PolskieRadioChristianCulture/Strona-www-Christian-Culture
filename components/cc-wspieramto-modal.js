@@ -45,7 +45,7 @@
     .cc-wt-overlay {
       position: fixed;
       inset: 0;
-      z-index: 99999;
+      z-index: 2147483647;
       background: rgba(4, 7, 13, 0.82);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
@@ -213,6 +213,7 @@
     .cc-wt-primary-btn {
       width: 100%;
       min-height: 52px;
+      padding: 0 20px;
       border-radius: 999px;
       background: #FF7A00;
       color: #ffffff;
@@ -224,6 +225,9 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
+      text-align: center;
+      white-space: nowrap;
+      box-sizing: border-box;
       text-decoration: none;
       transition: background-color 0.2s, transform 0.2s;
       box-shadow: 0 8px 24px rgba(255, 122, 0, 0.35);
@@ -360,8 +364,7 @@
 
       <!-- Przycisk 1-Click Online (Polska: Zrzutka.pl BLIK/Karta; Zagranica: Revolut.me) -->
       <a href="https://zrzutka.pl/z/ChristianCulture" target="_blank" rel="noopener noreferrer" class="cc-wt-primary-btn" id="ccWtPrimaryCta" data-support-method="zrzutka_1click">
-        <span id="ccWtPrimaryLabel">Wpłać 1-Click (BLIK / Karta — Zrzutka.pl) &bull; <strong id="ccWtAmountDisplay">${currentAmount} zł</strong></span>
-        <span>&rarr;</span>
+        <span id="ccWtPrimaryLabel">Wspieram</span>
       </a>
 
       <!-- Wsparcie regularne miesięczne (Patronite) -->
@@ -433,15 +436,12 @@
   }
 
   function updatePrimaryCta() {
-    const config = CURRENCIES[currentCurrency];
     const primaryCta = document.getElementById('ccWtPrimaryCta');
     const primaryLabel = document.getElementById('ccWtPrimaryLabel');
     const isPln = currentCurrency === 'PLN';
 
     if (primaryLabel) {
-      primaryLabel.innerHTML = isPln
-        ? `Wpłać 1-Click (BLIK / Karta — Zrzutka.pl) &bull; <strong id="ccWtAmountDisplay">${currentAmount} ${config.symbol}</strong>`
-        : `Wpłać 1-Click Kartą / Apple Pay (Revolut) &bull; <strong id="ccWtAmountDisplay">${currentAmount} ${config.symbol}</strong>`;
+      primaryLabel.textContent = 'Wspieram';
     }
     if (primaryCta) {
       primaryCta.href = isPln ? 'https://zrzutka.pl/z/ChristianCulture' : 'https://revolut.me/christianculture';
@@ -483,6 +483,14 @@
 
   // Otwieranie / Zamykanie
   function openModal(options) {
+    const openEdge = document.getElementById('cc-mobile-edge-dialog');
+    if (openEdge && openEdge.open) {
+      if (typeof openEdge._ccClose === 'function') openEdge._ccClose();
+      else openEdge.close();
+    }
+    const openSbaDialog = document.querySelector('dialog.sba-edge-panel[open]');
+    if (openSbaDialog) openSbaDialog.close();
+
     if (options && options.currency && CURRENCIES[options.currency]) {
       currentCurrency = options.currency;
     }

@@ -69,9 +69,6 @@ html body #ccEdgePlusBtn,
 html body #ccEdgePlusBtn.is-visible,
 html body #ccEdgePlusBtn + .cc-edge-plus-tooltip,
 html body #ccEdgePlusTooltip,
-html body #ccGlobalChatFab,
-html body.user-is-guest #ccGlobalChatFab,
-html body #ccGlobalChatFab.cc-chat-fab-wrap,
 html body #backToTopBtn[data-cc-back-to-top] {
   display: none !important;
   opacity: 0 !important;
@@ -520,11 +517,7 @@ dialog.sba-edge-panel {
   outline-offset: 2px;
 }
 
-/* Dedykowana kolorystyka aplikacji /sba dla LumiMes, autoryzacji Google/LUMINA, gwiazdki i panelu edge */
-html body #ccUnifiedChatHost,
-html body #ccUnifiedChatFrame {
-  background: #0d0d0f !important;
-}
+/* Dedykowana kolorystyka aplikacji /sba dla autoryzacji Google/LUMINA, gwiazdki i panelu edge */
 html body header.top .top-actions #ccTopBarFavBtn {
   width: 44px !important;
   height: 44px !important;
@@ -594,9 +587,22 @@ html body .user-nav-chevron {
   color: #ff8ea2 !important;
 }
 html body .cc-auth-dropdown {
+  width: 236px !important;
+  max-height: calc(100dvh - var(--player-height) - 128px) !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+  scrollbar-width: none !important;
+  padding: 6px !important;
+  gap: 2px !important;
   background: linear-gradient(165deg, #161415 0%, #0b0b0d 100%) !important;
   border: 1px solid rgba(183, 25, 51, 0.42) !important;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.88), 0 0 22px rgba(183, 25, 51, 0.22) !important;
+}
+html body .cc-auth-dropdown::-webkit-scrollbar {
+  display: none !important;
+}
+html body .cc-auth-dropdown-item {
+  padding: 7px 12px !important;
 }
 html body .cc-auth-dropdown-item:hover {
   background: rgba(183, 25, 51, 0.18) !important;
@@ -609,6 +615,7 @@ html body #cc-mobile-edge-dialog.sba-edge-panel {
   border-right: 1px solid rgba(183, 25, 51, 0.55) !important;
 }
 html body #cc-mobile-edge-dialog.sba-edge-panel .cc-edge-lang-divider {
+  display: none !important;
   background: rgba(183, 25, 51, 0.35) !important;
 }
 html body #cc-mobile-edge-dialog.sba-edge-panel .cc-edge-lang-group :is(a, button)[aria-pressed="true"],
@@ -616,4 +623,238 @@ html body #cc-mobile-edge-dialog.sba-edge-panel .cc-edge-lang-group :is(a, butto
   background: #b71933 !important;
   border-color: #e74763 !important;
   color: #fff !important;
+}
+.sba-edge-footer-bar {
+  grid-column: 1 / -1 !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  width: 100% !important;
+  margin-top: auto !important;
+  padding-top: 12px !important;
+  border-top: 1px solid rgba(183, 25, 51, 0.35) !important;
+}
+.sba-edge-footer-bar .cc-edge-lang-group {
+  width: auto !important;
+  justify-content: flex-start !important;
+  margin: 0 !important;
+  flex: 0 1 auto !important;
+}
+.sba-edge-footer-bar button[data-edge-key="close"],
+.sba-edge-footer-bar .sba-edge-close-fallback {
+  grid-column: auto !important;
+  justify-self: auto !important;
+  margin: 0 0 0 auto !important;
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  border: 1px solid rgba(255, 255, 255, 0.24) !important;
+  background: #1c191a !important;
+  color: #fff !important;
+  border-radius: 12px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: none !important;
+}
+@media (max-width: 780px) {
+  #cc-mobile-edge-dialog.sba-edge-panel,
+  #dialog.sba-edge-panel {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    inset: 0 !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    border: 0 !important;
+  }
+  #cc-mobile-edge-dialog.sba-edge-panel nav {
+    min-height: 100dvh !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    align-content: start !important;
+    gap: 10px 8px !important;
+    padding: max(18px, env(safe-area-inset-top)) 16px calc(86px + env(safe-area-inset-bottom)) !important;
+  }
+  #cc-mobile-edge-dialog.sba-edge-panel nav > a,
+  #cc-mobile-edge-dialog.sba-edge-panel nav > button {
+    justify-self: center !important;
+  }
+  #cc-mobile-edge-dialog.sba-edge-panel .sba-edge-footer-bar {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: 2 !important;
+    background: #000 !important;
+    margin-top: 0 !important;
+    padding: 12px 16px max(16px, env(safe-area-inset-bottom)) !important;
+  }
+}
+
+/* Dymek powitalny rozważania dziennego bezpośrednio nad ikoną #chat (bez dublowania FAB-a) */
+html body #ccGlobalChatFab,
+html body.user-is-guest #ccGlobalChatFab,
+html body #ccGlobalChatFab.cc-chat-fab-wrap,
+html body #ccGlobalChatFab.is-custom-positioned {
+  position: fixed !important;
+  right: max(13px, env(safe-area-inset-right)) !important;
+  bottom: calc(var(--player-height) + 10px) !important;
+  left: auto !important;
+  top: auto !important;
+  width: 44px !important;
+  height: 44px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  z-index: 7 !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: flex-end !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: none !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+html.cc-lumi-mess-open #ccGlobalChatFab,
+html.cc-lumi-mess-open body #ccGlobalChatFab,
+html body #ccGlobalChatFab.is-fab-hidden {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+html body #ccGlobalChatFab #ccChatFabBtn,
+html body #ccGlobalChatFab .cc-chat-fab-btn,
+html body #ccGlobalChatFab #ccChatFabTooltip {
+  display: none !important;
+  pointer-events: none !important;
+}
+html body #ccGlobalChatFab #ccChatTeaserBubble,
+html body #ccGlobalChatFab.cc-teaser-below #ccChatTeaserBubble,
+html body #ccGlobalChatFab.cc-teaser-align-left #ccChatTeaserBubble {
+  position: fixed !important;
+  bottom: calc(var(--player-height) + 64px) !important;
+  right: max(13px, env(safe-area-inset-right)) !important;
+  left: auto !important;
+  top: auto !important;
+  pointer-events: auto !important;
+  width: min(292px, calc(100vw - 26px)) !important;
+  transform: none !important;
+  background: linear-gradient(145deg, rgba(20, 18, 19, 0.98), rgba(10, 10, 12, 0.99)) !important;
+  border: 1.5px solid rgba(183, 25, 51, 0.58) !important;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.48), 0 0 22px rgba(183, 25, 51, 0.22) !important;
+  color: #f8f6f6 !important;
+}
+html body #ccGlobalChatFab #ccChatTeaserBubble.is-fading {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+html body #ccGlobalChatFab #ccChatTeaserBubble.is-hidden {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+html body #ccGlobalChatFab #ccChatTeaserBubble:hover {
+  border-color: #e74763 !important;
+}
+html body #ccGlobalChatFab .cc-chat-teaser-avatar {
+  border: 2px solid #e74763 !important;
+  background: #141214 !important;
+}
+html body #ccGlobalChatFab .cc-chat-teaser-online {
+  background: #10b981 !important;
+  border-color: #101012 !important;
+}
+html body #ccGlobalChatFab .cc-chat-teaser-name,
+html body #ccGlobalChatFab .cc-chat-teaser-cta {
+  color: #ff8ea2 !important;
+}
+html body #ccGlobalChatFab .cc-chat-teaser-msg {
+  color: #eae4e6 !important;
+}
+html body #ccGlobalChatFab .cc-chat-teaser-close {
+  color: #e6dfe1 !important;
+}
+
+/* Dedykowana kolorystyka obsydian + karmazyn dla modala WspieramTO na /sba */
+html body #ccWspieramToModal .cc-wt-dialog {
+  background: #101013 !important;
+  border-color: rgba(183, 25, 51, 0.55) !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.88), 0 0 32px rgba(183, 25, 51, 0.24) !important;
+  color: #f8f6f6 !important;
+}
+html body #ccWspieramToModal .cc-wt-badge {
+  background: rgba(183, 25, 51, 0.18) !important;
+  border-color: rgba(231, 71, 99, 0.48) !important;
+  color: #ff8ea2 !important;
+}
+html body #ccWspieramToModal .cc-wt-studio-bar {
+  background: linear-gradient(135deg, rgba(183, 25, 51, 0.16), rgba(30, 18, 22, 0.9)) !important;
+  border-color: rgba(231, 71, 99, 0.38) !important;
+  color: #f2eced !important;
+}
+html body #ccWspieramToModal .cc-wt-studio-bar strong,
+html body #ccWspieramToModal .cc-wt-studio-bar a {
+  color: #ff8ea2 !important;
+}
+html body #ccWspieramToModal .cc-wt-curr-btn.cc-wt-active {
+  background: rgba(183, 25, 51, 0.24) !important;
+  border-color: #e74763 !important;
+  color: #ff8ea2 !important;
+}
+html body #ccWspieramToModal .cc-wt-tier-btn {
+  border-color: rgba(183, 25, 51, 0.32) !important;
+  background: #18161a !important;
+  color: #ffffff !important;
+}
+html body #ccWspieramToModal .cc-wt-tier-btn:hover {
+  border-color: #e74763 !important;
+  background: rgba(183, 25, 51, 0.22) !important;
+}
+html body #ccWspieramToModal .cc-wt-tier-btn.cc-wt-active {
+  background: #c81d3a !important;
+  border-color: #e74763 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 16px rgba(183, 25, 51, 0.45) !important;
+}
+html body #ccWspieramToModal .cc-wt-primary-btn {
+  background: linear-gradient(135deg, #c81d3a 0%, #991329 100%) !important;
+  box-shadow: 0 8px 24px rgba(183, 25, 51, 0.42) !important;
+  color: #ffffff !important;
+}
+html body #ccWspieramToModal .cc-wt-primary-btn:hover {
+  background: linear-gradient(135deg, #df2343 0%, #b71933 100%) !important;
+}
+html body #ccWspieramToModal .cc-wt-secondary-btn {
+  background: rgba(183, 25, 51, 0.14) !important;
+  border-color: rgba(231, 71, 99, 0.45) !important;
+  color: #ffccd5 !important;
+}
+html body #ccWspieramToModal .cc-wt-secondary-btn:hover {
+  background: rgba(183, 25, 51, 0.26) !important;
+  border-color: #e74763 !important;
+  color: #ffffff !important;
+}
+html body #ccWspieramToModal .cc-wt-method-item {
+  background: #161418 !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+}
+html body #ccWspieramToModal .cc-wt-copy-btn {
+  color: #ff8ea2 !important;
+  border-color: rgba(231, 71, 99, 0.35) !important;
+}
+html body #ccWspieramToModal .cc-wt-copy-btn:hover {
+  background: #c81d3a !important;
+  color: #ffffff !important;
+}
+html body #ccWspieramToModal .cc-wt-footer-note a {
+  color: #ff8ea2 !important;
 }
