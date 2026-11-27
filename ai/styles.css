@@ -2800,6 +2800,43 @@ body.ambient-bg-off .main-workspace {
   min-height: 40px;
 }
 
+.speech-controls-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 9px 11px;
+  border-radius: 10px;
+  background: #141414;
+  border: 1px solid rgba(230, 184, 76, 0.28);
+}
+
+.speech-ctrl-btn,
+.speech-voice-select {
+  min-height: 36px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: #1d1d1d;
+  border: 1px solid #303030;
+  color: #eceae4;
+  font-size: 12.5px;
+}
+
+.speech-ctrl-btn:hover {
+  background: #272727;
+  border-color: rgba(230, 184, 76, 0.45);
+}
+
+.speech-voice-select {
+  max-width: 230px;
+}
+
+.speech-status-note {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
 .opinion-stars {
   display: flex;
   align-items: center;
@@ -4365,6 +4402,8 @@ body.ambient-bg-off .main-workspace {
   .badge-model-opt,
   .quick-reply-btn,
   .msg-action-btn,
+  .speech-ctrl-btn,
+  .speech-voice-select,
   .nav-more-toggle,
   .voice-chat-pill {
     min-height: 44px;

@@ -1064,7 +1064,11 @@ function openImageLightbox(src, title = 'Podgląd grafiki Christian Culture') {
   showInfoDialog();
 }
 
+const ALLOWED_SPEECH_RATES = [0.8, 1, 1.15, 1.3];
+let speechSessionToken = 0;
+
 function stopSpeaking() {
+  speechSessionToken += 1;
   try {
     window.speechSynthesis?.cancel?.();
   } catch {}
@@ -1074,6 +1078,7 @@ function stopSpeaking() {
       b.classList.remove('is-speaking-btn');
       b.textContent = '🔊 Odsłuchaj';
     });
+    activeSpeakingBubble.querySelectorAll('.speech-controls-bar').forEach((el) => el.remove());
     activeSpeakingBubble = null;
   }
 }
@@ -1088,6 +1093,60 @@ function stripMarkdownForSpeech(mdText) {
     .trim();
 }
 
+function splitSpeechChunks(cleanText, maxLen = 320) {
+  const sentences = String(cleanText || '').split(/(?<=[.!?…])\s+/).filter(Boolean);
+  const chunks = [];
+  let buf = '';
+  for (const s of sentences) {
+    if ((buf ? `${buf} ${s}` : s).length <= maxLen) {
+      buf = buf ? `${buf} ${s}` : s;
+    } else {
+      if (buf) {
+        chunks.push(buf);
+        buf = '';
+      }
+      if (s.length <= maxLen) {
+        buf = s;
+      } else {
+        const words = s.split(/\s+/);
+        for (const w of words) {
+          if ((buf ? `${buf} ${w}` : w).length <= maxLen) {
+            buf = buf ? `${buf} ${w}` : w;
+          } else {
+            if (buf) chunks.push(buf);
+            buf = w;
+          }
+        }
+      }
+    }
+  }
+  if (buf) chunks.push(buf);
+  return chunks;
+}
+
+function pickSystemPlVoice(voices = [], persona, preferredUri = '', isPrivate = false) {
+  const plAll = voices.filter((v) => /^pl/i.test(v?.lang || ''));
+  const eligible = isPrivate ? plAll.filter((v) => v?.localService === true) : plAll;
+  if (!eligible.length) return { voice: null, eligible, plTotal: plAll.length };
+
+  if (preferredUri) {
+    const exact = eligible.find((v) => v.voiceURI === preferredUri);
+    if (exact) return { voice: exact, eligible, plTotal: plAll.length };
+  }
+
+  const femaleRe = /(zofia|paulina|ewa|agnieszka|ola|maja|karolina|katarzyna|anna|female|natural)/i;
+  const maleRe = /(marek|adam|krzysztof|piotr|pawe[łl]|jacek|jan|bartek|tomasz|male)/i;
+  if (persona?.gender === 'female') {
+    const plFemaleVoice = eligible.find((v) => femaleRe.test(v.name || '')) || eligible[0];
+    return { voice: plFemaleVoice, eligible, plTotal: plAll.length };
+  }
+  const plMaleVoice =
+    eligible.find((v) => maleRe.test(v.name || '')) ||
+    eligible.find((v) => !femaleRe.test(v.name || '')) ||
+    eligible[0];
+  return { voice: plMaleVoice, eligible, plTotal: plAll.length };
+}
+
 function speakReply(text, assistantId, bubbleEl, btnEl, opts = {}) {
   const synth = window.speechSynthesis;
   if (!synth || typeof window.SpeechSynthesisUtterance !== 'function') {
@@ -1096,42 +1155,119 @@ function speakReply(text, assistantId, bubbleEl, btnEl, opts = {}) {
     return;
   }
 
-  const wasSameBubble = bubbleEl && activeSpeakingBubble === bubbleEl && synth.speaking;
+  const wasSameBubble = bubbleEl && activeSpeakingBubble === bubbleEl && (synth.speaking || synth.paused);
   stopSpeaking();
   if (wasSameBubble) return;
 
-  const clean = stripMarkdownForSpeech(text).slice(0, 1400);
-  if (!clean) {
+  const clean = stripMarkdownForSpeech(text);
+  const chunks = splitSpeechChunks(clean);
+  if (!chunks.length) {
     if (typeof opts?.onEnd === 'function') opts.onEnd();
     return;
   }
 
+  const myToken = speechSessionToken;
   const persona = getPersona(assistantId);
-  const utter = new SpeechSynthesisUtterance(clean);
-  utter.lang = 'pl-PL';
-  utter.rate = persona.rate || 1.0;
-  utter.pitch = persona.pitch || 1.0;
+  let rate = ALLOWED_SPEECH_RATES.includes(Number(state?.speechRate)) ? Number(state.speechRate) : 1;
+  let chunkIndex = 0;
+  let isPaused = false;
+  let barEl = null;
+  let pauseBtn = null;
+  let rateBtn = null;
+  let voiceSelect = null;
+  let statusNote = null;
 
-  try {
-    const voices = synth.getVoices?.() || [];
-    const plVoices = voices.filter((v) => /^pl/i.test(v.lang));
-    const femaleRe = /(zofia|paulina|ewa|agnieszka|ola|maja|karolina|katarzyna|anna|female|natural)/i;
-    const maleRe = /(marek|adam|krzysztof|piotr|pawe[łl]|jacek|jan|bartek|tomasz|male)/i;
-    if (persona.gender === 'female') {
-      const plFemaleVoice = plVoices.find((v) => femaleRe.test(v.name)) || plVoices[0];
-      if (plFemaleVoice) utter.voice = plFemaleVoice;
-    } else {
-      const plMaleVoice =
-        plVoices.find((v) => maleRe.test(v.name)) ||
-        plVoices.find((v) => !femaleRe.test(v.name));
-      if (plMaleVoice) {
-        utter.voice = plMaleVoice;
-      } else if (plVoices[0]) {
-        utter.voice = plVoices[0];
+  const finish = () => {
+    if (myToken !== speechSessionToken) return;
+    stopSpeaking();
+    if (typeof opts?.onEnd === 'function') opts.onEnd();
+  };
+
+  const getActiveVoices = () => {
+    try {
+      return synth.getVoices?.() || [];
+    } catch {
+      return [];
+    }
+  };
+
+  const renderVoiceSelect = (eligible) => {
+    if (!voiceSelect) return;
+    voiceSelect.replaceChildren();
+    if (!eligible.length) {
+      const opt = document.createElement('option');
+      opt.value = '';
+      opt.textContent = privateMode ? 'Brak lokalnego głosu pl-PL' : 'Domyślny głos pl-PL';
+      voiceSelect.appendChild(opt);
+      voiceSelect.disabled = privateMode;
+      return;
+    }
+    voiceSelect.disabled = false;
+    for (const v of eligible) {
+      const opt = document.createElement('option');
+      opt.value = v.voiceURI || v.name || '';
+      const modeTag = v.localService === true ? 'lokalny' : 'zdalny';
+      opt.textContent = `${v.name || 'Polski'} (${modeTag})`;
+      if (state?.speechVoiceUri && opt.value === state.speechVoiceUri) opt.selected = true;
+      voiceSelect.appendChild(opt);
+    }
+  };
+
+  const speakCurrentChunk = () => {
+    if (myToken !== speechSessionToken) return;
+    if (chunkIndex >= chunks.length) {
+      finish();
+      return;
+    }
+
+    const voices = getActiveVoices();
+    const { voice, eligible, plTotal } = pickSystemPlVoice(voices, persona, state?.speechVoiceUri || '', privateMode);
+    renderVoiceSelect(eligible);
+
+    if (privateMode && !voice) {
+      if (statusNote) {
+        statusNote.textContent = 'Tryb prywatny wymaga lokalnego głosu pl-PL na urządzeniu — użyj przycisku Kopiuj.';
+      }
+      if (pauseBtn) pauseBtn.disabled = true;
+      showToast('Tryb prywatny: brak lokalnego głosu pl-PL na urządzeniu.');
+      return;
+    }
+
+    if (statusNote) {
+      statusNote.textContent = plTotal === 0
+        ? 'Brak polskiego głosu pl-PL — przeglądarka użyje głosu domyślnego.'
+        : `Fragment ${chunkIndex + 1} / ${chunks.length}${privateMode ? ' · głos lokalny' : ''}`;
+    }
+
+    const utter = new SpeechSynthesisUtterance(chunks[chunkIndex]);
+    utter.lang = 'pl-PL';
+    utter.rate = rate;
+    utter.pitch = persona.pitch || 1.0;
+    if (voice) {
+      utter.voice = voice;
+      if (voiceSelect && voice.voiceURI) voiceSelect.value = voice.voiceURI;
+      if (persona.gender !== 'female' && !/(marek|adam|krzysztof|piotr|pawe[łl]|jacek|jan|bartek|tomasz|male)/i.test(voice.name || '')) {
         utter.pitch = Math.min(persona.pitch || 0.94, 0.88);
       }
     }
-  } catch {}
+
+    utter.onend = () => {
+      if (myToken !== speechSessionToken) return;
+      chunkIndex += 1;
+      speakCurrentChunk();
+    };
+    utter.onerror = () => {
+      if (myToken !== speechSessionToken) return;
+      if (statusNote) statusNote.textContent = 'Odtwarzanie zatrzymane lub niedostępne na tym urządzeniu.';
+      finish();
+    };
+
+    try {
+      synth.speak(utter);
+    } catch {
+      finish();
+    }
+  };
 
   activeSpeakingBubble = bubbleEl || null;
   bubbleEl?.classList.add('is-speaking');
@@ -1140,21 +1276,81 @@ function speakReply(text, assistantId, bubbleEl, btnEl, opts = {}) {
     btnEl.textContent = '⏹ Zatrzymaj głos';
   }
 
-  let finished = false;
-  const finish = () => {
-    if (finished) return;
-    finished = true;
-    stopSpeaking();
-    if (typeof opts?.onEnd === 'function') opts.onEnd();
-  };
+  if (bubbleEl) {
+    barEl = document.createElement('div');
+    barEl.className = 'speech-controls-bar';
+    barEl.setAttribute('role', 'region');
+    barEl.setAttribute('aria-label', 'Sterowanie odtwarzaniem głosu');
 
-  utter.onend = finish;
-  utter.onerror = finish;
-  try {
-    synth.speak(utter);
-  } catch {
-    finish();
+    pauseBtn = document.createElement('button');
+    pauseBtn.type = 'button';
+    pauseBtn.className = 'speech-ctrl-btn';
+    pauseBtn.textContent = '⏸ Pauza';
+    pauseBtn.onclick = () => {
+      if (isPaused) {
+        isPaused = false;
+        pauseBtn.textContent = '⏸ Pauza';
+        try { synth.resume?.(); } catch {}
+      } else {
+        isPaused = true;
+        pauseBtn.textContent = '▶ Wznów';
+        try { synth.pause?.(); } catch {}
+      }
+    };
+
+    const stopBtn = document.createElement('button');
+    stopBtn.type = 'button';
+    stopBtn.className = 'speech-ctrl-btn';
+    stopBtn.textContent = '⏹ Stop';
+    stopBtn.onclick = () => finish();
+
+    rateBtn = document.createElement('button');
+    rateBtn.type = 'button';
+    rateBtn.className = 'speech-ctrl-btn';
+    rateBtn.textContent = `Tempo ${rate}×`;
+    rateBtn.onclick = () => {
+      const nextIdx = (ALLOWED_SPEECH_RATES.indexOf(rate) + 1) % ALLOWED_SPEECH_RATES.length;
+      rate = ALLOWED_SPEECH_RATES[nextIdx];
+      state.speechRate = rate;
+      saveState();
+      rateBtn.textContent = `Tempo ${rate}×`;
+      if (!privateMode || pickSystemPlVoice(getActiveVoices(), persona, state?.speechVoiceUri || '', true).voice) {
+        isPaused = false;
+        if (pauseBtn) pauseBtn.textContent = '⏸ Pauza';
+        try { synth.cancel?.(); } catch {}
+        speakCurrentChunk();
+      }
+    };
+
+    voiceSelect = document.createElement('select');
+    voiceSelect.className = 'speech-voice-select';
+    voiceSelect.setAttribute('aria-label', 'Wybór polskiego głosu systemowego');
+    voiceSelect.onchange = () => {
+      state.speechVoiceUri = voiceSelect.value || '';
+      saveState();
+      isPaused = false;
+      if (pauseBtn) pauseBtn.textContent = '⏸ Pauza';
+      try { synth.cancel?.(); } catch {}
+      speakCurrentChunk();
+    };
+
+    statusNote = document.createElement('span');
+    statusNote.className = 'speech-status-note';
+
+    barEl.append(pauseBtn, stopBtn, rateBtn, voiceSelect, statusNote);
+    bubbleEl.appendChild(barEl);
   }
+
+  if (typeof synth.addEventListener === 'function') {
+    const onVoices = () => {
+      if (myToken !== speechSessionToken) return;
+      const { eligible } = pickSystemPlVoice(getActiveVoices(), persona, state?.speechVoiceUri || '', privateMode);
+      renderVoiceSelect(eligible);
+    };
+    synth.addEventListener('voiceschanged', onVoices, { once: true });
+  }
+
+  speakCurrentChunk();
 }
 
 function getUidScope(uid = currentUser?.uid) {
@@ -1190,7 +1386,9 @@ function loadState(uid = currentUser?.uid) {
     rightCollapsed: false,
     ambientBgEnabled: true,
     ambientBgColor: DEFAULT_AMBIENT_COLOR,
-    railHoverPreview: true
+    railHoverPreview: true,
+    speechVoiceUri: '',
+    speechRate: 1
   };
   try {
     const raw = JSON.parse(localStorage.getItem(getStorageKey(uid)) || 'null');
@@ -1230,7 +1428,9 @@ function loadState(uid = currentUser?.uid) {
       rightCollapsed: Boolean(raw.rightCollapsed),
       ambientBgEnabled: raw.ambientBgEnabled !== false,
       ambientBgColor: normalizeHexColor(raw.ambientBgColor) || DEFAULT_AMBIENT_COLOR,
-      railHoverPreview: raw.railHoverPreview !== false
+      railHoverPreview: raw.railHoverPreview !== false,
+      speechVoiceUri: typeof raw.speechVoiceUri === 'string' ? raw.speechVoiceUri.slice(0, 200) : '',
+      speechRate: ALLOWED_SPEECH_RATES.includes(Number(raw.speechRate)) ? Number(raw.speechRate) : 1
     };
   } catch {
     return empty;
@@ -5548,7 +5748,7 @@ function openPrivacyModal() {
   showInfoDialog();
 }
 
-$$('.footer-item:not(#shareAppBtn)').forEach((btn) => {
+$$('.footer-item:not(#shareAppBtn):not(#privacyToggleBtn)').forEach((btn) => {
   btn.addEventListener('click', () => {
     const name = btn.dataset.nav || 'Opcje';
     if (name === 'Ustawienia') openSettingsModal();

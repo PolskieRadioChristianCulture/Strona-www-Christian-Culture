@@ -209,8 +209,8 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261127_ai36_flyout_bg/);
-  assert.match(html, /\/ai\/app\.js\?v=20261127_ai36_flyout_bg/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261127_ai37_p1_pilot/);
+  assert.match(html, /\/ai\/app\.js\?v=20261127_ai37_p1_pilot/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
@@ -1170,4 +1170,115 @@ test('AI dla Jezusa collapses desktop sidebars into compact icon rails like Chat
   assert.match(appJs, /ambientBgColor/);
   assert.match(appJs, /railHoverPreview/);
   assert.match(appJs, /#ambientBgToggle|#railHoverToggle|ambientBgToggle/);
+});
+
+test('P0/P1 pilot: /test/ai/ parity, CC MCP visibility + Rzymian + cc_get_source + kill-switch, and P1b speech controls', async () => {
+  const worker = fs.readFileSync(path.join(ROOT, '_worker.js'), 'utf8');
+  const redirects = fs.readFileSync(path.join(ROOT, '_redirects'), 'utf8');
+  const headers = fs.readFileSync(path.join(ROOT, '_headers'), 'utf8');
+  const testHtml = fs.readFileSync(path.join(ROOT, 'test/ai/index.html'), 'utf8');
+  const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
+
+  // 1. /test/ai/ serves same code with noindex + isolated storage prefix
+  assert.match(worker, /isTestAiRoute/);
+  assert.match(worker, /cc-ai-env/);
+  assert.match(redirects, /^\/test\/ai\s+\/ai\/index\.html\s+200$/m);
+  assert.match(headers, /^\/test\/ai\r?\n\s+X-Robots-Tag:\s*noindex,\s*nofollow/m);
+  assert.match(testHtml, /<meta name="robots" content="noindex, nofollow">/);
+  assert.doesNotMatch(testHtml, /rel="canonical"/);
+  assert.match(appJs, /cc_ai_test_v1/);
+
+  // 2. P1a CC MCP: Studium Listu do Rzymian + visibility guard (even when cached) + cc_get_source + Rz 8:28 bridge + kill-switch
+  const { setCanonicalDocumentsForTest } = await import('../services/ai-dla-jezusa/knowledge-hub.js');
+
+  const rzSearchRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/mcp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        id: 101,
+        method: 'tools/call',
+        params: { name: 'cc_search', arguments: { query: 'Studium Listu do Rzymian', limit: 3 } }
+      })
+    }),
+    {}
+  );
+  assert.equal(rzSearchRes.status, 200);
+  const rzPayload = JSON.parse((await rzSearchRes.json()).result.content[0].text);
+  assert.ok(rzPayload.total > 0);
+  assert.match(rzPayload.results[0].title, /Rzymian/i);
+
+  // Private & withdrawn items must never leak through cc_search or cc_get_source
+  setCanonicalDocumentsForTest([
+    { title: 'Publiczny Rzymian', url: '/prawo/rzymian-public', description: 'Publiczny opis', visibility: 'public', status: 'published' },
+    { title: 'Prywatny Rzymian', url: '/private/rzymian-secret', description: 'Sekret', visibility: 'private', status: 'published' },
+    { title: 'Wycofany Rzymian', url: '/art/rzymian-withdrawn', description: 'Wycofany', visibility: 'public', status: 'withdrawn' }
+  ]);
+  try {
+    const filteredRes = await handleAiDlaJezusaApi(
+      new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/mcp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ jsonrpc: '2.0', id: 102, method: 'tools/call', params: { name: 'cc_search', arguments: { query: 'Rzymian', limit: 5 } } })
+      })
+    );
+    const filteredData = JSON.parse((await filteredRes.json()).result.content[0].text);
+    assert.equal(filteredData.total, 1);
+    assert.equal(filteredData.results[0].title, 'Publiczny Rzymian');
+
+    const privSourceRes = await handleAiDlaJezusaApi(
+      new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/mcp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ jsonrpc: '2.0', id: 103, method: 'tools/call', params: { name: 'cc_get_source', arguments: { id: 'cc:page:private-rzymian-secret' } } })
+      })
+    );
+    const privSourceData = JSON.parse((await privSourceRes.json()).result.content[0].text);
+    assert.equal(privSourceData.found, false);
+  } finally {
+    setCanonicalDocumentsForTest(null);
+  }
+
+  // Rz 8:28 via mojabiblia-bridge mock + Biblia Audio link
+  const bridgeScriptureRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/mcp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ jsonrpc: '2.0', id: 104, method: 'tools/call', params: { name: 'cc_find_scripture', arguments: { reference: 'Rz 8:28' } } })
+    }),
+    {},
+    {
+      fetchAsset: async (assetPath) => {
+        if (assetPath.includes('ROM_08.json')) {
+          return { verses: [{ verse: 28, text: { UBG: 'A wiemy, że tym, którzy miłują Boga, wszystko współdziała ku dobremu...' }, interlinear: [] }] };
+        }
+        return null;
+      }
+    }
+  );
+  const bridgePayload = JSON.parse((await bridgeScriptureRes.json()).result.content[0].text);
+  assert.equal(bridgePayload.found, true);
+  assert.match(bridgePayload.scripture.text, /miłują Boga/);
+  assert.match(bridgePayload.scripture.biblia_audio_url, /polskieradio\.cc\/biblia-audio/);
+
+  // Kill-switch disables MCP (503) while /search still returns 200
+  const disabledMcp = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/mcp', { method: 'GET' }),
+    { AI_MCP_ENABLED: 'false' }
+  );
+  assert.equal(disabledMcp.status, 503);
+  const classicSearch = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/search?q=Rzymian', { method: 'GET' }),
+    { AI_MCP_ENABLED: 'false' }
+  );
+  assert.equal(classicSearch.status, 200);
+
+  // 3. P1b system speech controls + private-mode local-only guard
+  assert.match(appJs, /speech-controls-bar/);
+  assert.match(appJs, /splitSpeechChunks/);
+  assert.match(appJs, /pickSystemPlVoice/);
+  assert.match(appJs, /localService === true/);
+  assert.match(appJs, /speechRate/);
+  assert.match(appJs, /speechVoiceUri/);
 });
