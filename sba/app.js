@@ -245,9 +245,8 @@ function goTo(index, instant = false) {
 }
 
 function layout() {
-  const height = Math.max(240, Math.round(feed.clientHeight));
-  feed.style.setProperty('--verse-space', height + 'px');
-  feed.style.paddingBlock = '0px';
+  feed.style.setProperty('--verse-space', Math.round(feed.clientHeight * .43) + 'px');
+  feed.style.paddingBlock = Math.max(0, (feed.clientHeight * .57) / 2) + 'px';
   if (active >= 0) goTo(active, true);
 }
 
@@ -314,13 +313,35 @@ function clearPress() {
   pressOrigin = null;
 }
 
+let dialogGuardUntil = 0;
+let awaitingHoldRelease = false;
+function armDialogHoldGuard() {
+  awaitingHoldRelease = true;
+  dialogGuardUntil = performance.now() + 800;
+  const onRelease = () => {
+    awaitingHoldRelease = false;
+    dialogGuardUntil = Math.max(dialogGuardUntil, performance.now() + 700);
+    window.removeEventListener('pointerup', onRelease, true);
+    window.removeEventListener('pointercancel', onRelease, true);
+    window.removeEventListener('touchend', onRelease, true);
+    window.removeEventListener('touchcancel', onRelease, true);
+  };
+  window.addEventListener('pointerup', onRelease, true);
+  window.addEventListener('pointercancel', onRelease, true);
+  window.addEventListener('touchend', onRelease, true);
+  window.addEventListener('touchcancel', onRelease, true);
+}
+
 feed.addEventListener('pointerdown', (event) => {
   if (!event.isPrimary || event.button !== 0 || !event.target.closest('.verse.active') || event.target.closest('button')) return;
   pressOrigin = [event.clientX, event.clientY];
   const verse = selected();
   pressTimer = setTimeout(() => {
     clearPress();
-    if (selected() === verse) openVerseMenu(verse);
+    if (selected() === verse) {
+      armDialogHoldGuard();
+      openVerseMenu(verse);
+    }
   }, 510);
 });
 feed.addEventListener('pointermove', (event) => {
@@ -331,7 +352,10 @@ feed.addEventListener('contextmenu', (event) => {
   if (!event.target.closest('.verse.active') || event.target.closest('button')) return;
   event.preventDefault();
   clearPress();
-  if (!dialog.open && selected()) openVerseMenu(selected());
+  if (!dialog.open && selected()) {
+    armDialogHoldGuard();
+    openVerseMenu(selected());
+  }
 });
 
 function show(title, items, { edge = false } = {}) {
@@ -345,9 +369,21 @@ function show(title, items, { edge = false } = {}) {
   dialog.scrollTop = 0;
   $('#close').focus();
 }
+dialog.addEventListener('pointerdown', (event) => {
+  if (!awaitingHoldRelease && event.isPrimary) dialogGuardUntil = 0;
+}, true);
+dialog.addEventListener('click', (event) => {
+  if (awaitingHoldRelease || performance.now() < dialogGuardUntil) {
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+  }
+}, true);
 $('#close').addEventListener('click', () => dialog.close());
 dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
 dialog.addEventListener('close', () => {
+  awaitingHoldRelease = false;
+  dialogGuardUntil = 0;
   if (returningFocus?.isConnected && !returningFocus.closest('[aria-hidden=true]')) returningFocus.focus({ preventScroll: true });
   else feed.focus({ preventScroll: true });
 });
@@ -892,7 +928,135 @@ async function initBible() {
   layout();
   goTo(1, true);
   requestAnimationFrame(() => feed.classList.add('is-ready'));
+  scheduleInstallBanner();
 }
+
+const INSTALL_DONE_KEY = 'cc-sba-installed-v1';
+const INSTALL_DAY_KEY = 'cc-sba-install-banner-day-v1';
+let deferredInstallPrompt = null;
+let installBannerTimer = 0;
+
+function todayLocalKey() {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = String(now.getMonth() + 1).padStart(2, '0');
+  const d = String(now.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
+function isStandaloneInstalled() {
+  try {
+    if (localStorage.getItem(INSTALL_DONE_KEY) === '1' || readLocal(INSTALL_DONE_KEY) === true) return true;
+  } catch {
+    /* ignore storage block */
+  }
+  const standalone =
+    window.matchMedia?.('(display-mode: standalone)')?.matches ||
+    window.matchMedia?.('(display-mode: fullscreen)')?.matches ||
+    window.matchMedia?.('(display-mode: minimal-ui)')?.matches ||
+    window.navigator.standalone === true ||
+    document.referrer.startsWith('android-app://');
+  if (standalone) {
+    try { localStorage.setItem(INSTALL_DONE_KEY, '1'); } catch {}
+  }
+  return Boolean(standalone);
+}
+
+function hideInstallBanner() {
+  const banner = $('#install-banner');
+  if (!banner) return;
+  banner.classList.remove('is-visible');
+  banner.hidden = true;
+}
+
+function markInstalled(method) {
+  try { localStorage.setItem(INSTALL_DONE_KEY, '1'); } catch {}
+  deferredInstallPrompt = null;
+  clearTimeout(installBannerTimer);
+  hideInstallBanner();
+  trackEvent('sba_pwa_installed', { method });
+  if (method !== 'standalone') notify('Aplikacja Scrolluj Biblię została zainstalowana.');
+}
+
+function initInstallBanner() {
+  const banner = $('#install-banner');
+  if (!banner) return;
+  if ('serviceWorker' in navigator && (inEcosystem || location.protocol === 'https:')) {
+    navigator.serviceWorker.register('/sba/sw.js', { scope: '/sba' }).catch(() => {});
+  }
+  if (isStandaloneInstalled()) {
+    hideInstallBanner();
+    return;
+  }
+  window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    deferredInstallPrompt = event;
+  });
+  window.addEventListener('appinstalled', () => markInstalled('event'));
+
+  const cta = $('#install-banner-cta');
+  const later = $('#install-banner-later');
+  const closeBtn = $('#install-banner-close');
+  const help = $('#install-banner-help');
+  const steps = $('#install-banner-steps');
+  const doneBtn = $('#install-banner-done');
+
+  const dismissToday = () => {
+    hideInstallBanner();
+    trackEvent('sba_install_dismiss');
+  };
+  closeBtn?.addEventListener('click', dismissToday);
+  later?.addEventListener('click', dismissToday);
+  doneBtn?.addEventListener('click', () => markInstalled('manual'));
+
+  cta?.addEventListener('click', async () => {
+    trackEvent('sba_install_click', { has_prompt: Boolean(deferredInstallPrompt) });
+    if (deferredInstallPrompt) {
+      const promptEvent = deferredInstallPrompt;
+      deferredInstallPrompt = null;
+      try {
+        await promptEvent.prompt();
+        const choice = await promptEvent.userChoice;
+        if (choice?.outcome === 'accepted') {
+          markInstalled('prompt');
+          return;
+        }
+        dismissToday();
+        return;
+      } catch {
+        /* fallback to instructions below */
+      }
+    }
+    const isIos = /iPhone|iPad|iPod/i.test(navigator.userAgent || '');
+    if (steps) {
+      steps.textContent = isIos
+        ? 'Na iPhone/iPad: dotknij ikony Udostępnij na pasku Safari, a następnie wybierz „Do ekranu początkowego”.'
+        : 'Otwórz menu przeglądarki (⋮) i wybierz „Zainstaluj aplikację” lub „Dodaj do ekranu głównego”.';
+    }
+    if (help) help.hidden = false;
+  });
+}
+
+function scheduleInstallBanner() {
+  const banner = $('#install-banner');
+  if (!banner || isStandaloneInstalled()) return;
+  const today = todayLocalKey();
+  try {
+    if (localStorage.getItem(INSTALL_DAY_KEY) === today) return;
+  } catch {
+    return;
+  }
+  clearTimeout(installBannerTimer);
+  installBannerTimer = setTimeout(() => {
+    if (isStandaloneInstalled()) return;
+    try { localStorage.setItem(INSTALL_DAY_KEY, today); } catch {}
+    banner.hidden = false;
+    requestAnimationFrame(() => banner.classList.add('is-visible'));
+    trackEvent('sba_install_banner_shown');
+  }, 700);
+}
+
+initInstallBanner();
 $('#retry').addEventListener('click', initBible);
 window.addEventListener('hashchange', () => {
   const verse = bible?.byKey.get(new URLSearchParams(location.hash.slice(1)).get('werset'));
