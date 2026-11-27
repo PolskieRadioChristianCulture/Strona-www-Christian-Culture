@@ -8201,3 +8201,26 @@ try {
     window.history.replaceState({}, '', cleaned.pathname + (cleaned.search || '') + (cleaned.hash || ''));
   }
 } catch {}
+
+try {
+  const urlParams = new URLSearchParams(window.location.search);
+  const incomingPrompt = (urlParams.get('q') || urlParams.get('prompt') || '').trim();
+  const incomingMode = (urlParams.get('mode') || '').trim();
+  if (incomingPrompt && promptInput) {
+    if (incomingMode && ALLOWED_MODES.has(incomingMode)) {
+      setMode(incomingMode, { persist: false });
+    }
+    const clipped = incomingPrompt.slice(0, 2000);
+    promptInput.value = clipped;
+    promptInput.dispatchEvent(new Event('input', { bubbles: true }));
+    try {
+      promptInput.focus();
+      promptInput.setSelectionRange(clipped.length, clipped.length);
+      promptInput.scrollIntoView?.({ block: 'nearest' });
+    } catch {}
+    showToast('Werset z pytaniem jest już w oknie czatu — naciśnij Wyślij.');
+    const cleaned = new URL(window.location.href);
+    for (const key of ['q', 'prompt', 'mode', 'source', 'ref']) cleaned.searchParams.delete(key);
+    window.history.replaceState({}, '', cleaned.pathname + (cleaned.search || '') + (cleaned.hash || ''));
+  }
+} catch {}

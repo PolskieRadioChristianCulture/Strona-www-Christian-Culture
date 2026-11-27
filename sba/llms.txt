@@ -1,0 +1,32 @@
+# Scrolluj Biblię — Czytaj i słuchaj jednocześnie (Biblia UBG Christian Culture)
+
+> Bezpłatna aplikacja biblijna Christian Culture do odkrywania wersetów Uwspółcześnionej Biblii Gdańskiej (UBG), czytania kontekstu całych rozdziałów oraz jednoczesnego słuchania nagrań Biblii Audio CC, głosu urządzenia i 3 całodobowych stacji radiowych Christian Culture.
+
+- **Kanoniczny adres aplikacji (Canonical URL)**: https://polskieradio.cc/sba
+- **Wydawca (Publisher)**: Misja Christian Culture — https://polskieradio.cc
+- **Autorzy / Kierownictwo**: Cezary Rogowski (Nazir) & Wioletta Rogowska
+- **Język**: Polski (`pl-PL`)
+- **Przekład biblijny**: Uwspółcześniona Biblia Gdańska (UBG) — 66 ksiąg Starego i Nowego Testamentu
+- **Dostępność i model**: 100% bezpłatna, bez reklam, bez paywalli i bez przymusowej rejestracji (tryb gościa działa od razu lokalnie w przeglądarce)
+
+## Głębokie linkowanie do wersetów (Deep Linking)
+- Format bezpośredniego linku do dowolnego wersetu: `https://polskieradio.cc/sba#werset={BOOK}.{CHAPTER}.{VERSE}`
+- Przykłady:
+  - Ewangelia Jana 11:35: https://polskieradio.cc/sba#werset=JHN.11.35
+  - Księga Rodzaju 1:1: https://polskieradio.cc/sba#werset=GEN.1.1
+  - Psalm 23:1: https://polskieradio.cc/sba#werset=PSA.23.1
+
+## Kluczowe funkcje aplikacji
+1. **Losowy czytnik wersetów UBG**: przewijanie w dół losuje kolejne wersety Pisma Świętego, z płynnym powrotem w górę do historii czytania.
+2. **Kontekst całego rozdziału**: otwiera pełny rozdział UBG z wyróżnionym aktualnym wersetem oraz bezpośrednim przejściem do interlinearnej analizy w [MojaBiblia](https://polskieradio.cc/mojabiblia).
+3. **Odtwarzacz Biblii Audio CC i głos urządzenia**: odtwarza oficjalne nagrania rozdziałów z katalogu https://polskieradio.cc/biblia-audio (gdy są dostępne) z automatycznym fallbackiem na polski głos urządzenia (Web Speech API).
+4. **3 stacje radia Christian Culture na żywo 24/7**:
+   - *Biblia Audio Christian Culture*
+   - *Polskie Radio Christian Culture*
+   - *Christian Culture Global*
+5. **Prywatne podkreślenia, notatki i ulubione**: podkreślanie wersetów, prywatne notatki zapisywane lokalnie na urządzeniu użytkownika oraz niezależne zapisywanie ulubionych wersetów i samej aplikacji w koncie LUMINA.
+6. **Integracje ekosystemu**: natychmiastowe zapytanie do „AI dla Jezusa” (https://polskieradio.cc/ai/aplikacja), wyszukiwarka Christian Culture (https://polskieradio.cc/wyszukiwarka), czat społeczności LUMI Messenger (https://polskieradio.cc/mess) oraz wsparcie misji (https://polskieradio.cc/wspieramto).
+
+## Prywatność i analityka
+- Prywatne notatki i podkreślenia użytkowników są przechowywane lokalnie w przeglądarce (`localStorage`) i nigdy nie są wysyłane do Google Analytics.
+- Analityka korzysta ze standardu Christian Culture (`G-Y4EFTVBPE3` + `/js/cc-analytics.js`) z automatyczną sanitacją PII i poszanowaniem zgody użytkownika.

@@ -67,6 +67,17 @@ let playingTrack = null;
 let speech = null;
 let playerError = '';
 let returningFocus;
+const trackedVerses = new Set();
+
+function trackEvent(eventName, params = {}) {
+  try {
+    if (typeof window.ccTrack === 'function') {
+      window.ccTrack(eventName, { app: 'scrolluj_biblie', ...params });
+    }
+  } catch {
+    /* keep reader resilient if analytics is blocked */
+  }
+}
 
 for (const item of document.querySelectorAll('[data-icon]')) icon(item, item.dataset.icon);
 
@@ -160,6 +171,7 @@ function updateVerse(verse, change) {
 function toggleFavorite(verse) {
   const saved = !settings[verse.key]?.saved;
   updateVerse(verse, { saved });
+  trackEvent('sba_verse_favorite', { verse_key: verse.key, book: verse.book, chapter: verse.chapter, saved });
   notify(saved ? 'Zapisano w ulubionych wersetach.' : 'Usunięto z ulubionych wersetów.');
 }
 
@@ -180,6 +192,15 @@ function activate(index) {
   playerError = '';
   if (!isPlaying() && playingTrack?.type !== 'radio' && playingTrack?.verse.key !== entry.verse.key) stopPlayback();
   updatePlayer();
+  if (!trackedVerses.has(entry.verse.key)) {
+    trackedVerses.add(entry.verse.key);
+    trackEvent('sba_verse_view', {
+      verse_key: entry.verse.key,
+      book: entry.verse.book,
+      chapter: entry.verse.chapter,
+      initial_view: !old
+    });
+  }
   if (active >= cards.length - 4) addCards(12);
 }
 
@@ -224,20 +245,59 @@ function goTo(index, instant = false) {
 }
 
 function layout() {
-  feed.style.setProperty('--verse-space', Math.round(feed.clientHeight * .43) + 'px');
-  feed.style.paddingBlock = Math.max(0, (feed.clientHeight * .57) / 2) + 'px';
+  const height = Math.max(240, Math.round(feed.clientHeight));
+  feed.style.setProperty('--verse-space', height + 'px');
+  feed.style.paddingBlock = '0px';
   if (active >= 0) goTo(active, true);
 }
 
+let frameScrollTimer;
+let touchSwipe = null;
+let wheelCooldown = 0;
+
 feed.addEventListener('scroll', () => {
   clearPress();
+  if (!frameScrollTimer) {
+    frameScrollTimer = requestAnimationFrame(() => {
+      frameScrollTimer = 0;
+      const next = nearestCard();
+      if (next !== active) activate(next);
+    });
+  }
   clearTimeout(scrollTimer);
-  scrollTimer = setTimeout(settleScroll, 125);
+  scrollTimer = setTimeout(settleScroll, 55);
 }, { passive: true });
 feed.addEventListener('scrollend', () => {
   clearTimeout(scrollTimer);
   settleScroll();
 });
+feed.addEventListener('touchstart', (event) => {
+  if (event.touches.length !== 1) return;
+  const touch = event.touches[0];
+  touchSwipe = { x: touch.clientX, y: touch.clientY, time: performance.now() };
+}, { passive: true });
+feed.addEventListener('touchend', (event) => {
+  if (!touchSwipe || dialog.open || event.changedTouches.length !== 1) {
+    touchSwipe = null;
+    return;
+  }
+  const touch = event.changedTouches[0];
+  const dx = touch.clientX - touchSwipe.x;
+  const dy = touch.clientY - touchSwipe.y;
+  const dt = performance.now() - touchSwipe.time;
+  touchSwipe = null;
+  if (dt <= 260 && Math.abs(dy) >= 38 && Math.abs(dx) < Math.abs(dy) * 0.8) {
+    goTo(active + (dy < 0 ? 1 : -1));
+  }
+}, { passive: true });
+feed.addEventListener('wheel', (event) => {
+  if (dialog.open || Math.abs(event.deltaY) < 18) return;
+  event.preventDefault();
+  const now = performance.now();
+  if (now - wheelCooldown < 280) return;
+  wheelCooldown = now;
+  goTo(active + (event.deltaY > 0 ? 1 : -1));
+}, { passive: false });
 $('#previous').addEventListener('click', () => goTo(active - 1));
 $('#next').addEventListener('click', () => goTo(active + 1));
 feed.addEventListener('keydown', (event) => {
@@ -302,6 +362,19 @@ function link(title, url) {
   anchor.href = url;
   anchor.target = '_blank';
   anchor.rel = 'noopener';
+  anchor.addEventListener('click', () => {
+    const href = typeof url === 'string' ? url : url.href;
+    let targetHost = '';
+    let targetPath = '';
+    try {
+      const parsed = new URL(href, location.href);
+      targetHost = parsed.hostname;
+      targetPath = parsed.pathname;
+    } catch {
+      /* ignore malformed url */
+    }
+    trackEvent('sba_integration_click', { link_label: title, target_host: targetHost, target_path: targetPath });
+  });
   return anchor;
 }
 
@@ -343,12 +416,14 @@ async function share(verse) {
   try {
     if (navigator.share) {
       await navigator.share({ title: ref(verse) + ' · UBG', text: verseQuote(verse), url: link.href });
+      trackEvent('sba_verse_share', { verse_key: verse.key, method: 'web_share' });
       return;
     }
   } catch (error) {
     if (error.name === 'AbortError') return;
   }
   await copy(verseQuote(verse) + '\n' + link.href);
+  trackEvent('sba_verse_share', { verse_key: verse.key, method: 'clipboard' });
 }
 
 function showContext(verse) {
@@ -361,6 +436,7 @@ function showContext(verse) {
   });
   show(chapterRef(verse) + ' · UBG', [link('Otwórz rozdział w MojaBiblia', mojaBiblia(verse)), ...nodes]);
   dialogContent.querySelector('[aria-current]')?.scrollIntoView({ block: 'nearest' });
+  trackEvent('sba_chapter_context', { verse_key: verse.key, book: verse.book, chapter: verse.chapter });
 }
 
 function showNote(verse) {
@@ -371,32 +447,25 @@ function showNote(verse) {
   input.setAttribute('aria-label', 'Notatka do wersetu');
   show('Notatka · ' + ref(verse), [input, row('Zapisz notatkę', () => {
     dialog.close();
-    updateVerse(verse, { note: input.value.trim() });
+    const noteText = input.value.trim();
+    updateVerse(verse, { note: noteText });
+    trackEvent('sba_verse_note_saved', { verse_key: verse.key, has_note: Boolean(noteText) });
     notify('Zapisano notatkę na tym urządzeniu.');
   })]);
   input.focus();
 }
 
-function showAsk(verse) {
-  const question = 'Pomóż mi zrozumieć ten werset w kontekście całego rozdziału: ' + verseQuote(verse) + '. Wyjaśnij kontekst i wskaż powiązane fragmenty Biblii.';
-  const preview = element('textarea');
-  preview.value = question;
-  preview.readOnly = true;
-  preview.setAttribute('aria-label', 'Gotowe pytanie do skopiowania');
-  show('Zapytaj AI dla Jezusa', [
-    element('p', '', 'Skopiuj pytanie i wklej je w aplikacji AI dla Jezusa.'),
-    preview, row('Skopiuj pytanie', async (event) => {
-      const button = event.currentTarget;
-      try {
-        await navigator.clipboard.writeText(question);
-        button.textContent = 'Skopiowano pytanie';
-      } catch {
-        preview.focus();
-        preview.select();
-      }
-    }),
-    link('Otwórz AI dla Jezusa', site('/ai/aplikacja'))
-  ]);
+function askAiQuestion(verse) {
+  return 'Pomóż mi zrozumieć ten werset w kontekście całego rozdziału: ' + verseQuote(verse) + '. Wyjaśnij kontekst i wskaż powiązane fragmenty Biblii.';
+}
+
+function askAiUrl(verse) {
+  const url = site('/ai/aplikacja');
+  url.searchParams.set('q', askAiQuestion(verse));
+  url.searchParams.set('mode', 'Studium Biblijne');
+  url.searchParams.set('source', 'sba');
+  url.searchParams.set('ref', verse.key);
+  return url;
 }
 
 function openVerseMenu(verse) {
@@ -404,14 +473,26 @@ function openVerseMenu(verse) {
   const recording = officialTrack(recordings, verse);
   const search = site('/szukaj');
   search.searchParams.set('q', ref(verse));
+  const askLink = link('Zapytaj AI dla Jezusa o ten fragment', askAiUrl(verse));
+  askLink.addEventListener('click', () => {
+    dialog.close();
+    trackEvent('sba_ai_ask_open', { verse_key: verse.key, book: verse.book, chapter: verse.chapter });
+    navigator.clipboard?.writeText(askAiQuestion(verse)).catch(() => {});
+  });
   show(ref(verse), [
     row(saved?.marked ? 'Usuń podkreślenie' : 'Podkreśl werset', () => {
       dialog.close();
-      updateVerse(verse, { marked: !saved?.marked });
+      const marked = !saved?.marked;
+      updateVerse(verse, { marked });
+      trackEvent('sba_verse_highlight', { verse_key: verse.key, marked });
     }),
     row(saved?.saved ? 'Usuń z ulubionych wersetów' : 'Dodaj werset do ulubionych', () => { dialog.close(); toggleFavorite(verse); }),
     row('Udostępnij werset', () => { dialog.close(); void share(verse); }),
-    row('Kopiuj tekst wersetu', () => { dialog.close(); void copy(verseQuote(verse)); }),
+    row('Kopiuj tekst wersetu', () => {
+      dialog.close();
+      trackEvent('sba_verse_copy', { verse_key: verse.key, book: verse.book, chapter: verse.chapter });
+      void copy(verseQuote(verse));
+    }),
     row('Czytaj kontekst rozdziału', () => showContext(verse)),
     link('Otwórz ten werset w MojaBiblia', mojaBiblia(verse)),
     row('Odczytaj ten werset głosem urządzenia', () => { dialog.close(); startVoice(verse); }),
@@ -422,8 +503,9 @@ function openVerseMenu(verse) {
     row(saved?.note ? 'Edytuj notatkę' : 'Dodaj notatkę', () => showNote(verse)),
     link('Wyszukaj ten fragment w Christian Culture', search),
     link('Otwórz Wyszukiwarkę Christian Culture', site('/wyszukiwarka')),
-    row('Zapytaj AI dla Jezusa o ten fragment', () => showAsk(verse))
+    askLink
   ]);
+  trackEvent('sba_verse_menu_open', { verse_key: verse.key });
 }
 
 $('#saved-verses').addEventListener('click', () => {
@@ -498,6 +580,11 @@ function updatePlayer() {
   seek.value = audio.currentTime || 0;
   $('#elapsed').textContent = formatTime(audio.currentTime || 0);
   $('#duration').textContent = formatTime(duration);
+  const radioPlaying = Boolean(radio && live);
+  const playerEl = $('.player');
+  if (playerEl) playerEl.classList.toggle('is-radio-playing', radioPlaying);
+  const radioEq = $('#radio-eq');
+  if (radioEq) radioEq.hidden = !radioPlaying;
 }
 
 function startVoice(verse) {
@@ -524,6 +611,7 @@ function startVoice(verse) {
   utterance.onerror = () => finished(true);
   speech = utterance;
   speechSynthesis.speak(utterance);
+  trackEvent('sba_voice_play', { verse_key: verse.key, book: verse.book, chapter: verse.chapter });
   updatePlayer();
 }
 
@@ -578,6 +666,7 @@ function setAudioMode(mode) {
   saveLocal('cc-biblia-ubg-audio-v1', mode);
   stopPlayback();
   playerError = '';
+  trackEvent('sba_audio_mode', { audio_mode: mode });
   updatePlayer();
   dialog.close();
 }
@@ -589,6 +678,7 @@ $('#audio-options').addEventListener('click', () => {
     element('h3', '', 'Radio na żywo'),
     ...stations.map((station) => row((playingTrack === station ? '✓  ' : '') + station.title, () => {
       dialog.close();
+      trackEvent('sba_radio_select', { station_title: station.title, stream_url: station.url });
       void startMedia(station);
     }))
   ]);
@@ -611,10 +701,100 @@ pageStar.addEventListener('click', () => {
   paintLocalPageStar();
 });
 
+const SBA_LUMI_THEME_CSS = `
+  html, html.lumi-mess-page, html[data-lumina-theme],
+  html body.lumi-standalone, html[data-lumina-theme] body.lumi-standalone,
+  body.lumi-standalone {
+    background-color: #0d0d0f !important;
+    background-image: radial-gradient(ellipse at 50% 0%, rgba(183, 25, 51, 0.20) 0%, #0d0d0f 65%) !important;
+  }
+  html body.lumi-standalone #ccGlobalChatOverlay .cc-chat-drawer,
+  html body.lumi-standalone #directMessagesModal .lumina-messenger-modal-card,
+  html body.lumi-standalone #chatSettingsModal .modal-card {
+    background: #101013 !important;
+    border-color: rgba(183, 25, 51, 0.42) !important;
+    color: #f8f6f6 !important;
+  }
+  html body.lumi-standalone .cc-chat-header,
+  html body.lumi-standalone #directMessagesModal .chat-header-bar,
+  html body.lumi-standalone .cc-chat-composer,
+  html body.lumi-standalone #directMessagesModal .chat-input-bar {
+    background: #111114 !important;
+    border-color: rgba(183, 25, 51, 0.30) !important;
+  }
+  html body.lumi-standalone .cc-chat-msg-bubble,
+  html body.lumi-standalone #directMessagesModal .fb-msg-bubble-them {
+    background: linear-gradient(145deg, #1f1c1d 0%, #161415 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.11) !important;
+    color: #f8f6f6 !important;
+  }
+  html body.lumi-standalone .cc-chat-msg-row.is-me .cc-chat-msg-bubble,
+  html body.lumi-standalone #directMessagesModal .fb-msg-bubble-me,
+  html body.lumi-standalone .cc-chat-send-btn,
+  html body.lumi-standalone .cc-chat-tab-btn.is-active,
+  html body.lumi-standalone .lumi-public-login {
+    background: linear-gradient(135deg, #c81d3a 0%, #991329 100%) !important;
+    border-color: rgba(231, 71, 99, 0.48) !important;
+    box-shadow: 0 6px 18px rgba(183, 25, 51, 0.38) !important;
+    color: #ffffff !important;
+  }
+  html body.lumi-standalone #ccChatInput,
+  html body.lumi-standalone #activeChatInput,
+  html body.lumi-standalone #publicChatInput {
+    background: #191718 !important;
+    border: 1px solid rgba(183, 25, 51, 0.35) !important;
+    color: #ffffff !important;
+  }
+  html body.lumi-standalone #ccChatInput:focus-visible,
+  html body.lumi-standalone #activeChatInput:focus-visible,
+  html body.lumi-standalone #publicChatInput:focus-visible {
+    outline: 2px solid #e74763 !important;
+  }
+  html body.lumi-standalone .cc-chat-radio {
+    border-color: rgba(183, 25, 51, 0.42) !important;
+  }
+  html body.lumi-standalone .cc-chat-radio button {
+    background: linear-gradient(135deg, #c81d3a, #991329) !important;
+    color: #ffffff !important;
+    box-shadow: 0 2px 8px rgba(183, 25, 51, 0.35) !important;
+  }
+  html body.lumi-standalone .cc-chat-radio.is-playing {
+    border-color: rgba(231, 71, 99, 0.72) !important;
+  }
+  html body.lumi-standalone .cc-chat-radio.is-playing button {
+    background: linear-gradient(135deg, #e74763, #b71933) !important;
+  }
+  html body.lumi-standalone .cc-chat-radio.is-playing .cc-chat-radio-bars span {
+    background: #ff8ea2 !important;
+  }
+`;
+
+function applySbaLumiTheme(frame) {
+  try {
+    const doc = frame?.contentDocument;
+    if (!doc?.head || doc.getElementById('sba-lumi-theme')) return;
+    const styleEl = doc.createElement('style');
+    styleEl.id = 'sba-lumi-theme';
+    styleEl.textContent = SBA_LUMI_THEME_CSS;
+    doc.head.appendChild(styleEl);
+  } catch {
+    /* ignore before same-origin frame finishes initializing */
+  }
+}
+
 $('#chat').addEventListener('click', (event) => {
+  trackEvent('sba_lumimes_open', { mode: window.CCUnifiedChat?.open ? 'widget' : 'link' });
   if (!window.CCUnifiedChat?.open) return;
   event.preventDefault();
   window.CCUnifiedChat.open({ tab: 'public' });
+  const frame = document.getElementById('ccUnifiedChatFrame');
+  if (frame) {
+    applySbaLumiTheme(frame);
+    if (!frame.dataset.sbaThemed) {
+      frame.dataset.sbaThemed = '1';
+      frame.addEventListener('load', () => applySbaLumiTheme(frame));
+    }
+  }
 });
 function edgeChannelLinks() {
   const group = element('section', 'sba-edge-channels');
@@ -632,7 +812,9 @@ function edgeChannelLinks() {
 }
 
 $('#edge').addEventListener('click', () => {
-  if (window.CCEdgePlus?.open && window.CCMobileEdge) {
+  const usingDrawer = Boolean(window.CCEdgePlus?.open && window.CCMobileEdge);
+  trackEvent('sba_panel_open', { panel: usingDrawer ? 'cc_edge_drawer' : 'fallback_dialog' });
+  if (usingDrawer) {
     window.CCEdgePlus.open();
     const panel = $('#cc-mobile-edge-dialog');
     const navigation = panel?.querySelector('nav');
@@ -652,7 +834,7 @@ $('#edge').addEventListener('click', () => {
     edgeChannelLinks(),
     link('Wyszukiwarka Christian Culture', site('/wyszukiwarka')),
     link('MojaBiblia', selected() ? mojaBiblia(selected()) : site('/mojabiblia?book=JHN&ch=1&chapter=1&mode=reader')),
-    link('AI dla Jezusa', site('/ai/aplikacja')),
+    link('AI dla Jezusa', selected() ? askAiUrl(selected()) : site('/ai/aplikacja')),
     link('Biblia Audio', site('/biblia-audio')),
     link('LumiMes', site('/mess'))
   ], { edge: true });
@@ -700,6 +882,7 @@ async function initBible() {
   $('.gesture').hidden = false;
   layout();
   goTo(1, true);
+  requestAnimationFrame(() => feed.classList.add('is-ready'));
 }
 $('#retry').addEventListener('click', initBible);
 window.addEventListener('hashchange', () => {

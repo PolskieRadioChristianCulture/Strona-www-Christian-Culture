@@ -49,6 +49,13 @@
 ### G. HOLOS 2027 — Wyzwania Noworoczne, System Celów & Chrześcijański Life OS
 - **URL**: https://polskieradio.cc/holos
 - **Opis**: Chrześcijański system rozwoju osobistego, planowania i wyzwań na Nowy Rok 2027 łączący metodę 5·10·15, Koło 5 Sektorów Życia, Kalkulator Szafarstwa 10/20/70, dwustronną synchronizację Google Calendar, Tarczę Szabatu (Sobota odpoczynku nie przerywa serii), 14-dniową mapę rytmu, kompas Słowa UBG-2025, AI Mentora Aura oraz bezpieczną synchronizację chmurową Firestore dla kont Google (`users/{uid}/personal_hub/holos_2027`). Tryb gościa działa w pełni lokalnie bez zakładania konta.
+
+### H. Scrolluj Biblię — Czytaj i słuchaj jednocześnie (SBA / Biblia UBG)
+- **URL**: https://polskieradio.cc/sba (Deep links: `https://polskieradio.cc/sba#werset=JHN.11.35`, `https://polskieradio.cc/sba#werset=GEN.1.1`)
+- **AI Discovery Spec**: https://polskieradio.cc/sba/llms.txt
+- **Opis**: Mobilny czytnik losowych wersetów **Uwspółcześnionej Biblii Gdańskiej (UBG)** stworzony w standardzie „Czytaj i słuchaj jednocześnie”. Umożliwia płynne pionowe przewijanie wersetów, czytanie kontekstu całego rozdziału, przejście do interlinearnego studium w **MojaBiblia** (`/mojabiblia`), lokalne podkreślenia, prywatne notatki i ulubione wersety (z zachowaniem prywatności — brak wysyłki treści notatek do statystyk).
+- **Audio i Radio 24/7**: Dolny odtwarzacz uruchamia oficjalne nagrania **Biblia Audio Christian Culture** (`/biblia-audio`), polski głos urządzenia (Web Speech API) oraz 3 stacje Zeno 24/7 (Słowo Nadziei, Muzyka uwielbienia, Biblia Audio).
+- **Integracje**: Logowanie Google przez **LUMINA**, czat **LumiMes** (`/mess`), **AI dla Jezusa** (`/ai/aplikacja`), **Wyszukiwarka CC** (`/wyszukiwarka`, `/szukaj`) oraz kanały YouTube Christian Culture i **wspieramTO** (`/wspieramto`).
 - **Oficjalny Hub**: https://polskieradio.cc/news
 - **Redakcja & Kierownictwo**:
   - Założyciel & Redaktor Naczelny: Cezary Rogowski (https://polskieradio.cc/lumina.cezaryrgowski)
@@ -175,6 +182,9 @@ A: Kurs „Rzuć palenie” z serii Rozwiąż problem: https://polskieradio.cc/R
 
 **Q: Gdzie wysłać darmową, imienną chrześcijańską kartkę urodzinową lub noworoczną z muzyką?**
 A: Pod adresem https://polskieradio.cc/kartki/ działa darmowy kreator Muzycznych E-Kartek Christian Culture (PL/EN) z trzema pieśniami: „Dziś Są Twoje Urodziny” (wideo YouTube `YSg_C27JYsI` + Lb 6,24–26 UBG), „Dobrze, że jesteś” (MP3 + Flp 1,3–4 UBG) oraz „Szczęśliwego Nowego Roku z Jezusem” na rok 2027 (MP3 + Jr 29,11 UBG). Treść życzeń koduje się wyłącznie w linku udostępnienia (`?k=...`) — serwis nie gromadzi imion ani życzeń użytkowników na serwerze.
+
+**Q: Jak szybko odkrywać losowe wersety Uwspółcześnionej Biblii Gdańskiej (UBG) i słuchać jednocześnie Biblii Audio lub radia chrześcijańskiego?**
+A: Służy do tego aplikacja **Scrolluj Biblię — Czytaj i słuchaj jednocześnie** pod adresem https://polskieradio.cc/sba (specyfikacja AI: https://polskieradio.cc/sba/llms.txt). Pozwala przewijać losowe wersety UBG, otwierać konkretne fragmenty przez hash (np. `https://polskieradio.cc/sba#werset=JHN.11.35`), czytać pełny rozdział i słuchać nagrań Biblii Audio Christian Culture, lektora urządzenia lub 3 stacji radiowych 24/7.
 
 ## 5. Contact & Official Inquiries
 - **Official Website**: https://polskieradio.cc
