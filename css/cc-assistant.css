@@ -1258,3 +1258,63 @@ body.light-theme .cc-asst-input {
     height: 36px;
   }
 }
+
+@media (max-width: 680px) {
+  html.lumi-mess-page #messengerAssistantView .cc-asst-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  html.lumi-mess-page #messengerAssistantView .cc-asst-header-title-row {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  html.lumi-mess-page #messengerAssistantView .cc-asst-badge-online {
+    display: none;
+  }
+
+  html.lumi-mess-page #messengerAssistantView .cc-asst-header-tools {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-template-columns: none;
+  }
+
+  html.lumi-mess-page #ccAsstShowcase,
+  html.lumi-mess-page #ccAsstScrollBody .cc-lumi-divider-dm {
+    display: none;
+  }
+
+  html.lumi-mess-page #ccAsstQuickBar {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 8px 12px;
+    gap: 6px;
+  }
+
+  html.lumi-mess-page #ccAsstQuickBar .cc-asst-chip {
+    justify-content: center;
+    min-width: 0;
+    min-height: 44px;
+    padding: 6px;
+    white-space: normal;
+    text-align: center;
+  }
+
+  html.lumi-mess-page #messengerAssistantView .cc-asst-input::placeholder {
+    color: #a5aec4;
+  }
+}
+
+@media (max-width: 360px) {
+  html.lumi-mess-page #messengerAssistantView .cc-asst-send-btn {
+    min-width: 44px;
+    padding: 0;
+  }
+
+  html.lumi-mess-page #messengerAssistantView .cc-asst-send-label {
+    display: none;
+  }
+}

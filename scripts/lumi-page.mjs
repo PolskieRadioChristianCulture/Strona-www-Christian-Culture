@@ -8,7 +8,7 @@ export function renderLumiPage(html) {
   if (assistantScript) html = html.replace(assistantScript, '');
   const title = 'LUMI Messenger — chrześcijański komunikator | Christian Culture';
   const description = 'Rozmawiaj, poznawaj społeczność i dziel się wiarą. LUMI Messenger łączy rozmowy LUMINA i Christian Culture w jednym miejscu.';
-  html = html.replace(/<html(?:\s+[^>]*)?>/i, '<html lang="pl" data-lumina-theme="dark" class="lumi-mess-page" data-no-onboarding="true">')
+  html = html.replace(/<html(?:\s+[^>]*)?>/i, '<html lang="pl" data-lumina-theme="light" class="lumi-mess-page" data-no-onboarding="true">')
     .replace(/<title>[\s\S]*?<\/title>/i, `<title>${title}</title>`)
     .replace(/(<meta (?:name|property)="(?:description|og:description|twitter:description)" content=")[^"]*(">)/g, `$1${description}$2`)
     .replace(/(<meta (?:name|property)="(?:og:title|twitter:title)" content=")[^"]*(">)/g, `$1${title}$2`)
@@ -17,26 +17,40 @@ export function renderLumiPage(html) {
     .replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, '')
     .replace(/<link rel="manifest" href="manifest-lumina.json">/, '<link rel="manifest" href="/manifest-lumi.json">')
     .replace(/<script src="lumina-pwa-installer\.js[^\"]*"><\/script>/, '')
-    .replace(/<link rel="stylesheet" href="\/css\/lumina-light-edition\.css[^"]*">/g, '')
     .replace(/<script src="\/js\/lumina-theme-manager\.js[^"]*"><\/script>/g, '')
     .replace(/<button [^>]*id="luminaThemeSwitchBtn"[^>]*>[\s\S]*?<\/button>/g, '')
     .replace(/(<meta name="apple-mobile-web-app-title" content=")[^"]*(">)/, '$1LumiMess$2')
     .replace(/\/js\/cc-chat-integration\.js\?v=[\w-]+/g, '/js/cc-chat-integration.js?v=20261120_prayer40dm')
     .replace(/(<form id="publicChatForm"[^>]*>[\s\S]*?<\/form>)/, '$1<a class="lumi-public-login" href="/lumina?action=login">Zaloguj się, aby napisać na czacie</a>')
+    .replace('<button id="btnChatSettingsModal"', '<button id="btnChatHeaderMore" type="button" class="chat-header-more-btn" aria-expanded="false" aria-label="Radio, rozmowy i opcje pokoju" title="Radio, rozmowy i opcje pokoju"><span aria-hidden="true">⋯</span></button><button id="btnChatSettingsModal"')
+    .replace('<!-- Profile Summary Card -->', `<div class="lumi-theme-setting">
+      <label for="lumiChatTheme">Kolor aplikacji</label>
+      <select id="lumiChatTheme"><option value="light">Biały</option><option value="dark">Ciemny</option></select>
+    </div>
+    <!-- Profile Summary Card -->`)
     .replace('</head>', `<script>
+const lumiRoot = document.documentElement;
+if (new URLSearchParams(location.search).get('embed') === '1') lumiRoot.classList.add('cc-mess-embedded');
 try {
-  document.documentElement.setAttribute('data-lumina-theme', 'dark');
-  document.documentElement.classList.add('lumi-mess-page');
-  if (new URLSearchParams(location.search).get('embed') === '1') document.documentElement.classList.add('cc-mess-embedded');
-  if (new URLSearchParams(location.search).get('embed') !== '1') localStorage.setItem('lumina_theme', 'dark');
+  if (localStorage.getItem('lumi_messenger_theme') === 'dark') lumiRoot.dataset.luminaTheme = 'dark';
 } catch(e) {}
+document.addEventListener('DOMContentLoaded', () => {
+  const theme = document.getElementById('lumiChatTheme');
+  if (!theme) return;
+  theme.value = lumiRoot.dataset.luminaTheme;
+  theme.addEventListener('change', () => {
+    const value = theme.value === 'dark' ? 'dark' : 'light';
+    lumiRoot.dataset.luminaTheme = value;
+    try { localStorage.setItem('lumi_messenger_theme', value); } catch(e) {}
+  });
+});
 </script>
 <style>html.cc-mess-embedded #lumiLanding,html.cc-mess-embedded #lumiIntroOverlay{display:none!important}</style>
 <link rel="stylesheet" href="/css/lumi-standalone.css?v=20261112_message_menu">
-<link rel="stylesheet" href="/css/lumi-messenger-design.css?v=20261121_thumb_pen">
-<link rel="stylesheet" href="/css/cc-assistant.css?v=20261120_mess_clean1">
-${assistantScript}
-<script defer src="/js/lumi-standalone.js?v=20261112_chat_ready"></script>
+<link rel="stylesheet" href="/css/lumi-messenger-design.css?v=20261127_compact_theme">
+<link rel="stylesheet" href="/css/cc-assistant.css?v=20261127_mobile_layout">
+${assistantScript.replace(/cc-assistant\.js[^"]*/, 'cc-assistant.js?v=20261127_mobile_layout')}
+<script defer src="/js/lumi-standalone.js?v=20261127_compact_theme"></script>
 <script defer src="/js/lumi-dashboard.js?v=20261121_more_options"></script>
 <script type="application/ld+json">${JSON.stringify({'@context':'https://schema.org','@type':'WebApplication',name:'LUMI Messenger',url:'https://polskieradio.cc/mess',applicationCategory:'CommunicationApplication',description,inLanguage:'pl'})}</script>
 </head>`)

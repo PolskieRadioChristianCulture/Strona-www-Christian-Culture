@@ -2044,14 +2044,14 @@
                 type="text"
                 id="ccAsstInput"
                 class="cc-asst-input"
-                placeholder="Zadaj pytanie (np. radio, Biblia, Akademia, kontakt)..."
+                placeholder="Zadaj pytanie"
                 aria-label="Zadaj pytanie Asystentce Christian Culture"
                 maxlength="500"
                 autocomplete="off"
               />
               <button type="button" class="cc-asst-mic-btn" id="ccAsstMicBtn" aria-label="Nagraj wiadomość głosową">🎙</button>
             </div>
-            <button type="submit" id="ccAsstSendBtn" class="cc-asst-send-btn" aria-label="Wyślij wiadomość">➤ Wyślij</button>
+            <button type="submit" id="ccAsstSendBtn" class="cc-asst-send-btn" aria-label="Wyślij wiadomość"><span aria-hidden="true">➤</span> <span class="cc-asst-send-label">Wyślij</span></button>
           </form>
         </div>
 

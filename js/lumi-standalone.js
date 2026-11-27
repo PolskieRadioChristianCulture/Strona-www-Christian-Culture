@@ -1,14 +1,27 @@
 (function () {
     'use strict';
-    // LUMI Messenger is a dedicated cinematic dark shell; enforce dark theme on load
-    try {
-        if (typeof document !== 'undefined') {
-            document.documentElement.setAttribute('data-lumina-theme', 'dark');
-            if (document.body) {
-                document.body.classList.remove('theme-lumina-light');
-            }
+    function setupChatAppearance() {
+        const more = document.getElementById('btnChatHeaderMore');
+        const modal = document.getElementById('directMessagesModal');
+        if (!more || !modal) return;
+        function setExpanded(expanded) {
+            if (expanded) modal.dataset.lumiMoreOpen = 'true';
+            else delete modal.dataset.lumiMoreOpen;
+            more.setAttribute('aria-expanded', String(expanded));
         }
-    } catch (_) {}
+        more.addEventListener('click', () => setExpanded(modal.dataset.lumiMoreOpen !== 'true'));
+        new MutationObserver(() => {
+            if (!modal.classList.contains('open')) setExpanded(false);
+        }).observe(modal, { attributes: true, attributeFilter: ['class'] });
+        document.addEventListener('keydown', event => {
+            if (event.key !== 'Escape' || modal.dataset.lumiMoreOpen !== 'true' ||
+                document.querySelector('#chatSettingsModal.open, #lumiMoreRooms[open]')) return;
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            setExpanded(false);
+            more.focus();
+        }, true);
+    }
     let installPrompt = null;
     window.addEventListener('beforeinstallprompt', event => {
         event.preventDefault(); installPrompt = event;
@@ -16,6 +29,7 @@
         if (btn) btn.textContent = 'Zainstaluj LUMI Messenger';
     });
     function setup() {
+        setupChatAppearance();
         const open = document.getElementById('lumiOpen');
         const install = document.getElementById('lumiInstall');
         const status = document.getElementById('lumiInstallStatus');
@@ -40,7 +54,7 @@
             if (typeof window.openDirectMessagesModal === 'function') {
                 window.CCGlobalChat?.close?.();
                 window.openDirectMessagesModal('public');
-                document.getElementById('tabBtnPublicChat')?.focus({ preventScroll: true });
+                document.getElementById('btnChatHeaderMore')?.focus({ preventScroll: true });
                 return;
             }
             status.textContent = 'Komunikator jeszcze się ładuje. Spróbuj ponownie za chwilę.';

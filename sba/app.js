@@ -1363,100 +1363,11 @@ pageStar.addEventListener('click', () => {
   paintLocalPageStar();
 });
 
-const SBA_LUMI_THEME_CSS = `
-  html, html.lumi-mess-page, html[data-lumina-theme],
-  html body.lumi-standalone, html[data-lumina-theme] body.lumi-standalone,
-  body.lumi-standalone {
-    background-color: #0d0d0f !important;
-    background-image: radial-gradient(ellipse at 50% 0%, rgba(183, 25, 51, 0.20) 0%, #0d0d0f 65%) !important;
-  }
-  html body.lumi-standalone #ccGlobalChatOverlay .cc-chat-drawer,
-  html body.lumi-standalone #directMessagesModal .lumina-messenger-modal-card,
-  html body.lumi-standalone #chatSettingsModal .modal-card {
-    background: #101013 !important;
-    border-color: rgba(183, 25, 51, 0.42) !important;
-    color: #f8f6f6 !important;
-  }
-  html body.lumi-standalone .cc-chat-header,
-  html body.lumi-standalone #directMessagesModal .chat-header-bar,
-  html body.lumi-standalone .cc-chat-composer,
-  html body.lumi-standalone #directMessagesModal .chat-input-bar {
-    background: #111114 !important;
-    border-color: rgba(183, 25, 51, 0.30) !important;
-  }
-  html body.lumi-standalone .cc-chat-msg-bubble,
-  html body.lumi-standalone #directMessagesModal .fb-msg-bubble-them {
-    background: linear-gradient(145deg, #1f1c1d 0%, #161415 100%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.11) !important;
-    color: #f8f6f6 !important;
-  }
-  html body.lumi-standalone .cc-chat-msg-row.is-me .cc-chat-msg-bubble,
-  html body.lumi-standalone #directMessagesModal .fb-msg-bubble-me,
-  html body.lumi-standalone .cc-chat-send-btn,
-  html body.lumi-standalone .cc-chat-tab-btn.is-active,
-  html body.lumi-standalone .lumi-public-login {
-    background: linear-gradient(135deg, #c81d3a 0%, #991329 100%) !important;
-    border-color: rgba(231, 71, 99, 0.48) !important;
-    box-shadow: 0 6px 18px rgba(183, 25, 51, 0.38) !important;
-    color: #ffffff !important;
-  }
-  html body.lumi-standalone #ccChatInput,
-  html body.lumi-standalone #activeChatInput,
-  html body.lumi-standalone #publicChatInput {
-    background: #191718 !important;
-    border: 1px solid rgba(183, 25, 51, 0.35) !important;
-    color: #ffffff !important;
-  }
-  html body.lumi-standalone #ccChatInput:focus-visible,
-  html body.lumi-standalone #activeChatInput:focus-visible,
-  html body.lumi-standalone #publicChatInput:focus-visible {
-    outline: 2px solid #e74763 !important;
-  }
-  html body.lumi-standalone .cc-chat-radio {
-    border-color: rgba(183, 25, 51, 0.42) !important;
-  }
-  html body.lumi-standalone .cc-chat-radio button {
-    background: linear-gradient(135deg, #c81d3a, #991329) !important;
-    color: #ffffff !important;
-    box-shadow: 0 2px 8px rgba(183, 25, 51, 0.35) !important;
-  }
-  html body.lumi-standalone .cc-chat-radio.is-playing {
-    border-color: rgba(231, 71, 99, 0.72) !important;
-  }
-  html body.lumi-standalone .cc-chat-radio.is-playing button {
-    background: linear-gradient(135deg, #e74763, #b71933) !important;
-  }
-  html body.lumi-standalone .cc-chat-radio.is-playing .cc-chat-radio-bars span {
-    background: #ff8ea2 !important;
-  }
-`;
-
-function applySbaLumiTheme(frame) {
-  try {
-    const doc = frame?.contentDocument;
-    if (!doc?.head || doc.getElementById('sba-lumi-theme')) return;
-    const styleEl = doc.createElement('style');
-    styleEl.id = 'sba-lumi-theme';
-    styleEl.textContent = SBA_LUMI_THEME_CSS;
-    doc.head.appendChild(styleEl);
-  } catch {
-    /* ignore before same-origin frame finishes initializing */
-  }
-}
-
 $('#chat').addEventListener('click', (event) => {
   trackEvent('sba_lumimes_open', { mode: window.CCUnifiedChat?.open ? 'widget' : 'link' });
   if (!window.CCUnifiedChat?.open) return;
   event.preventDefault();
   window.CCUnifiedChat.open({ tab: 'public' });
-  const frame = document.getElementById('ccUnifiedChatFrame');
-  if (frame) {
-    applySbaLumiTheme(frame);
-    if (!frame.dataset.sbaThemed) {
-      frame.dataset.sbaThemed = '1';
-      frame.addEventListener('load', () => applySbaLumiTheme(frame));
-    }
-  }
 });
 function closeEdgePanelIfOpen() {
   const drawer = $('#cc-mobile-edge-dialog');

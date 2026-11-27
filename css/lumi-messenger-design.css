@@ -258,3 +258,110 @@ html body #lumiLanding .lumi-new-conversation svg { width: 24px; height: 24px; }
   #lumiLanding #lumiMorePanel .lumi-category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   #lumiMorePanel .lumi-community-hero { padding-inline: 14px; }
 }
+
+/* Keep radio, navigation and room tools behind the header disclosure. */
+html.lumi-mess-page #directMessagesModal:not([data-lumi-more-open="true"])
+  :is(.chat-header-bar .cc-chat-radio, .chat-header-bar > div:has(> #tabBtnPublicChat), .lumi-room-subheader) {
+  display: none !important;
+}
+
+html.lumi-mess-page body #directMessagesModal #btnChatHeaderMore {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 12px;
+  border: 1px solid #686d7a;
+  background: #202431;
+  color: #fff;
+  font: 700 24px/1 system-ui;
+  cursor: pointer;
+}
+
+html.lumi-mess-page #btnChatHeaderMore[aria-expanded="true"] {
+  outline: 2px solid #9b80ed;
+  outline-offset: -3px;
+}
+
+html.lumi-mess-page #directMessagesModal .chat-header-titles {
+  min-width: 0;
+}
+
+.lumi-theme-setting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.lumi-theme-setting select {
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid #818b9d;
+  border-radius: 10px;
+  background: #202431;
+  color: #fff;
+  font: inherit;
+}
+
+html.lumi-mess-page[data-lumina-theme="light"],
+html.lumi-mess-page[data-lumina-theme="light"] body.lumi-standalone,
+html.lumi-mess-page[data-lumina-theme="light"] body #directMessagesModal :is(
+  .lumina-messenger-modal-card, .chat-header-bar, .lumi-room-subheader, #publicChatMessagesBox,
+  #activeChatMessagesBox, .cc-asst-header, .cc-asst-picker-bar, .cc-asst-scroll-body, .cc-asst-composer-premium-dm),
+html.lumi-mess-page[data-lumina-theme="light"] body #chatSettingsModal .modal-card {
+  color-scheme: light;
+  background: #fff !important;
+  color: #172033 !important;
+  border-color: #d8dfe9 !important;
+}
+
+html.lumi-mess-page[data-lumina-theme="light"] body #directMessagesModal :is(
+  .chat-header-sub, .lumi-room-subheader div[style*="font-size"],
+  .cc-asst-header-name, .cc-asst-header-sub, .cc-asst-picker-name, .cc-asst-picker-role),
+html.lumi-mess-page[data-lumina-theme="light"] body #chatSettingsModal :is(h3, #chatSettingsName, div[style*="#94a3b8"]) {
+  color: #344054 !important;
+}
+
+html.lumi-mess-page[data-lumina-theme="light"] body #directMessagesModal :is(
+  #btnChatHeaderMore, #btnChatSettingsModal, .chat-close-btn, .lumi-room-back-btn, .lumi-room-action-btn,
+  .cc-asst-icon-btn, .cc-asst-picker-btn, .cc-asst-chip, .cc-asst-input-wrap, .cc-asst-plus-btn,
+  .cc-asst-msg, .cc-quick-card, .cc-chat-radio, .lumi-public-login),
+html.lumi-mess-page[data-lumina-theme="light"] .lumi-theme-setting select {
+  background: #f4f6fa !important;
+  color: #243048 !important;
+  border-color: #d8dfe9 !important;
+  box-shadow: none !important;
+}
+
+html.lumi-mess-page[data-lumina-theme="light"] body #directMessagesModal :is(
+  .cc-chat-radio select, .cc-chat-radio select option, .cc-asst-msg a, .cc-asst-mic-btn,
+  .cc-qc-title, .cc-qc-subtitle, .cc-asst-quick-bar) {
+  background: transparent !important;
+  color: #344054 !important;
+}
+
+html.lumi-mess-page[data-lumina-theme="light"] body #directMessagesModal .cc-asst-picker-btn.is-active {
+  background: #eee8fc !important;
+  border-color: #8c72c2 !important;
+}
+
+html.lumi-mess-page[data-lumina-theme="light"] body #lumiLanding :is(
+  .lumi-directory, .lumi-conversation-card, .lumi-search-field, .lumi-radio-pill, .lumi-bottom-navigation,
+  .lumi-account-prompt, .lumi-radio-panel, .lumi-filter-bar button) {
+  background: #f4f6fa !important;
+  color: #243048 !important;
+  border-color: #d8dfe9 !important;
+  box-shadow: none !important;
+}
+
+html.lumi-mess-page[data-lumina-theme="light"] body #lumiLanding :is(
+  #lumiTitle, #lumiTitle small, .lumi-brand-note, .lumi-card-title, .lumi-card-description, .lumi-card-preview,
+  .lumi-directory-heading h2, .lumi-bottom-navigation button, .lumi-bottom-navigation a, .lumi-dashboard-footer a,
+  .lumi-dashboard-footer button, .lumi-dashboard-footer small, #lumiOpen) {
+  color: #243048 !important;
+}
