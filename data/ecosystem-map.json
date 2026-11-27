@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-27",
+      "topic": "AI dla Jezusa (/ai/aplikacja, /test/ai/) — ujednolicenie /test/ai/, CC MCP Hub (cc_get_source, MojaBiblia, kill-switch), pasek głosu systemowego, Canva MCP Pilot (mock + brief + P3), TTS BYOK 15 min, eksport .txt oraz rozdzielenie kalendarza ccMC",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-27",
       "topic": "Biblia Audio CC — produkcja V7 (-15.95 LUFS, TP -1.97 dBTP, 22 kwestie UBG) i publikacja WWW (/biblia-audio), Spotify oraz czystego MP3 radiowego (Zeno.FM) Księgi Rodzaju 41 (GEN-041: Sny Faraona, Wywyższenie Józefa i Ocalenie przed Głodem) + przygotowanie promptów wideo 16:9/9:16/1:1",
       "agent": "A"
     },
