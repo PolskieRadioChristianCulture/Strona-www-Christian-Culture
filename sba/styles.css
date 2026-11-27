@@ -116,12 +116,29 @@ dialog.sba-edge-panel {
 }
 .sba-edge-channels {
   grid-column: 1 / -1;
-  margin: 0 0 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.22);
   min-width: 0;
 }
 .sba-edge-label {
-  margin: 4px 0 8px;
-  font-size: .8rem;
+  margin: 2px 0 0;
+  font-size: .78rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: #cfcfcf;
+}
+.sba-edge-eco-label {
+  grid-column: 1 / -1;
+  margin: 4px 0 6px;
+  font-size: .76rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: #cfcfcf;
+  text-align: center;
 }
 .sba-edge-panel .menu-row {
   display: flex !important;
@@ -130,8 +147,11 @@ dialog.sba-edge-panel {
   min-height: 44px;
   width: 100% !important;
   height: auto !important;
+  margin: 0 !important;
   color: #fff !important;
   background: #202020 !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 12px !important;
   white-space: normal;
   padding: 10px 12px;
 }
@@ -141,7 +161,8 @@ dialog.sba-edge-panel {
 .sba-edge-panel .sba-edge-support {
   justify-content: center;
   min-height: 54px;
-  margin-top: 12px;
+  margin-top: 6px !important;
+  border: 0 !important;
   background: #c41230 !important;
   font-size: 1.1rem;
   font-weight: 800;

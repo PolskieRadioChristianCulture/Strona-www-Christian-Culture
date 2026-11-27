@@ -639,9 +639,11 @@ $('#edge').addEventListener('click', () => {
     if (panel?.open && navigation) {
       panel.classList.add('sba-edge-panel');
       if (!navigation.querySelector('.sba-edge-channels')) {
+        const channels = edgeChannelLinks();
+        const ecoHeading = element('h3', 'sba-edge-eco-label', 'PolskieRadio.cc');
         const close = navigation.querySelector('[data-edge-key="close"]');
-        if (close) close.after(edgeChannelLinks());
-        else navigation.prepend(edgeChannelLinks());
+        if (close) close.after(channels, ecoHeading);
+        else navigation.prepend(channels, ecoHeading);
       }
       return;
     }
