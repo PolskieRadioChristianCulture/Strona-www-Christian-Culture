@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Odkrywaj losowe wersety Uwspółcześnionej Biblii Gdańskiej. Czytaj, słuchaj i zapisuj ulubione fragmenty.">
+  <title>Biblia UBG | Christian Culture</title>
+  <link rel="canonical" href="https://polskieradio.cc/sba">
+  <link rel="stylesheet" href="/sba/styles.css?v=1">
+  <script type="module" src="/sba/app.js?v=1"></script>
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="https://polskieradio.cc/biblia-audio"><span class="brand-mark" data-icon="book"></span><span><strong>Biblia Audio</strong><small>CHRISTIAN CULTURE</small></span></a>
+    <nav class="top-actions" aria-label="Czytnik i konto">
+      <button class="icon" id="saved-verses" data-icon="heart" title="Ulubione wersety" aria-label="Ulubione wersety"></button>
+      <button class="icon" id="ccTopBarFavBtn" data-cc-favorite-toggle="true" data-icon="star" title="Dodaj aplikację do ulubionych" aria-label="Dodaj aplikację do ulubionych" aria-pressed="false"></button>
+      <div data-cc-auth-mount><a class="icon login" href="https://polskieradio.cc/lumina-login" data-icon="user" title="Zaloguj z Google do LUMINA" aria-label="Zaloguj z Google do LUMINA"></a></div>
+    </nav>
+  </header>
+
+  <main class="reader" aria-label="Czytnik losowych wersetów">
+    <div id="reader-status" class="startup" role="status">
+      <p id="loading-message">Wczytuję wersety UBG…</p>
+      <button type="button" id="retry" hidden>Wczytaj ponownie</button>
+    </div>
+    <div id="verses" class="feed" tabindex="0" aria-label="Wersety. Strzałki w górę i w dół zmieniają werset." hidden></div>
+    <span id="verse-announcement" class="sr-only" aria-live="polite"></span>
+    <div class="reader-controls" hidden>
+      <button class="icon" id="previous" data-icon="up" title="Poprzedni werset" aria-label="Poprzedni werset"></button>
+      <button class="icon" id="next" data-icon="down" title="Kolejny losowy werset" aria-label="Kolejny losowy werset"></button>
+    </div>
+    <p class="gesture" hidden>Przytrzymaj werset, aby otworzyć opcje</p>
+  </main>
+
+  <button class="floating icon" id="edge" data-icon="plus" aria-label="Otwórz panel Christian Culture" title="Panel Christian Culture" hidden></button>
+  <a class="floating icon" id="chat" data-icon="chat" href="https://polskieradio.cc/mess" target="_blank" rel="noopener" aria-label="Otwórz czat LumiMes" title="LumiMes"></a>
+
+  <section class="player" aria-label="Odtwarzacz Biblii Audio">
+    <div class="player-inner">
+      <div class="transport">
+        <button class="play" id="play" data-icon="play" aria-label="Odtwórz" disabled></button>
+        <div class="track">
+          <strong id="track-title">Biblia Audio</strong>
+          <span id="track-detail" role="status">Wczytuję katalog nagrań…</span>
+        </div>
+        <button class="icon audio-options" id="audio-options" data-icon="music" aria-label="Wybierz rodzaj odczytu" title="Opcje audio" disabled></button>
+      </div>
+      <div class="progress" id="progress" hidden>
+        <span id="elapsed">0:00</span>
+        <input type="range" id="seek" min="0" max="1" value="0" step="0.1" aria-label="Zmień pozycję nagrania" disabled>
+        <span id="duration">0:00</span>
+      </div>
+    </div>
+    <audio id="audio" preload="none"></audio>
+  </section>
+
+  <dialog id="dialog" aria-labelledby="dialog-title">
+    <div class="dialog-heading">
+      <h2 id="dialog-title"></h2>
+      <button type="button" class="icon" id="close" data-icon="close" aria-label="Zamknij"></button>
+    </div>
+    <div id="dialog-content"></div>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
