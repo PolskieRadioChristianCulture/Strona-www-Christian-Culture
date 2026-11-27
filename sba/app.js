@@ -14,7 +14,8 @@ const icons = {
   music: '<path d="M9 18V5l12-2v13M9 18a3 2 0 1 1-6 0 3 2 0 0 1 6 0zm12-2a3 2 0 1 1-6 0 3 2 0 0 1 6 0z"/>',
   up: '<path d="m6 15 6-6 6 6"/>',
   down: '<path d="m6 9 6 6 6-6"/>',
-  close: '<path d="m6 6 12 12M18 6 6 18"/>'
+  close: '<path d="m6 6 12 12M18 6 6 18"/>',
+  settings: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.08a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.08a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.08a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>'
 };
 
 function icon(node, name) {
@@ -81,6 +82,576 @@ function trackEvent(eventName, params = {}) {
 
 for (const item of document.querySelectorAll('[data-icon]')) icon(item, item.dataset.icon);
 
+const LOCALE_STORAGE_KEY = 'ekocc_ui_lang';
+const LOCALE_COOKIE_KEY = 'ekocc_lang';
+const THEME_STORAGE_KEY = 'cc-sba-theme-v1';
+
+const I18N = {
+  pl: {
+    pageTitle: 'Scrolluj Biblię — Czytaj i słuchaj jednocześnie | Biblia UBG | Christian Culture',
+    brandTitle: 'Scrolluj Biblię',
+    brandSubtitle: 'CZYTAJ I SŁUCHAJ JEDNOCZEŚNIE',
+    topActionsAria: 'Czytnik i konto',
+    savedVerses: 'Ulubione wersety',
+    appFavAdd: 'Dodaj aplikację do ulubionych',
+    appFavRemove: 'Usuń aplikację z ulubionych',
+    loginGoogle: 'Zaloguj z Google do LUMINA',
+    readerAria: 'Czytnik losowych wersetów',
+    loadingVerses: 'Wczytuję wersety UBG…',
+    loadingFailed: 'Nie udało się wczytać Biblii UBG. Sprawdź połączenie i spróbuj ponownie.',
+    retry: 'Wczytaj ponownie',
+    versesAria: 'Wersety. Strzałki w górę i w dół zmieniają werset.',
+    prevVerse: 'Poprzedni werset',
+    nextVerse: 'Kolejny losowy werset',
+    gestureHint: 'Przytrzymaj werset, aby otworzyć opcje',
+    edgeOpen: 'Otwórz panel Christian Culture',
+    edgeTitle: 'Panel Christian Culture',
+    chatOpen: 'Otwórz czat LumiMes',
+    playerAria: 'Odtwarzacz Biblii Audio',
+    audioTitle: 'Biblia Audio',
+    audioOptionsAria: 'Wybierz rodzaj odczytu',
+    audioOptionsTitle: 'Opcje audio',
+    seekAria: 'Zmień pozycję nagrania',
+    liveBadge: 'NA ŻYWO',
+    close: 'Zamknij',
+    saveVerse: 'Zapisz werset',
+    verseOptions: 'Opcje wersetu',
+    addFavVerse: 'Dodaj werset do ulubionych',
+    removeFavVerse: 'Usuń z ulubionych wersetów',
+    savedFavToast: 'Zapisano w ulubionych wersetach.',
+    removedFavToast: 'Usunięto z ulubionych wersetów.',
+    storageBlocked: 'Przeglądarka blokuje zapis na urządzeniu.',
+    copied: 'Skopiowano.',
+    copyTitle: 'Skopiuj tekst',
+    copyAria: 'Tekst do skopiowania',
+    openChapterMojaBiblia: 'Otwórz rozdział w MojaBiblia',
+    notePlaceholder: 'Twoja prywatna notatka…',
+    noteAria: 'Notatka do wersetu',
+    noteTitle: 'Notatka · {ref}',
+    saveNote: 'Zapisz notatkę',
+    noteSavedToast: 'Zapisano notatkę na tym urządzeniu.',
+    askAiPrompt: 'Pomóż mi zrozumieć ten werset w kontekście całego rozdziału: {quote}. Wyjaśnij kontekst i wskaż powiązane fragmenty Biblii.',
+    askAiRow: 'Zapytaj AI dla Jezusa o ten fragment',
+    removeHighlight: 'Usuń podkreślenie',
+    highlightVerse: 'Podkreśl werset',
+    shareVerse: 'Udostępnij werset',
+    copyVerse: 'Kopiuj tekst wersetu',
+    readContext: 'Czytaj kontekst rozdziału',
+    openMojaBiblia: 'Otwórz ten werset w MojaBiblia',
+    readVoice: 'Odczytaj ten werset głosem urządzenia',
+    playRecording: 'Odtwórz nagranie Christian Culture',
+    editNote: 'Edytuj notatkę',
+    addNote: 'Dodaj notatkę',
+    searchInCc: 'Wyszukaj ten fragment w Christian Culture',
+    openCcSearch: 'Otwórz Wyszukiwarkę Christian Culture',
+    emptyFavorites: 'Zapisane wersety pojawią się tutaj.',
+    readingVerse: 'Czytanie wersetu',
+    noAudioDetail: 'Brak nagrania i polskiego głosu urządzenia.',
+    loadingCatalog: 'Wczytuję katalog nagrań…',
+    recordingRange: 'Nagranie CC · wersety {range}',
+    recordingChapter: 'Biblia Audio · nagranie rozdziału',
+    radioLive: 'Radio na żywo · {state}',
+    radioConnected: 'połączono',
+    radioPaused: 'wstrzymane',
+    catalogUnavailable: 'Katalog audio niedostępny · ',
+    deviceVoiceDetail: 'Głos urządzenia · UBG',
+    previousFragment: ' · poprzedni fragment',
+    stopReading: 'Zatrzymaj czytanie',
+    pauseTrack: 'Wstrzymaj nagranie',
+    playTrack: 'Odtwórz',
+    noPolishVoice: 'Na tym urządzeniu brakuje polskiego głosu.',
+    voiceError: 'Nie udało się odczytać tekstu głosem urządzenia.',
+    radioConnectError: 'Nie udało się połączyć z radiem. Wybierz stację ponownie.',
+    recordingPlayError: 'Nie udało się uruchomić nagrania. Spróbuj ponownie lub wybierz głos urządzenia.',
+    radioTempUnavailable: 'Radio jest chwilowo niedostępne.',
+    recordingTempUnavailable: 'Nagranie jest chwilowo niedostępne.',
+    audioModeAuto: 'Nagrania CC, gdy są dostępne',
+    audioModeVoice: 'Zawsze używaj głosu urządzenia',
+    openAudioCatalog: 'Otwórz katalog Biblii Audio',
+    liveRadioHeading: 'Radio na żywo',
+    ytAria: 'Ustawienia i kanały Christian Culture',
+    settingsBtn: 'Ustawienia',
+    settingsTitle: 'Ustawienia',
+    settingsBgHeading: 'Kolor tła panelu głównego',
+    settingsCustomLabel: 'Własny kolor',
+    settingsReset: 'Domyślny (Biel)',
+    settingsSavedToast: 'Zapisano motyw czytnika.',
+    settingsScriptureNote: 'Tekst Pisma Świętego pozostaje w polskim przekładzie UBG; interfejs aplikacji dostosowano do wybranego języka.',
+    panelFallbackTitle: 'Panel Christian Culture',
+    installTitle: 'Zainstaluj Scrolluj Biblię',
+    installDesc: 'Otwieraj jednym dotknięciem z ekranu głównego — czytaj i słuchaj jak w natywnej aplikacji.',
+    installCloseAria: 'Zamknij zaproszenie do instalacji',
+    installCta: 'Zainstaluj aplikację',
+    installLater: 'Później',
+    installDone: 'Już zainstalowałem',
+    installIosSteps: 'Na iPhone/iPad: dotknij ikony Udostępnij na pasku Safari, a następnie wybierz „Do ekranu początkowego”.',
+    installAndroidSteps: 'Otwórz menu przeglądarki (⋮) i wybierz „Zainstaluj aplikację” lub „Dodaj do ekranu głównego”.',
+    installedToast: 'Aplikacja Scrolluj Biblię została zainstalowana.',
+    langGroupAria: 'Wybierz język interfejsu',
+    theme_white: 'Biel',
+    theme_paper: 'Papier (Sepia)',
+    theme_sage: 'Szałwia',
+    theme_sky: 'Błękit poranny',
+    theme_rose: 'Pudrowy róż',
+    theme_night: 'Ciemny (Noc)'
+  },
+  en: {
+    pageTitle: 'Scroll the Bible — Read and listen at once | Polish UBG | Christian Culture',
+    brandTitle: 'Scrolluj Biblię',
+    brandSubtitle: 'READ AND LISTEN AT ONCE',
+    topActionsAria: 'Reader and account',
+    savedVerses: 'Saved verses',
+    appFavAdd: 'Add app to favorites',
+    appFavRemove: 'Remove app from favorites',
+    loginGoogle: 'Sign in with Google to LUMINA',
+    readerAria: 'Random Bible verse reader',
+    loadingVerses: 'Loading UBG verses…',
+    loadingFailed: 'Could not load UBG Bible. Check your connection and try again.',
+    retry: 'Try again',
+    versesAria: 'Verses. Up and down arrow keys switch verses.',
+    prevVerse: 'Previous verse',
+    nextVerse: 'Next random verse',
+    gestureHint: 'Hold a verse to open options',
+    edgeOpen: 'Open Christian Culture panel',
+    edgeTitle: 'Christian Culture Panel',
+    chatOpen: 'Open LumiMes chat',
+    playerAria: 'Biblia Audio player',
+    audioTitle: 'Biblia Audio',
+    audioOptionsAria: 'Choose audio source',
+    audioOptionsTitle: 'Audio options',
+    seekAria: 'Seek recording position',
+    liveBadge: 'LIVE',
+    close: 'Close',
+    saveVerse: 'Save verse',
+    verseOptions: 'Verse options',
+    addFavVerse: 'Add verse to favorites',
+    removeFavVerse: 'Remove from saved verses',
+    savedFavToast: 'Saved to favorite verses.',
+    removedFavToast: 'Removed from saved verses.',
+    storageBlocked: 'Browser blocks saving to this device.',
+    copied: 'Copied.',
+    copyTitle: 'Copy text',
+    copyAria: 'Text to copy',
+    openChapterMojaBiblia: 'Open chapter in MojaBiblia',
+    notePlaceholder: 'Your private note…',
+    noteAria: 'Note for verse',
+    noteTitle: 'Note · {ref}',
+    saveNote: 'Save note',
+    noteSavedToast: 'Saved note on this device.',
+    askAiPrompt: 'Help me understand this verse in the context of the whole chapter: {quote}. Explain the context and point to related Bible passages.',
+    askAiRow: 'Ask AI for Jesus about this passage',
+    removeHighlight: 'Remove highlight',
+    highlightVerse: 'Highlight verse',
+    shareVerse: 'Share verse',
+    copyVerse: 'Copy verse text',
+    readContext: 'Read chapter context',
+    openMojaBiblia: 'Open this verse in MojaBiblia',
+    readVoice: 'Read this verse aloud with device voice',
+    playRecording: 'Play Christian Culture recording',
+    editNote: 'Edit note',
+    addNote: 'Add note',
+    searchInCc: 'Search this passage in Christian Culture',
+    openCcSearch: 'Open Christian Culture Search',
+    emptyFavorites: 'Saved verses will appear here.',
+    readingVerse: 'Reading verse',
+    noAudioDetail: 'No recording or Polish device voice available.',
+    loadingCatalog: 'Loading audio catalog…',
+    recordingRange: 'CC Recording · verses {range}',
+    recordingChapter: 'Biblia Audio · chapter recording',
+    radioLive: 'Live Radio · {state}',
+    radioConnected: 'connected',
+    radioPaused: 'paused',
+    catalogUnavailable: 'Audio catalog unavailable · ',
+    deviceVoiceDetail: 'Device voice · UBG',
+    previousFragment: ' · previous passage',
+    stopReading: 'Stop reading',
+    pauseTrack: 'Pause audio',
+    playTrack: 'Play',
+    noPolishVoice: 'Polish voice is missing on this device.',
+    voiceError: 'Could not read text with device voice.',
+    radioConnectError: 'Could not connect to radio. Select a station again.',
+    recordingPlayError: 'Could not start recording. Try again or pick device voice.',
+    radioTempUnavailable: 'Radio is temporarily unavailable.',
+    recordingTempUnavailable: 'Recording is temporarily unavailable.',
+    audioModeAuto: 'CC recordings when available',
+    audioModeVoice: 'Always use device voice',
+    openAudioCatalog: 'Open Biblia Audio catalog',
+    liveRadioHeading: 'Live Radio',
+    ytAria: 'Settings and Christian Culture channels',
+    settingsBtn: 'Settings',
+    settingsTitle: 'Settings',
+    settingsBgHeading: 'Main panel background color',
+    settingsCustomLabel: 'Custom color',
+    settingsReset: 'Default (White)',
+    settingsSavedToast: 'Reader theme saved.',
+    settingsScriptureNote: 'Scripture text remains in the Polish UBG translation; interface controls follow your chosen language.',
+    panelFallbackTitle: 'Christian Culture Panel',
+    installTitle: 'Install Scrolluj Biblię',
+    installDesc: 'Open with one tap from your home screen — read and listen like a native app.',
+    installCloseAria: 'Close install prompt',
+    installCta: 'Install app',
+    installLater: 'Later',
+    installDone: 'Already installed',
+    installIosSteps: 'On iPhone/iPad: tap Share in Safari, then choose “Add to Home Screen”.',
+    installAndroidSteps: 'Open the browser menu (⋮) and choose “Install app” or “Add to Home screen”.',
+    installedToast: 'Scrolluj Biblię app has been installed.',
+    langGroupAria: 'Select interface language',
+    theme_white: 'White',
+    theme_paper: 'Paper (Sepia)',
+    theme_sage: 'Sage',
+    theme_sky: 'Morning Sky',
+    theme_rose: 'Soft Rose',
+    theme_night: 'Dark (Night)'
+  },
+  de: {
+    pageTitle: 'Scrolluj Biblię — Gleichzeitig lesen und hören | Polnische UBG | Christian Culture',
+    brandTitle: 'Scrolluj Biblię',
+    brandSubtitle: 'GLEICHZEITIG LESEN UND HÖREN',
+    topActionsAria: 'Leser und Konto',
+    savedVerses: 'Gespeicherte Verse',
+    appFavAdd: 'App zu Favoriten hinzufügen',
+    appFavRemove: 'App aus Favoriten entfernen',
+    loginGoogle: 'Mit Google bei LUMINA anmelden',
+    readerAria: 'Zufälliger Bibelvers-Leser',
+    loadingVerses: 'Lade UBG-Verse…',
+    loadingFailed: 'UBG-Bibel konnte nicht geladen werden. Verbindung prüfen und erneut versuchen.',
+    retry: 'Erneut laden',
+    versesAria: 'Verse. Pfeiltasten hoch und runter wechseln den Vers.',
+    prevVerse: 'Vorheriger Vers',
+    nextVerse: 'Nächster zufälliger Vers',
+    gestureHint: 'Vers gedrückt halten für Optionen',
+    edgeOpen: 'Christian-Culture-Panel öffnen',
+    edgeTitle: 'Christian-Culture-Panel',
+    chatOpen: 'LumiMes-Chat öffnen',
+    playerAria: 'Biblia-Audio-Player',
+    audioTitle: 'Biblia Audio',
+    audioOptionsAria: 'Audioquelle wählen',
+    audioOptionsTitle: 'Audiooptionen',
+    seekAria: 'Aufnahmeposition ändern',
+    liveBadge: 'LIVE',
+    close: 'Schließen',
+    saveVerse: 'Vers speichern',
+    verseOptions: 'Vers-Optionen',
+    addFavVerse: 'Vers zu Favoriten hinzufügen',
+    removeFavVerse: 'Aus gespeicherten Versen entfernen',
+    savedFavToast: 'In Lieblingsversen gespeichert.',
+    removedFavToast: 'Aus Lieblingsversen entfernt.',
+    storageBlocked: 'Browser blockiert Speicherung auf diesem Gerät.',
+    copied: 'Kopiert.',
+    copyTitle: 'Text kopieren',
+    copyAria: 'Zu kopierender Text',
+    openChapterMojaBiblia: 'Kapitel in MojaBiblia öffnen',
+    notePlaceholder: 'Deine private Notiz…',
+    noteAria: 'Notiz zum Vers',
+    noteTitle: 'Notiz · {ref}',
+    saveNote: 'Notiz speichern',
+    noteSavedToast: 'Notiz auf diesem Gerät gespeichert.',
+    askAiPrompt: 'Hilf mir, diesen Vers im Zusammenhang des ganzen Kapitels zu verstehen: {quote}. Erkläre den Kontext und zeige verwandte Bibelstellen.',
+    askAiRow: 'KI für Jesus nach diesem Abschnitt fragen',
+    removeHighlight: 'Hervorhebung entfernen',
+    highlightVerse: 'Vers hervorheben',
+    shareVerse: 'Vers teilen',
+    copyVerse: 'Verstext kopieren',
+    readContext: 'Kapitelkontext lesen',
+    openMojaBiblia: 'Diesen Vers in MojaBiblia öffnen',
+    readVoice: 'Diesen Vers mit Gerätestimme vorlesen',
+    playRecording: 'Christian-Culture-Aufnahme abspielen',
+    editNote: 'Notiz bearbeiten',
+    addNote: 'Notiz hinzufügen',
+    searchInCc: 'Diesen Abschnitt in Christian Culture suchen',
+    openCcSearch: 'Christian-Culture-Suche öffnen',
+    emptyFavorites: 'Gespeicherte Verse erscheinen hier.',
+    readingVerse: 'Vers vorlesen',
+    noAudioDetail: 'Keine Aufnahme oder polnische Gerätestimme verfügbar.',
+    loadingCatalog: 'Lade Audiokatalog…',
+    recordingRange: 'CC-Aufnahme · Verse {range}',
+    recordingChapter: 'Biblia Audio · Kapitelaufnahme',
+    radioLive: 'Live-Radio · {state}',
+    radioConnected: 'verbunden',
+    radioPaused: 'pausiert',
+    catalogUnavailable: 'Audiokatalog nicht verfügbar · ',
+    deviceVoiceDetail: 'Gerätestimme · UBG',
+    previousFragment: ' · vorheriger Abschnitt',
+    stopReading: 'Vorlesen stoppen',
+    pauseTrack: 'Aufnahme pausieren',
+    playTrack: 'Abspielen',
+    noPolishVoice: 'Auf diesem Gerät fehlt eine polnische Stimme.',
+    voiceError: 'Text konnte nicht mit der Gerätestimme vorgelesen werden.',
+    radioConnectError: 'Verbindung zum Radio fehlgeschlagen. Bitte Sender erneut wählen.',
+    recordingPlayError: 'Aufnahme konnte nicht gestartet werden. Erneut versuchen oder Gerätestimme wählen.',
+    radioTempUnavailable: 'Radio ist vorübergehend nicht verfügbar.',
+    recordingTempUnavailable: 'Aufnahme ist vorübergehend nicht verfügbar.',
+    audioModeAuto: 'CC-Aufnahmen, wenn verfügbar',
+    audioModeVoice: 'Immer Gerätestimme verwenden',
+    openAudioCatalog: 'Biblia-Audio-Katalog öffnen',
+    liveRadioHeading: 'Live-Radio',
+    ytAria: 'Einstellungen und Christian-Culture-Kanäle',
+    settingsBtn: 'Einstellungen',
+    settingsTitle: 'Einstellungen',
+    settingsBgHeading: 'Hintergrundfarbe des Hauptbereichs',
+    settingsCustomLabel: 'Eigene Farbe',
+    settingsReset: 'Standard (Weiß)',
+    settingsSavedToast: 'Leser-Design gespeichert.',
+    settingsScriptureNote: 'Der Bibeltext bleibt in der polnischen UBG-Übersetzung; die Benutzeroberfläche nutzt Ihre gewählte Sprache.',
+    panelFallbackTitle: 'Christian-Culture-Panel',
+    installTitle: 'Scrolluj Biblię installieren',
+    installDesc: 'Mit einem Tipp vom Startbildschirm öffnen — lesen und hören wie in einer App.',
+    installCloseAria: 'Installationshinweis schließen',
+    installCta: 'App installieren',
+    installLater: 'Später',
+    installDone: 'Bereits installiert',
+    installIosSteps: 'Auf iPhone/iPad: Tippe in Safari auf „Teilen“ und wähle „Zum Home-Bildschirm“.',
+    installAndroidSteps: 'Öffne das Browser-Menü (⋮) und wähle „App installieren“ oder „Zum Startbildschirm hinzufügen“.',
+    installedToast: 'Die App Scrolluj Biblię wurde installiert.',
+    langGroupAria: 'Oberflächensprache wählen',
+    theme_white: 'Weiß',
+    theme_paper: 'Papier (Sepia)',
+    theme_sage: 'Salbei',
+    theme_sky: 'Morgenblau',
+    theme_rose: 'Zartrosa',
+    theme_night: 'Dunkel (Nacht)'
+  }
+};
+
+const BOOK_NAMES_EN = {
+  GEN: 'Genesis', EXO: 'Exodus', LEV: 'Leviticus', NUM: 'Numbers', DEU: 'Deuteronomy',
+  JOS: 'Joshua', JDG: 'Judges', RUT: 'Ruth', '1SA': '1 Samuel', '2SA': '2 Samuel',
+  '1KI': '1 Kings', '2KI': '2 Kings', '1CH': '1 Chronicles', '2CH': '2 Chronicles', EZR: 'Ezra',
+  NEH: 'Nehemiah', EST: 'Esther', JOB: 'Job', PSA: 'Psalms', PRO: 'Proverbs',
+  ECC: 'Ecclesiastes', SNG: 'Song of Songs', ISA: 'Isaiah', JER: 'Jeremiah', LAM: 'Lamentations',
+  EZK: 'Ezekiel', DAN: 'Daniel', HOS: 'Hosea', JOL: 'Joel', AMO: 'Amos',
+  OBA: 'Obadiah', JON: 'Jonah', MIC: 'Micah', NAM: 'Nahum', HAB: 'Habakkuk',
+  ZEP: 'Zephaniah', HAG: 'Haggai', ZEC: 'Zechariah', MAL: 'Malachi',
+  MAT: 'Matthew', MRK: 'Mark', LUK: 'Luke', JHN: 'John', ACT: 'Acts',
+  ROM: 'Romans', '1CO': '1 Corinthians', '2CO': '2 Corinthians', GAL: 'Galatians', EPH: 'Ephesians',
+  PHP: 'Philippians', COL: 'Colossians', '1TH': '1 Thessalonians', '2TH': '2 Thessalonians', '1TI': '1 Timothy',
+  '2TI': '2 Timothy', TIT: 'Titus', PHM: 'Philemon', HEB: 'Hebrews', JAS: 'James',
+  '1PE': '1 Peter', '2PE': '2 Peter', '1JN': '1 John', '2JN': '2 John', '3JN': '3 John',
+  JUD: 'Jude', REV: 'Revelation'
+};
+
+const BOOK_NAMES_DE = {
+  GEN: '1. Mose', EXO: '2. Mose', LEV: '3. Mose', NUM: '4. Mose', DEU: '5. Mose',
+  JOS: 'Josua', JDG: 'Richter', RUT: 'Rut', '1SA': '1. Samuel', '2SA': '2. Samuel',
+  '1KI': '1. Könige', '2KI': '2. Könige', '1CH': '1. Chronik', '2CH': '2. Chronik', EZR: 'Esra',
+  NEH: 'Nehemia', EST: 'Ester', JOB: 'Hiob', PSA: 'Psalmen', PRO: 'Sprüche',
+  ECC: 'Prediger', SNG: 'Hohelied', ISA: 'Jesaja', JER: 'Jeremia', LAM: 'Klagelieder',
+  EZK: 'Hesekiel', DAN: 'Daniel', HOS: 'Hosea', JOL: 'Joel', AMO: 'Amos',
+  OBA: 'Obadja', JON: 'Jona', MIC: 'Micha', NAM: 'Nahum', HAB: 'Habakuk',
+  ZEP: 'Zefanja', HAG: 'Haggai', ZEC: 'Sacharja', MAL: 'Maleachi',
+  MAT: 'Matthäus', MRK: 'Markus', LUK: 'Lukas', JHN: 'Johannes', ACT: 'Apostelgeschichte',
+  ROM: 'Römer', '1CO': '1. Korinther', '2CO': '2. Korinther', GAL: 'Galater', EPH: 'Epheser',
+  PHP: 'Philipper', COL: 'Kolosser', '1TH': '1. Thessalonicher', '2TH': '2. Thessalonicher', '1TI': '1. Timotheus',
+  '2TI': '2. Timotheus', TIT: 'Titus', PHM: 'Philemon', HEB: 'Hebräer', JAS: 'Jakobus',
+  '1PE': '1. Petrus', '2PE': '2. Petrus', '1JN': '1. Johannes', '2JN': '2. Johannes', '3JN': '3. Johannes',
+  JUD: 'Judas', REV: 'Offenbarung'
+};
+
+function normalizeLocale(raw) {
+  if (!raw || typeof raw !== 'string') return null;
+  const clean = raw.trim().toLowerCase().replace('_', '-').split('-')[0];
+  return ['pl', 'en', 'de'].includes(clean) ? clean : null;
+}
+
+function readLocaleCookie() {
+  try {
+    const match = (`; ${document.cookie}`).split(`; ${LOCALE_COOKIE_KEY}=`);
+    if (match.length === 2) return normalizeLocale(match.pop().split(';').shift());
+  } catch {}
+  return null;
+}
+
+function detectInitialLocale() {
+  try {
+    const query = normalizeLocale(new URLSearchParams(location.search).get('lang'));
+    if (query) return query;
+    const sess = normalizeLocale(sessionStorage.getItem(LOCALE_STORAGE_KEY));
+    if (sess) return sess;
+    const stored = normalizeLocale(localStorage.getItem(LOCALE_STORAGE_KEY));
+    if (stored) return stored;
+  } catch {}
+  return readLocaleCookie() || 'pl';
+}
+
+let currentLocale = detectInitialLocale();
+
+function setLocale(locale, scope = 'global') {
+  const target = normalizeLocale(locale) || 'pl';
+  const prevLocale = currentLocale;
+  currentLocale = target;
+  try {
+    if (scope === 'app') {
+      sessionStorage.setItem(LOCALE_STORAGE_KEY, target);
+    } else {
+      localStorage.setItem(LOCALE_STORAGE_KEY, target);
+      const exp = new Date(Date.now() + 365 * 86400000).toUTCString();
+      document.cookie = `${LOCALE_COOKIE_KEY}=${target};expires=${exp};path=/;SameSite=Lax`;
+      sessionStorage.removeItem(LOCALE_STORAGE_KEY);
+    }
+  } catch {}
+  document.documentElement.lang = target;
+  document.querySelectorAll('[data-ekocc-lang-choice]').forEach((btn) => {
+    const isActive = btn.dataset.ekoccLangChoice === target;
+    btn.classList.toggle('is-active', isActive);
+    btn.setAttribute('aria-pressed', String(isActive));
+  });
+  document.dispatchEvent(new CustomEvent('ekocc:locale-changed', {
+    detail: { locale: target, prevLocale, scope }
+  }));
+  return target;
+}
+
+if (!window.EkoCCI18n) {
+  window.EkoCCI18n = {
+    supportedLocales: ['pl', 'en', 'de'],
+    defaultLocale: 'pl',
+    getLocale: () => currentLocale,
+    setLocale,
+    t: (key, vars) => tr(key, vars)
+  };
+}
+
+function tr(key, vars = {}) {
+  const dict = I18N[currentLocale] || I18N.pl;
+  let text = dict[key] ?? I18N.pl[key] ?? key;
+  for (const [k, v] of Object.entries(vars)) {
+    text = text.replaceAll(`{${k}}`, String(v));
+  }
+  return text;
+}
+
+const READER_THEMES = [
+  {
+    id: 'white',
+    labelKey: 'theme_white',
+    tokens: {
+      bg: '#ffffff', fg: '#121212', muted: '#565251', line: '#ede9e8', accent: '#b71933',
+      btnBg: '#ffffff', btnHover: '#f6f3f3', markBg: '#ffe3e9', rowBg: '#f7f5f5',
+      rowHover: '#fbe8ec', contextBg: '#fff1f3', colorScheme: 'light'
+    }
+  },
+  {
+    id: 'paper',
+    labelKey: 'theme_paper',
+    tokens: {
+      bg: '#f6efe2', fg: '#2b2118', muted: '#6d5c4c', line: '#e3d7c3', accent: '#9e2a2b',
+      btnBg: '#fbf6ed', btnHover: '#ece2d0', markBg: '#f5dcc4', rowBg: '#eee4d3',
+      rowHover: '#e6d7be', contextBg: '#efe2cc', colorScheme: 'light'
+    }
+  },
+  {
+    id: 'sage',
+    labelKey: 'theme_sage',
+    tokens: {
+      bg: '#eef4ef', fg: '#17261c', muted: '#4c6354', line: '#d6e2d8', accent: '#b71933',
+      btnBg: '#f6faf7', btnHover: '#e2ece4', markBg: '#f9dce2', rowBg: '#e4ede6',
+      rowHover: '#dbe7dd', contextBg: '#e7f0e9', colorScheme: 'light'
+    }
+  },
+  {
+    id: 'sky',
+    labelKey: 'theme_sky',
+    tokens: {
+      bg: '#edf3fa', fg: '#152233', muted: '#4d6078', line: '#d5e1ee', accent: '#b71933',
+      btnBg: '#f6f9fd', btnHover: '#e0eaf5', markBg: '#f8dce4', rowBg: '#e3ecf6',
+      rowHover: '#d8e4f2', contextBg: '#e5eef8', colorScheme: 'light'
+    }
+  },
+  {
+    id: 'rose',
+    labelKey: 'theme_rose',
+    tokens: {
+      bg: '#fbf0f3', fg: '#2b161d', muted: '#704e59', line: '#ecd8de', accent: '#b71933',
+      btnBg: '#fff7f9', btnHover: '#f4e2e7', markBg: '#ffd7e1', rowBg: '#f4e5e9',
+      rowHover: '#eed6dd', contextBg: '#fae6ec', colorScheme: 'light'
+    }
+  },
+  {
+    id: 'night',
+    labelKey: 'theme_night',
+    tokens: {
+      bg: '#141418', fg: '#f5f2f2', muted: '#b8b2b4', line: '#2d2a32', accent: '#e74763',
+      btnBg: '#1e1d22', btnHover: '#2a2830', markBg: '#4f1824', rowBg: '#212026',
+      rowHover: '#31262c', contextBg: '#2c191f', colorScheme: 'dark'
+    }
+  }
+];
+
+function tokensFromCustomHex(hex) {
+  if (typeof hex !== 'string' || !/^#[0-9a-f]{6}$/i.test(hex)) return READER_THEMES[0].tokens;
+  const clean = hex.toLowerCase();
+  const r = parseInt(clean.slice(1, 3), 16);
+  const g = parseInt(clean.slice(3, 5), 16);
+  const b = parseInt(clean.slice(5, 7), 16);
+  const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+  const dark = yiq < 145;
+  const mix = (tr2, tg2, tb2, alpha) => {
+    const mr = Math.round(r * (1 - alpha) + tr2 * alpha);
+    const mg = Math.round(g * (1 - alpha) + tg2 * alpha);
+    const mb = Math.round(b * (1 - alpha) + tb2 * alpha);
+    return '#' + [mr, mg, mb].map((n) => n.toString(16).padStart(2, '0')).join('');
+  };
+  if (dark) {
+    return {
+      bg: clean, fg: '#f5f2f2', muted: '#c6c0c2', line: mix(255, 255, 255, 0.16), accent: '#e74763',
+      btnBg: mix(255, 255, 255, 0.08), btnHover: mix(255, 255, 255, 0.16),
+      markBg: '#4f1824', rowBg: mix(255, 255, 255, 0.08),
+      rowHover: mix(231, 71, 99, 0.22), contextBg: mix(231, 71, 99, 0.18), colorScheme: 'dark'
+    };
+  }
+  return {
+    bg: clean, fg: '#141414', muted: '#524e4d', line: mix(0, 0, 0, 0.12), accent: '#b71933',
+    btnBg: mix(255, 255, 255, 0.55), btnHover: mix(0, 0, 0, 0.06),
+    markBg: '#ffe3e9', rowBg: mix(0, 0, 0, 0.05),
+    rowHover: mix(183, 25, 51, 0.10), contextBg: mix(183, 25, 51, 0.08), colorScheme: 'light'
+  };
+}
+
+function loadThemePref() {
+  const saved = readLocal(THEME_STORAGE_KEY);
+  if (saved && typeof saved === 'object' && typeof saved.id === 'string') return saved;
+  return { id: 'white', customHex: '#f6efe2' };
+}
+
+let themePref = loadThemePref();
+
+function applyReaderTheme(pref = themePref) {
+  const nextPref = pref && typeof pref === 'object' ? pref : { id: 'white', customHex: '#f6efe2' };
+  const preset = READER_THEMES.find((t) => t.id === nextPref.id);
+  const customHex = /^#[0-9a-f]{6}$/i.test(nextPref.customHex || '') ? nextPref.customHex.toLowerCase() : '#f6efe2';
+  const resolvedId = nextPref.id === 'custom' ? 'custom' : (preset ? preset.id : 'white');
+  const tokens = resolvedId === 'custom'
+    ? tokensFromCustomHex(customHex)
+    : (preset ? preset.tokens : READER_THEMES[0].tokens);
+  themePref = { id: resolvedId, customHex };
+
+  const rootStyle = document.documentElement.style;
+  rootStyle.setProperty('--sba-surface-bg', tokens.bg);
+  rootStyle.setProperty('--sba-surface-fg', tokens.fg);
+  rootStyle.setProperty('--sba-surface-muted', tokens.muted);
+  rootStyle.setProperty('--sba-surface-line', tokens.line);
+  rootStyle.setProperty('--sba-surface-accent', tokens.accent);
+  rootStyle.setProperty('--sba-surface-btn-bg', tokens.btnBg);
+  rootStyle.setProperty('--sba-surface-btn-hover', tokens.btnHover);
+  rootStyle.setProperty('--sba-surface-mark-bg', tokens.markBg);
+  rootStyle.setProperty('--sba-surface-row-bg', tokens.rowBg);
+  rootStyle.setProperty('--sba-surface-row-hover', tokens.rowHover);
+  rootStyle.setProperty('--sba-surface-context-bg', tokens.contextBg);
+  rootStyle.colorScheme = tokens.colorScheme;
+  document.documentElement.dataset.sbaTheme = resolvedId;
+  const metaTheme = $('meta[name="theme-color"]');
+  if (metaTheme) metaTheme.setAttribute('content', tokens.bg);
+}
+
+function setReaderTheme(nextPref, { save = true, toast = false } = {}) {
+  applyReaderTheme(nextPref);
+  if (save) {
+    saveLocal(THEME_STORAGE_KEY, themePref);
+    trackEvent('sba_theme_change', { theme_id: themePref.id });
+    if (toast) notify(tr('settingsSavedToast'));
+  }
+}
+
 function readLocal(key) {
   try {
     return JSON.parse(localStorage.getItem(key));
@@ -93,7 +664,7 @@ function saveLocal(key, value) {
   try {
     localStorage.setItem(key, JSON.stringify(value));
   } catch {
-    notify('Przeglądarka blokuje zapis na urządzeniu.');
+    notify(tr('storageBlocked'));
   }
 }
 
@@ -104,8 +675,14 @@ function notify(message) {
   toastTimer = setTimeout(() => { toast.textContent = ''; }, 2400);
 }
 
-const ref = (verse) => verse.name + ' ' + verse.chapter + ':' + verse.number;
-const chapterRef = (verse) => verse.name + ' ' + verse.chapter;
+const bookName = (verse) => {
+  if (!verse) return '';
+  if (currentLocale === 'en') return BOOK_NAMES_EN[verse.book] || verse.name;
+  if (currentLocale === 'de') return BOOK_NAMES_DE[verse.book] || verse.name;
+  return verse.name;
+};
+const ref = (verse) => bookName(verse) + ' ' + verse.chapter + ':' + verse.number;
+const chapterRef = (verse) => bookName(verse) + ' ' + verse.chapter;
 const selected = () => cards[active]?.verse;
 
 function shuffleVerses() {
@@ -134,12 +711,13 @@ function addCards(count, initial = null) {
     const body = element('div', 'body');
     const quote = element('blockquote');
     const actions = element('div', 'verse-actions');
-    const favorite = iconButton('heart', 'Zapisz werset', () => toggleFavorite(verse));
-    const more = iconButton('more', 'Opcje wersetu', () => openVerseMenu(verse));
+    const favorite = iconButton('heart', tr('saveVerse'), () => toggleFavorite(verse));
+    const more = iconButton('more', tr('verseOptions'), () => openVerseMenu(verse));
     actions.append(favorite, more);
-    body.append(element('div', 'ref', ref(verse) + ' · UBG'), quote, actions);
+    const refEl = element('div', 'ref', ref(verse) + ' · UBG');
+    body.append(refEl, quote, actions);
     card.append(body);
-    const entry = { verse, card, quote, favorite, more };
+    const entry = { verse, card, refEl, quote, favorite, more };
     paintVerse(entry);
     cards.push(entry);
     fragment.append(card);
@@ -154,10 +732,14 @@ function paintVerse(entry) {
   } else {
     entry.quote.textContent = entry.verse.text;
   }
-  const label = value?.saved ? 'Usuń z ulubionych wersetów' : 'Dodaj werset do ulubionych';
+  if (entry.refEl) entry.refEl.textContent = ref(entry.verse) + ' · UBG';
+  const label = value?.saved ? tr('removeFavVerse') : tr('addFavVerse');
   entry.favorite.setAttribute('aria-label', label);
   entry.favorite.setAttribute('aria-pressed', String(Boolean(value?.saved)));
   entry.favorite.title = label;
+  const moreLabel = tr('verseOptions');
+  entry.more.setAttribute('aria-label', moreLabel);
+  entry.more.title = moreLabel;
 }
 
 function updateVerse(verse, change) {
@@ -172,7 +754,7 @@ function toggleFavorite(verse) {
   const saved = !settings[verse.key]?.saved;
   updateVerse(verse, { saved });
   trackEvent('sba_verse_favorite', { verse_key: verse.key, book: verse.book, chapter: verse.chapter, saved });
-  notify(saved ? 'Zapisano w ulubionych wersetach.' : 'Usunięto z ulubionych wersetów.');
+  notify(saved ? tr('savedFavToast') : tr('removedFavToast'));
 }
 
 function activate(index) {
@@ -358,8 +940,9 @@ feed.addEventListener('contextmenu', (event) => {
   }
 });
 
-function show(title, items, { edge = false } = {}) {
+function show(title, items, { edge = false, view = '' } = {}) {
   dialog.classList.toggle('sba-edge-panel', edge);
+  dialog.dataset.view = view;
   $('#dialog-title').textContent = title;
   dialogContent.replaceChildren(...items);
   if (!dialog.open) {
@@ -384,6 +967,7 @@ dialog.addEventListener('click', (event) => { if (event.target === dialog) dialo
 dialog.addEventListener('close', () => {
   awaitingHoldRelease = false;
   dialogGuardUntil = 0;
+  dialog.dataset.view = '';
   if (returningFocus?.isConnected && !returningFocus.closest('[aria-hidden=true]')) returningFocus.focus({ preventScroll: true });
   else feed.focus({ preventScroll: true });
 });
@@ -448,13 +1032,13 @@ function verseQuote(verse) {
 async function copy(text) {
   try {
     await navigator.clipboard.writeText(text);
-    notify('Skopiowano.');
+    notify(tr('copied'));
   } catch {
     const input = element('textarea');
     input.value = text;
     input.readOnly = true;
-    input.setAttribute('aria-label', 'Tekst do skopiowania');
-    show('Skopiuj tekst', [input]);
+    input.setAttribute('aria-label', tr('copyAria'));
+    show(tr('copyTitle'), [input]);
     input.focus();
     input.select();
   }
@@ -483,7 +1067,7 @@ function showContext(verse) {
     if (item.key === verse.key) paragraph.setAttribute('aria-current', 'true');
     return paragraph;
   });
-  show(chapterRef(verse) + ' · UBG', [link('Otwórz rozdział w MojaBiblia', mojaBiblia(verse)), ...nodes]);
+  show(chapterRef(verse) + ' · UBG', [link(tr('openChapterMojaBiblia'), mojaBiblia(verse)), ...nodes]);
   dialogContent.querySelector('[aria-current]')?.scrollIntoView({ block: 'nearest' });
   trackEvent('sba_chapter_context', { verse_key: verse.key, book: verse.book, chapter: verse.chapter });
 }
@@ -492,20 +1076,20 @@ function showNote(verse) {
   const input = element('textarea');
   input.maxLength = 2500;
   input.value = settings[verse.key]?.note || '';
-  input.placeholder = 'Twoja prywatna notatka…';
-  input.setAttribute('aria-label', 'Notatka do wersetu');
-  show('Notatka · ' + ref(verse), [input, row('Zapisz notatkę', () => {
+  input.placeholder = tr('notePlaceholder');
+  input.setAttribute('aria-label', tr('noteAria'));
+  show(tr('noteTitle', { ref: ref(verse) }), [input, row(tr('saveNote'), () => {
     dialog.close();
     const noteText = input.value.trim();
     updateVerse(verse, { note: noteText });
     trackEvent('sba_verse_note_saved', { verse_key: verse.key, has_note: Boolean(noteText) });
-    notify('Zapisano notatkę na tym urządzeniu.');
+    notify(tr('noteSavedToast'));
   })]);
   input.focus();
 }
 
 function askAiQuestion(verse) {
-  return 'Pomóż mi zrozumieć ten werset w kontekście całego rozdziału: ' + verseQuote(verse) + '. Wyjaśnij kontekst i wskaż powiązane fragmenty Biblii.';
+  return tr('askAiPrompt', { quote: verseQuote(verse) });
 }
 
 function askAiUrl(verse) {
@@ -518,36 +1102,36 @@ function askAiUrl(verse) {
 function openVerseMenu(verse) {
   const saved = settings[verse.key];
   const recording = officialTrack(recordings, verse);
-  const askLink = link('Zapytaj AI dla Jezusa o ten fragment', askAiUrl(verse));
+  const askLink = link(tr('askAiRow'), askAiUrl(verse));
   askLink.addEventListener('click', () => {
     dialog.close();
     trackEvent('sba_ai_ask_open', { verse_key: verse.key, book: verse.book, chapter: verse.chapter });
     navigator.clipboard?.writeText(askAiQuestion(verse)).catch(() => {});
   });
   show(ref(verse), [
-    row(saved?.marked ? 'Usuń podkreślenie' : 'Podkreśl werset', () => {
+    row(saved?.marked ? tr('removeHighlight') : tr('highlightVerse'), () => {
       dialog.close();
       const marked = !saved?.marked;
       updateVerse(verse, { marked });
       trackEvent('sba_verse_highlight', { verse_key: verse.key, marked });
     }),
-    row(saved?.saved ? 'Usuń z ulubionych wersetów' : 'Dodaj werset do ulubionych', () => { dialog.close(); toggleFavorite(verse); }),
-    row('Udostępnij werset', () => { dialog.close(); void share(verse); }),
-    row('Kopiuj tekst wersetu', () => {
+    row(saved?.saved ? tr('removeFavVerse') : tr('addFavVerse'), () => { dialog.close(); toggleFavorite(verse); }),
+    row(tr('shareVerse'), () => { dialog.close(); void share(verse); }),
+    row(tr('copyVerse'), () => {
       dialog.close();
       trackEvent('sba_verse_copy', { verse_key: verse.key, book: verse.book, chapter: verse.chapter });
       void copy(verseQuote(verse));
     }),
-    row('Czytaj kontekst rozdziału', () => showContext(verse)),
-    link('Otwórz ten werset w MojaBiblia', mojaBiblia(verse)),
-    row('Odczytaj ten werset głosem urządzenia', () => { dialog.close(); startVoice(verse); }),
-    ...(recording ? [row('Odtwórz nagranie Christian Culture', () => {
+    row(tr('readContext'), () => showContext(verse)),
+    link(tr('openMojaBiblia'), mojaBiblia(verse)),
+    row(tr('readVoice'), () => { dialog.close(); startVoice(verse); }),
+    ...(recording ? [row(tr('playRecording'), () => {
       dialog.close();
       void startMedia(recording);
     })] : []),
-    row(saved?.note ? 'Edytuj notatkę' : 'Dodaj notatkę', () => showNote(verse)),
-    link('Wyszukaj ten fragment w Christian Culture', ccSearchUrl(verse, '/szukaj')),
-    link('Otwórz Wyszukiwarkę Christian Culture', ccSearchUrl(verse, '/wyszukiwarka')),
+    row(saved?.note ? tr('editNote') : tr('addNote'), () => showNote(verse)),
+    link(tr('searchInCc'), ccSearchUrl(verse, '/szukaj')),
+    link(tr('openCcSearch'), ccSearchUrl(verse, '/wyszukiwarka')),
     askLink
   ]);
   trackEvent('sba_verse_menu_open', { verse_key: verse.key });
@@ -555,7 +1139,7 @@ function openVerseMenu(verse) {
 
 $('#saved-verses').addEventListener('click', () => {
   const saved = bible ? Object.keys(settings).filter((key) => settings[key]?.saved && bible.byKey.has(key)) : [];
-  show('Ulubione wersety', saved.length ? saved.map((key) => {
+  show(tr('savedVerses'), saved.length ? saved.map((key) => {
     const verse = bible.byKey.get(key);
     return row(ref(verse) + ' · ' + verse.text, () => {
       dialog.close();
@@ -567,7 +1151,7 @@ $('#saved-verses').addEventListener('click', () => {
         goTo(index, true);
       }
     });
-  }) : [element('p', '', 'Zapisane wersety pojawią się tutaj.')]);
+  }) : [element('p', '', tr('emptyFavorites'))]);
 });
 
 const hasSpeech = 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
@@ -602,21 +1186,21 @@ function updatePlayer() {
   const recorded = track?.type === 'recording';
   const radio = track?.type === 'radio';
   const live = isPlaying();
-  let title = 'Biblia Audio';
+  let title = tr('audioTitle');
   if (recorded) title = chapterRef(track.verse);
   if (radio) title = track.title;
-  if (track?.type === 'voice') title = 'Czytanie wersetu';
-  let detail = 'Brak nagrania i polskiego głosu urządzenia.';
-  if (!bible || (!track && recordingsState === 'loading')) detail = 'Wczytuję katalog nagrań…';
-  else if (recorded) detail = track.range ? 'Nagranie CC · wersety ' + track.range : 'Biblia Audio · nagranie rozdziału';
-  else if (radio) detail = 'Radio na żywo · ' + (live ? 'połączono' : 'wstrzymane');
-  else if (track) detail = (recordingsState === 'failed' ? 'Katalog audio niedostępny · ' : '') + 'Głos urządzenia · UBG';
-  if (track?.verse && live && track.verse.key !== selected()?.key) detail += ' · poprzedni fragment';
+  if (track?.type === 'voice') title = tr('readingVerse');
+  let detail = tr('noAudioDetail');
+  if (!bible || (!track && recordingsState === 'loading')) detail = tr('loadingCatalog');
+  else if (recorded) detail = track.range ? tr('recordingRange', { range: track.range }) : tr('recordingChapter');
+  else if (radio) detail = tr('radioLive', { state: live ? tr('radioConnected') : tr('radioPaused') });
+  else if (track) detail = (recordingsState === 'failed' ? tr('catalogUnavailable') : '') + tr('deviceVoiceDetail');
+  if (track?.verse && live && track.verse.key !== selected()?.key) detail += tr('previousFragment');
   $('#track-title').textContent = title;
   $('#track-detail').textContent = playerError || detail;
   playButton.disabled = !track;
   $('#audio-options').disabled = !selected();
-  playButton.setAttribute('aria-label', live ? (speech ? 'Zatrzymaj czytanie' : 'Wstrzymaj nagranie') : 'Odtwórz');
+  playButton.setAttribute('aria-label', live ? (speech ? tr('stopReading') : tr('pauseTrack')) : tr('playTrack'));
   icon(playButton, live ? 'pause' : 'play');
   $('#progress').hidden = !recorded;
   const duration = Number.isFinite(audio.duration) ? audio.duration : 0;
@@ -634,7 +1218,7 @@ function updatePlayer() {
 
 function startVoice(verse) {
   if (!canSpeakPolish()) {
-    notify('Na tym urządzeniu brakuje polskiego głosu.');
+    notify(tr('noPolishVoice'));
     return;
   }
   stopPlayback();
@@ -649,7 +1233,7 @@ function startVoice(verse) {
     if (speech !== utterance) return;
     speech = null;
     playingTrack = null;
-    if (error) playerError = 'Nie udało się odczytać tekstu głosem urządzenia.';
+    if (error) playerError = tr('voiceError');
     updatePlayer();
   };
   utterance.onend = () => finished();
@@ -673,7 +1257,7 @@ async function startMedia(track) {
   } catch (error) {
     if (error.name === 'AbortError' || playingTrack !== track) return;
     stopPlayback();
-    playerError = track.type === 'radio' ? 'Nie udało się połączyć z radiem. Wybierz stację ponownie.' : 'Nie udało się uruchomić nagrania. Spróbuj ponownie lub wybierz głos urządzenia.';
+    playerError = track.type === 'radio' ? tr('radioConnectError') : tr('recordingPlayError');
   }
   updatePlayer();
 }
@@ -701,7 +1285,7 @@ audio.addEventListener('error', () => {
   const failedTrack = playingTrack;
   stopPlayback();
   if (failedTrack?.type === 'radio') playingTrack = failedTrack;
-  playerError = failedTrack?.type === 'radio' ? 'Radio jest chwilowo niedostępne.' : 'Nagranie jest chwilowo niedostępne.';
+  playerError = failedTrack?.type === 'radio' ? tr('radioTempUnavailable') : tr('recordingTempUnavailable');
   updatePlayer();
 });
 if (hasSpeech) speechSynthesis.addEventListener('voiceschanged', updatePlayer);
@@ -716,11 +1300,11 @@ function setAudioMode(mode) {
   dialog.close();
 }
 $('#audio-options').addEventListener('click', () => {
-  show('Biblia Audio', [
-    row((playingTrack?.type !== 'radio' && audioMode === 'automatic' ? '✓  ' : '') + 'Nagrania CC, gdy są dostępne', () => setAudioMode('automatic')),
-    row((playingTrack?.type !== 'radio' && audioMode === 'voice' ? '✓  ' : '') + 'Zawsze używaj głosu urządzenia', () => setAudioMode('voice')),
-    link('Otwórz katalog Biblii Audio', withSbaContext(site('/biblia-audio'), selected())),
-    element('h3', '', 'Radio na żywo'),
+  show(tr('audioTitle'), [
+    row((playingTrack?.type !== 'radio' && audioMode === 'automatic' ? '✓  ' : '') + tr('audioModeAuto'), () => setAudioMode('automatic')),
+    row((playingTrack?.type !== 'radio' && audioMode === 'voice' ? '✓  ' : '') + tr('audioModeVoice'), () => setAudioMode('voice')),
+    link(tr('openAudioCatalog'), withSbaContext(site('/biblia-audio'), selected())),
+    element('h3', '', tr('liveRadioHeading')),
     ...stations.map((station) => row((playingTrack === station ? '✓  ' : '') + station.title, () => {
       dialog.close();
       trackEvent('sba_radio_select', { station_title: station.title, stream_url: station.url });
@@ -734,7 +1318,7 @@ const pageFavoriteKey = 'cc-biblia-ubg-app-favorite-v1';
 function paintLocalPageStar() {
   const saved = readLocal(pageFavoriteKey) === true;
   pageStar.setAttribute('aria-pressed', String(saved));
-  const label = saved ? 'Usuń aplikację z ulubionych' : 'Dodaj aplikację do ulubionych';
+  const label = saved ? tr('appFavRemove') : tr('appFavAdd');
   pageStar.setAttribute('aria-label', label);
   pageStar.title = label;
 }
@@ -841,10 +1425,111 @@ $('#chat').addEventListener('click', (event) => {
     }
   }
 });
+function closeEdgePanelIfOpen() {
+  const drawer = $('#cc-mobile-edge-dialog');
+  if (drawer?.open) {
+    if (typeof drawer._ccClose === 'function') drawer._ccClose();
+    else drawer.close();
+  }
+  if (dialog.open && dialog.classList.contains('sba-edge-panel')) {
+    dialog.close();
+  }
+}
+
+function openSettingsDialog() {
+  const section = element('div', 'sba-settings-section');
+  section.append(element('h3', 'sba-settings-heading', tr('settingsBgHeading')));
+
+  const grid = element('div', 'sba-theme-grid');
+  grid.setAttribute('role', 'group');
+  grid.setAttribute('aria-label', tr('settingsBgHeading'));
+
+  const syncControls = (hexInput, hexBadge) => {
+    grid.querySelectorAll('.sba-theme-swatch').forEach((btn) => {
+      btn.setAttribute('aria-pressed', String(btn.dataset.themeId === themePref.id));
+    });
+    const activePreset = READER_THEMES.find((t) => t.id === themePref.id);
+    const activeHex = themePref.id === 'custom' ? themePref.customHex : (activePreset?.tokens.bg || '#ffffff');
+    hexInput.value = activeHex;
+    hexBadge.textContent = activeHex.toUpperCase();
+  };
+
+  const customRow = element('label', 'sba-custom-color-row');
+  const picker = document.createElement('input');
+  picker.type = 'color';
+  picker.id = 'sba-custom-bg';
+  picker.className = 'sba-color-input';
+  picker.setAttribute('aria-label', tr('settingsCustomLabel'));
+  const customLabel = element('span', 'sba-color-label', tr('settingsCustomLabel'));
+  const hexBadge = element('span', 'sba-color-hex');
+  customRow.append(picker, customLabel, hexBadge);
+
+  for (const theme of READER_THEMES) {
+    const btn = element('button', 'sba-theme-swatch');
+    btn.dataset.themeId = theme.id;
+    const dot = element('span', 'sba-swatch-dot');
+    dot.style.background = theme.tokens.bg;
+    btn.append(dot, element('span', '', tr(theme.labelKey)));
+    btn.addEventListener('click', () => {
+      setReaderTheme({ id: theme.id, customHex: themePref.customHex }, { save: true, toast: true });
+      syncControls(picker, hexBadge);
+    });
+    grid.append(btn);
+  }
+
+  picker.addEventListener('input', () => {
+    applyReaderTheme({ id: 'custom', customHex: picker.value });
+    saveLocal(THEME_STORAGE_KEY, themePref);
+    syncControls(picker, hexBadge);
+  });
+  picker.addEventListener('change', () => {
+    setReaderTheme({ id: 'custom', customHex: picker.value }, { save: true, toast: true });
+    syncControls(picker, hexBadge);
+  });
+
+  const resetBtn = element('button', 'menu-row sba-settings-reset', tr('settingsReset'));
+  resetBtn.addEventListener('click', () => {
+    setReaderTheme({ id: 'white', customHex: themePref.customHex }, { save: true, toast: true });
+    syncControls(picker, hexBadge);
+  });
+
+  syncControls(picker, hexBadge);
+  section.append(grid, customRow, resetBtn);
+  if (currentLocale !== 'pl') {
+    section.append(element('p', 'sba-settings-note', tr('settingsScriptureNote')));
+  }
+  show(tr('settingsTitle'), [section], { view: 'settings' });
+  trackEvent('sba_settings_open');
+}
+
+function syncEdgeChannelsLocale(root) {
+  const container = root?.querySelector('.sba-edge-channels');
+  if (!container) return;
+  container.setAttribute('aria-label', tr('ytAria'));
+  const settingsLabel = container.querySelector('[data-sba-settings-label]');
+  if (settingsLabel) settingsLabel.textContent = tr('settingsBtn');
+}
+
 function edgeChannelLinks() {
   const group = element('section', 'sba-edge-channels');
-  group.setAttribute('aria-label', 'Kanały Christian Culture na YouTube');
+  group.setAttribute('aria-label', tr('ytAria'));
+
+  const settingsBtn = element('button', 'menu-row sba-edge-settings-btn');
+  settingsBtn.dataset.sbaEdgeSettings = 'true';
+  const iconWrap = element('span');
+  iconWrap.setAttribute('aria-hidden', 'true');
+  icon(iconWrap, 'settings');
+  const labelSpan = element('span', '', tr('settingsBtn'));
+  labelSpan.dataset.sbaSettingsLabel = 'true';
+  settingsBtn.append(iconWrap, labelSpan);
+  settingsBtn.addEventListener('click', (event) => {
+    event.stopPropagation();
+    closeEdgePanelIfOpen();
+    openSettingsDialog();
+  });
+
   group.append(
+    settingsBtn,
     element('h3', 'sba-edge-label', 'YouTube'),
     link('Osobowość PLUS', 'https://www.youtube.com/@osobowo%C5%9B%C4%87PLUS'),
     link('Christian Culture TV', 'https://www.youtube.com/@ChristianCultureTV'),
@@ -867,22 +1552,141 @@ $('#edge').addEventListener('click', () => {
       panel.classList.add('sba-edge-panel');
       if (!navigation.querySelector('.sba-edge-channels')) {
         const channels = edgeChannelLinks();
-        const ecoHeading = element('h3', 'sba-edge-eco-label', 'PolskieRadio.cc');
-        const close = navigation.querySelector('[data-edge-key="close"]');
-        if (close) close.after(channels, ecoHeading);
-        else navigation.prepend(channels, ecoHeading);
+        const langDivider = navigation.querySelector('.cc-edge-lang-divider');
+        if (langDivider) langDivider.before(channels);
+        else navigation.append(channels);
+      } else {
+        syncEdgeChannelsLocale(navigation);
       }
       return;
     }
   }
-  show('Panel Christian Culture', [
-    edgeChannelLinks(),
+  const langBar = element('div', 'sba-edge-lang-fallback');
+  langBar.setAttribute('role', 'group');
+  langBar.setAttribute('aria-label', tr('langGroupAria'));
+  for (const code of ['pl', 'en', 'de']) {
+    const btn = element('button', code === currentLocale ? 'is-active' : '', code.toUpperCase());
+    btn.dataset.ekoccLangChoice = code;
+    btn.setAttribute('aria-pressed', String(code === currentLocale));
+    btn.addEventListener('click', () => {
+      setLocale(code, 'global');
+      langBar.querySelectorAll('button').forEach((b) => {
+        const activeBtn = b.dataset.ekoccLangChoice === code;
+        b.classList.toggle('is-active', activeBtn);
+        b.setAttribute('aria-pressed', String(activeBtn));
+      });
+    });
+    langBar.append(btn);
+  }
+  show(tr('panelFallbackTitle'), [
     link('Wyszukiwarka Christian Culture', ccSearchUrl(selected(), '/wyszukiwarka')),
     link('MojaBiblia', selected() ? mojaBiblia(selected()) : withSbaContext(site('/mojabiblia?book=JHN&ch=1&chapter=1&mode=reader'))),
     link('AI dla Jezusa', selected() ? askAiUrl(selected()) : withSbaContext(site('/ai/aplikacja'))),
     link('Biblia Audio', withSbaContext(site('/biblia-audio'), selected())),
-    link('LumiMes', site('/mess'))
+    link('LumiMes', site('/mess')),
+    edgeChannelLinks(),
+    langBar
   ], { edge: true });
+});
+
+function applyAppLocale() {
+  document.documentElement.lang = currentLocale;
+  document.title = tr('pageTitle');
+  const brandTitle = $('.brand strong');
+  if (brandTitle) brandTitle.textContent = tr('brandTitle');
+  const brandSub = $('.brand small');
+  if (brandSub) brandSub.textContent = tr('brandSubtitle');
+  const topActions = $('.top-actions');
+  if (topActions) topActions.setAttribute('aria-label', tr('topActionsAria'));
+  const savedBtn = $('#saved-verses');
+  if (savedBtn) {
+    savedBtn.setAttribute('aria-label', tr('savedVerses'));
+    savedBtn.title = tr('savedVerses');
+  }
+  paintLocalPageStar();
+  const loginLink = $('.login');
+  if (loginLink) {
+    loginLink.setAttribute('aria-label', tr('loginGoogle'));
+    loginLink.title = tr('loginGoogle');
+  }
+  const readerEl = $('.reader');
+  if (readerEl) readerEl.setAttribute('aria-label', tr('readerAria'));
+  const loadingMsg = $('#loading-message');
+  if (loadingMsg && !$('#reader-status')?.hidden) {
+    const retryHidden = $('#retry')?.hidden !== false;
+    loadingMsg.textContent = retryHidden ? tr('loadingVerses') : tr('loadingFailed');
+  }
+  const retryBtn = $('#retry');
+  if (retryBtn) retryBtn.textContent = tr('retry');
+  feed.setAttribute('aria-label', tr('versesAria'));
+  const prevBtn = $('#previous');
+  if (prevBtn) {
+    prevBtn.setAttribute('aria-label', tr('prevVerse'));
+    prevBtn.title = tr('prevVerse');
+  }
+  const nextBtn = $('#next');
+  if (nextBtn) {
+    nextBtn.setAttribute('aria-label', tr('nextVerse'));
+    nextBtn.title = tr('nextVerse');
+  }
+  const gestureEl = $('.gesture');
+  if (gestureEl) gestureEl.textContent = tr('gestureHint');
+  const edgeBtn = $('#edge');
+  if (edgeBtn) {
+    edgeBtn.setAttribute('aria-label', tr('edgeOpen'));
+    edgeBtn.title = tr('edgeTitle');
+  }
+  const chatLink = $('#chat');
+  if (chatLink) {
+    chatLink.setAttribute('aria-label', tr('chatOpen'));
+    chatLink.title = 'LumiMes';
+  }
+  const playerSection = $('.player');
+  if (playerSection) playerSection.setAttribute('aria-label', tr('playerAria'));
+  const audioOptBtn = $('#audio-options');
+  if (audioOptBtn) {
+    audioOptBtn.setAttribute('aria-label', tr('audioOptionsAria'));
+    audioOptBtn.title = tr('audioOptionsTitle');
+  }
+  seek.setAttribute('aria-label', tr('seekAria'));
+  const badge = $('.radio-eq-badge');
+  if (badge) badge.innerHTML = '<i class="radio-eq-dot"></i>' + tr('liveBadge');
+  const closeBtn = $('#close');
+  if (closeBtn) closeBtn.setAttribute('aria-label', tr('close'));
+
+  const bannerTitle = $('#install-banner-title');
+  if (bannerTitle) bannerTitle.textContent = tr('installTitle');
+  const bannerDesc = $('#install-banner-desc');
+  if (bannerDesc) bannerDesc.textContent = tr('installDesc');
+  const bannerClose = $('#install-banner-close');
+  if (bannerClose) {
+    bannerClose.setAttribute('aria-label', tr('installCloseAria'));
+    bannerClose.title = tr('close');
+  }
+  const bannerCta = $('#install-banner-cta');
+  if (bannerCta) bannerCta.textContent = tr('installCta');
+  const bannerLater = $('#install-banner-later');
+  if (bannerLater) bannerLater.textContent = tr('installLater');
+  const bannerDone = $('#install-banner-done');
+  if (bannerDone) bannerDone.textContent = tr('installDone');
+  const bannerSteps = $('#install-banner-steps');
+  if (bannerSteps && $('#install-banner-help') && !$('#install-banner-help').hidden) {
+    const isIos = /iPhone|iPad|iPod/i.test(navigator.userAgent || '');
+    bannerSteps.textContent = tr(isIos ? 'installIosSteps' : 'installAndroidSteps');
+  }
+
+  for (const entry of cards) paintVerse(entry);
+  const currentVerse = selected();
+  if (currentVerse) $('#verse-announcement').textContent = ref(currentVerse) + '. ' + currentVerse.text;
+  syncEdgeChannelsLocale($('#cc-mobile-edge-dialog'));
+  updatePlayer();
+  if (dialog.open && dialog.dataset.view === 'settings') openSettingsDialog();
+}
+
+document.addEventListener('ekocc:locale-changed', (event) => {
+  const next = normalizeLocale(event?.detail?.locale) || normalizeLocale(window.EkoCCI18n?.getLocale?.()) || 'pl';
+  if (next !== currentLocale) currentLocale = next;
+  applyAppLocale();
 });
 
 function bootCommunity() {
@@ -908,11 +1712,11 @@ function bootCommunity() {
 async function initBible() {
   const retry = $('#retry');
   retry.hidden = true;
-  $('#loading-message').textContent = 'Wczytuję wersety UBG…';
+  $('#loading-message').textContent = tr('loadingVerses');
   try {
     bible = await loadBible();
   } catch {
-    $('#loading-message').textContent = 'Nie udało się wczytać Biblii UBG. Sprawdź połączenie i spróbuj ponownie.';
+    $('#loading-message').textContent = tr('loadingFailed');
     retry.hidden = false;
     return;
   }
@@ -975,7 +1779,7 @@ function markInstalled(method) {
   clearTimeout(installBannerTimer);
   hideInstallBanner();
   trackEvent('sba_pwa_installed', { method });
-  if (method !== 'standalone') notify('Aplikacja Scrolluj Biblię została zainstalowana.');
+  if (method !== 'standalone') notify(tr('installedToast'));
 }
 
 function initInstallBanner() {
@@ -1029,9 +1833,7 @@ function initInstallBanner() {
     }
     const isIos = /iPhone|iPad|iPod/i.test(navigator.userAgent || '');
     if (steps) {
-      steps.textContent = isIos
-        ? 'Na iPhone/iPad: dotknij ikony Udostępnij na pasku Safari, a następnie wybierz „Do ekranu początkowego”.'
-        : 'Otwórz menu przeglądarki (⋮) i wybierz „Zainstaluj aplikację” lub „Dodaj do ekranu głównego”.';
+      steps.textContent = tr(isIos ? 'installIosSteps' : 'installAndroidSteps');
     }
     if (help) help.hidden = false;
   });
@@ -1056,6 +1858,8 @@ function scheduleInstallBanner() {
   }, 700);
 }
 
+applyReaderTheme(loadThemePref());
+applyAppLocale();
 initInstallBanner();
 $('#retry').addEventListener('click', initBible);
 window.addEventListener('hashchange', () => {
