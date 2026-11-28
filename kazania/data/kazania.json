@@ -23,6 +23,71 @@
   ],
   "sermons": [
     {
+      "id": "dobry-pasterz-psalm-23-2026-11-28",
+      "planSlug": "dobry-pasterz-psalm-23",
+      "title": "Chrystus jako Dobry Pasterz prowadzący przez dolinę cienia śmierci",
+      "ref": "Psalm 23:1–6",
+      "chapterId": "PSA-023",
+      "verseStart": 1,
+      "verseEnd": 6,
+      "cat": "Wiara i modlitwa",
+      "series": "Modlitwy serca",
+      "desc": "Studium homiletyczne na podstawie Psalm 23:1–6: Chrystus jako Dobry Pasterz prowadzący przez dolinę cienia śmierci.",
+      "objective": "Doprowadzić słuchaczy do głębszego poznania Chrystusa i praktycznej odpowiedzi wiary w oparciu o fragment Psalm 23:1–6.",
+      "historicalContext": "Fragment pochodzi z księgi „Księga Psalmów” (rozdział 23), przekazanej wspólnocie wierzących w konkretnym momencie historii zbawienia jako wezwanie do wierności Bogu.",
+      "literaryContext": "Perykopa Psalm 23:1–6 stanowi spójną całość myślową akcentującą działanie Bożej łaski, prawdy Słowa oraz odpowiedź ludzkiego serca.",
+      "exegesis": "Analizowany tekst otwiera się wyznaniem: „PAN jest moim pasterzem, niczego mi nie zabraknie.”. W centrum rozważania wybrzmiewa prawda: „Choćbym nawet chodził doliną cienia śmierci, zła się nie ulęknę, bo ty jesteś ze mną; twoja laska i kij pocieszają mnie.”, prowadząc do konkluzji opartej na świadectwie wersetu końcowego: „Zaprawdę dobroć i miłosierdzie pójdą w ślad za mną po wszystkie dni mego życia i będę mieszkał w domu PANA przez długie czasy.”.",
+      "introduction": "Codzienne zmagania i pytania o sens kierują nasze spojrzenie ku niezawodnemu Słowu Bożemu. Fragment Psalm 23:1–6 stawia przed nami żywego Boga i Jego obietnicę.",
+      "keyVerses": [
+        {
+          "v": 1,
+          "text": "PAN jest moim pasterzem, niczego mi nie zabraknie."
+        },
+        {
+          "v": 2,
+          "text": "Sprawia, że kładę się na zielonych pastwiskach, prowadzi mnie nad spokojne wody."
+        },
+        {
+          "v": 3,
+          "text": "Posila moją duszę, prowadzi mnie ścieżkami sprawiedliwości ze względu na swoje imię."
+        },
+        {
+          "v": 4,
+          "text": "Choćbym nawet chodził doliną cienia śmierci, zła się nie ulęknę, bo ty jesteś ze mną; twoja laska i kij pocieszają mnie."
+        },
+        {
+          "v": 5,
+          "text": "Zastawiasz przede mną stół wobec moich wrogów, namaszczasz mi głowę olejkiem, mój kielich przelewa się."
+        },
+        {
+          "v": 6,
+          "text": "Zaprawdę dobroć i miłosierdzie pójdą w ślad za mną po wszystkie dni mego życia i będę mieszkał w domu PANA przez długie czasy."
+        }
+      ],
+      "points": [
+        "Boże objawienie i prawda tekstu w Psalm 23:1–6 („PAN jest moim pasterzem, niczego mi nie zabraknie.…”).",
+        "Centrum przesłania wiary i zaufania Panu („Choćbym nawet chodził doliną cienia śmierci, zła się nie ulęknę, bo ty jesteś ze mną; twoj…”).",
+        "Owoc posłuszeństwa i nadziei w życiu ucznia Chrystusa („Zaprawdę dobroć i miłosierdzie pójdą w ślad za mną po wszystkie dni mego życia i będę mies…”)."
+      ],
+      "relatedVerses": [
+        "2 Tymoteusza 3:16–17",
+        "Ewangelia Jana 5:39",
+        "List do Rzymian 15:4"
+      ],
+      "illustration": "Podobnie jak podróżnik w ciemności ufa latarni wskazującej pewny brzeg, tak wierzący opiera decyzje nie na zmiennych emocjach, lecz na niezmiennym świadectwie Pisma Świętego.",
+      "christocentric": "Całe Pismo świadczy o Jezusie Chrystusie — w świetle krzyża i zmartwychwstania obietnice z Psalm 23:1–6 znajdują w Nim swoje pewne „Tak” i „Amen”.",
+      "apply": "Poświęć dziś 10 minut na cichą modlitwę nad Psalm 23:1–6 i przekuj jedno zdanie z tego fragmentu w konkretny gest miłości lub wierności.",
+      "callToAction": "Powierz dziś swoje serce Chrystusowi i przyjmij Słowo z Psalm 23:1–6 jako światło dla swojego domu oraz służby.",
+      "reflectionQuestion": "Które słowo z Psalm 23:1–6 najbardziej wzywa mnie dziś do nawrócenia, pokoju lub odważniejszego świadectwa?",
+      "bibliography": "Pismo Święte: Uwspółcześniona Biblia Gdańska (UBG-2025), Psalm 23:1–6 · Ekosystem Christian Culture (polskieradio.cc/mojabiblia).",
+      "pdf": "",
+      "mp3": "",
+      "isDemo": false,
+      "publishedDate": "2026-11-28",
+      "source": "daily-auto",
+      "bookUrl": "/mojabiblia"
+    },
+    {
       "id": "wiara",
       "title": "Wiara większa niż strach",
       "ref": "Ewangelia Mateusza 14:22–33",

@@ -12,6 +12,7 @@ import { handleSpiritualSoundsFeed, handleSpiritualSoundsPlaylist } from './serv
 import { handleLumiChatApi } from './services/lumi-chat/lumi-chat-service.js';
 import { handlePrayerCounter } from './services/prayer-40dm/counter-service.js';
 import { handleAnalyticsMissionControlApi } from './services/cc-analytics-mc/analytics-mc-service.js';
+import { handleKazaniaApi } from './services/kazania/kazania-service.js';
 
 const BLOCKED_PREFIXES = [
   '/.git/', '/.codex/', '/.cursor/', '/.claude/', '/repozytoria-cc/', '/joma_shared_memory/',
@@ -1924,6 +1925,9 @@ export default {
     // Pełna playlista Spiritual Sounds (ponad limit 200 IFrame) — klucz tylko w sekrecie YT_API_KEY — @007 2026-11-18
     if (url.pathname === '/api/spiritual-sounds/playlist') {
       return handleSpiritualSoundsPlaylist(request, env, ctx);
+    }
+    if (url.pathname.startsWith('/api/kazania/')) {
+      return handleKazaniaApi(request, env, { verifyToken: (tok) => verifyFirebaseIdToken(tok) });
     }
     if (url.pathname.startsWith('/api/ai-dla-jezusa/v1')) {
       return handleAiDlaJezusaApi(request, env, { verifyToken: (tok) => verifyAiOwnerToken(tok, env) });

@@ -39,7 +39,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;600;700;800&display=swap">
 <link rel="stylesheet" href="/css/cc-mobile-edge.css?v=20261113_edge13">
-<link rel="stylesheet" href="/kazania/kazania.css?v=20261128_1">
+<link rel="stylesheet" href="/kazania/kazania.css?v=20261128_2">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -59,10 +59,36 @@
       "mainEntity": {
         "@type": "ItemList",
         "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Wiara większa niż strach (Mateusza 14:22–33)", "url": "https://polskieradio.cc/kazania/#k-wiara" },
-          { "@type": "ListItem", "position": 2, "name": "Łaska, która zmienia wszystko (Efezjan 2:1–10)", "url": "https://polskieradio.cc/kazania/#k-laska" },
-          { "@type": "ListItem", "position": 3, "name": "Kiedy Bóg milczy (Psalm 13:1–6)", "url": "https://polskieradio.cc/kazania/#k-milczenie" },
-          { "@type": "ListItem", "position": 4, "name": "Jezus pośród burzy (Marka 4:35–41)", "url": "https://polskieradio.cc/kazania/#k-burza" }
+          {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Chrystus jako Dobry Pasterz prowadzący przez dolinę cienia śmierci (Psalm 23:1–6)",
+                    "url": "https://polskieradio.cc/kazania/#k-dobry-pasterz-psalm-23-2026-11-28"
+          },
+          {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Wiara większa niż strach (Ewangelia Mateusza 14:22–33)",
+                    "url": "https://polskieradio.cc/kazania/#k-wiara"
+          },
+          {
+                    "@type": "ListItem",
+                    "position": 3,
+                    "name": "Łaska, która zmienia wszystko (List do Efezjan 2:1–10)",
+                    "url": "https://polskieradio.cc/kazania/#k-laska"
+          },
+          {
+                    "@type": "ListItem",
+                    "position": 4,
+                    "name": "Kiedy Bóg milczy (Psalm 13:1–6)",
+                    "url": "https://polskieradio.cc/kazania/#k-milczenie"
+          },
+          {
+                    "@type": "ListItem",
+                    "position": 5,
+                    "name": "Jezus pośród burzy (Ewangelia Marka 4:35–41)",
+                    "url": "https://polskieradio.cc/kazania/#k-burza"
+          }
         ]
       }
     }
@@ -137,8 +163,8 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 6h16v2H4zm0 5h16v2H4zm0 5h10v2H4z"/></svg>
             Odkryj bibliotekę
           </a>
+          <button type="button" class="btn btn--ghost" id="heroSubmitBtn">+ Udostępnij kazanie</button>
           <a class="btn btn--ghost" href="/biblia-audio">Biblia Audio</a>
-          <button type="button" class="btn btn--ghost" data-cc-wspieramto="true">WspieramTO</button>
         </div>
       </div>
 
@@ -186,6 +212,12 @@
         <option value="">Wszystkie kategorie</option>
       </select>
       <button type="button" class="btn-filter" id="saved">☆ Zapisane</button>
+      <button type="button" class="btn-filter btn-filter--cc" id="openSubmitBtn">+ Udostępnij kazanie</button>
+    </div>
+    <div class="source-tabs" id="sourceTabs" role="tablist" aria-label="Źródło kazań">
+      <button type="button" class="tab-pill is-active" data-source="all" role="tab" aria-selected="true">Wszystkie</button>
+      <button type="button" class="tab-pill" data-source="editorial" role="tab" aria-selected="false">Redakcyjne (UBG)</button>
+      <button type="button" class="tab-pill" data-source="community" role="tab" aria-selected="false">Od użytkowników (Dysk Google)</button>
     </div>
     <p id="count" class="count-line" aria-live="polite">Ładowanie biblioteki kazań…</p>
     <div id="cards" class="sgrid"></div>
@@ -310,6 +342,7 @@
 
 <div class="player-bar" id="kzpPlayer" hidden role="region" aria-label="Odtwarzacz kazania">
   <strong id="now">🎧 Odtwarzacz</strong>
+  <div id="driveAudioWrap" class="drive-audio-wrap" hidden></div>
   <audio id="audio" controls hidden></audio>
   <button type="button" id="pause">Pauza / wznów</button>
   <button type="button" id="stop">Stop</button>
@@ -335,6 +368,90 @@
   <article class="reader__body" id="reading"></article>
 </dialog>
 
+<dialog class="reader-modal submit-modal" id="submitModal" aria-labelledby="submitModalTitle">
+  <div class="reader__head">
+    <strong id="submitModalTitle" style="font:700 18px/1.2 var(--display);color:var(--cream)">Udostępnij własne kazanie</strong>
+    <button type="button" class="act-btn" id="closeSubmit" aria-label="Zamknij formularz udostępniania">Zamknij ×</button>
+  </div>
+  <div class="reader__body">
+    <div id="submitAuthGate" class="auth-gate">
+      <p class="lead">Aby udostępnić własne kazanie (Audio MP3, PDF, Dokument Google lub konspekt tekstowy), zaloguj się bezpłatnym kontem <strong>LUMINA (Google)</strong>.</p>
+      <p class="p">Wspólne logowanie chroni bibliotekę przed spamem i przypisuje publikację do Twojego konta.</p>
+      <button type="button" class="btn btn--cc" id="submitLoginBtn">Zaloguj się przez Google (LUMINA)</button>
+    </div>
+
+    <form id="submitForm" class="submit-form" hidden novalidate>
+      <div class="submit-user-pill" id="submitUserBadge"></div>
+
+      <div>
+        <span class="field-lbl">Format kazania</span>
+        <div class="fmt-grid" id="fmtGrid">
+          <button type="button" class="fmt-pill is-selected" data-fmt="mp3">🎧 MP3 (Dysk Google)</button>
+          <button type="button" class="fmt-pill" data-fmt="pdf">📄 PDF (Dysk Google)</button>
+          <button type="button" class="fmt-pill" data-fmt="doc">📝 Google Docs / Plik</button>
+          <button type="button" class="fmt-pill" data-fmt="outline">📖 Konspekt tekstowy</button>
+        </div>
+        <input type="hidden" id="fFormat" value="mp3">
+      </div>
+
+      <div id="driveFieldGroup">
+        <label class="field-lbl" for="fDriveUrl">Publiczny link z Dysku Google / Dokumentów Google</label>
+        <input id="fDriveUrl" type="url" placeholder="https://drive.google.com/file/d/.../view lub https://docs.google.com/document/d/.../edit">
+        <p class="drive-hint" id="driveUrlHint">Włącz na Dysku Google: <em>Udostępnij → Ogólny dostęp: Każda osoba mająca link (Przeglądający)</em>.</p>
+      </div>
+
+      <div class="form-row">
+        <div>
+          <label class="field-lbl" for="fTitle">Tytuł kazania *</label>
+          <input id="fTitle" type="text" maxlength="140" required placeholder="Np. Nadzieja silniejsza niż burza">
+        </div>
+        <div>
+          <label class="field-lbl" for="fRef">Fragment Biblii (np. Rz 8:28)</label>
+          <input id="fRef" type="text" maxlength="80" placeholder="Np. List do Rzymian 8:28–39">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div>
+          <label class="field-lbl" for="fCat">Kategoria *</label>
+          <select id="fCat" required></select>
+        </div>
+        <div>
+          <label class="field-lbl" for="fSeries">Seria (opcjonalnie)</label>
+          <input id="fSeries" type="text" maxlength="80" placeholder="Np. Kazania społeczności">
+        </div>
+      </div>
+
+      <div>
+        <label class="field-lbl" for="fDesc">Krótki opis kazania *</label>
+        <textarea id="fDesc" rows="2" maxlength="600" required placeholder="O czym jest to kazanie i jakie jest jego główne przesłanie (min. 10 znaków)…"></textarea>
+      </div>
+
+      <div>
+        <label class="field-lbl" for="fOutline">Treść konspektu / notatki (wymagane dla konspektu bez linku)</label>
+        <textarea id="fOutline" rows="5" maxlength="12000" placeholder="Wpisz punkty kazania, egzegezę lub konspekt do czytania bezpośrednio na stronie…"></textarea>
+      </div>
+
+      <div class="form-row">
+        <div>
+          <label class="field-lbl" for="fApply">Zastosowanie praktyczne (opcjonalnie)</label>
+          <input id="fApply" type="text" maxlength="500" placeholder="Jak wdrożyć to Słowo w życiu?">
+        </div>
+        <div>
+          <label class="field-lbl" for="fAuthor">Autor / kaznodzieja</label>
+          <input id="fAuthor" type="text" maxlength="60" placeholder="Twoje imię i nazwisko lub pseudonim">
+        </div>
+      </div>
+
+      <div id="submitFeedback" class="submit-feedback" hidden aria-live="polite"></div>
+
+      <div class="cta">
+        <button type="submit" class="btn btn--cc" id="submitSendBtn">Wyślij i udostępnij</button>
+      </div>
+    </form>
+  </div>
+</dialog>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="/js/cc-global-auth.js?v=20261116_a007_auth" defer></script>
@@ -348,6 +465,6 @@
 <script src="/components/cc-infolinia-nadzieja-modal.js?v=20261125_in3" defer></script>
 <script src="/components/cc-wspieramto-modal.js?v=20261127_wt4" defer></script>
 <script src="/components/cc-support-footer.js?v=20261119_gold3" defer></script>
-<script src="/kazania/kazania.js?v=20261128_1" defer></script>
+<script src="/kazania/kazania.js?v=20261128_2" defer></script>
 </body>
 </html>

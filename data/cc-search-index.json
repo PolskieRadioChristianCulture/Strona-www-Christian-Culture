@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-28T05:21:39.055Z",
-  "totalItems": 716,
+  "updatedAt": "2026-11-28T05:53:48.235Z",
+  "totalItems": 717,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -15750,6 +15750,21 @@
         "czytnik biblii"
       ],
       "featured": true
+    },
+    {
+      "title": "Chrystus jako Dobry Pasterz prowadzący przez dolinę cienia śmierci — Kazania z Pasją (Psalm 23:1–6)",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/kazania/#k-dobry-pasterz-psalm-23-2026-11-28",
+      "description": "Studium homiletyczne na podstawie Psalm 23:1–6: Chrystus jako Dobry Pasterz prowadzący przez dolinę cienia śmierci. Przekład UBG-2025, seria: Modlitwy serca.",
+      "tags": [
+        "kazania",
+        "konspekt",
+        "wiara i modlitwa",
+        "modlitwy serca",
+        "psalm 23:1–6",
+        "ubg"
+      ],
+      "featured": false
     }
   ],
   "recommendedToday": [

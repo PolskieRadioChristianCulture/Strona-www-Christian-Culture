@@ -1,6 +1,6 @@
 /*
  * Kazania z Pasją — logika portalu FULL PREMIUM EkoCC
- * Źródła prawdziwe: /kazania/data/kazania.json oraz /data/werset_dnia_365_ubg.json
+ * Źródła prawdziwe: /kazania/data/kazania.json, /data/werset_dnia_365_ubg.json oraz /api/kazania/*
  */
 (function () {
   'use strict';
@@ -37,10 +37,35 @@
     t.textContent = msg;
     t.classList.add('on');
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () { t.classList.remove('on'); }, 2600);
+    toastTimer = setTimeout(function () { t.classList.remove('on'); }, 2800);
   }
 
-  // Zabezpieczenie widoczności hero po 3 s
+  // Walidacja linku Google Drive / Docs po stronie klienta (zgodna z /api/kazania/submit)
+  function parseDriveUrlClient(rawUrl) {
+    var input = String(rawUrl || '').trim();
+    if (!input) return { empty: true, valid: false };
+    var u;
+    try { u = new URL(input); } catch (e) { return { valid: false, error: 'Nieprawidłowy adres URL.' }; }
+    if (u.protocol !== 'https:') return { valid: false, error: 'Wymagany adres https:// z Dysku Google lub Docs.' };
+    var host = u.hostname.toLowerCase();
+    var idRe = /^[A-Za-z0-9_-]{15,80}$/;
+    var fid = '';
+    if (host === 'drive.google.com') {
+      var fm = u.pathname.match(/^\/file\/d\/([A-Za-z0-9_-]+)(?:\/|$)/);
+      if (fm) fid = fm[1];
+      else if (u.pathname === '/open' || u.pathname === '/uc') fid = u.searchParams.get('id') || '';
+      if (!idRe.test(fid)) return { valid: false, error: 'Nie rozpoznano identyfikatora pliku na drive.google.com.' };
+      return { valid: true, provider: 'drive', fileId: fid };
+    }
+    if (host === 'docs.google.com') {
+      var dm = u.pathname.match(/^\/document\/d\/([A-Za-z0-9_-]+)(?:\/|$)/);
+      if (dm) fid = dm[1];
+      if (!idRe.test(fid)) return { valid: false, error: 'Nie rozpoznano identyfikatora dokumentu na docs.google.com.' };
+      return { valid: true, provider: 'gdocs', fileId: fid };
+    }
+    return { valid: false, error: 'Dozwolone są wyłącznie linki z drive.google.com lub docs.google.com.' };
+  }
+
   setTimeout(function () {
     var hero = document.querySelector('.hero');
     if (hero) hero.classList.add('is-ready');
@@ -202,7 +227,7 @@
 
   mountTicker();
 
-  // ---------- Polecamy (rotacja ekosystemu z GA4) ----------
+  // ---------- Polecamy ----------
   var PROMOS = [
     { id: 'biblia-audio', href: '/biblia-audio', img: '/assets/promo/promo-biblia-audio-16x9.webp', h: 'Biblia Audio — całe Pismo do słuchania', u: 'polskieradio.cc/biblia-audio' },
     { id: 'akademia', href: '/akademia/kurscodzienny', img: '/assets/promo/promo-kurscodzienny-16x9.webp', h: 'Kurs Codzienny — Z Biblią za Pan Brat', u: 'polskieradio.cc/akademia' },
@@ -351,61 +376,111 @@
       .catch(function () {});
   })();
 
-  // ---------- Stan biblioteki, odtwarzacz i czytnik ----------
-  var sermons = [];
+  // ---------- Stan biblioteki, społeczności, auth i modalu ----------
+  var editorialSermons = [];
+  var communitySermons = [];
   var categories = [];
   var saved = new Set();
   var onlySaved = false;
+  var sourceFilter = 'all';
   var currentSermon = null;
+  var authUser = null;
+  var viewerIsAdmin = false;
+  var luminaAuthRef = null;
 
   try {
     saved = new Set(JSON.parse(localStorage.getItem('kzpSaved') || '[]'));
   } catch (e) {}
 
+  function allSermons() {
+    return communitySermons.concat(editorialSermons);
+  }
+
   function getSermon(id) {
-    return sermons.find(function (s) { return s.id === id; });
+    return allSermons().find(function (s) { return s.id === id; });
+  }
+
+  function isNewPublication(dateStr) {
+    if (!dateStr) return false;
+    var ts = Date.parse(dateStr);
+    return Number.isFinite(ts) && (Date.now() - ts) < 7 * 86400000;
+  }
+
+  function cardBadge(s) {
+    if (s.isCommunity) {
+      if (s.status === 'pending') return { text: 'OCZEKUJE NA AKCEPTACJĘ', cls: 'scard__badge scard__badge--pending' };
+      if (s.format === 'mp3') return { text: 'MP3 · DYSK GOOGLE', cls: 'scard__badge scard__badge--mp3' };
+      if (s.format === 'pdf') return { text: 'PDF · DYSK GOOGLE', cls: 'scard__badge scard__badge--pdf' };
+      if (s.format === 'doc') return { text: 'GOOGLE DOCS', cls: 'scard__badge scard__badge--doc' };
+      return { text: 'KONSPEKT SPOŁECZNOŚCI', cls: 'scard__badge scard__badge--new' };
+    }
+    if (isNewPublication(s.publishedDate) && !s.isDemo) {
+      return { text: 'NOWE · ' + s.publishedDate, cls: 'scard__badge scard__badge--new' };
+    }
+    if (s.isDemo) return { text: 'KONSPEKT STARTOWY', cls: 'scard__badge' };
+    return { text: 'PEŁNY KONSPEKT (16 PKT)', cls: 'scard__badge' };
   }
 
   function renderCards() {
     var searchVal = norm(($('search') && $('search').value) || '');
     var catVal = ($('category') && $('category').value) || '';
-    var filtered = sermons.filter(function (s) {
+    var list = allSermons();
+    var filtered = list.filter(function (s) {
+      if (sourceFilter === 'editorial' && s.isCommunity) return false;
+      if (sourceFilter === 'community' && !s.isCommunity) return false;
       if (catVal && s.cat !== catVal) return false;
       if (onlySaved && !saved.has(s.id)) return false;
-      var hay = norm([s.title, s.ref, s.cat, s.series, s.desc, s.apply].concat(s.points || []).join(' '));
+      var hay = norm([s.title, s.ref, s.cat, s.series, s.desc, s.apply, s.authorName, s.outlineText].concat(s.points || []).join(' '));
       return hay.indexOf(searchVal) !== -1;
     });
 
     if ($('count')) {
-      $('count').textContent = filtered.length + ' materiał(y) · UBG-2025 · przykładowa biblioteka startowa';
+      $('count').textContent = filtered.length + ' materiał(y) · UBG-2025 · Redakcja + Społeczność LUMINA';
     }
 
     var cardsEl = $('cards');
     if (!cardsEl) return;
     if (!filtered.length) {
-      cardsEl.innerHTML = '<p class="p">Brak wyników dla wybranych kryteriów. Spróbuj wyczyścić filtry.</p>';
+      cardsEl.innerHTML = '<p class="p">Brak wyników dla wybranych kryteriów. Spróbuj wyczyścić filtry lub udostępnij własne kazanie!</p>';
       return;
     }
 
     cardsEl.innerHTML = filtered.map(function (s) {
       var isSaved = saved.has(s.id);
+      var badge = cardBadge(s);
+      var modControls = '';
+      if (s.isCommunity && (viewerIsAdmin || s.isMine)) {
+        modControls = '<div class="mod-bar">' +
+          (viewerIsAdmin && s.status === 'pending'
+            ? '<button type="button" class="act-btn act-btn--cc" data-mod="approve" data-id="' + esc(s.id) + '">Zatwierdź</button>' +
+              '<button type="button" class="act-btn" data-mod="reject" data-id="' + esc(s.id) + '">Odrzuć</button>'
+            : '') +
+          '<button type="button" class="act-btn" data-del="' + esc(s.id) + '">Usuń</button>' +
+        '</div>';
+      }
+
+      var primaryListenLabel = (s.isCommunity && s.format === 'mp3') ? '▶ Posłuchaj MP3' : '▶ Posłuchaj';
+      var pdfBtnLabel = (s.isCommunity && s.driveDownloadUrl) ? 'Pobierz plik' : 'PDF';
+
       return '<article class="scard" id="k-' + esc(s.id) + '" data-tilt>' +
         '<div class="scard__cover" aria-hidden="true">' +
           '<span class="scard__glyph">✦</span>' +
-          '<span class="scard__badge">' + (s.isDemo ? 'KONSPEKT STARTOWY' : 'PEŁNE OPRACOWANIE') + '</span>' +
+          '<span class="' + badge.cls + '">' + esc(badge.text) + '</span>' +
         '</div>' +
         '<span class="scard__meta">' + esc(s.cat) + ' · ' + esc(s.series) + '</span>' +
         '<h3>' + esc(s.title) + '</h3>' +
-        '<div class="scard__ref">' + esc(s.ref) + '</div>' +
+        '<div class="scard__ref">' + esc(s.ref || 'Szkic i nauczanie biblijne') + '</div>' +
+        (s.isCommunity && s.authorName ? '<div class="scard__author">Autor: ' + esc(s.authorName) + '</div>' : '') +
         '<p class="scard__desc">' + esc(s.desc) + '</p>' +
         '<div class="scard__actions">' +
-          '<button type="button" class="act-btn act-btn--cc" data-act="listen" data-id="' + esc(s.id) + '">▶ Posłuchaj</button>' +
+          '<button type="button" class="act-btn act-btn--cc" data-act="listen" data-id="' + esc(s.id) + '">' + primaryListenLabel + '</button>' +
           '<button type="button" class="act-btn" data-act="read" data-id="' + esc(s.id) + '">Czytaj</button>' +
-          '<button type="button" class="act-btn" data-act="pdf" data-id="' + esc(s.id) + '">PDF</button>' +
+          '<button type="button" class="act-btn" data-act="pdf" data-id="' + esc(s.id) + '">' + pdfBtnLabel + '</button>' +
           '<button type="button" class="act-btn" data-act="share" data-id="' + esc(s.id) + '">Udostępnij</button>' +
           '<button type="button" class="act-btn" data-cc-wspieramto="true" aria-label="Wesprzyj wspieramTO">♡ WspieramTO</button>' +
           '<button type="button" class="act-btn act-btn--save' + (isSaved ? ' is-saved' : '') + '" data-act="save" data-id="' + esc(s.id) + '" aria-label="' + (isSaved ? 'Usuń z zapisanych' : 'Zapisz kazanie') + '" aria-pressed="' + (isSaved ? 'true' : 'false') + '">' + (isSaved ? '★' : '☆') + '</button>' +
         '</div>' +
+        modControls +
       '</article>';
     }).join('');
 
@@ -415,22 +490,33 @@
   function renderSeries() {
     var seriesEl = $('series');
     if (!seriesEl) return;
+    var list = allSermons();
     var names = [];
-    sermons.forEach(function (s) {
+    list.forEach(function (s) {
       if (s.series && names.indexOf(s.series) === -1) names.push(s.series);
     });
     seriesEl.innerHTML = names.map(function (name) {
-      var cnt = sermons.filter(function (s) { return s.series === name; }).length;
+      var cnt = list.filter(function (s) { return s.series === name; }).length;
       return '<article class="series-card" data-tilt>' +
         '<div>' +
           '<span class="scard__meta">Seria biblijna</span>' +
           '<h3>' + esc(name) + '</h3>' +
-          '<p>' + cnt + ' konspekt(y) w bibliotece startowej</p>' +
+          '<p>' + cnt + ' materiał(y) w bibliotece</p>' +
         '</div>' +
         '<button type="button" class="btn btn--ghost" data-series="' + esc(name) + '">Odkryj serię →</button>' +
       '</article>';
     }).join('');
     seriesEl.querySelectorAll('[data-tilt]').forEach(bindTilt);
+  }
+
+  function updateStatsAndTicker() {
+    var list = allSermons();
+    var seriesSet = new Set(list.map(function (s) { return s.series; }).filter(Boolean));
+    if ($('statSermons')) $('statSermons').setAttribute('data-reel', String(list.length));
+    if ($('statCats')) $('statCats').setAttribute('data-reel', String(categories.length));
+    if ($('statSeries')) $('statSeries').setAttribute('data-reel', String(seriesSet.size));
+    document.querySelectorAll('[data-reel]').forEach(animateReel);
+    setTickerLive('count', list.length + ' materiałów w bibliotece · ' + categories.length + ' kategorii');
   }
 
   function openReader(id) {
@@ -446,20 +532,50 @@
         '</div>'
       : '';
 
+    var driveEmbed = '';
+    if (s.drivePreviewUrl) {
+      var linksBar = '<div class="drive-links-bar">' +
+        (s.driveDownloadUrl ? '<a class="act-btn act-btn--cc" href="' + esc(s.driveDownloadUrl) + '" target="_blank" rel="noopener noreferrer">Pobierz z Dysku Google</a>' : '') +
+        (s.driveUrl ? '<a class="act-btn" href="' + esc(s.driveUrl) + '" target="_blank" rel="noopener noreferrer">Otwórz na Dysku Google →</a>' : '') +
+      '</div>';
+      if (s.format === 'pdf' || s.format === 'doc' || s.format === 'outline') {
+        driveEmbed = linksBar +
+          '<iframe class="drive-frame" src="' + esc(s.drivePreviewUrl) + '" title="Podgląd pliku z Dysku Google" sandbox="allow-scripts allow-same-origin allow-popups" referrerpolicy="no-referrer"></iframe>';
+      } else {
+        driveEmbed = linksBar;
+      }
+    }
+
+    var bodySections = '';
+    if (s.objective) bodySections += '<h2>Cel kazania</h2><p>' + esc(s.objective) + '</p>';
+    if (s.historicalContext || s.context) bodySections += '<h2>Kontekst historyczny</h2><p>' + esc(s.historicalContext || s.context) + '</p>';
+    if (s.literaryContext) bodySections += '<h2>Kontekst literacki</h2><p>' + esc(s.literaryContext) + '</p>';
+    if (s.exegesis) bodySections += '<h2>Egzegeza fragmentu</h2><p>' + esc(s.exegesis) + '</p>';
+    if (s.introduction) bodySections += '<h2>Wprowadzenie</h2><p>' + esc(s.introduction) + '</p>';
+    bodySections += '<h2>Główna myśl</h2><p>' + esc(s.desc) + '</p>';
+    if (s.points && s.points.length) {
+      bodySections += '<h2>Punkty kazania</h2><ol>' + s.points.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ol>';
+    }
+    if (s.relatedVerses && s.relatedVerses.length) {
+      bodySections += '<h2>Teksty powiązane</h2><p>' + s.relatedVerses.map(esc).join(' · ') + '</p>';
+    }
+    if (s.illustration) bodySections += '<h2>Ilustracja kaznodziejska</h2><p>' + esc(s.illustration) + '</p>';
+    if (s.christocentric) bodySections += '<h2>Przesłanie chrystocentryczne</h2><p>' + esc(s.christocentric) + '</p>';
+    if (s.outlineText) bodySections += '<h2>Konspekt autorski</h2><div class="outline-pre">' + esc(s.outlineText) + '</div>';
+    if (s.apply) bodySections += '<h2>Zastosowanie praktyczne</h2><p>' + esc(s.apply) + '</p>';
+    if (s.callToAction) bodySections += '<h2>Apel końcowy</h2><p>' + esc(s.callToAction) + '</p>';
+    if (s.reflectionQuestion) bodySections += '<h2>Pytanie do refleksji</h2><p>' + esc(s.reflectionQuestion) + '</p>';
+    if (s.bibliography) bodySections += '<h2>Bibliografia</h2><p>' + esc(s.bibliography) + '</p>';
+
     $('reading').innerHTML =
-      '<span class="scard__meta">' + esc(s.cat) + ' · ' + esc(s.series) + '</span>' +
+      '<span class="scard__meta">' + esc(s.cat) + ' · ' + esc(s.series) + (s.publishedDate ? ' · ' + esc(s.publishedDate) : '') + '</span>' +
       '<h1>' + esc(s.title) + '</h1>' +
-      '<p><strong>' + esc(s.ref) + '</strong> · Konspekt homiletyczny (UBG-2025)</p>' +
+      '<p><strong>' + esc(s.ref || 'Nauczanie biblijne') + '</strong>' + (s.authorName ? ' · Autor: ' + esc(s.authorName) : ' · Konspekt homiletyczny (UBG-2025)') + '</p>' +
       (s.pdf ? '<iframe title="Konspekt PDF" src="' + esc(s.pdf) + '"></iframe>' : '') +
+      driveEmbed +
       versesHtml +
-      (s.objective ? '<h2>Cel kazania</h2><p>' + esc(s.objective) + '</p>' : '') +
-      (s.context ? '<h2>Kontekst fragmentu</h2><p>' + esc(s.context) + '</p>' : '') +
-      '<h2>Główna myśl</h2><p>' + esc(s.desc) + '</p>' +
-      '<h2>Punkty kazania</h2><ol>' + (s.points || []).map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ol>' +
-      (s.christocentric ? '<h2>Przesłanie chrystocentryczne</h2><p>' + esc(s.christocentric) + '</p>' : '') +
-      '<h2>Zastosowanie praktyczne</h2><p>' + esc(s.apply) + '</p>' +
-      '<h2>Pytanie do refleksji</h2><p>' + esc(s.reflectionQuestion || 'Jak ten fragment prowadzi mnie do głębszego zaufania Chrystusowi?') + '</p>' +
-      '<p class="p"><small>Źródło biblijne: Uwspółcześniona Biblia Gdańska (UBG-2025), ' + esc(s.ref) + '. Materiał startowy do dalszego rozwinięcia w głoszeniu.</small></p>';
+      bodySections +
+      '<p class="p" style="margin-top:24px"><small>Christian Culture · Kazania z Pasją · Tekst biblijny: Uwspółcześniona Biblia Gdańska (UBG-2025).</small></p>';
 
     var dlg = $('reader');
     if (dlg && typeof dlg.showModal === 'function') {
@@ -475,6 +591,11 @@
       audio.pause();
       audio.removeAttribute('src');
       audio.hidden = true;
+    }
+    var driveWrap = $('driveAudioWrap');
+    if (driveWrap) {
+      driveWrap.innerHTML = '';
+      driveWrap.hidden = true;
     }
     if ($('status')) $('status').textContent = 'Zatrzymano';
     if (hideBar && $('kzpPlayer')) {
@@ -495,8 +616,19 @@
     }
     if ($('now')) $('now').textContent = '🎧 ' + s.title;
     var audio = $('audio');
+    var driveWrap = $('driveAudioWrap');
     var rate = Number(($('rate') && $('rate').value) || 1);
-    if (s.mp3 && audio) {
+
+    if (s.isCommunity && s.format === 'mp3' && s.drivePreviewUrl && driveWrap) {
+      driveWrap.hidden = false;
+      driveWrap.innerHTML =
+        '<iframe class="drive-audio-frame" src="' + esc(s.drivePreviewUrl) + '" title="Odtwarzacz MP3 z Dysku Google" allow="autoplay" sandbox="allow-scripts allow-same-origin allow-popups" referrerpolicy="no-referrer"></iframe>' +
+        '<div style="display:flex;gap:8px;flex-wrap:wrap">' +
+          (s.driveDownloadUrl ? '<a class="act-btn" href="' + esc(s.driveDownloadUrl) + '" target="_blank" rel="noopener noreferrer">Pobierz MP3</a>' : '') +
+          (s.driveUrl ? '<a class="act-btn" href="' + esc(s.driveUrl) + '" target="_blank" rel="noopener noreferrer">Otwórz na Dysku Google</a>' : '') +
+        '</div>';
+      if ($('status')) $('status').textContent = 'Audio z Dysku Google';
+    } else if (s.mp3 && audio) {
       audio.hidden = false;
       audio.src = s.mp3;
       audio.playbackRate = rate;
@@ -506,18 +638,18 @@
       if ($('status')) $('status').textContent = 'Nagranie MP3';
     } else if ('speechSynthesis' in window) {
       var verseTexts = (s.keyVerses || []).map(function (v) { return v.text; }).join(' ');
-      var utteranceText = [s.title, s.ref, verseTexts, s.desc].concat(s.points || []).concat([s.apply]).join('. ');
+      var utteranceText = [s.title, s.ref, verseTexts, s.desc].concat(s.points || []).concat([s.outlineText || '', s.apply || '']).filter(Boolean).join('. ');
       var u = new SpeechSynthesisUtterance(utteranceText);
       u.lang = 'pl-PL';
       u.rate = rate;
       u.onend = function () { if ($('status')) $('status').textContent = 'Zakończono'; };
       u.onerror = function () { if ($('status')) $('status').textContent = 'Synteza mowy zatrzymana lub niedostępna'; };
       window.speechSynthesis.speak(u);
-      if ($('status')) $('status').textContent = 'Synteza mowy urządzenia (demo)';
+      if ($('status')) $('status').textContent = 'Synteza mowy urządzenia';
     } else {
       if ($('status')) $('status').textContent = 'Przeglądarka nie obsługuje syntezy mowy';
     }
-    ga('sermon_listen', { sermon_id: s.id, mode: s.mp3 ? 'mp3' : 'tts' });
+    ga('sermon_listen', { sermon_id: s.id, mode: (s.drivePreviewUrl || s.mp3) ? 'audio' : 'tts' });
   }
 
   function shareUrl(url, title, text) {
@@ -535,8 +667,260 @@
     ga('share', { content_type: 'kazania', item_id: title });
   }
 
-  // Obsługa zdarzeń kart i serii
+  // ---------- Autoryzacja LUMINA & API Społeczności ----------
+  async function getFreshIdToken() {
+    if (authUser && typeof authUser.getIdToken === 'function') {
+      try { return await authUser.getIdToken(); } catch (e) {}
+    }
+    if (luminaAuthRef && luminaAuthRef.currentUser && typeof luminaAuthRef.currentUser.getIdToken === 'function') {
+      try { return await luminaAuthRef.currentUser.getIdToken(); } catch (e) {}
+    }
+    return '';
+  }
+
+  function syncSubmitAuthUi() {
+    var gate = $('submitAuthGate');
+    var form = $('submitForm');
+    var badge = $('submitUserBadge');
+    var authorInput = $('fAuthor');
+    var loggedIn = Boolean(authUser && !authUser.isAnonymous);
+    if (gate) gate.hidden = loggedIn;
+    if (form) form.hidden = !loggedIn;
+    if (loggedIn && badge) {
+      badge.textContent = 'Zalogowano jako: ' + (authUser.displayName || authUser.email || 'Członek LUMINA');
+    }
+    if (loggedIn && authorInput && !authorInput.value && authUser.displayName) {
+      authorInput.value = authUser.displayName;
+    }
+  }
+
+  async function loadCommunitySermons() {
+    try {
+      var token = await getFreshIdToken();
+      var headers = token ? { Authorization: 'Bearer ' + token } : {};
+      var res = await fetch('/api/kazania/community', { headers: headers, credentials: 'omit' });
+      if (!res.ok) return;
+      var data = await res.json();
+      if (data && data.ok) {
+        viewerIsAdmin = Boolean(data.isAdmin);
+        communitySermons = Array.isArray(data.items) ? data.items : [];
+        updateStatsAndTicker();
+        renderCards();
+        renderSeries();
+      }
+    } catch (e) {}
+  }
+
+  async function initAuthBridge() {
+    try {
+      var mod = await import('/lumina-db.js?v=20261013_notifsafe1');
+      if (mod && typeof mod.ensureDbReady === 'function') {
+        var ready = await mod.ensureDbReady();
+        luminaAuthRef = ready && ready.auth ? ready.auth : null;
+        if (luminaAuthRef) {
+          authUser = luminaAuthRef.currentUser && !luminaAuthRef.currentUser.isAnonymous ? luminaAuthRef.currentUser : null;
+          syncSubmitAuthUi();
+          loadCommunitySermons();
+          if (typeof luminaAuthRef.onAuthStateChanged === 'function') {
+            luminaAuthRef.onAuthStateChanged(function (user) {
+              authUser = user && !user.isAnonymous ? user : null;
+              syncSubmitAuthUi();
+              loadCommunitySermons();
+            });
+          }
+        }
+      }
+    } catch (e) {}
+  }
+
+  window.addEventListener('lumina-auth-state', function () {
+    if (luminaAuthRef && luminaAuthRef.currentUser) {
+      authUser = luminaAuthRef.currentUser.isAnonymous ? null : luminaAuthRef.currentUser;
+    }
+    syncSubmitAuthUi();
+    loadCommunitySermons();
+  });
+
+  // ---------- Formularz dodawania kazania z Dysku Google ----------
+  function openSubmitModal() {
+    syncSubmitAuthUi();
+    var fb = $('submitFeedback');
+    if (fb) fb.hidden = true;
+    var dlg = $('submitModal');
+    if (dlg && typeof dlg.showModal === 'function') dlg.showModal();
+  }
+
+  if ($('openSubmitBtn')) $('openSubmitBtn').addEventListener('click', openSubmitModal);
+  if ($('heroSubmitBtn')) $('heroSubmitBtn').addEventListener('click', openSubmitModal);
+  if ($('closeSubmit')) $('closeSubmit').addEventListener('click', function () { $('submitModal').close(); });
+  if ($('submitModal')) {
+    $('submitModal').addEventListener('click', function (e) {
+      if (e.target === $('submitModal')) $('submitModal').close();
+    });
+  }
+  if ($('submitLoginBtn')) {
+    $('submitLoginBtn').addEventListener('click', function () {
+      if (typeof window.loginWithGoogle === 'function') {
+        window.loginWithGoogle();
+      } else {
+        showToast('Użyj przycisku „Zaloguj z Google” na górnym pasku.');
+      }
+    });
+  }
+
   document.addEventListener('click', function (e) {
+    var fmtBtn = e.target.closest('.fmt-pill[data-fmt]');
+    if (!fmtBtn) return;
+    var fmt = fmtBtn.getAttribute('data-fmt');
+    document.querySelectorAll('.fmt-pill').forEach(function (b) {
+      b.classList.toggle('is-selected', b === fmtBtn);
+    });
+    if ($('fFormat')) $('fFormat').value = fmt;
+  });
+
+  if ($('fDriveUrl')) {
+    $('fDriveUrl').addEventListener('input', function () {
+      var hint = $('driveUrlHint');
+      if (!hint) return;
+      var parsed = parseDriveUrlClient($('fDriveUrl').value);
+      hint.classList.remove('is-ok', 'is-err');
+      if (parsed.empty) {
+        hint.textContent = 'Włącz na Dysku Google: Udostępnij → Ogólny dostęp: Każda osoba mająca link (Przeglądający).';
+      } else if (parsed.valid) {
+        hint.classList.add('is-ok');
+        hint.textContent = 'Poprawny link (' + (parsed.provider === 'gdocs' ? 'Google Docs' : 'Dysk Google') + ', ID: ' + parsed.fileId.slice(0, 12) + '…).';
+      } else {
+        hint.classList.add('is-err');
+        hint.textContent = parsed.error;
+      }
+    });
+  }
+
+  if ($('submitForm')) {
+    $('submitForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      var fb = $('submitFeedback');
+      var sendBtn = $('submitSendBtn');
+      var showErr = function (msg) {
+        if (!fb) return;
+        fb.hidden = false;
+        fb.className = 'submit-feedback is-error';
+        fb.textContent = msg;
+      };
+      var token = await getFreshIdToken();
+      if (!token) {
+        showErr('Brak aktywnej sesji Google LUMINA. Zaloguj się ponownie.');
+        return;
+      }
+      var format = ($('fFormat') && $('fFormat').value) || 'mp3';
+      var driveUrl = ($('fDriveUrl') && $('fDriveUrl').value.trim()) || '';
+      var outlineText = ($('fOutline') && $('fOutline').value.trim()) || '';
+      if (format !== 'outline' && !driveUrl) {
+        showErr('Dla formatu MP3, PDF lub Google Docs wklej publiczny link z Dysku Google.');
+        return;
+      }
+      if (driveUrl) {
+        var check = parseDriveUrlClient(driveUrl);
+        if (!check.valid) {
+          showErr(check.error);
+          return;
+        }
+      }
+      if (sendBtn) { sendBtn.disabled = true; sendBtn.textContent = 'Wysyłanie…'; }
+      try {
+        var res = await fetch('/api/kazania/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+          },
+          body: JSON.stringify({
+            title: $('fTitle').value,
+            ref: $('fRef').value,
+            cat: $('fCat').value,
+            series: $('fSeries').value,
+            desc: $('fDesc').value,
+            format: format,
+            driveUrl: driveUrl,
+            outlineText: outlineText,
+            apply: $('fApply').value,
+            authorName: $('fAuthor').value
+          })
+        });
+        var data = await res.json();
+        if (!res.ok || !data.ok) {
+          showErr(data.error || 'Nie udało się zapisać kazania.');
+          return;
+        }
+        if (fb) {
+          fb.hidden = false;
+          fb.className = 'submit-feedback';
+          fb.textContent = data.status === 'published'
+            ? 'Kazanie opublikowane w bibliotece!'
+            : 'Kazanie zapisane! Oczekuje na akceptację administratora (widzisz je na swojej liście).';
+        }
+        $('fTitle').value = '';
+        $('fRef').value = '';
+        $('fDriveUrl').value = '';
+        $('fDesc').value = '';
+        $('fOutline').value = '';
+        $('fApply').value = '';
+        await loadCommunitySermons();
+        ga('sermon_submit', { format: format, status: data.status });
+      } catch (err) {
+        showErr('Błąd sieci podczas wysyłania.');
+      } finally {
+        if (sendBtn) { sendBtn.disabled = false; sendBtn.textContent = 'Wyślij i udostępnij'; }
+      }
+    });
+  }
+
+  // Obsługa kliknięć kart, tabów, moderacji i usuwania
+  document.addEventListener('click', async function (e) {
+    var tab = e.target.closest('.tab-pill[data-source]');
+    if (tab) {
+      sourceFilter = tab.getAttribute('data-source') || 'all';
+      document.querySelectorAll('.tab-pill').forEach(function (t) {
+        var active = t === tab;
+        t.classList.toggle('is-active', active);
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      renderCards();
+      return;
+    }
+
+    var modBtn = e.target.closest('[data-mod]');
+    if (modBtn) {
+      var tok = await getFreshIdToken();
+      if (!tok) return;
+      var modRes = await fetch('/api/kazania/moderate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + tok },
+        body: JSON.stringify({ id: modBtn.getAttribute('data-id'), action: modBtn.getAttribute('data-mod') })
+      });
+      if (modRes.ok) {
+        showToast('Zaktualizowano status publikacji');
+        loadCommunitySermons();
+      }
+      return;
+    }
+
+    var delBtn = e.target.closest('[data-del]');
+    if (delBtn) {
+      var delId = delBtn.getAttribute('data-del');
+      var delTok = await getFreshIdToken();
+      if (!delTok) return;
+      var delRes = await fetch('/api/kazania/item/' + encodeURIComponent(delId), {
+        method: 'DELETE',
+        headers: { Authorization: 'Bearer ' + delTok }
+      });
+      if (delRes.ok) {
+        showToast('Usunięto kazanie');
+        loadCommunitySermons();
+      }
+      return;
+    }
+
     var btn = e.target.closest('[data-act]');
     if (btn) {
       var act = btn.getAttribute('data-act');
@@ -545,7 +929,9 @@
       else if (act === 'listen') listenSermon(id);
       else if (act === 'pdf') {
         var s = getSermon(id);
-        if (s && s.pdf) {
+        if (s && s.driveDownloadUrl) {
+          window.open(s.driveDownloadUrl, '_blank', 'noopener,noreferrer');
+        } else if (s && s.pdf) {
           var a = document.createElement('a');
           a.href = s.pdf;
           a.download = '';
@@ -625,7 +1011,7 @@
     $('rate').addEventListener('change', function () {
       var audio = $('audio');
       if (audio) audio.playbackRate = Number($('rate').value);
-      if (currentSermon && !currentSermon.mp3) listenSermon(currentSermon.id);
+      if (currentSermon && !currentSermon.mp3 && !currentSermon.drivePreviewUrl) listenSermon(currentSermon.id);
     });
   }
 
@@ -635,7 +1021,6 @@
     });
   }
 
-  // Skróty klawiszowe odtwarzacza
   document.addEventListener('keydown', function (e) {
     if (['INPUT', 'TEXTAREA', 'SELECT'].indexOf(document.activeElement && document.activeElement.tagName) !== -1) return;
     if ((e.key === ' ' || e.key.toLowerCase() === 'k') && currentSermon && $('kzpPlayer') && !$('kzpPlayer').hidden) {
@@ -644,7 +1029,6 @@
     }
   });
 
-  // Fallback kliknięcia w WspieramTO zanim cc-wspieramto-modal.js skończy defer
   document.addEventListener('click', function (e) {
     var t = e.target.closest('[data-cc-wspieramto]');
     if (!t) return;
@@ -654,23 +1038,18 @@
     }
   });
 
-  // ---------- Załadowanie katalogu /kazania/data/kazania.json ----------
   function initCatalog(data) {
-    sermons = (data && data.sermons) || [];
+    editorialSermons = (data && data.sermons) || [];
     categories = (data && data.categories) || [];
-    var catSelect = $('category');
-    if (catSelect && catSelect.options.length <= 1) {
-      categories.forEach(function (c) {
-        catSelect.add(new Option(c, c));
-      });
-    }
-    var seriesSet = new Set(sermons.map(function (s) { return s.series; }).filter(Boolean));
-    if ($('statSermons')) $('statSermons').setAttribute('data-reel', String(sermons.length));
-    if ($('statCats')) $('statCats').setAttribute('data-reel', String(categories.length));
-    if ($('statSeries')) $('statSeries').setAttribute('data-reel', String(seriesSet.size));
-    document.querySelectorAll('[data-reel]').forEach(animateReel);
-
-    setTickerLive('count', sermons.length + ' konspekty startowe · ' + categories.length + ' kategorii tematycznych');
+    ['category', 'fCat'].forEach(function (selId) {
+      var sel = $(selId);
+      if (!sel) return;
+      var minLen = selId === 'category' ? 1 : 0;
+      if (sel.options.length <= minLen) {
+        categories.forEach(function (c) { sel.add(new Option(c, c)); });
+      }
+    });
+    updateStatsAndTicker();
     renderCards();
     renderSeries();
 
@@ -687,4 +1066,7 @@
     .catch(function () {
       if ($('count')) $('count').textContent = 'Nie udało się pobrać katalogu kazań. Odśwież stronę lub sprawdź połączenie.';
     });
+
+  initAuthBridge();
+  loadCommunitySermons();
 })();
