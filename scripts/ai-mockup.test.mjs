@@ -219,8 +219,8 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261128_ai42_toolbar_personalization/);
-  assert.match(html, /\/ai\/app\.js\?v=20261128_ai42_toolbar_personalization/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261128_ai43_toolbar_personalization/);
+  assert.match(html, /\/ai\/app\.js\?v=20261128_ai43_toolbar_personalization/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
@@ -1294,8 +1294,8 @@ test('P0/P1 pilot: /test/ai/ parity, CC MCP visibility + Rzymian + cc_get_source
 
   // 4. Export .txt, Calendar scope distinction, TTS BYOK UI & Canva pilot UI markers
   const testIndexHtml = fs.readFileSync(path.join(ROOT, 'test/ai/index.html'), 'utf8');
-  assert.match(testIndexHtml, /\/ai\/styles\.css\?v=20261128_ai42_toolbar_personalization/);
-  assert.match(testIndexHtml, /\/ai\/app\.js\?v=20261128_ai42_toolbar_personalization/);
+  assert.match(testIndexHtml, /\/ai\/styles\.css\?v=20261128_ai43_toolbar_personalization/);
+  assert.match(testIndexHtml, /\/ai\/app\.js\?v=20261128_ai43_toolbar_personalization/);
   assert.match(appJs, /export_txt/);
   assert.match(appJs, /Eksportuj \.txt/);
   assert.match(appJs, /calendar-scope-switch/);
@@ -1904,6 +1904,14 @@ test('AI dla Jezusa „O mnie” and „O tobie” tabs persist & inject safely 
 
   assert.ok(appJs.includes("name === 'O mnie' || name === 'O tobie'"));
   assert.ok(appJs.includes('getActivePersonalizationPayload'));
+  assert.ok(
+    appJs.indexOf('const DEFAULT_ABOUT_ME') < appJs.indexOf("loadState('guest')"),
+    'DEFAULT_ABOUT_ME must be initialized before loadState(guest) to prevent TDZ ReferenceError'
+  );
+  assert.ok(
+    appJs.indexOf('const DEFAULT_ABOUT_YOU') < appJs.indexOf("loadState('guest')"),
+    'DEFAULT_ABOUT_YOU must be initialized before loadState(guest) to prevent TDZ ReferenceError'
+  );
   assert.ok(css.includes('.pers-save-btn') && css.includes('#ff7a00'));
 
   let capturedSystem = '';

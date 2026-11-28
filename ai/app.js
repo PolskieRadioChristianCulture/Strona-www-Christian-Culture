@@ -9,6 +9,7 @@ const DEFAULT_ASSISTANT_ID = 'ai-dla-jezusa';
 const ALLOWED_MODES = new Set(['CC Auto', 'Studium Biblijne', 'Twórczość CC', 'Deep Research']);
 const ALLOWED_BYOK_PROVIDERS = new Set(['openrouter', 'openai', 'gemini', 'groq']);
 const ALLOWED_DEPTHS = new Set(['fast', 'balanced', 'deep']);
+const ALLOWED_SPEECH_RATES = [0.8, 1, 1.15, 1.3];
 const DEPTH_META = {
   fast: { label: 'Turbo', note: 'Szybka, konkretna odpowiedź' },
   balanced: { label: 'Standard', note: 'Zbalansowana z wersetami UBG' },
@@ -386,6 +387,79 @@ const MODULE_TEMPLATES = {
     { title: 'Plan publikacji tygodnia', mode: 'Twórczość CC', prompt: 'Zaplanuj harmonogram treści misyjnych od niedzieli do piątku (z pełnym uszanowaniem sobotniego Sabatu) dla strony i kanałów społecznościowych.' }
   ]
 };
+
+const HOLOS_STORAGE_KEY = 'holos_2027_state_v1';
+
+const DEFAULT_ABOUT_ME = {
+  preferredName: '',
+  addressStyle: 'ty',
+  relationship: 'przyjaciel',
+  aboutBio: '',
+  spiritualContext: ''
+};
+
+const DEFAULT_ABOUT_YOU = {
+  tone: 'zrownowazony',
+  responseLength: 'srednie',
+  scriptureStyle: 'naturalnie',
+  responseFormat: 'mieszany',
+  proactiveSteps: true,
+  prayerSupport: true,
+  avoidFluff: true,
+  customBehavior: ''
+};
+
+const ABOUT_ME_ADDRESS_OPTIONS = [
+  { id: 'ty', label: 'Na „Ty”', desc: 'Naturalnie i bezpośrednio' },
+  { id: 'bracie_siostro', label: 'Bracie / Siostro', desc: 'Ciepło i wspólnotowo' },
+  { id: 'pan_pani', label: 'Pan / Pani', desc: 'Uprzejmie i oficjalnie' }
+];
+
+const ABOUT_ME_RELATIONSHIP_OPTIONS = [
+  { id: 'przyjaciel', label: 'Przyjaciel w wierze', desc: 'Bliska, wspierająca rozmowa w duchu Ewangelii' },
+  { id: 'mentor', label: 'Mentor biblijny', desc: 'Konkretny, wymagający w miłości przewodnik w Słowie' },
+  { id: 'wspolpracownik', label: 'Współpracownik w misji', desc: 'Sprawne partnerstwo w planowaniu i projektach' },
+  { id: 'duszpasterz', label: 'Wsparcie i modlitwa', desc: 'Łagodność, pokój serca, otucha i modlitwa' },
+  { id: 'asystent', label: 'Neutralny asystent', desc: 'Spokojny, rzeczowy pomocnik bez poufałości' }
+];
+
+const ABOUT_YOU_TONE_OPTIONS = [
+  { id: 'zrownowazony', label: 'Zrównoważony', desc: 'Ciepły i konkretny jednocześnie' },
+  { id: 'cieply', label: 'Ciepły i serdeczny', desc: 'Empatyczny, podnoszący na duchu' },
+  { id: 'konkretny', label: 'Konkretny i rzeczowy', desc: 'Samo sedno, bez zbędnych wstępów' },
+  { id: 'gleboki', label: 'Egzegetyczny i głęboki', desc: 'Języki oryginalne, historia i teologia' },
+  { id: 'misyjny', label: 'Inspirujący i misyjny', desc: 'Motywujący do działania dla Jezusa' }
+];
+
+const ABOUT_YOU_LENGTH_OPTIONS = [
+  { id: 'krotkie', label: 'Krótkie', desc: 'Zwięzłe sedno w kilka chwil' },
+  { id: 'srednie', label: 'Zrównoważone', desc: 'Optymalny balans treści' },
+  { id: 'rozbudowane', label: 'Szczegółowe', desc: 'Pogłębione opracowania' }
+];
+
+const ABOUT_YOU_SCRIPTURE_OPTIONS = [
+  { id: 'naturalnie', label: 'Gdy pasuje do tematu', desc: 'Naturalne cytaty UBG' },
+  { id: 'zawsze', label: 'Zawsze z wersetem UBG', desc: 'Każda odpowiedź zakorzeniona w Słowie' },
+  { id: 'oryginal', label: 'Z oryginałem (gr./hebr.)', desc: 'Transliteracja + kody Stronga + UBG' }
+];
+
+const ABOUT_YOU_FORMAT_OPTIONS = [
+  { id: 'mieszany', label: 'Naturalny miks', desc: 'Akapity i listy tam, gdzie pomagają' },
+  { id: 'punkty', label: 'Punkty i kroki', desc: 'Maksymalna przejrzystość' },
+  { id: 'rozmowa', label: 'Płynna rozmowa', desc: 'Naturalne akapity bez list' }
+];
+
+const CC_CLIENT_ECOSYSTEM_APPS = [
+  { id: 'mojabiblia', name: 'MojaBiblia Interlinear', shortName: 'MojaBiblia', url: '/mojabiblia', tagline: 'Oryginał hebrajski/grecki + Strong + UBG' },
+  { id: 'holos', name: 'HOLOS 2027', shortName: 'HOLOS', url: '/holos', tagline: 'Plan uświęcenia, cele i Tarcza Szabatu' },
+  { id: 'biblia-audio', name: 'Biblia Audio CC', shortName: 'Biblia Audio', url: '/biblia-audio/', tagline: 'Słuchowiska biblijne MP3' },
+  { id: 'akademia', name: 'Akademia & Kurs Codzienny', shortName: 'Akademia CC', url: '/akademia#kurscodzienny', tagline: 'Codzienne lekcje Z Biblią za Pan Brat' },
+  { id: 'radio', name: 'Polskie Radio CC 24/7', shortName: 'Radio CC', url: '/player', tagline: 'Radio 24/7, Biblia Śpiewana i Player' },
+  { id: 'lumina', name: 'LUMINA Społeczność', shortName: 'LUMINA', url: '/lumina', tagline: 'Wspólnota, Tablica i LUMI MESS' },
+  { id: 'dobrze-ze-jestes', name: 'Dobrze, że jesteś', shortName: 'Rozważania', url: '/rozwazania', tagline: 'Poranne rozważania i pokój serca' },
+  { id: 'vod', name: 'Kino Chrześcijańskie VOD', shortName: 'Kino VOD', url: '/vod', tagline: 'Filmy i seriale chrześcijańskie' },
+  { id: 'modlitwa', name: '40 Dni Modlitwy', shortName: 'Modlitwa CC', url: '/modlitwa', tagline: 'Modlitwa wstawiennicza i intencje' }
+];
 
 const mainWorkspace = $('.main-workspace');
 const workspaceFooter = $('.workspace-footer');
@@ -1065,7 +1139,6 @@ function openImageLightbox(src, title = 'Podgląd grafiki Christian Culture') {
   showInfoDialog();
 }
 
-const ALLOWED_SPEECH_RATES = [0.8, 1, 1.15, 1.3];
 let speechSessionToken = 0;
 
 let activeTtsByokSession = null;
@@ -1507,79 +1580,6 @@ function speakReply(text, assistantId, bubbleEl, btnEl, opts = {}) {
 
   startSystemVoice();
 }
-
-const HOLOS_STORAGE_KEY = 'holos_2027_state_v1';
-
-const DEFAULT_ABOUT_ME = {
-  preferredName: '',
-  addressStyle: 'ty',
-  relationship: 'przyjaciel',
-  aboutBio: '',
-  spiritualContext: ''
-};
-
-const DEFAULT_ABOUT_YOU = {
-  tone: 'zrownowazony',
-  responseLength: 'srednie',
-  scriptureStyle: 'naturalnie',
-  responseFormat: 'mieszany',
-  proactiveSteps: true,
-  prayerSupport: true,
-  avoidFluff: true,
-  customBehavior: ''
-};
-
-const ABOUT_ME_ADDRESS_OPTIONS = [
-  { id: 'ty', label: 'Na „Ty”', desc: 'Naturalnie i bezpośrednio' },
-  { id: 'bracie_siostro', label: 'Bracie / Siostro', desc: 'Ciepło i wspólnotowo' },
-  { id: 'pan_pani', label: 'Pan / Pani', desc: 'Uprzejmie i oficjalnie' }
-];
-
-const ABOUT_ME_RELATIONSHIP_OPTIONS = [
-  { id: 'przyjaciel', label: 'Przyjaciel w wierze', desc: 'Bliska, wspierająca rozmowa w duchu Ewangelii' },
-  { id: 'mentor', label: 'Mentor biblijny', desc: 'Konkretny, wymagający w miłości przewodnik w Słowie' },
-  { id: 'wspolpracownik', label: 'Współpracownik w misji', desc: 'Sprawne partnerstwo w planowaniu i projektach' },
-  { id: 'duszpasterz', label: 'Wsparcie i modlitwa', desc: 'Łagodność, pokój serca, otucha i modlitwa' },
-  { id: 'asystent', label: 'Neutralny asystent', desc: 'Spokojny, rzeczowy pomocnik bez poufałości' }
-];
-
-const ABOUT_YOU_TONE_OPTIONS = [
-  { id: 'zrownowazony', label: 'Zrównoważony', desc: 'Ciepły i konkretny jednocześnie' },
-  { id: 'cieply', label: 'Ciepły i serdeczny', desc: 'Empatyczny, podnoszący na duchu' },
-  { id: 'konkretny', label: 'Konkretny i rzeczowy', desc: 'Samo sedno, bez zbędnych wstępów' },
-  { id: 'gleboki', label: 'Egzegetyczny i głęboki', desc: 'Języki oryginalne, historia i teologia' },
-  { id: 'misyjny', label: 'Inspirujący i misyjny', desc: 'Motywujący do działania dla Jezusa' }
-];
-
-const ABOUT_YOU_LENGTH_OPTIONS = [
-  { id: 'krotkie', label: 'Krótkie', desc: 'Zwięzłe sedno w kilka chwil' },
-  { id: 'srednie', label: 'Zrównoważone', desc: 'Optymalny balans treści' },
-  { id: 'rozbudowane', label: 'Szczegółowe', desc: 'Pogłębione opracowania' }
-];
-
-const ABOUT_YOU_SCRIPTURE_OPTIONS = [
-  { id: 'naturalnie', label: 'Gdy pasuje do tematu', desc: 'Naturalne cytaty UBG' },
-  { id: 'zawsze', label: 'Zawsze z wersetem UBG', desc: 'Każda odpowiedź zakorzeniona w Słowie' },
-  { id: 'oryginal', label: 'Z oryginałem (gr./hebr.)', desc: 'Transliteracja + kody Stronga + UBG' }
-];
-
-const ABOUT_YOU_FORMAT_OPTIONS = [
-  { id: 'mieszany', label: 'Naturalny miks', desc: 'Akapity i listy tam, gdzie pomagają' },
-  { id: 'punkty', label: 'Punkty i kroki', desc: 'Maksymalna przejrzystość' },
-  { id: 'rozmowa', label: 'Płynna rozmowa', desc: 'Naturalne akapity bez list' }
-];
-
-const CC_CLIENT_ECOSYSTEM_APPS = [
-  { id: 'mojabiblia', name: 'MojaBiblia Interlinear', shortName: 'MojaBiblia', url: '/mojabiblia', tagline: 'Oryginał hebrajski/grecki + Strong + UBG' },
-  { id: 'holos', name: 'HOLOS 2027', shortName: 'HOLOS', url: '/holos', tagline: 'Plan uświęcenia, cele i Tarcza Szabatu' },
-  { id: 'biblia-audio', name: 'Biblia Audio CC', shortName: 'Biblia Audio', url: '/biblia-audio/', tagline: 'Słuchowiska biblijne MP3' },
-  { id: 'akademia', name: 'Akademia & Kurs Codzienny', shortName: 'Akademia CC', url: '/akademia#kurscodzienny', tagline: 'Codzienne lekcje Z Biblią za Pan Brat' },
-  { id: 'radio', name: 'Polskie Radio CC 24/7', shortName: 'Radio CC', url: '/player', tagline: 'Radio 24/7, Biblia Śpiewana i Player' },
-  { id: 'lumina', name: 'LUMINA Społeczność', shortName: 'LUMINA', url: '/lumina', tagline: 'Wspólnota, Tablica i LUMI MESS' },
-  { id: 'dobrze-ze-jestes', name: 'Dobrze, że jesteś', shortName: 'Rozważania', url: '/rozwazania', tagline: 'Poranne rozważania i pokój serca' },
-  { id: 'vod', name: 'Kino Chrześcijańskie VOD', shortName: 'Kino VOD', url: '/vod', tagline: 'Filmy i seriale chrześcijańskie' },
-  { id: 'modlitwa', name: '40 Dni Modlitwy', shortName: 'Modlitwa CC', url: '/modlitwa', tagline: 'Modlitwa wstawiennicza i intencje' }
-];
 
 function normalizeAboutMe(raw) {
   const src = raw && typeof raw === 'object' ? raw : {};
