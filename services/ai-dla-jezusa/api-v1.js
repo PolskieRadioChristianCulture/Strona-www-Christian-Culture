@@ -5,6 +5,11 @@
 // =========================================================================
 
 import {
+  getAllPlugins,
+  getPluginManifest,
+  EXTERNAL_AI_PROVIDERS
+} from './plugin-registry.js';
+import {
   getCanonicalDocuments,
   searchKnowledgeHub,
   getDocumentById,
@@ -116,6 +121,17 @@ export async function handleAiDlaJezusaApi(request, env = {}, deps = {}) {
   // 0a. MCP Client Connectors Registry + Canva Pilot + TTS BYOK (P2/P3)
   if (path === '/api/ai-dla-jezusa/v1/mcp-clients' && request.method === 'GET') {
     return privateJson({ ok: true, status: 200, connectors: getMcpClientRegistry() });
+  }
+
+  // 0a2. CC Connect 2.0 Plugin Registry (P1)
+  if (path === '/api/ai-dla-jezusa/v1/plugins' && request.method === 'GET') {
+    return Response.json({
+      ok: true,
+      status: 200,
+      plugins: getAllPlugins(),
+      externalProviders: EXTERNAL_AI_PROVIDERS,
+      mcpEndpoint: 'https://polskieradio.cc/api/ai-dla-jezusa/v1/mcp'
+    }, { status: 200, headers: JSON_HEADERS });
   }
 
   if (path === '/api/ai-dla-jezusa/v1/canva/oauth/start' && request.method === 'GET') {

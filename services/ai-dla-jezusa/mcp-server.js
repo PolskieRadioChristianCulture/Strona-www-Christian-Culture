@@ -14,6 +14,14 @@ import {
   isDocumentPubliclyVisible
 } from './knowledge-hub.js';
 import { readLimitedText } from './cost-guard.js';
+import {
+  ccBibleGetVerse,
+  ccBibleGetChapter,
+  ccBibleGetContext,
+  ccSbaDeepStudy,
+  ccFindSermon,
+  ccFindAudioBible
+} from './cc-domain-tools.js';
 
 const PROTOCOL_VERSION = "2024-11-05";
 const SERVER_NAME = "ai-dla-jezusa-mcp";
@@ -164,6 +172,84 @@ export const MCP_TOOLS = [
     inputSchema: {
       type: "object",
       properties: {}
+    }
+  },
+  {
+    name: "cc_bible_get_verse",
+    description: "Pobiera dosłowny werset z autoryzowanego przekładu Uwspółcześnionej Biblii Gdańskiej (UBG-2025) wraz z linkiem do Scrolluj Biblię i Głębokiego Studium.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        book: { type: "string", description: "Nazwa lub kod księgi (np. 'PSA', 'Psalm', 'JHN', 'Jan')" },
+        chapter: { type: "integer", description: "Numer rozdziału (np. 119)" },
+        verse: { type: "integer", description: "Numer wersetu (np. 18)" },
+        translation: { type: "string", description: "Przekład (domyślnie 'UBG')", default: "UBG" }
+      },
+      required: ["book", "chapter", "verse"]
+    }
+  },
+  {
+    name: "cc_bible_get_chapter",
+    description: "Pobiera pełny rozdział Pisma Świętego UBG z nagłówkami i wersetami.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        book: { type: "string", description: "Nazwa lub kod księgi (np. 'PSA', 'GEN')" },
+        chapter: { type: "integer", description: "Numer rozdziału (np. 23)" },
+        translation: { type: "string", description: "Przekład (domyślnie 'UBG')", default: "UBG" }
+      },
+      required: ["book", "chapter"]
+    }
+  },
+  {
+    name: "cc_bible_get_context",
+    description: "Zwraca kontekst bliski (jednostka literacka/perykopa) oraz szeroki (rozdział, gatunek, intencja Autora) dla wersetu Pisma Świętego.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        book: { type: "string", description: "Kod lub nazwa księgi (np. 'PSA')" },
+        chapter: { type: "integer", description: "Numer rozdziału (np. 119)" },
+        verse: { type: "integer", description: "Numer wersetu (np. 18)" },
+        scope: { type: "string", description: "Zakres kontekstu (domyślnie 'literary_unit')", default: "literary_unit" }
+      },
+      required: ["book", "chapter", "verse"]
+    }
+  },
+  {
+    name: "cc_sba_deep_study",
+    description: "Generuje ustrukturyzowany konspekt 8 etapów Głębokiego Studium Scrolluj Biblię (Brama modlitwy, Wielka Szóstka, analiza, kontekst, zastosowanie, tworzenie, świadectwo) wraz z linkiem do aplikacji.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        book: { type: "string", description: "Kod lub nazwa księgi (np. 'PSA')" },
+        chapter: { type: "integer", description: "Numer rozdziału (np. 119)" },
+        verse: { type: "integer", description: "Numer wersetu (np. 18)" },
+        translation: { type: "string", description: "Przekład (domyślnie 'UBG')", default: "UBG" }
+      },
+      required: ["book", "chapter", "verse"]
+    }
+  },
+  {
+    name: "cc_find_sermon",
+    description: "Wyszukuje kazania, konspekty homiletyczne i wykłady biblijne w portalu Kazania z Pasją wg słów kluczowych lub kategorii.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        query: { type: "string", description: "Szukana fraza, postać lub werset (np. 'Dobry Pasterz', 'Psalm 23')" },
+        category: { type: "string", description: "Opcjonalna kategoria (np. 'Wiara i modlitwa', 'Ewangelia i zbawienie')" },
+        limit: { type: "integer", description: "Liczba wyników (1-20)", default: 5 }
+      }
+    }
+  },
+  {
+    name: "cc_find_audio_bible",
+    description: "Wyszukuje profesjonalne słuchowiska biblijne MP3 w portalu Biblia Audio CC.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        book: { type: "string", description: "Nazwa księgi (np. 'genesis', 'rodzaju')" },
+        chapter: { type: "integer", description: "Numer rozdziału (np. 1)" }
+      }
     }
   }
 ];
@@ -432,6 +518,30 @@ async function executeTool(name, args, env = {}, deps = {}) {
 
     case 'cc_get_source_policy': {
       return getSourcePolicy();
+    }
+
+    case 'cc_bible_get_verse': {
+      return ccBibleGetVerse(args, env, deps);
+    }
+
+    case 'cc_bible_get_chapter': {
+      return ccBibleGetChapter(args, env, deps);
+    }
+
+    case 'cc_bible_get_context': {
+      return ccBibleGetContext(args, env, deps);
+    }
+
+    case 'cc_sba_deep_study': {
+      return ccSbaDeepStudy(args, env, deps);
+    }
+
+    case 'cc_find_sermon': {
+      return ccFindSermon(args, env, deps);
+    }
+
+    case 'cc_find_audio_bible': {
+      return ccFindAudioBible(args, env, deps);
     }
 
     default:

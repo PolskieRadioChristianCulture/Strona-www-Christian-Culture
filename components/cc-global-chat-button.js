@@ -8079,6 +8079,96 @@
     getFabState: function () {
       if (typeof getFabStateController === 'function') return getFabStateController();
       return { hidden: safeLsGet(CC_FAB_HIDDEN_KEY) === '1', customPosition: null };
+    },
+    // CC Connect 2.0 — API do otwierania LumiMes z kontekstem aplikacji (SBA, MojaBiblia, itd.)
+    openWithContext: function ({ appId, route, contextType, bible, text, suggestions } = {}) {
+      // 1. Zbuduj i ustaw aktywny kontekst w pamięci sesji
+      const ctx = {
+        schemaVersion: 1,
+        appId: String(appId || 'generic').trim().slice(0, 40),
+        route: String(route || window.location.pathname).trim().slice(0, 100),
+        contextType: String(contextType || 'generic').trim(),
+        capturedAt: new Date().toISOString(),
+        revision: Date.now()
+      };
+      if (bible && bible.book && bible.chapter) {
+        ctx.bible = {
+          translation: 'UBG',
+          book: String(bible.book).trim().slice(0, 10),
+          chapter: Number(bible.chapter) || 1,
+          verseStart: Number(bible.verse || bible.verseStart) || 1,
+          verseEnd: Number(bible.verseEnd) || undefined
+        };
+        if (!ctx.bible.verseEnd) delete ctx.bible.verseEnd;
+      }
+      if (text) ctx.selectedText = String(text).trim().slice(0, 500);
+
+      try { sessionStorage.setItem('cc_lumimes_context_v1', JSON.stringify(ctx)); } catch (_) {}
+
+      // 2. Ustaw sugestie wstępne jeśli podano
+      if (Array.isArray(suggestions) && suggestions.length) {
+        try {
+          sessionStorage.setItem('cc_lumimes_suggestions_v1',
+            JSON.stringify(suggestions.map(s => String(s).trim().slice(0, 120)).slice(0, 5)));
+        } catch (_) {}
+      }
+
+      // 3. Otwórz LumiMes w trybie asystentek (tab Czat / assistant)
+      const overlay = document.getElementById('ccGlobalChatOverlay');
+      if (overlay) {
+        if (typeof hideActiveTeaserOnOpen === 'function') hideActiveTeaserOnOpen();
+        syncChatOverlayTopLayer(overlay, true, true);
+        overlay.classList.add('is-open');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        // Aktywuj tab Czat i tryb asystentki
+        if (window.setCCChatMode) window.setCCChatMode('assistant');
+        const liveBtn = document.getElementById('ccChatTabLiveBtn');
+        if (liveBtn) liveBtn.click();
+        // Pokaż chip kontekstu biblijnego w nagłówku
+        if (ctx.bible) {
+          const ref = `${ctx.bible.book} ${ctx.bible.chapter}:${ctx.bible.verseStart}`;
+          this._setContextChip(ref, appId, route);
+        }
+      } else if (window.CCUnifiedChat && typeof window.CCUnifiedChat.open === 'function') {
+        window.CCUnifiedChat.open({ tab: 'assistant' });
+      }
+    },
+    _setContextChip: function (refText, appId, route) {
+      // Utwórz lub zaktualizuj chip kontekstu w nagłówku czatu
+      let chip = document.getElementById('ccChatContextChip');
+      if (!chip) {
+        const header = document.querySelector('.cc-chat-header-titles');
+        if (!header) return;
+        chip = document.createElement('div');
+        chip.id = 'ccChatContextChip';
+        chip.style.cssText = 'display:inline-flex;align-items:center;gap:5px;background:rgba(216,173,87,0.18);border:1px solid rgba(216,173,87,0.5);border-radius:999px;padding:2px 10px;font-size:0.68rem;color:#D8AD57;margin-top:3px;cursor:pointer;';
+        chip.innerHTML = `<span style="font-size:0.9em">📖</span><span id="ccChipRef">${refText}</span>
+          <button type="button" style="background:none;border:none;color:#D8AD57;cursor:pointer;padding:0;line-height:1;font-size:0.85em;" aria-label="Usuń kontekst" id="ccChipRemoveBtn">✕</button>`;
+        header.appendChild(chip);
+        document.getElementById('ccChipRemoveBtn')?.addEventListener('click', (e) => {
+          e.stopPropagation();
+          chip.remove();
+          try { sessionStorage.removeItem('cc_lumimes_context_v1'); } catch (_) {}
+        });
+        chip.addEventListener('click', () => {
+          if (route) window.open(route, '_blank', 'noopener,noreferrer');
+        });
+      } else {
+        const refEl = document.getElementById('ccChipRef');
+        if (refEl) refEl.textContent = refText;
+      }
+    },
+    getActiveContext: function () {
+      try {
+        const raw = sessionStorage.getItem('cc_lumimes_context_v1');
+        return raw ? JSON.parse(raw) : null;
+      } catch (_) { return null; }
+    },
+    clearContext: function () {
+      try { sessionStorage.removeItem('cc_lumimes_context_v1'); } catch (_) {}
+      try { sessionStorage.removeItem('cc_lumimes_suggestions_v1'); } catch (_) {}
+      document.getElementById('ccChatContextChip')?.remove();
     }
   };
 

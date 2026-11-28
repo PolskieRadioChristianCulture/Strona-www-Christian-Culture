@@ -294,7 +294,7 @@ async function refreshOwnerSession() {
   syncModelMenu();
   syncProBadge();
   updateProfileFooterButton();
-  if (['Umiejętności', 'Połączenia', 'Automatyzacje'].includes(currentNav)) {
+  if (['Umiejętności', 'Połączenia', 'Automatyzacje', 'Wtyczki i aplikacje'].includes(currentNav)) {
     renderModule(currentNav);
   }
 }
@@ -6063,6 +6063,189 @@ function renderModule(name) {
     }
 
     moduleStage.append(tabBar, statusBar, form);
+    return;
+  }
+
+  if (name === 'Wtyczki i aplikacje') {
+    sub.textContent = 'Katalog wtyczek CC Connect 2.0 — podłącz aplikacje Christian Culture do AI dla Jezusa.';
+    const wrap = document.createElement('div');
+    wrap.className = 'module-stage';
+
+    const loadingP = document.createElement('p');
+    loadingP.className = 'module-empty';
+    loadingP.textContent = 'Ładuję katalog wtyczek…';
+    wrap.appendChild(loadingP);
+    moduleStage.append(header, wrap);
+
+    // CC_CONNECTED_KEY must match plugin-registry.js storage key
+    const CC_CONNECTED_KEY = 'cc_connected_plugins_v1';
+    function getConnectedSet() {
+      try { return new Set(JSON.parse(localStorage.getItem(CC_CONNECTED_KEY) || '[]')); }
+      catch (_) { return new Set(); }
+    }
+    function saveConnectedSet(s) {
+      try { localStorage.setItem(CC_CONNECTED_KEY, JSON.stringify([...s])); } catch (_) {}
+    }
+
+    fetch('/api/ai-dla-jezusa/v1/plugins').then((r) => r.json()).catch(() => null).then((data) => {
+      wrap.replaceChildren();
+      if (!data || !data.plugins) {
+        const err = document.createElement('p');
+        err.className = 'module-empty';
+        err.textContent = 'Nie udało się załadować wtyczek. Spróbuj ponownie.';
+        wrap.appendChild(err);
+        return;
+      }
+
+      const connected = getConnectedSet();
+
+      // --- Section 1: CC Plugins ---
+      const sec1 = document.createElement('section');
+      sec1.className = 'connect-section';
+      const h3cc = document.createElement('h3');
+      h3cc.className = 'connect-section-title';
+      h3cc.textContent = '🧩 Wtyczki Christian Culture';
+      sec1.appendChild(h3cc);
+      const grid = document.createElement('div');
+      grid.className = 'plugins-grid';
+
+      data.plugins.forEach((plugin) => {
+        const card = document.createElement('div');
+        card.className = 'plugin-card' + (connected.has(plugin.id) ? ' plugin-card--connected' : '');
+
+        const iconBox = document.createElement('div');
+        iconBox.className = 'plugin-card-icon';
+        iconBox.setAttribute('aria-hidden', 'true');
+        iconBox.textContent = plugin.icon || '🔌';
+
+        const info = document.createElement('div');
+        info.className = 'plugin-card-info';
+
+        const pName = document.createElement('strong');
+        pName.className = 'plugin-card-name';
+        pName.textContent = plugin.name;
+
+        const pTag = document.createElement('span');
+        pTag.className = 'plugin-card-tagline';
+        pTag.textContent = plugin.tagline || '';
+
+        const badge = document.createElement('span');
+        badge.className = 'plugin-badge ' + (connected.has(plugin.id) ? 'plugin-badge--on' : 'plugin-badge--off');
+        badge.textContent = connected.has(plugin.id) ? '✓ Połączona' : 'Rozłączona';
+
+        info.append(pName, pTag, badge);
+
+        const actions = document.createElement('div');
+        actions.className = 'plugin-card-actions';
+
+        const toggleBtn = document.createElement('button');
+        toggleBtn.type = 'button';
+        toggleBtn.className = 'connect-btn ' + (connected.has(plugin.id) ? 'connect-btn--disconnect' : 'connect-btn--connect');
+        toggleBtn.textContent = connected.has(plugin.id) ? 'Odłącz' : 'Połącz';
+        toggleBtn.setAttribute('aria-label', (connected.has(plugin.id) ? 'Odłącz wtyczkę: ' : 'Połącz wtyczkę: ') + plugin.name);
+        toggleBtn.addEventListener('click', () => {
+          const s = getConnectedSet();
+          if (s.has(plugin.id)) { s.delete(plugin.id); } else { s.add(plugin.id); }
+          saveConnectedSet(s);
+          renderModule('Wtyczki i aplikacje');
+        });
+        actions.appendChild(toggleBtn);
+
+        if (plugin.lumimes && connected.has(plugin.id)) {
+          const chatBtn = document.createElement('button');
+          chatBtn.type = 'button';
+          chatBtn.className = 'connect-btn connect-btn--lumimes';
+          chatBtn.textContent = '💬 Rozmawiaj przez LumiMes';
+          chatBtn.setAttribute('aria-label', 'Otwórz LumiMes dla wtyczki ' + plugin.name);
+          chatBtn.addEventListener('click', () => {
+            if (window.CCLumiMes && typeof window.CCLumiMes.openWithContext === 'function') {
+              window.CCLumiMes.openWithContext({ appId: plugin.id, route: plugin.url || '/' });
+            } else if (window.CCUnifiedChat && typeof window.CCUnifiedChat.open === 'function') {
+              window.CCUnifiedChat.open();
+            } else {
+              window.open('/mess', '_blank', 'noopener,noreferrer');
+            }
+          });
+          actions.appendChild(chatBtn);
+        }
+
+        card.append(iconBox, info, actions);
+        grid.appendChild(card);
+      });
+      sec1.appendChild(grid);
+      wrap.appendChild(sec1);
+
+      // --- Section 2: External AI Providers ---
+      if (data.externalProviders && data.externalProviders.length) {
+        const sec2 = document.createElement('section');
+        sec2.className = 'connect-section';
+        const h3ext = document.createElement('h3');
+        h3ext.className = 'connect-section-title';
+        h3ext.textContent = '🤖 Moje AI — Integracje zewnętrzne';
+        sec2.appendChild(h3ext);
+
+        data.externalProviders.forEach((prov) => {
+          const row = document.createElement('div');
+          row.className = 'connect-row';
+          const rLeft = document.createElement('span');
+          rLeft.className = 'connect-row-label';
+          rLeft.textContent = `${prov.icon || '🤖'} ${prov.name}`;
+          const mcpUrl = data.mcpEndpoint || `${location.origin}/api/ai-dla-jezusa/mcp`;
+          const rRight = document.createElement('div');
+          rRight.className = 'connect-row-actions';
+          const copyBtn = document.createElement('button');
+          copyBtn.type = 'button';
+          copyBtn.className = 'connect-btn connect-btn--copy';
+          copyBtn.textContent = 'Kopiuj URL serwera MCP';
+          copyBtn.addEventListener('click', async () => {
+            try { await navigator.clipboard.writeText(mcpUrl); showToast('Skopiowano URL MCP → wklej do ustawień ' + prov.name); }
+            catch (_) { showToast('URL: ' + mcpUrl); }
+          });
+          rRight.appendChild(copyBtn);
+          row.append(rLeft, rRight);
+          sec2.appendChild(row);
+        });
+        wrap.appendChild(sec2);
+      }
+
+      // --- Section 3: MCP Tool Catalog ---
+      const sec3 = document.createElement('section');
+      sec3.className = 'connect-section';
+      const h3mcp = document.createElement('h3');
+      h3mcp.className = 'connect-section-title';
+      h3mcp.textContent = '🛠️ Katalog narzędzi MCP';
+      sec3.appendChild(h3mcp);
+
+      const mcpTools = [
+        { name: 'cc_bible_get_verse', desc: 'Pobierz werset UBG-2025 po księdze, rozdziale i numerze.' },
+        { name: 'cc_bible_get_chapter', desc: 'Pobierz cały rozdział UBG-2025.' },
+        { name: 'cc_bible_get_context', desc: 'Pobierz rozszerzony kontekst (zakres wersetów).' },
+        { name: 'cc_sba_deep_study', desc: 'Uruchom głębokie studium biblijne SBA dla fragmentu.' },
+        { name: 'cc_find_sermon', desc: 'Znajdź kazania CC powiązane z fragmentem lub słowem kluczowym.' },
+        { name: 'cc_find_audio_bible', desc: 'Znajdź nagrania Biblii Audio powiązane z fragmentem.' },
+        { name: 'cc_search', desc: 'Przeszukaj cały ekosystem CC.' },
+        { name: 'cc_get_todays_reflection', desc: 'Pobierz dzisiejsze rozważanie z „Dobrze, że jesteś".' },
+        { name: 'cc_get_radio_status', desc: 'Sprawdź status radia CC (teraz na żywo).' },
+        { name: 'cc_get_sba_summary', desc: 'Skrót ze SBA — bieżąca księga/rozdział.' },
+        { name: 'cc_get_schedule', desc: 'Pobierz harmonogram programów CC.' },
+        { name: 'cc_send_lumimes', desc: 'Wyślij wiadomość przez LumiMes.' },
+        { name: 'cc_get_user_profile', desc: 'Pobierz publiczny profil LUMINA.' }
+      ];
+      const toolList = document.createElement('ul');
+      toolList.className = 'mcp-tool-list';
+      mcpTools.forEach((t) => {
+        const li = document.createElement('li');
+        li.className = 'mcp-tool-item';
+        const tName = document.createElement('code');
+        tName.textContent = t.name;
+        const tDesc = document.createElement('span');
+        tDesc.textContent = ' — ' + t.desc;
+        li.append(tName, tDesc);
+        toolList.appendChild(li);
+      });
+      sec3.appendChild(toolList);
+      wrap.appendChild(sec3);
+    });
     return;
   }
 

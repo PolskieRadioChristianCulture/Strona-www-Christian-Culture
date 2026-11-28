@@ -29,6 +29,14 @@ import {
   planWorkspaceActions,
   buildWorkspaceToolsSystemPromptNote
 } from './workspace-tools.js';
+import {
+  ccBibleGetVerse,
+  ccBibleGetChapter,
+  ccBibleGetContext,
+  ccSbaDeepStudy,
+  ccFindSermon,
+  ccFindAudioBible
+} from './cc-domain-tools.js';
 
 const MAX_REQ_PER_MIN = 20;
 const OWNER_REQ_PER_MIN = 120;
@@ -530,17 +538,24 @@ async function callOpenAiCompatibleChat({ endpoint, apiKey, model, providerName,
   }
 }
 
-function buildKnowledgeHubFallback({ assistant, mode, message, scriptureHits, mojabibliaVerses = [], contextGuides, todayReflection, sources, media, workspaceActions = [] }) {
+function buildKnowledgeHubFallback({ assistant, mode, message, scriptureHits, mojabibliaVerses = [], contextGuides, todayReflection, sources, media, workspaceActions = [], activeContext = null }) {
   const parts = [];
   const speaker = assistant?.name || 'AI dla Jezusa';
   const isFemale = assistant?.gender === 'female';
-  const isFactualOrScripture = Boolean(contextGuides?.length || mojabibliaVerses?.length || scriptureHits?.length);
-  const heading = contextGuides?.[0]?.topic
-    ? `### ${contextGuides[0].topic}`
-    : (mojabibliaVerses?.[0]?.shortRef
-      ? `### Analiza biblijna i interlinearna — ${mojabibliaVerses[0].shortRef}`
-      : `### ${speaker} · ${mode || 'Ekosystem Christian Culture'}`);
+  const isFactualOrScripture = Boolean(contextGuides?.length || mojabibliaVerses?.length || scriptureHits?.length || activeContext);
+  const heading = activeContext?.reference
+    ? `### Kontekst Scrolluj Biblię — ${activeContext.reference} (UBG)`
+    : (contextGuides?.[0]?.topic
+      ? `### ${contextGuides[0].topic}`
+      : (mojabibliaVerses?.[0]?.shortRef
+        ? `### Analiza biblijna i interlinearna — ${mojabibliaVerses[0].shortRef}`
+        : `### ${speaker} · ${mode || 'Ekosystem Christian Culture'}`));
   parts.push(heading);
+
+  if (activeContext?.text) {
+    parts.push(`> „${activeContext.text}” — **${activeContext.reference}** (UBG)`);
+    parts.push(`Słowo Boże bada się w obecności Autora: *„Gdy nie rozumiesz tekstu, zacznij od modlitwy.”*\nMożesz uruchomić pełne **Głębokie Studium** (8 etapów, Wielka Szóstka, mapa myśli) lub zbadać kontekst bliski w Scrolluj Biblię.`);
+  }
 
   if (contextGuides?.length) {
     const guide = contextGuides[0];
@@ -753,9 +768,68 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
 
   const workspaceActions = planWorkspaceActions(effectiveMessage, { connectedApps });
 
+  // CC Connect 2.0: Dwukierunkowy kontekst z aplikacji (np. SBA, MojaBiblia, Kazania)
+  const incomingContext = payload.context && typeof payload.context === 'object' ? payload.context : null;
+  let activeContextSnapshot = null;
+  const contextActions = [];
+
+  if (incomingContext && incomingContext.bible) {
+    const bReq = incomingContext.bible;
+    if (bReq.book && bReq.chapter && (bReq.verseStart || bReq.verse)) {
+      const vTarget = bReq.verseStart || bReq.verse;
+      const bRes = await ccBibleGetVerse({
+        book: bReq.book,
+        chapter: bReq.chapter,
+        verse: vTarget,
+        translation: bReq.translation || 'UBG'
+      }, env, deps);
+
+      if (bRes && bRes.ok) {
+        activeContextSnapshot = {
+          schemaVersion: 1,
+          appId: incomingContext.appId || 'scroll-bible',
+          route: incomingContext.route || '/sba',
+          contextType: incomingContext.contextType || 'bible-verse',
+          reference: `${bRes.book} ${bRes.chapter}:${bRes.verse}`,
+          bookCode: bRes.bookCode,
+          chapter: bRes.chapter,
+          verse: bRes.verse,
+          text: bRes.text,
+          translation: 'UBG',
+          deepStudyUrl: bRes.deepStudyUrl,
+          sourceUrl: bRes.sourceUrl
+        };
+        scriptureHits.unshift({
+          reference: `${bRes.book} ${bRes.chapter}:${bRes.verse}`,
+          translation: 'Uwspółcześniona Biblia Gdańska (UBG)',
+          license: 'UBG_AUTHORIZED',
+          topic: 'Aktywny werset z aplikacji',
+          text: bRes.text,
+          canonical_url: bRes.sourceUrl
+        });
+        contextActions.push({
+          label: `Głębokie studium: ${bRes.book} ${bRes.chapter}:${bRes.verse}`,
+          url: bRes.deepStudyUrl,
+          target: '_blank',
+          type: 'deep-study'
+        });
+        contextActions.push({
+          label: `Scrolluj Biblię: ${bRes.book} ${bRes.chapter}`,
+          url: bRes.sourceUrl,
+          target: '_blank',
+          type: 'open-app'
+        });
+      }
+    }
+  }
+
   const toolsUsed = [...tools];
   if (sources.length || contextGuides.length) toolsUsed.push('cc_search');
   if (scriptureHits.length) toolsUsed.push('cc_find_scripture');
+  if (activeContextSnapshot) toolsUsed.push('cc_bible_get_verse');
+  if (/gł[eę]boki[e|ego]|studium|zbadaj werset|analiza/i.test(effectiveMessage) && (activeContextSnapshot || detectedRefs.length)) {
+    toolsUsed.push('cc_sba_deep_study');
+  }
   if (publicMojabibliaVerses.length) toolsUsed.push('mojabiblia_interlinear');
   if (media.length) toolsUsed.push('cc_media_hub');
   if (workspaceActions.length) toolsUsed.push('cc_workspace_tools');
@@ -828,6 +902,8 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
       sources,
       media,
       workspaceActions,
+      contextSnapshot: activeContextSnapshot,
+      actions: [...contextActions, ...(Array.isArray(workspaceActions) ? workspaceActions : [])],
       mojabibliaVerses: publicMojabibliaVerses,
       scriptureRefs: scriptureHits.map((s) => s.reference),
       toolsUsed: [...new Set(toolsUsed)],
@@ -847,7 +923,8 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
       todayReflection,
       sources,
       media,
-      workspaceActions
+      workspaceActions,
+      activeContext: activeContextSnapshot
     }),
     provider: 'cc-knowledge-hub',
     modelUsed: 'cc-knowledge-hub',
@@ -864,6 +941,8 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
     sources,
     media,
     workspaceActions,
+    contextSnapshot: activeContextSnapshot,
+    actions: [...contextActions, ...(Array.isArray(workspaceActions) ? workspaceActions : [])],
     mojabibliaVerses: publicMojabibliaVerses,
     scriptureRefs: scriptureHits.map((s) => s.reference),
     toolsUsed: [...new Set(toolsUsed)],

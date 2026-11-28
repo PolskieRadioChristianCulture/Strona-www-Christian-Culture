@@ -1193,6 +1193,32 @@ function featuredDeepStudyLink(verse) {
 function openVerseMenu(verse) {
   const saved = settings[verse.key];
   const recording = officialTrack(recordings, verse);
+
+  // CC Connect 2.0 — P3: LumiMes context bridge
+  // If CCLumiMes widget is loaded, open in-page with full context; otherwise fall back to link.
+  const askAiHandler = row(tr('askAiRow'), () => {
+    dialog.close();
+    trackEvent('sba_ai_ask_open', { verse_key: verse.key, book: verse.book, chapter: verse.chapter });
+    if (window.CCLumiMes && typeof window.CCLumiMes.openWithContext === 'function') {
+      window.CCLumiMes.openWithContext({
+        appId: 'scroll-bible',
+        route: '/sba',
+        contextType: 'bible-verse',
+        bible: { book: verse.book, chapter: verse.chapter, verseStart: verse.number },
+        suggestions: [
+          tr('aiSuggExplain') || 'Wyjaśnij ten werset',
+          tr('aiSuggNearContext') || 'Zbadaj kontekst bliski',
+          tr('aiSuggWideContext') || 'Zbadaj kontekst szeroki',
+          tr('aiSuggParallel') || 'Znajdź teksty paralelne',
+          tr('aiSuggApply') || 'Jak zastosować tę prawdę?'
+        ]
+      });
+    } else {
+      // Fallback: navigate to AI app with query params
+      navigator.clipboard?.writeText(askAiQuestion(verse)).catch(() => {});
+      window.open(askAiUrl(verse).href, '_blank', 'noopener,noreferrer');
+    }
+  });
   const askLink = link(tr('askAiRow'), askAiUrl(verse));
   askLink.addEventListener('click', () => {
     dialog.close();
@@ -1224,7 +1250,7 @@ function openVerseMenu(verse) {
     row(saved?.note ? tr('editNote') : tr('addNote'), () => showNote(verse)),
     link(tr('searchInCc'), ccSearchUrl(verse, '/szukaj')),
     link(tr('openCcSearch'), ccSearchUrl(verse, '/wyszukiwarka')),
-    askLink
+    askAiHandler
   ]);
   trackEvent('sba_verse_menu_open', { verse_key: verse.key });
 }
