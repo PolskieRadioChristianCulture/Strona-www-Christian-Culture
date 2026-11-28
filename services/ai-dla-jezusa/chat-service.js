@@ -24,6 +24,11 @@ import {
   resolveMojaBibliaVerses,
   extractAllScriptureRefs
 } from './mojabiblia-bridge.js';
+import {
+  CC_ECOSYSTEM_APPS,
+  planWorkspaceActions,
+  buildWorkspaceToolsSystemPromptNote
+} from './workspace-tools.js';
 
 const MAX_REQ_PER_MIN = 20;
 const OWNER_REQ_PER_MIN = 120;
@@ -141,6 +146,100 @@ function normalizeResponseDepth(raw) {
   return val === 'fast' || val === 'deep' ? val : 'balanced';
 }
 
+const PERSONALIZATION_ADDRESS_MAP = {
+  ty: 'Zwracaj się bezpośrednio na „Ty”.',
+  bracie_siostro: 'Zwracaj się serdecznie i wspólnotowo (np. „Bracie” / „Siostro” zgodnie z podanym imieniem i kontekstem).',
+  pan_pani: 'Zwracaj się uprzejmie i oficjalnie w formie „Pan” / „Pani”.'
+};
+
+const PERSONALIZATION_RELATIONSHIP_MAP = {
+  przyjaciel: 'Przyjaciel w wierze — bliska, życzliwa, wspierająca rozmowa w duchu Ewangelii.',
+  mentor: 'Mentor i nauczyciel Biblii — mądry, konkretny i wymagający w miłości przewodnik w Słowie Bożym.',
+  wspolpracownik: 'Współpracownik w misji — rzeczowe, sprawne partnerstwo w planowaniu, projektach i działaniu.',
+  duszpasterz: 'Wsparcie i modlitwa — łagodność, pokój serca, empatyczna otucha i zachęta do modlitwy.',
+  asystent: 'Neutralny asystent — spokojny, rzeczowy pomocnik bez poufałości.'
+};
+
+const PERSONALIZATION_TONE_MAP = {
+  zrownowazony: 'Zrównoważony — łącz serdeczność z konkretem.',
+  cieply: 'Ciepły i serdeczny — empatyczny, podnoszący na duchu.',
+  konkretny: 'Konkretny i rzeczowy — krótko, precyzyjnie, zero lania wody.',
+  gleboki: 'Egzegetyczny i głęboki — analiza kontekstu, języków oryginalnych i teologii Biblii.',
+  misyjny: 'Inspirujący i misyjny — motywujący do odwagi wiary i realnego działania dla Jezusa.'
+};
+
+const PERSONALIZATION_LENGTH_MAP = {
+  krotkie: 'Krótkie i zwięzłe odpowiedzi — samo sedno bez rozciągania.',
+  srednie: 'Zrównoważona długość odpowiedzi.',
+  rozbudowane: 'Szczegółowe, pogłębione i wyczerpujące opracowania.'
+};
+
+const PERSONALIZATION_SCRIPTURE_MAP = {
+  naturalnie: 'Przywołuj wersety Pisma Świętego (UBG) wtedy, gdy naturalnie pasują do tematu.',
+  zawsze: 'Zawsze zakorzeniaj odpowiedź w co najmniej jednym trafnym, dosłownym wersecie z Uwspółcześnionej Biblii Gdańskiej (UBG).',
+  oryginal: 'Gdy to możliwe, sięgaj do oryginału hebrajskiego/greckiego (transliteracja + numer Stronga + UBG).'
+};
+
+const PERSONALIZATION_FORMAT_MAP = {
+  mieszany: 'Naturalny układ (akapity oraz listy tam, gdzie poprawiają czytelność).',
+  punkty: 'Przejrzyste wypunktowania, nagłówki i konkretne kroki do wykonania.',
+  rozmowa: 'Płynna, naturalna forma rozmowy w akapitach (bez zbędnych list i technicznych nagłówków).'
+};
+
+function sanitizePersonalText(val, maxLen) {
+  if (typeof val !== 'string') return '';
+  const clean = val.replace(/\s+/g, ' ').trim().slice(0, maxLen);
+  if (!clean) return '';
+  if (INJECTION_RE.some((re) => re.test(clean))) return '';
+  return clean;
+}
+
+export function sanitizeUserPersonalization(raw) {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null;
+  const rawMe = raw.aboutMe && typeof raw.aboutMe === 'object' ? raw.aboutMe : {};
+  const rawYou = raw.aboutYou && typeof raw.aboutYou === 'object' ? raw.aboutYou : {};
+
+  const aboutMe = {
+    preferredName: sanitizePersonalText(rawMe.preferredName, 60),
+    addressStyle: Object.prototype.hasOwnProperty.call(PERSONALIZATION_ADDRESS_MAP, rawMe.addressStyle) ? rawMe.addressStyle : '',
+    relationship: Object.prototype.hasOwnProperty.call(PERSONALIZATION_RELATIONSHIP_MAP, rawMe.relationship) ? rawMe.relationship : '',
+    aboutBio: sanitizePersonalText(rawMe.aboutBio, 600),
+    spiritualContext: sanitizePersonalText(rawMe.spiritualContext, 600)
+  };
+
+  const aboutYou = {
+    tone: Object.prototype.hasOwnProperty.call(PERSONALIZATION_TONE_MAP, rawYou.tone) ? rawYou.tone : '',
+    responseLength: Object.prototype.hasOwnProperty.call(PERSONALIZATION_LENGTH_MAP, rawYou.responseLength) ? rawYou.responseLength : '',
+    scriptureStyle: Object.prototype.hasOwnProperty.call(PERSONALIZATION_SCRIPTURE_MAP, rawYou.scriptureStyle) ? rawYou.scriptureStyle : '',
+    responseFormat: Object.prototype.hasOwnProperty.call(PERSONALIZATION_FORMAT_MAP, rawYou.responseFormat) ? rawYou.responseFormat : '',
+    proactiveSteps: Boolean(rawYou.proactiveSteps),
+    prayerSupport: Boolean(rawYou.prayerSupport),
+    avoidFluff: Boolean(rawYou.avoidFluff),
+    customBehavior: sanitizePersonalText(rawYou.customBehavior, 700)
+  };
+
+  const hasMe = Boolean(
+    aboutMe.preferredName ||
+    (aboutMe.addressStyle && aboutMe.addressStyle !== 'ty') ||
+    aboutMe.relationship ||
+    aboutMe.aboutBio ||
+    aboutMe.spiritualContext
+  );
+  const hasYou = Boolean(
+    (aboutYou.tone && aboutYou.tone !== 'zrownowazony') ||
+    (aboutYou.responseLength && aboutYou.responseLength !== 'srednie') ||
+    (aboutYou.scriptureStyle && aboutYou.scriptureStyle !== 'naturalnie') ||
+    (aboutYou.responseFormat && aboutYou.responseFormat !== 'mieszany') ||
+    aboutYou.proactiveSteps ||
+    aboutYou.prayerSupport ||
+    aboutYou.avoidFluff ||
+    aboutYou.customBehavior
+  );
+
+  if (!hasMe && !hasYou) return null;
+  return { aboutMe, aboutYou, hasMe, hasYou };
+}
+
 export const BIBLICAL_DECALOGUE_CANON = [
   '8. KANON DOKTRYNALNY — BIBLIJNY DEKALOG (Księga Wyjścia 20,1–17) ORAZ 28 ZASAD WIARY KOŚCIOŁA BOŻEGO (NORMA BEZWZGLĘDNA):',
   '- Przestrzegaj bez wyjątku Pisma Świętego (Sola Scriptura) oraz 28 Zasad Wiary Kościoła Bożego (zasada 1: Pismo Święte jako jedyny autorytet; zasada 19: Prawo Boże — Dziesięć Przykazań z Wj 20,1–17; zasada 20: Sabat w sobotę — siódmy dzień tygodnia). KATEGORYCZNIE ZABRANIA SIĘ afirmowania lub nauczania pozabiblijnych tradycji ludzkich sprzecznych z Dekalogiem.',
@@ -155,7 +254,7 @@ export const BIBLICAL_DECALOGUE_CANON = [
   '- Gdy użytkownik prosi o pełny tekst Dziesięciu Przykazań według ks. Jakuba Wujka (BJW 1962) lub Biblii (Wj 20,1–17), podaj pełny, nieskrócony tekst biblijny wszystkich dziesięciu przykazań I–X.'
 ].join('\n');
 
-function buildSystemInstruction({ assistant, mode, moduleName, sources, scriptureHits, mojabibliaVerses = [], contextGuides, todayReflection, media, memoryNotes, privateMode, tools, voiceConversation = false, responseDepth = 'balanced' }) {
+function buildSystemInstruction({ assistant, mode, moduleName, sources, scriptureHits, mojabibliaVerses = [], contextGuides, todayReflection, media, memoryNotes, userPersonalization = null, workspaceActions = [], connectedApps = [], privateMode, tools, voiceConversation = false, responseDepth = 'balanced' }) {
   const modeNote = MODE_INSTRUCTIONS[mode] || MODE_INSTRUCTIONS['CC Auto'];
   const isFemale = assistant?.gender === 'female';
   const hasMedia = Array.isArray(media) && media.length > 0;
@@ -207,8 +306,60 @@ function buildSystemInstruction({ assistant, mode, moduleName, sources, scriptur
     lines.push(`Aktywne narzędzia użytkownika: ${tools.join(', ')}.`);
   }
 
+  if (!privateMode && userPersonalization) {
+    if (userPersonalization.hasMe && userPersonalization.aboutMe) {
+      const me = userPersonalization.aboutMe;
+      const meLines = ['PROFIL UŻYTKOWNIKA (ZAKŁADKA „O MNIE” — respektuj formę zwrotu, imię i relację):'];
+      if (me.preferredName) meLines.push(`- Imię / preferowany zwrot: ${me.preferredName}`);
+      if (me.addressStyle && PERSONALIZATION_ADDRESS_MAP[me.addressStyle]) {
+        meLines.push(`- Forma zwracania się: ${PERSONALIZATION_ADDRESS_MAP[me.addressStyle]}`);
+      }
+      if (me.relationship && PERSONALIZATION_RELATIONSHIP_MAP[me.relationship]) {
+        meLines.push(`- Oczekiwana relacja: ${PERSONALIZATION_RELATIONSHIP_MAP[me.relationship]}`);
+      }
+      if (me.aboutBio) meLines.push(`- Co warto wiedzieć o użytkowniku: ${me.aboutBio}`);
+      if (me.spiritualContext) meLines.push(`- Cele duchowe, zainteresowania i kontekst: ${me.spiritualContext}`);
+      lines.push(meLines.join('\n'));
+    }
+
+    if (userPersonalization.hasYou && userPersonalization.aboutYou) {
+      const you = userPersonalization.aboutYou;
+      const youLines = ['OSOBISTE PREFERENCJE ZACHOWANIA AGENTA (ZAKŁADKA „O TOBIE” — stosuj w ramach kanonu Sola Scriptura i Dekalogu):'];
+      if (you.tone && PERSONALIZATION_TONE_MAP[you.tone]) {
+        youLines.push(`- Ton wypowiedzi: ${PERSONALIZATION_TONE_MAP[you.tone]}`);
+      }
+      if (you.responseLength && PERSONALIZATION_LENGTH_MAP[you.responseLength]) {
+        youLines.push(`- Długość odpowiedzi: ${PERSONALIZATION_LENGTH_MAP[you.responseLength]}`);
+      }
+      if (you.scriptureStyle && PERSONALIZATION_SCRIPTURE_MAP[you.scriptureStyle]) {
+        youLines.push(`- Korzystanie z Biblii: ${PERSONALIZATION_SCRIPTURE_MAP[you.scriptureStyle]}`);
+      }
+      if (you.responseFormat && PERSONALIZATION_FORMAT_MAP[you.responseFormat]) {
+        youLines.push(`- Struktura odpowiedzi: ${PERSONALIZATION_FORMAT_MAP[you.responseFormat]}`);
+      }
+      if (you.avoidFluff) {
+        youLines.push('- Zawsze przechodź od razu do konkretu bez zbędnych wstępów i ozdobników.');
+      }
+      if (you.proactiveSteps) {
+        youLines.push('- Na zakończenie zaproponuj 1 konkretny krok praktyczny lub pytanie pogłębiające.');
+      }
+      if (you.prayerSupport) {
+        youLines.push('- W rozmowach o trudnościach i zmaganiach proponuj krótką, szczerą modlitwę.');
+      }
+      if (you.customBehavior) {
+        youLines.push(`- Dodatkowe osobiste instrukcje użytkownika: ${you.customBehavior}`);
+      }
+      lines.push(youLines.join('\n'));
+    }
+  }
+
   if (!privateMode && Array.isArray(memoryNotes) && memoryNotes.length) {
     lines.push('Zapisane wskazówki pamięci użytkownika (kontekst pomocniczy):\n- ' + memoryNotes.join('\n- '));
+  }
+
+  const toolsPromptNote = buildWorkspaceToolsSystemPromptNote(workspaceActions, privateMode ? [] : connectedApps);
+  if (toolsPromptNote) {
+    lines.push(toolsPromptNote);
   }
 
   if (todayReflection) {
@@ -379,7 +530,7 @@ async function callOpenAiCompatibleChat({ endpoint, apiKey, model, providerName,
   }
 }
 
-function buildKnowledgeHubFallback({ assistant, mode, message, scriptureHits, mojabibliaVerses = [], contextGuides, todayReflection, sources, media }) {
+function buildKnowledgeHubFallback({ assistant, mode, message, scriptureHits, mojabibliaVerses = [], contextGuides, todayReflection, sources, media, workspaceActions = [] }) {
   const parts = [];
   const speaker = assistant?.name || 'AI dla Jezusa';
   const isFemale = assistant?.gender === 'female';
@@ -436,6 +587,11 @@ function buildKnowledgeHubFallback({ assistant, mode, message, scriptureHits, mo
         ? `Dla hasła „${message}” poniżej w oknie czatu ${isFemale ? 'osadziłam' : 'osadziłem'} pasujące materiały multimedialne Christian Culture, a ponadto możesz przejrzeć pełne Pismo Święte w module **Biblia** po lewej.`
         : `Dla hasła „${message}” ${isFemale ? 'osadziłam' : 'osadziłem'} najważniejsze wskazówki bezpośrednio w tym oknie, a pełne Pismo Święte znajdziesz w module **Biblia** po lewej.`
     );
+  }
+
+  if (Array.isArray(workspaceActions) && workspaceActions.length) {
+    const names = workspaceActions.map((a) => a.appName || a.title).filter(Boolean).join(', ');
+    parts.push(`**Aktywne narzędzia Twojego Ekosystemu Christian Culture (${names}):** Poniżej pod tą odpowiedzią masz gotową kartę połączenia i akcji w czasie rzeczywistym — kliknij przycisk na karcie, aby natychmiast zapisać plan w **HOLOS 2027**, dodać projekt lub skonfigurować swoją ścieżkę.`);
   }
 
   if (Array.isArray(media) && media.length) {
@@ -529,6 +685,8 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
   const privateMode = Boolean(payload.privateMode);
   const tools = sanitizeArrayOfStrings(payload.tools, 6, 40);
   const memoryNotes = privateMode ? [] : sanitizeArrayOfStrings(payload.memoryNotes, 8, 200);
+  const connectedApps = privateMode ? [] : sanitizeArrayOfStrings(payload.connectedApps, 12, 40);
+  const userPersonalization = privateMode ? null : sanitizeUserPersonalization(payload.userPersonalization);
   const history = privateMode ? [] : sanitizeHistory(payload.history);
   const userByok = deps.userByok || null;
 
@@ -593,11 +751,14 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
     if (sources.length > 4) sources.length = 4;
   }
 
+  const workspaceActions = planWorkspaceActions(effectiveMessage, { connectedApps });
+
   const toolsUsed = [...tools];
   if (sources.length || contextGuides.length) toolsUsed.push('cc_search');
   if (scriptureHits.length) toolsUsed.push('cc_find_scripture');
   if (publicMojabibliaVerses.length) toolsUsed.push('mojabiblia_interlinear');
   if (media.length) toolsUsed.push('cc_media_hub');
+  if (workspaceActions.length) toolsUsed.push('cc_workspace_tools');
 
   const responseDepth = normalizeResponseDepth(payload.responseDepth);
   const maxOutputTokens = responseDepth === 'fast' ? 700 : responseDepth === 'deep' ? 2200 : 1400;
@@ -612,6 +773,9 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
     todayReflection,
     media,
     memoryNotes,
+    userPersonalization,
+    workspaceActions,
+    connectedApps,
     privateMode,
     tools: toolsUsed,
     voiceConversation: Boolean(payload.voiceConversation),
@@ -663,6 +827,7 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
       module: moduleName,
       sources,
       media,
+      workspaceActions,
       mojabibliaVerses: publicMojabibliaVerses,
       scriptureRefs: scriptureHits.map((s) => s.reference),
       toolsUsed: [...new Set(toolsUsed)],
@@ -681,7 +846,8 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
       contextGuides,
       todayReflection,
       sources,
-      media
+      media,
+      workspaceActions
     }),
     provider: 'cc-knowledge-hub',
     modelUsed: 'cc-knowledge-hub',
@@ -697,6 +863,7 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
     module: moduleName,
     sources,
     media,
+    workspaceActions,
     mojabibliaVerses: publicMojabibliaVerses,
     scriptureRefs: scriptureHits.map((s) => s.reference),
     toolsUsed: [...new Set(toolsUsed)],
@@ -723,6 +890,7 @@ export async function handleAiChatRequest(request, env = {}, deps = {}) {
         geminiKeyPoolSize: poolSize,
         youtubeApi: Boolean(env.YT_API_KEY),
         availableModels: buildAvailableFreeModels(env),
+        ecosystemApps: CC_ECOSYSTEM_APPS,
         assistants: hubs.assistants,
         hubs,
         providersConfigured: {

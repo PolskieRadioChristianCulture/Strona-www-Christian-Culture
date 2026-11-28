@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-28",
+      "topic": "AI dla Jezusa (/ai/aplikacja) — nowy dolny pasek ikon odpowiedzi z pływającą szarą zakładką opcji, zakładki personalizacji „O mnie” i „O tobie” oraz narzędzia zarządzania własnym ekosystemem CC w oknie czatu (w tym realne połączenie z HOLOS 2027)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-28",
       "topic": "Kazania z Pasją (/kazania/) — uruchomienie portalu FULL PREMIUM z biblioteką konspektów kazań biblijnych (UBG-2025), czytnikiem PDF, odsłuchem, wyszukiwarką @w, modalem WspieramTO i integracją EkoCC",
       "agent": "A"
     },

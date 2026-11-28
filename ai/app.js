@@ -911,7 +911,8 @@ function pickVisitGreetingIndex() {
 const visitGreetingIndex = pickVisitGreetingIndex();
 
 function getPersonalizedHeroCopy() {
-  const rawName = (currentUser && !currentUser.isAnonymous && (currentUser.displayName || '').trim()) || '';
+  const prefName = typeof state?.aboutMe?.preferredName === 'string' ? state.aboutMe.preferredName.trim() : '';
+  const rawName = prefName || ((currentUser && !currentUser.isAnonymous && (currentUser.displayName || '').trim()) || '');
   const firstName = rawName ? rawName.split(/\s+/)[0].slice(0, 24) : '';
   const persona = getPersona(getActiveAssistantId());
   const variant = HERO_GREETINGS[visitGreetingIndex % HERO_GREETINGS.length] || HERO_GREETINGS[0];
@@ -1073,6 +1074,19 @@ let activeTtsAbortController = null;
 const TTS_SAMPLE_PSALM_23 =
   'Pan jest pasterzem moim, niczego mi nie braknie. Na zielonych niwach pasie mnie, nad wody spokojne prowadzi mnie.';
 
+function setSpeakBtnVisual(btn, speaking) {
+  if (!btn) return;
+  btn.classList.toggle('is-speaking-btn', Boolean(speaking));
+  btn.setAttribute('aria-pressed', String(Boolean(speaking)));
+  if (btn.dataset.iconOnly === 'true') {
+    btn.setAttribute('aria-label', speaking ? 'Zatrzymaj odczyt głosowy' : 'Odsłuchaj odpowiedź');
+    btn.title = speaking ? 'Zatrzymaj głos' : 'Odsłuchaj';
+    btn.replaceChildren(createReactionSvg(speaking ? 'stop' : 'speak'));
+  } else {
+    btn.textContent = speaking ? '⏹ Zatrzymaj głos' : '🔊 Odsłuchaj';
+  }
+}
+
 function stopSpeaking() {
   speechSessionToken += 1;
   if (activeTtsAbortController) {
@@ -1093,8 +1107,7 @@ function stopSpeaking() {
   if (activeSpeakingBubble) {
     activeSpeakingBubble.classList.remove('is-speaking');
     activeSpeakingBubble.querySelectorAll('.is-speaking-btn').forEach((b) => {
-      b.classList.remove('is-speaking-btn');
-      b.textContent = '🔊 Odsłuchaj';
+      setSpeakBtnVisual(b, false);
     });
     activeSpeakingBubble.querySelectorAll('.speech-controls-bar').forEach((el) => el.remove());
     activeSpeakingBubble = null;
@@ -1297,8 +1310,7 @@ function speakReply(text, assistantId, bubbleEl, btnEl, opts = {}) {
     activeSpeakingBubble = bubbleEl || null;
     bubbleEl?.classList.add('is-speaking');
     if (btnEl) {
-      btnEl.classList.add('is-speaking-btn');
-      btnEl.textContent = '⏹ Zatrzymaj głos';
+      setSpeakBtnVisual(btnEl, true);
     }
 
     if (bubbleEl) {
@@ -1383,8 +1395,7 @@ function speakReply(text, assistantId, bubbleEl, btnEl, opts = {}) {
     activeSpeakingBubble = bubbleEl || null;
     bubbleEl?.classList.add('is-speaking');
     if (btnEl) {
-      btnEl.classList.add('is-speaking-btn');
-      btnEl.textContent = '⏹ Zatrzymaj głos';
+      setSpeakBtnVisual(btnEl, true);
     }
 
     let barEl = null;
@@ -1497,6 +1508,246 @@ function speakReply(text, assistantId, bubbleEl, btnEl, opts = {}) {
   startSystemVoice();
 }
 
+const HOLOS_STORAGE_KEY = 'holos_2027_state_v1';
+
+const DEFAULT_ABOUT_ME = {
+  preferredName: '',
+  addressStyle: 'ty',
+  relationship: 'przyjaciel',
+  aboutBio: '',
+  spiritualContext: ''
+};
+
+const DEFAULT_ABOUT_YOU = {
+  tone: 'zrownowazony',
+  responseLength: 'srednie',
+  scriptureStyle: 'naturalnie',
+  responseFormat: 'mieszany',
+  proactiveSteps: true,
+  prayerSupport: true,
+  avoidFluff: true,
+  customBehavior: ''
+};
+
+const ABOUT_ME_ADDRESS_OPTIONS = [
+  { id: 'ty', label: 'Na „Ty”', desc: 'Naturalnie i bezpośrednio' },
+  { id: 'bracie_siostro', label: 'Bracie / Siostro', desc: 'Ciepło i wspólnotowo' },
+  { id: 'pan_pani', label: 'Pan / Pani', desc: 'Uprzejmie i oficjalnie' }
+];
+
+const ABOUT_ME_RELATIONSHIP_OPTIONS = [
+  { id: 'przyjaciel', label: 'Przyjaciel w wierze', desc: 'Bliska, wspierająca rozmowa w duchu Ewangelii' },
+  { id: 'mentor', label: 'Mentor biblijny', desc: 'Konkretny, wymagający w miłości przewodnik w Słowie' },
+  { id: 'wspolpracownik', label: 'Współpracownik w misji', desc: 'Sprawne partnerstwo w planowaniu i projektach' },
+  { id: 'duszpasterz', label: 'Wsparcie i modlitwa', desc: 'Łagodność, pokój serca, otucha i modlitwa' },
+  { id: 'asystent', label: 'Neutralny asystent', desc: 'Spokojny, rzeczowy pomocnik bez poufałości' }
+];
+
+const ABOUT_YOU_TONE_OPTIONS = [
+  { id: 'zrownowazony', label: 'Zrównoważony', desc: 'Ciepły i konkretny jednocześnie' },
+  { id: 'cieply', label: 'Ciepły i serdeczny', desc: 'Empatyczny, podnoszący na duchu' },
+  { id: 'konkretny', label: 'Konkretny i rzeczowy', desc: 'Samo sedno, bez zbędnych wstępów' },
+  { id: 'gleboki', label: 'Egzegetyczny i głęboki', desc: 'Języki oryginalne, historia i teologia' },
+  { id: 'misyjny', label: 'Inspirujący i misyjny', desc: 'Motywujący do działania dla Jezusa' }
+];
+
+const ABOUT_YOU_LENGTH_OPTIONS = [
+  { id: 'krotkie', label: 'Krótkie', desc: 'Zwięzłe sedno w kilka chwil' },
+  { id: 'srednie', label: 'Zrównoważone', desc: 'Optymalny balans treści' },
+  { id: 'rozbudowane', label: 'Szczegółowe', desc: 'Pogłębione opracowania' }
+];
+
+const ABOUT_YOU_SCRIPTURE_OPTIONS = [
+  { id: 'naturalnie', label: 'Gdy pasuje do tematu', desc: 'Naturalne cytaty UBG' },
+  { id: 'zawsze', label: 'Zawsze z wersetem UBG', desc: 'Każda odpowiedź zakorzeniona w Słowie' },
+  { id: 'oryginal', label: 'Z oryginałem (gr./hebr.)', desc: 'Transliteracja + kody Stronga + UBG' }
+];
+
+const ABOUT_YOU_FORMAT_OPTIONS = [
+  { id: 'mieszany', label: 'Naturalny miks', desc: 'Akapity i listy tam, gdzie pomagają' },
+  { id: 'punkty', label: 'Punkty i kroki', desc: 'Maksymalna przejrzystość' },
+  { id: 'rozmowa', label: 'Płynna rozmowa', desc: 'Naturalne akapity bez list' }
+];
+
+const CC_CLIENT_ECOSYSTEM_APPS = [
+  { id: 'mojabiblia', name: 'MojaBiblia Interlinear', shortName: 'MojaBiblia', url: '/mojabiblia', tagline: 'Oryginał hebrajski/grecki + Strong + UBG' },
+  { id: 'holos', name: 'HOLOS 2027', shortName: 'HOLOS', url: '/holos', tagline: 'Plan uświęcenia, cele i Tarcza Szabatu' },
+  { id: 'biblia-audio', name: 'Biblia Audio CC', shortName: 'Biblia Audio', url: '/biblia-audio/', tagline: 'Słuchowiska biblijne MP3' },
+  { id: 'akademia', name: 'Akademia & Kurs Codzienny', shortName: 'Akademia CC', url: '/akademia#kurscodzienny', tagline: 'Codzienne lekcje Z Biblią za Pan Brat' },
+  { id: 'radio', name: 'Polskie Radio CC 24/7', shortName: 'Radio CC', url: '/player', tagline: 'Radio 24/7, Biblia Śpiewana i Player' },
+  { id: 'lumina', name: 'LUMINA Społeczność', shortName: 'LUMINA', url: '/lumina', tagline: 'Wspólnota, Tablica i LUMI MESS' },
+  { id: 'dobrze-ze-jestes', name: 'Dobrze, że jesteś', shortName: 'Rozważania', url: '/rozwazania', tagline: 'Poranne rozważania i pokój serca' },
+  { id: 'vod', name: 'Kino Chrześcijańskie VOD', shortName: 'Kino VOD', url: '/vod', tagline: 'Filmy i seriale chrześcijańskie' },
+  { id: 'modlitwa', name: '40 Dni Modlitwy', shortName: 'Modlitwa CC', url: '/modlitwa', tagline: 'Modlitwa wstawiennicza i intencje' }
+];
+
+function normalizeAboutMe(raw) {
+  const src = raw && typeof raw === 'object' ? raw : {};
+  return {
+    preferredName: typeof src.preferredName === 'string' ? src.preferredName.trim().slice(0, 60) : '',
+    addressStyle: ABOUT_ME_ADDRESS_OPTIONS.some((o) => o.id === src.addressStyle) ? src.addressStyle : DEFAULT_ABOUT_ME.addressStyle,
+    relationship: ABOUT_ME_RELATIONSHIP_OPTIONS.some((o) => o.id === src.relationship) ? src.relationship : DEFAULT_ABOUT_ME.relationship,
+    aboutBio: typeof src.aboutBio === 'string' ? src.aboutBio.trim().slice(0, 600) : '',
+    spiritualContext: typeof src.spiritualContext === 'string' ? src.spiritualContext.trim().slice(0, 600) : ''
+  };
+}
+
+function normalizeAboutYou(raw) {
+  const src = raw && typeof raw === 'object' ? raw : {};
+  return {
+    tone: ABOUT_YOU_TONE_OPTIONS.some((o) => o.id === src.tone) ? src.tone : DEFAULT_ABOUT_YOU.tone,
+    responseLength: ABOUT_YOU_LENGTH_OPTIONS.some((o) => o.id === src.responseLength) ? src.responseLength : DEFAULT_ABOUT_YOU.responseLength,
+    scriptureStyle: ABOUT_YOU_SCRIPTURE_OPTIONS.some((o) => o.id === src.scriptureStyle) ? src.scriptureStyle : DEFAULT_ABOUT_YOU.scriptureStyle,
+    responseFormat: ABOUT_YOU_FORMAT_OPTIONS.some((o) => o.id === src.responseFormat) ? src.responseFormat : DEFAULT_ABOUT_YOU.responseFormat,
+    proactiveSteps: src.proactiveSteps !== undefined ? Boolean(src.proactiveSteps) : DEFAULT_ABOUT_YOU.proactiveSteps,
+    prayerSupport: src.prayerSupport !== undefined ? Boolean(src.prayerSupport) : DEFAULT_ABOUT_YOU.prayerSupport,
+    avoidFluff: src.avoidFluff !== undefined ? Boolean(src.avoidFluff) : DEFAULT_ABOUT_YOU.avoidFluff,
+    customBehavior: typeof src.customBehavior === 'string' ? src.customBehavior.trim().slice(0, 700) : ''
+  };
+}
+
+function hasCustomAboutMe(me = state?.aboutMe) {
+  if (!me) return false;
+  return Boolean(
+    me.preferredName ||
+    me.addressStyle !== DEFAULT_ABOUT_ME.addressStyle ||
+    me.relationship !== DEFAULT_ABOUT_ME.relationship ||
+    me.aboutBio ||
+    me.spiritualContext
+  );
+}
+
+function hasCustomAboutYou(you = state?.aboutYou) {
+  if (!you) return false;
+  return Boolean(
+    you.tone !== DEFAULT_ABOUT_YOU.tone ||
+    you.responseLength !== DEFAULT_ABOUT_YOU.responseLength ||
+    you.scriptureStyle !== DEFAULT_ABOUT_YOU.scriptureStyle ||
+    you.responseFormat !== DEFAULT_ABOUT_YOU.responseFormat ||
+    !you.proactiveSteps ||
+    !you.prayerSupport ||
+    !you.avoidFluff ||
+    you.customBehavior
+  );
+}
+
+function getActivePersonalizationPayload() {
+  return {
+    aboutMe: normalizeAboutMe(state?.aboutMe),
+    aboutYou: normalizeAboutYou(state?.aboutYou)
+  };
+}
+
+function syncPersonalizationNavIndicators() {
+  const meActive = hasCustomAboutMe();
+  const youActive = hasCustomAboutYou();
+  $$('.nav-item[data-nav="O mnie"], .panel-rail-btn[data-rail-nav="O mnie"]').forEach((el) => {
+    el.classList.toggle('has-pers-dot', meActive);
+  });
+  $$('.nav-item[data-nav="O tobie"], .panel-rail-btn[data-rail-nav="O tobie"]').forEach((el) => {
+    el.classList.toggle('has-pers-dot', youActive);
+  });
+}
+
+function readHolos2027State() {
+  const fallback = {
+    schemaVersion: 1,
+    year: 2027,
+    updatedAt: 0,
+    motto: '',
+    sabbathShield: true,
+    wheel: { faith: 50, family: 50, body: 50, money: 50, work: 50, hasCalculated: false },
+    stewardshipIncome: 6000,
+    dailyIntention: { intention: '', notes: '', date: '' },
+    goals: [],
+    weeklyReviews: []
+  };
+  try {
+    const raw = JSON.parse(localStorage.getItem(HOLOS_STORAGE_KEY) || 'null');
+    if (!raw || typeof raw !== 'object') return fallback;
+    return {
+      ...fallback,
+      ...raw,
+      sabbathShield: raw.sabbathShield !== false,
+      goals: Array.isArray(raw.goals) ? raw.goals : []
+    };
+  } catch {
+    return fallback;
+  }
+}
+
+function addGoalsToHolos2027(goalSpecs = []) {
+  const holos = readHolos2027State();
+  const existingPackIds = new Set(holos.goals.map((g) => g?.packId).filter(Boolean));
+  const existingTitles = new Set(holos.goals.map((g) => String(g?.title || '').toLowerCase().trim()));
+  let added = 0;
+
+  for (const spec of goalSpecs) {
+    if (!spec?.title) continue;
+    const titleKey = String(spec.title).toLowerCase().trim();
+    if ((spec.packId && existingPackIds.has(spec.packId)) || existingTitles.has(titleKey)) {
+      continue;
+    }
+    const milestones = (Array.isArray(spec.milestones) ? spec.milestones : []).map((m, idx) => ({
+      id: `ms_${Date.now().toString(36)}_${idx}`,
+      text: typeof m === 'string' ? m.slice(0, 100) : String(m?.text || '').slice(0, 100),
+      done: false
+    })).filter((m) => m.text);
+
+    holos.goals.unshift({
+      id: `g2027_ai_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`,
+      packId: String(spec.packId || '').slice(0, 48),
+      title: String(spec.title).trim().slice(0, 120),
+      sector: ['faith', 'family', 'body', 'money', 'work'].includes(spec.sector) ? spec.sector : 'faith',
+      frequency: spec.frequency === 'weekly' ? 'weekly' : 'daily',
+      targetPerWeek: Math.max(1, Math.min(7, Number(spec.targetPerWeek) || 6)),
+      minutes: [5, 10, 15, 30].includes(Number(spec.minutes)) ? Number(spec.minutes) : 15,
+      verseRef: String(spec.verseRef || 'Prz 3,5–6 (UBG)').slice(0, 48),
+      checkins: [],
+      milestones,
+      createdAt: Date.now()
+    });
+    if (spec.packId) existingPackIds.add(spec.packId);
+    existingTitles.add(titleKey);
+    added += 1;
+  }
+
+  holos.sabbathShield = true;
+  holos.updatedAt = Date.now();
+  try {
+    localStorage.setItem(HOLOS_STORAGE_KEY, JSON.stringify(holos));
+    return { ok: true, added, total: holos.goals.length };
+  } catch {
+    return { ok: false, added: 0, total: holos.goals.length };
+  }
+}
+
+function setEcosystemAppConnected(appId, connected = true, { silent = false } = {}) {
+  const cleanId = String(appId || '').trim().toLowerCase();
+  if (!cleanId) return false;
+  const set = new Set(Array.isArray(state.connectedApps) ? state.connectedApps : ['mojabiblia']);
+  if (connected) set.add(cleanId);
+  else set.delete(cleanId);
+  state.connectedApps = [...set];
+  if (!privateMode) saveState();
+  syncConnectedAppsUi();
+  if (!silent) {
+    const appMeta = CC_CLIENT_ECOSYSTEM_APPS.find((a) => a.id === cleanId);
+    showToast(connected ? `Połączono z ${appMeta?.name || cleanId} ✓` : `Odłączono ${appMeta?.name || cleanId}.`);
+  }
+  return true;
+}
+
+function syncConnectedAppsUi() {
+  const connectedSet = new Set(Array.isArray(state?.connectedApps) ? state.connectedApps : ['mojabiblia']);
+  $$('#rightSidebar .connect-btn[data-app-id]').forEach((btn) => {
+    const id = btn.dataset.appId;
+    const isConn = Boolean(id && connectedSet.has(id));
+    btn.classList.toggle('connected', isConn);
+    btn.textContent = isConn ? 'Połączono' : 'Połącz';
+  });
+}
+
 function getUidScope(uid = currentUser?.uid) {
   return uid ? String(uid) : 'guest';
 }
@@ -1515,6 +1766,9 @@ function loadState(uid = currentUser?.uid) {
     memory: [],
     reminders: [],
     projects: [...DEFAULT_PROJECTS],
+    aboutMe: { ...DEFAULT_ABOUT_ME },
+    aboutYou: { ...DEFAULT_ABOUT_YOU },
+    connectedApps: ['mojabiblia'],
     assistantId: DEFAULT_ASSISTANT_ID,
     preferredModel: 'auto',
     mode: 'CC Auto',
@@ -1555,6 +1809,11 @@ function loadState(uid = currentUser?.uid) {
       memory: Array.isArray(raw.memory) ? raw.memory.slice(0, 20) : [],
       reminders: Array.isArray(raw.reminders) ? raw.reminders.slice(0, 40) : [],
       projects: Array.isArray(raw.projects) && raw.projects.length ? raw.projects.slice(0, 20) : [...DEFAULT_PROJECTS],
+      aboutMe: normalizeAboutMe(raw.aboutMe),
+      aboutYou: normalizeAboutYou(raw.aboutYou),
+      connectedApps: Array.isArray(raw.connectedApps) && raw.connectedApps.length
+        ? [...new Set(raw.connectedApps.filter((x) => typeof x === 'string' && x.trim()).map((x) => x.trim().toLowerCase()))].slice(0, 12)
+        : ['mojabiblia'],
       assistantId: typeof raw.assistantId === 'string' && AI_PERSONAS[raw.assistantId] ? raw.assistantId : DEFAULT_ASSISTANT_ID,
       preferredModel: typeof raw.preferredModel === 'string' && raw.preferredModel.trim() ? raw.preferredModel.trim() : 'auto',
       mode: ALLOWED_MODES.has(rawMode) ? rawMode : 'CC Auto',
@@ -1714,6 +1973,9 @@ function applyPreferencesFromState() {
   updateTopbarModelLabel();
   syncSendButtonMode();
   applyAmbientBgPreference();
+  syncConnectedAppsUi();
+  syncPersonalizationNavIndicators();
+  updatePersonalizedHero();
 }
 
 function clearLegacyByok() {
@@ -2387,8 +2649,512 @@ function createReactionSvg(kind) {
   } else if (kind === 'chevron') {
     svg.setAttribute('class', 'msg-more-chev');
     addPath('m6 9 6 6 6-6');
+  } else if (kind === 'chevron-right') {
+    svg.setAttribute('class', 'msg-menu-arrow');
+    addPath('m9 6 6 6-6 6');
+  } else if (kind === 'copy') {
+    const rect = document.createElementNS(ns, 'rect');
+    rect.setAttribute('x', '9');
+    rect.setAttribute('y', '9');
+    rect.setAttribute('width', '12');
+    rect.setAttribute('height', '12');
+    rect.setAttribute('rx', '2.2');
+    svg.appendChild(rect);
+    addPath('M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1');
+  } else if (kind === 'check') {
+    addPath('M20 6 9 17l-5-5');
+  } else if (kind === 'speak') {
+    addPath('M11 5 6 9H2v6h4l5 4V5Z');
+    addPath('M15.54 8.46a5 5 0 0 1 0 7.07');
+    addPath('M19.07 4.93a10 10 0 0 1 0 14.14');
+  } else if (kind === 'stop') {
+    const rect = document.createElementNS(ns, 'rect');
+    rect.setAttribute('x', '6');
+    rect.setAttribute('y', '6');
+    rect.setAttribute('width', '12');
+    rect.setAttribute('height', '12');
+    rect.setAttribute('rx', '2.5');
+    rect.setAttribute('fill', 'currentColor');
+    svg.appendChild(rect);
+  } else if (kind === 'share') {
+    addPath('M12 3v12');
+    addPath('m7 8 5-5 5 5');
+    addPath('M4 14v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5');
+  } else if (kind === 'book') {
+    addPath('M2 5.5A2.5 2.5 0 0 1 4.5 3H11a2 2 0 0 1 2 2v15.5a1.5 1.5 0 0 0-1.5-1.5H4.5A2.5 2.5 0 0 0 2 21V5.5Z');
+    addPath('M22 5.5A2.5 2.5 0 0 0 19.5 3H13a2 2 0 0 0-2 2v15.5a1.5 1.5 0 0 1 1.5-1.5h7A2.5 2.5 0 0 1 22 21V5.5Z');
+  } else if (kind === 'retry') {
+    addPath('M21 12a9 9 0 0 0-15.5-6.36L3 8');
+    addPath('M3 3v5h5');
+    addPath('M3 12a9 9 0 0 0 15.5 6.36L21 16');
+    addPath('M16 16h5v5');
+  } else if (kind === 'branch') {
+    const addCircle = (cx, cy) => {
+      const c = document.createElementNS(ns, 'circle');
+      c.setAttribute('cx', String(cx));
+      c.setAttribute('cy', String(cy));
+      c.setAttribute('r', '2.5');
+      svg.appendChild(c);
+    };
+    addCircle(6, 5.5);
+    addCircle(18, 7.5);
+    addCircle(6, 18.5);
+    addPath('M6 8v8');
+    addPath('M18 10a6 6 0 0 1-6 6H6');
+  } else if (kind === 'brain') {
+    addPath('M9.5 4.5a3 3 0 0 0-3 3v.5a2.5 2.5 0 0 0-2 2.5 2.5 2.5 0 0 0 1 2 2.5 2.5 0 0 0-.5 1.5 3 3 0 0 0 3 3h1a2.5 2.5 0 0 0 3 2.5V4.5a2.5 2.5 0 0 0-2.5 0Z');
+    addPath('M14.5 4.5a3 3 0 0 1 3 3v.5a2.5 2.5 0 0 1 2 2.5 2.5 2.5 0 0 1-1 2 2.5 2.5 0 0 1 .5 1.5 3 3 0 0 1-3 3h-1a2.5 2.5 0 0 1-3 2.5V4.5a2.5 2.5 0 0 1 2.5 0Z');
+  } else if (kind === 'calendar') {
+    const rect = document.createElementNS(ns, 'rect');
+    rect.setAttribute('x', '3');
+    rect.setAttribute('y', '5');
+    rect.setAttribute('width', '18');
+    rect.setAttribute('height', '16');
+    rect.setAttribute('rx', '2.2');
+    svg.appendChild(rect);
+    addPath('M16 3v4M8 3v4M3 10h18');
+  } else if (kind === 'bell') {
+    addPath('M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9');
+    addPath('M10.3 21a1.94 1.94 0 0 0 3.4 0');
+  } else if (kind === 'download') {
+    addPath('M12 3v12');
+    addPath('m7 10 5 5 5-5');
+    addPath('M4 19h16');
   }
   return svg;
+}
+
+function formatMessageTimestampPl(msg) {
+  let dt = null;
+  if (msg?.createdAt) {
+    const d = new Date(msg.createdAt);
+    if (!Number.isNaN(d.getTime())) dt = d;
+  }
+  if (!dt && typeof msg?.id === 'string') {
+    const m = msg.id.match(/^(?:a|u|err)-(\d{12,14})$/);
+    if (m) {
+      const d = new Date(Number(m[1]));
+      if (!Number.isNaN(d.getTime())) dt = d;
+    }
+  }
+  if (!dt) dt = new Date();
+  const now = new Date();
+  const dayFmt = new Intl.DateTimeFormat('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
+  const msgDay = dayFmt.format(dt);
+  const todayDay = dayFmt.format(now);
+  const yesterdayDay = dayFmt.format(new Date(now.getTime() - 86400000));
+  const timeStr = `${dt.getHours()}:${String(dt.getMinutes()).padStart(2, '0')}`;
+  if (msgDay === todayDay) return `dzisiaj, ${timeStr}`;
+  if (msgDay === yesterdayDay) return `wczoraj, ${timeStr}`;
+  const datePart = dt.toLocaleDateString('pl-PL', { day: 'numeric', month: 'short' });
+  return `${datePart}, ${timeStr}`;
+}
+
+function branchConversationAtMessage(sourceThread, msgIndex) {
+  if (!sourceThread || !Array.isArray(sourceThread.messages)) return;
+  const sliced = sourceThread.messages.slice(0, msgIndex + 1).map((m, idx) => ({
+    ...m,
+    id: `${m.role === 'user' ? 'u' : 'a'}-${Date.now()}-${idx}`,
+    createdAt: m.createdAt || new Date().toISOString()
+  }));
+  const baseTitle = String(sourceThread.title || 'Rozmowa').replace(/\s*·\s*gałąź$/i, '').slice(0, 42);
+  const branchedThread = {
+    id: 'chat-' + Date.now(),
+    title: `${baseTitle} · gałąź`,
+    mode: sourceThread.mode || currentMode,
+    messages: sliced,
+    updatedAt: new Date().toISOString()
+  };
+  if (privateMode) {
+    ephemeralThread = branchedThread;
+  } else {
+    state.chats.unshift(branchedThread);
+    activeThreadId = branchedThread.id;
+    saveState();
+    renderRecentChats();
+  }
+  renderConversation();
+  showToast('Utworzono nową gałąź rozmowy od tej wypowiedzi.');
+  promptInput?.focus();
+}
+
+function closeAllMessageMoreMenus() {
+  if (!conversationLog) return;
+  conversationLog.querySelectorAll('.msg-more-panel:not([hidden])').forEach((p) => {
+    p.hidden = true;
+    p.classList.remove('open-up', 'align-right');
+  });
+  conversationLog.querySelectorAll('.msg-more-toggle.is-open').forEach((b) => {
+    b.classList.remove('is-open');
+    b.setAttribute('aria-expanded', 'false');
+  });
+  conversationLog.querySelectorAll('.chat-bubble-ai.has-more-open').forEach((b) => {
+    b.classList.remove('has-more-open');
+  });
+}
+
+function renderWorkspaceActionsDeck(actions = [], msg = null, prevUserText = '') {
+  if (!Array.isArray(actions) || !actions.length) return null;
+  const deck = document.createElement('div');
+  deck.className = 'ws-tools-deck';
+  deck.setAttribute('aria-label', 'Aktywne narzędzia ekosystemu Christian Culture');
+
+  for (const act of actions) {
+    if (!act || typeof act !== 'object') continue;
+    const card = document.createElement('section');
+    card.className = 'ws-tool-card';
+    card.dataset.toolType = act.type || 'tool';
+
+    const head = document.createElement('div');
+    head.className = 'ws-tool-head';
+
+    const badge = document.createElement('span');
+    badge.className = 'ws-tool-badge';
+
+    const title = document.createElement('strong');
+    title.className = 'ws-tool-title';
+
+    const desc = document.createElement('p');
+    desc.className = 'ws-tool-desc';
+
+    const btnRow = document.createElement('div');
+    btnRow.className = 'ws-tool-actions';
+
+    if (act.type === 'connect_app') {
+      const isConnected = (state.connectedApps || []).includes(act.appId);
+      badge.textContent = isConnected
+        ? `POŁĄCZONO · ${act.category || 'EKOSYSTEM CC'}`
+        : `NARZĘDZIE EKOSYSTEMU · ${act.category || 'CC'}`;
+      badge.classList.toggle('is-live', isConnected);
+      title.textContent = act.appName || 'Aplikacja Christian Culture';
+      desc.textContent = act.tagline || '';
+
+      if (act.appId === 'holos') {
+        const holosSt = readHolos2027State();
+        const liveMeta = document.createElement('div');
+        liveMeta.className = 'ws-tool-meta';
+        liveMeta.textContent = `Mostek HOLOS 2027 (ten sam serwer polskieradio.cc): aktywne wyzwania: ${holosSt.goals.length} · Tarcza Szabatu: ${holosSt.sabbathShield ? 'Włączona ✓' : 'Wyłączona'}`;
+        card.append(head, title, desc, liveMeta, btnRow);
+
+        const connBtn = document.createElement('button');
+        connBtn.type = 'button';
+        connBtn.className = 'ws-tool-btn' + (isConnected ? ' is-done' : ' is-primary');
+        connBtn.textContent = isConnected ? 'Połączono z HOLOS ✓' : 'Połącz z HOLOS 2027';
+        connBtn.onclick = () => {
+          setEcosystemAppConnected('holos', true);
+          connBtn.textContent = 'Połączono z HOLOS ✓';
+          connBtn.className = 'ws-tool-btn is-done';
+          badge.textContent = `POŁĄCZONO · ${act.category || 'EKOSYSTEM CC'}`;
+          badge.classList.add('is-live');
+        };
+        btnRow.appendChild(connBtn);
+
+        if (Array.isArray(act.suggestedHolosGoals) && act.suggestedHolosGoals.length) {
+          const goalsList = document.createElement('ul');
+          goalsList.className = 'ws-tool-goals';
+          for (const g of act.suggestedHolosGoals) {
+            const li = document.createElement('li');
+            li.textContent = `${g.title} (${g.minutes} min · ${g.verseRef})`;
+            goalsList.appendChild(li);
+          }
+          card.insertBefore(goalsList, btnRow);
+
+          const syncGoalsBtn = document.createElement('button');
+          syncGoalsBtn.type = 'button';
+          syncGoalsBtn.className = 'ws-tool-btn is-orange';
+          syncGoalsBtn.textContent = `+ Wgraj plan do HOLOS (${act.suggestedHolosGoals.length} wyzwania)`;
+          syncGoalsBtn.onclick = () => {
+            if (privateMode) {
+              showToast('Wyłącz Tryb prywatny, aby zapisać plan wyzwań bezpośrednio w HOLOS 2027.');
+              return;
+            }
+            setEcosystemAppConnected('holos', true, { silent: true });
+            const res = addGoalsToHolos2027(act.suggestedHolosGoals);
+            const nextHolos = readHolos2027State();
+            liveMeta.textContent = `Mostek HOLOS 2027: aktywne wyzwania: ${nextHolos.goals.length} · Tarcza Szabatu: Włączona ✓`;
+            syncGoalsBtn.textContent = res.added > 0
+              ? `Wgrano ${res.added} wyzwania do HOLOS ✓`
+              : 'Te wyzwania są już w HOLOS ✓';
+            syncGoalsBtn.className = 'ws-tool-btn is-done';
+            showToast(res.added > 0
+              ? `Dodano ${res.added} realne wyzwania do HOLOS 2027 — otwórz HOLOS, aby je zobaczyć!`
+              : 'Ten plan jest już zapisany w Twoim HOLOS 2027.');
+            trackAiEvent('ai_workspace_tool', { tool: 'holos_add_plan', added: res.added });
+          };
+          btnRow.appendChild(syncGoalsBtn);
+        }
+
+        if (act.suggestedProjectTitle) {
+          const projBtn = document.createElement('button');
+          projBtn.type = 'button';
+          projBtn.className = 'ws-tool-btn';
+          const alreadyProj = state.projects.includes(act.suggestedProjectTitle);
+          projBtn.textContent = alreadyProj ? 'Projekt zapisany ✓' : '+ Zapisz jako projekt';
+          if (alreadyProj) projBtn.classList.add('is-done');
+          projBtn.onclick = () => {
+            if (!state.projects.includes(act.suggestedProjectTitle)) {
+              state.projects.unshift(act.suggestedProjectTitle);
+              if (!privateMode) saveState();
+              renderRightProjects();
+            }
+            projBtn.textContent = 'Projekt zapisany ✓';
+            projBtn.classList.add('is-done');
+            showToast(`Dodano projekt „${act.suggestedProjectTitle}” do Twojej przestrzeni.`);
+          };
+          btnRow.appendChild(projBtn);
+        }
+      } else {
+        card.append(head, title, desc, btnRow);
+        const connBtn = document.createElement('button');
+        connBtn.type = 'button';
+        connBtn.className = 'ws-tool-btn' + (isConnected ? ' is-done' : ' is-orange');
+        connBtn.textContent = isConnected ? `Połączono z ${act.appName} ✓` : `Połącz z ${act.appName}`;
+        connBtn.onclick = () => {
+          setEcosystemAppConnected(act.appId, true);
+          connBtn.textContent = `Połączono z ${act.appName} ✓`;
+          connBtn.className = 'ws-tool-btn is-done';
+          badge.textContent = `POŁĄCZONO · ${act.category || 'EKOSYSTEM CC'}`;
+          badge.classList.add('is-live');
+        };
+        btnRow.appendChild(connBtn);
+      }
+
+      if (act.url) {
+        const openLink = document.createElement('a');
+        openLink.className = 'ws-tool-btn ws-tool-link';
+        openLink.href = act.url;
+        openLink.target = '_blank';
+        openLink.rel = 'noopener noreferrer';
+        openLink.textContent = `Otwórz ${act.appName} ↗`;
+        btnRow.appendChild(openLink);
+      }
+
+      head.appendChild(badge);
+      deck.appendChild(card);
+      continue;
+    }
+
+    if (act.type === 'holos_plan') {
+      badge.textContent = 'PLAN ROZWOJU · HOLOS 2027';
+      badge.classList.add('is-live');
+      title.textContent = act.title || 'Plan uświęcenia i rozwoju osobistego';
+      desc.textContent = act.summary || '';
+      head.appendChild(badge);
+      card.append(head, title, desc);
+
+      if (Array.isArray(act.goals) && act.goals.length) {
+        const ul = document.createElement('ul');
+        ul.className = 'ws-tool-goals';
+        for (const g of act.goals) {
+          const li = document.createElement('li');
+          li.textContent = `${g.title} (${g.minutes} min · ${g.verseRef})`;
+          ul.appendChild(li);
+        }
+        card.appendChild(ul);
+      }
+
+      const addHolosBtn = document.createElement('button');
+      addHolosBtn.type = 'button';
+      addHolosBtn.className = 'ws-tool-btn is-orange';
+      addHolosBtn.textContent = `+ Wgraj plan do HOLOS 2027 (${(act.goals || []).length})`;
+      addHolosBtn.onclick = () => {
+        if (privateMode) {
+          showToast('Wyłącz Tryb prywatny, aby zapisać plan w HOLOS 2027.');
+          return;
+        }
+        setEcosystemAppConnected('holos', true, { silent: true });
+        const res = addGoalsToHolos2027(act.goals || []);
+        addHolosBtn.textContent = res.added > 0 ? `Wgrano ${res.added} wyzwania do HOLOS ✓` : 'Plan już jest w HOLOS ✓';
+        addHolosBtn.className = 'ws-tool-btn is-done';
+        showToast(res.added > 0 ? `Dodano ${res.added} wyzwania do HOLOS 2027!` : 'Wyzwania są już zapisane w HOLOS 2027.');
+      };
+
+      const addProjBtn = document.createElement('button');
+      addProjBtn.type = 'button';
+      addProjBtn.className = 'ws-tool-btn';
+      addProjBtn.textContent = '+ Zapisz w Projektach';
+      addProjBtn.onclick = () => {
+        const pTitle = act.suggestedProjectTitle || 'Plan uświęcenia i rozwoju osobistego';
+        if (!state.projects.includes(pTitle)) {
+          state.projects.unshift(pTitle);
+          if (!privateMode) saveState();
+          renderRightProjects();
+        }
+        addProjBtn.textContent = 'Zapisano w Projektach ✓';
+        addProjBtn.classList.add('is-done');
+        showToast(`Dodano projekt „${pTitle}”.`);
+      };
+
+      const openHolos = document.createElement('a');
+      openHolos.className = 'ws-tool-btn ws-tool-link';
+      openHolos.href = '/holos';
+      openHolos.target = '_blank';
+      openHolos.rel = 'noopener noreferrer';
+      openHolos.textContent = 'Otwórz HOLOS 2027 ↗';
+
+      btnRow.append(addHolosBtn, addProjBtn, openHolos);
+      card.appendChild(btnRow);
+      deck.appendChild(card);
+      continue;
+    }
+
+    if (act.type === 'ecosystem_builder') {
+      badge.textContent = 'KREATOR OSOBISTEGO EKOSYSTEMU CC';
+      badge.classList.add('is-live');
+      title.textContent = act.title || 'Zbuduj swój osobisty ekosystem Christian Culture';
+      desc.textContent = act.summary || '';
+      head.appendChild(badge);
+      card.append(head, title, desc);
+
+      const selected = new Set(Array.isArray(state.connectedApps) ? state.connectedApps : ['mojabiblia']);
+      const chipWrap = document.createElement('div');
+      chipWrap.className = 'ws-ecosystem-chips';
+      const listApps = Array.isArray(act.apps) && act.apps.length ? act.apps : CC_CLIENT_ECOSYSTEM_APPS;
+      for (const app of listApps) {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'ws-eco-chip' + (selected.has(app.id) ? ' is-selected' : '');
+        chip.setAttribute('aria-pressed', String(selected.has(app.id)));
+        chip.textContent = `${selected.has(app.id) ? '✓ ' : '+ '}${app.shortName || app.name}`;
+        chip.title = app.tagline || app.name;
+        chip.onclick = () => {
+          if (selected.has(app.id)) selected.delete(app.id);
+          else selected.add(app.id);
+          const on = selected.has(app.id);
+          chip.classList.toggle('is-selected', on);
+          chip.setAttribute('aria-pressed', String(on));
+          chip.textContent = `${on ? '✓ ' : '+ '}${app.shortName || app.name}`;
+        };
+        chipWrap.appendChild(chip);
+      }
+
+      const saveEcoBtn = document.createElement('button');
+      saveEcoBtn.type = 'button';
+      saveEcoBtn.className = 'ws-tool-btn is-orange';
+      saveEcoBtn.textContent = 'Zapisz mój ekosystem CC';
+      saveEcoBtn.onclick = () => {
+        state.connectedApps = [...selected];
+        if (!privateMode) saveState();
+        syncConnectedAppsUi();
+        saveEcoBtn.textContent = `Zapisano (${selected.size} aplikacji) ✓`;
+        saveEcoBtn.className = 'ws-tool-btn is-done';
+        showToast(`Twój osobisty ekosystem CC został zaktualizowany (${selected.size} aplikacji).`);
+      };
+
+      const openAboutMeBtn = document.createElement('button');
+      openAboutMeBtn.type = 'button';
+      openAboutMeBtn.className = 'ws-tool-btn';
+      openAboutMeBtn.textContent = 'Ustaw „O mnie” i „O tobie” →';
+      openAboutMeBtn.onclick = () => showModuleView('O mnie');
+
+      btnRow.append(saveEcoBtn, openAboutMeBtn);
+      card.append(chipWrap, btnRow);
+      deck.appendChild(card);
+      continue;
+    }
+
+    if (act.type === 'personalization_shortcut') {
+      badge.textContent = `PERSONALIZACJA · ${String(act.targetTab || 'O mnie').toUpperCase()}`;
+      title.textContent = act.title || `Zakładka „${act.targetTab}”`;
+      desc.textContent = act.summary || '';
+      head.appendChild(badge);
+      card.append(head, title, desc, btnRow);
+
+      if (act.patch) {
+        const applyBtn = document.createElement('button');
+        applyBtn.type = 'button';
+        applyBtn.className = 'ws-tool-btn is-orange';
+        applyBtn.textContent = 'Zastosuj teraz ✓';
+        applyBtn.onclick = () => {
+          if (act.targetTab === 'O mnie') {
+            state.aboutMe = normalizeAboutMe({ ...state.aboutMe, ...act.patch });
+          } else {
+            state.aboutYou = normalizeAboutYou({ ...state.aboutYou, ...act.patch });
+          }
+          if (!privateMode) saveState();
+          syncPersonalizationNavIndicators();
+          updatePersonalizedHero();
+          applyBtn.textContent = 'Zapisano w profilu ✓';
+          applyBtn.className = 'ws-tool-btn is-done';
+          showToast(`Zaktualizowano zakładkę „${act.targetTab}”.`);
+        };
+        btnRow.appendChild(applyBtn);
+      }
+
+      const openTabBtn = document.createElement('button');
+      openTabBtn.type = 'button';
+      openTabBtn.className = 'ws-tool-btn';
+      openTabBtn.textContent = `Otwórz zakładkę „${act.targetTab}” →`;
+      openTabBtn.onclick = () => showModuleView(act.targetTab || 'O mnie');
+      btnRow.appendChild(openTabBtn);
+      deck.appendChild(card);
+      continue;
+    }
+
+    if (act.type === 'save_memory' && act.memoryText) {
+      badge.textContent = 'PAMIĘĆ KONTEKSTOWA AI';
+      title.textContent = act.title || 'Zapisz wskazówkę w Pamięci AI';
+      desc.textContent = `„${act.memoryText}”`;
+      head.appendChild(badge);
+      const saveMemBtn = document.createElement('button');
+      saveMemBtn.type = 'button';
+      saveMemBtn.className = 'ws-tool-btn is-orange';
+      saveMemBtn.textContent = '+ Zapisz w Pamięci';
+      saveMemBtn.onclick = () => {
+        state.memory.unshift({ id: 'mem-' + Date.now(), text: act.memoryText.slice(0, 200) });
+        if (!privateMode) saveState();
+        saveMemBtn.textContent = 'Zapisano w Pamięci ✓';
+        saveMemBtn.className = 'ws-tool-btn is-done';
+        showToast('Dodano wpis do Twojej Pamięci kontekstowej AI.');
+      };
+      btnRow.appendChild(saveMemBtn);
+      card.append(head, title, desc, btnRow);
+      deck.appendChild(card);
+      continue;
+    }
+
+    if (act.type === 'save_project' && act.projectTitle) {
+      badge.textContent = 'TWOJE PROJEKTY';
+      title.textContent = act.title || `Nowy projekt: ${act.projectTitle}`;
+      desc.textContent = 'Dodaj projekt do panelu Twoja przestrzeń, aby wracać do niego jednym kliknięciem.';
+      head.appendChild(badge);
+      const saveProjBtn = document.createElement('button');
+      saveProjBtn.type = 'button';
+      saveProjBtn.className = 'ws-tool-btn is-orange';
+      saveProjBtn.textContent = '+ Dodaj projekt';
+      saveProjBtn.onclick = () => {
+        if (!state.projects.includes(act.projectTitle)) {
+          state.projects.unshift(act.projectTitle);
+          if (!privateMode) saveState();
+          renderRightProjects();
+        }
+        saveProjBtn.textContent = 'Dodano projekt ✓';
+        saveProjBtn.className = 'ws-tool-btn is-done';
+        showToast(`Utworzono projekt „${act.projectTitle}”.`);
+      };
+      btnRow.appendChild(saveProjBtn);
+      card.append(head, title, desc, btnRow);
+      deck.appendChild(card);
+      continue;
+    }
+
+    if (act.type === 'open_reminder') {
+      badge.textContent = 'PRZYPOMNIENIA';
+      title.textContent = act.title || 'Ustaw przypomnienie';
+      desc.textContent = act.summary || '';
+      head.appendChild(badge);
+      const remBtn = document.createElement('button');
+      remBtn.type = 'button';
+      remBtn.className = 'ws-tool-btn is-orange';
+      remBtn.textContent = '⏰ Ustaw przypomnienie';
+      remBtn.onclick = () => openReminderModal(msg || { id: 'rem', text: prevUserText || '' }, prevUserText || '');
+      btnRow.appendChild(remBtn);
+      card.append(head, title, desc, btnRow);
+      deck.appendChild(card);
+    }
+  }
+
+  return deck.children.length ? deck : null;
 }
 
 async function sendFeedbackToServer(payload) {
@@ -3643,129 +4409,25 @@ function renderConversation(animateMsgId = '') {
         }
       }
 
+      if (Array.isArray(msg.workspaceActions) && msg.workspaceActions.length) {
+        const wsDeck = renderWorkspaceActionsDeck(msg.workspaceActions, msg, prevUserMsg?.text || '');
+        if (wsDeck) {
+          if (isStreamingThisMsg) {
+            wsDeck.classList.add('stream-reveal-deferred');
+            deferred.push(wsDeck);
+          }
+          aiBubble.appendChild(wsDeck);
+        }
+      }
+
       const actions = document.createElement('div');
       actions.className = 'msg-actions' + (isStreamingThisMsg ? ' stream-reveal-deferred' : '');
       if (isStreamingThisMsg) deferred.push(actions);
-
-      const primaryRow = document.createElement('div');
-      primaryRow.className = 'msg-actions-primary';
-      primaryRow.setAttribute('role', 'group');
-      primaryRow.setAttribute('aria-label', 'Reakcje i opcje odpowiedzi');
 
       const reactionMeta = {
         assistant_id: msg.assistantId || getActiveAssistantId(),
         mode: msg.mode || currentMode,
         model_id: msg.modelUsed || getPreferredModelId()
-      };
-
-      const upBtn = document.createElement('button');
-      upBtn.type = 'button';
-      upBtn.className = 'msg-action-btn msg-react-btn';
-      upBtn.dataset.reaction = 'up';
-      upBtn.setAttribute('aria-label', 'Łapka w górę — przydatna odpowiedź');
-      upBtn.title = 'Łapka w górę';
-      upBtn.appendChild(createReactionSvg('up'));
-
-      const downBtn = document.createElement('button');
-      downBtn.type = 'button';
-      downBtn.className = 'msg-action-btn msg-react-btn';
-      downBtn.dataset.reaction = 'down';
-      downBtn.setAttribute('aria-label', 'Łapka w dół — wymaga poprawy');
-      downBtn.title = 'Łapka w dół';
-      downBtn.appendChild(createReactionSvg('down'));
-
-      const syncThumbsUi = (val) => {
-        upBtn.classList.toggle('is-active-up', val === 'up');
-        upBtn.setAttribute('aria-pressed', String(val === 'up'));
-        downBtn.classList.toggle('is-active-down', val === 'down');
-        downBtn.setAttribute('aria-pressed', String(val === 'down'));
-      };
-      syncThumbsUi((state.reactions && state.reactions[msg.id]) || '');
-
-      upBtn.onclick = () => {
-        const next = toggleMessageReaction(msg, 'up', prevUserMsg?.text || '');
-        syncThumbsUi(next);
-        showToast(next === 'up' ? 'Dziękujemy za pozytywną ocenę!' : 'Cofnięto ocenę.');
-      };
-
-      downBtn.onclick = () => {
-        const next = toggleMessageReaction(msg, 'down', prevUserMsg?.text || '');
-        syncThumbsUi(next);
-        showToast(next === 'down' ? 'Zapisano zgłoszenie — ulepszymy tę odpowiedź.' : 'Cofnięto ocenę.');
-      };
-
-      const favBtn = document.createElement('button');
-      favBtn.type = 'button';
-      favBtn.className = 'msg-action-btn msg-react-btn';
-      favBtn.dataset.reaction = 'favorite';
-      favBtn.title = 'Dodaj do ulubionych';
-      const syncFavUi = () => {
-        const isFav = (state.favorites || []).some((f) => f.id === msg.id);
-        favBtn.classList.toggle('is-favorited', isFav);
-        favBtn.setAttribute('aria-pressed', String(isFav));
-        favBtn.setAttribute('aria-label', isFav ? 'Usuń z ulubionych' : 'Dodaj do ulubionych');
-        favBtn.replaceChildren(createReactionSvg(isFav ? 'star-filled' : 'star'));
-      };
-      syncFavUi();
-      favBtn.onclick = () => {
-        const added = toggleMessageFavorite(msg, prevUserMsg?.text || '');
-        syncFavUi();
-        showToast(added ? 'Dodano odpowiedź do ulubionych (★).' : 'Usunięto z ulubionych.');
-      };
-
-      const opinionBtn = document.createElement('button');
-      opinionBtn.type = 'button';
-      opinionBtn.className = 'msg-action-btn msg-opinion-btn';
-      opinionBtn.dataset.reaction = 'opinion';
-      opinionBtn.setAttribute('aria-label', 'Wystaw opinię o odpowiedzi');
-      opinionBtn.title = 'Wystaw opinię';
-      const opinionLabel = document.createElement('span');
-      const syncOpinionUi = () => {
-        const hasOp = (state.opinions || []).some((o) => o.msgId === msg.id);
-        opinionBtn.classList.toggle('is-done', hasOp);
-        opinionLabel.textContent = hasOp ? 'Opinia ✓' : 'Opinia';
-      };
-      opinionBtn.append(createReactionSvg('opinion'), opinionLabel);
-      syncOpinionUi();
-      opinionBtn.onclick = () => openOpinionModal(msg, prevUserMsg?.text || '', () => syncOpinionUi());
-
-      const morePanel = document.createElement('div');
-      morePanel.id = `msgMore-${msg.id}`;
-      morePanel.className = 'msg-more-panel';
-      morePanel.hidden = true;
-
-      const moreBtn = document.createElement('button');
-      moreBtn.type = 'button';
-      moreBtn.className = 'msg-action-btn msg-more-toggle';
-      moreBtn.setAttribute('aria-expanded', 'false');
-      moreBtn.setAttribute('aria-controls', morePanel.id);
-      const moreSpan = document.createElement('span');
-      moreSpan.textContent = 'Więcej opcji';
-      moreBtn.append(createReactionSvg('more'), moreSpan, createReactionSvg('chevron'));
-      moreBtn.onclick = () => {
-        const willOpen = morePanel.hidden;
-        if (willOpen && conversationLog) {
-          conversationLog.querySelectorAll('.msg-more-panel:not([hidden])').forEach((p) => {
-            p.hidden = true;
-          });
-          conversationLog.querySelectorAll('.msg-more-toggle.is-open').forEach((b) => {
-            b.classList.remove('is-open');
-            b.setAttribute('aria-expanded', 'false');
-          });
-        }
-        morePanel.hidden = !willOpen;
-        moreBtn.classList.toggle('is-open', willOpen);
-        moreBtn.setAttribute('aria-expanded', String(willOpen));
-        trackAiEvent('ai_more_options_toggle', { open: willOpen, ...reactionMeta });
-      };
-
-      primaryRow.append(upBtn, downBtn, favBtn, opinionBtn, moreBtn);
-
-      const syncBubbleSaveButtons = () => {
-        if (saveNoteBtn) {
-          saveNoteBtn.textContent = 'Zapisano ✓';
-          saveNoteBtn.classList.add('is-done');
-        }
       };
 
       const existingNote = (state.notes || []).find((n) => n.id === msg.id);
@@ -3800,16 +4462,84 @@ function renderConversation(animateMsgId = '') {
         };
 
         quickBar.append(yesBtn, noBtn);
-        morePanel.appendChild(quickBar);
+        actions.appendChild(quickBar);
       }
 
-      const moreActions = document.createElement('div');
-      moreActions.className = 'msg-more-actions';
+      const primaryRow = document.createElement('div');
+      primaryRow.className = 'msg-actions-primary';
+      primaryRow.setAttribute('role', 'group');
+      primaryRow.setAttribute('aria-label', 'Reakcje i opcje odpowiedzi');
+
+      const copyBtn = document.createElement('button');
+      copyBtn.type = 'button';
+      copyBtn.className = 'msg-action-btn msg-icon-btn';
+      copyBtn.dataset.action = 'copy';
+      copyBtn.setAttribute('aria-label', 'Kopiuj odpowiedź');
+      copyBtn.title = 'Kopiuj';
+      copyBtn.appendChild(createReactionSvg('copy'));
+      copyBtn.onclick = async () => {
+        trackAiEvent('ai_response_action', { action: 'copy', ...reactionMeta });
+        try {
+          await navigator.clipboard.writeText(msg.text || '');
+          copyBtn.classList.add('is-done');
+          copyBtn.replaceChildren(createReactionSvg('check'));
+          showToast('Skopiowano odpowiedź.');
+          setTimeout(() => {
+            copyBtn.classList.remove('is-done');
+            copyBtn.replaceChildren(createReactionSvg('copy'));
+          }, 1800);
+        } catch {
+          showToast('Nie udało się skopiować w tej przeglądarce.');
+        }
+      };
+
+      const thumbsPair = document.createElement('span');
+      thumbsPair.className = 'msg-thumbs-pair';
+
+      const upBtn = document.createElement('button');
+      upBtn.type = 'button';
+      upBtn.className = 'msg-action-btn msg-icon-btn msg-react-btn';
+      upBtn.dataset.reaction = 'up';
+      upBtn.setAttribute('aria-label', 'Łapka w górę — przydatna odpowiedź');
+      upBtn.title = 'Przydatna odpowiedź';
+      upBtn.appendChild(createReactionSvg('up'));
+
+      const downBtn = document.createElement('button');
+      downBtn.type = 'button';
+      downBtn.className = 'msg-action-btn msg-icon-btn msg-react-btn';
+      downBtn.dataset.reaction = 'down';
+      downBtn.setAttribute('aria-label', 'Łapka w dół — wymaga poprawy');
+      downBtn.title = 'Wymaga poprawy';
+      downBtn.appendChild(createReactionSvg('down'));
+
+      const syncThumbsUi = (val) => {
+        upBtn.classList.toggle('is-active-up', val === 'up');
+        upBtn.setAttribute('aria-pressed', String(val === 'up'));
+        downBtn.classList.toggle('is-active-down', val === 'down');
+        downBtn.setAttribute('aria-pressed', String(val === 'down'));
+      };
+      syncThumbsUi((state.reactions && state.reactions[msg.id]) || '');
+
+      upBtn.onclick = () => {
+        const next = toggleMessageReaction(msg, 'up', prevUserMsg?.text || '');
+        syncThumbsUi(next);
+        showToast(next === 'up' ? 'Dziękujemy za pozytywną ocenę!' : 'Cofnięto ocenę.');
+      };
+
+      downBtn.onclick = () => {
+        const next = toggleMessageReaction(msg, 'down', prevUserMsg?.text || '');
+        syncThumbsUi(next);
+        showToast(next === 'down' ? 'Zapisano zgłoszenie — ulepszymy tę odpowiedź.' : 'Cofnięto ocenę.');
+      };
+
+      thumbsPair.append(upBtn, downBtn);
 
       const speakBtn = document.createElement('button');
       speakBtn.type = 'button';
-      speakBtn.className = 'msg-action-btn';
-      speakBtn.textContent = '🔊 Odsłuchaj';
+      speakBtn.className = 'msg-action-btn msg-icon-btn';
+      speakBtn.dataset.action = 'speak';
+      speakBtn.dataset.iconOnly = 'true';
+      setSpeakBtnVisual(speakBtn, false);
       speakBtn.onclick = () => {
         trackAiEvent('ai_response_action', { action: 'speak', ...reactionMeta });
         speakReply(msg.text, persona.id, aiBubble, speakBtn);
@@ -3818,59 +4548,46 @@ function renderConversation(animateMsgId = '') {
         revealSpeakBtn = speakBtn;
       }
 
-      const copyBtn = document.createElement('button');
-      copyBtn.type = 'button';
-      copyBtn.className = 'msg-action-btn';
-      copyBtn.textContent = 'Kopiuj';
-      copyBtn.onclick = async () => {
-        trackAiEvent('ai_response_action', { action: 'copy', ...reactionMeta });
+      const shareBtn = document.createElement('button');
+      shareBtn.type = 'button';
+      shareBtn.className = 'msg-action-btn msg-icon-btn';
+      shareBtn.dataset.action = 'share';
+      shareBtn.setAttribute('aria-label', 'Udostępnij odpowiedź');
+      shareBtn.title = 'Udostępnij';
+      shareBtn.appendChild(createReactionSvg('share'));
+      shareBtn.onclick = async () => {
+        trackAiEvent('ai_response_action', { action: 'share', ...reactionMeta });
+        const shareText = `${String(msg.text || '').trim()}\n\n— AI dla Jezusa · https://polskieradio.cc/ai/aplikacja`;
+        if (navigator.share) {
+          try {
+            await navigator.share({ title: 'AI dla Jezusa — Christian Culture', text: shareText });
+            return;
+          } catch (err) {
+            if (err?.name === 'AbortError') return;
+          }
+        }
         try {
-          await navigator.clipboard.writeText(msg.text);
-          showToast('Skopiowano odpowiedź.');
+          await navigator.clipboard.writeText(shareText);
+          showToast('Skopiowano odpowiedź do udostępnienia.');
         } catch {
-          showToast('Nie udało się skopiować w tej przeglądarce.');
+          showToast('Nie udało się udostępnić w tej przeglądarce.');
         }
       };
 
-      const exportTxtBtn = document.createElement('button');
-      exportTxtBtn.type = 'button';
-      exportTxtBtn.className = 'msg-action-btn';
-      exportTxtBtn.dataset.action = 'export_txt';
-      exportTxtBtn.textContent = '⬇ Eksportuj .txt';
-      exportTxtBtn.onclick = () => {
-        trackAiEvent('ai_response_action', { action: 'export_txt', ...reactionMeta });
-        const content = `${msg.text || ''}\n\n---\nAI dla Jezusa · Christian Culture\n`;
-        const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-        const href = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = href;
-        link.download = `ai-dla-jezusa-${(msg.id || 'odpowiedz').replace(/[^a-zA-Z0-9_-]/g, '')}.txt`;
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        setTimeout(() => URL.revokeObjectURL(href), 2000);
-        showToast('Pobrano odpowiedź jako plik .txt.');
-      };
-
-      const alreadyRemembered = (state.memory || []).some((m) => m.msgId === msg.id);
-      const rememberBtn = document.createElement('button');
-      rememberBtn.type = 'button';
-      rememberBtn.className = 'msg-action-btn' + (alreadyRemembered ? ' is-done' : '');
-      rememberBtn.dataset.action = 'remember';
-      rememberBtn.textContent = alreadyRemembered ? 'Zapamiętano ✓' : 'Zapamiętaj dla AI';
-      rememberBtn.onclick = () => {
-        const added = rememberMessageInMemory(msg, prevUserMsg?.text || '');
-        rememberBtn.textContent = 'Zapamiętano ✓';
-        rememberBtn.classList.add('is-done');
-        trackAiEvent('ai_response_action', { action: 'remember', ...reactionMeta });
-        showToast(added ? 'Zapamiętano w Twojej pamięci kontekstowej AI.' : 'Już zapisano w Pamięci.');
-      };
-
-      var saveNoteBtn = document.createElement('button');
+      const saveNoteBtn = document.createElement('button');
       saveNoteBtn.type = 'button';
-      saveNoteBtn.className = 'msg-action-btn' + (existingNote ? ' is-done' : '');
+      saveNoteBtn.className = 'msg-action-btn msg-icon-btn' + (existingNote ? ' is-done' : '');
       saveNoteBtn.dataset.action = 'save';
-      saveNoteBtn.textContent = existingNote ? 'Zapisano ✓' : 'Zapisz notatkę';
+      saveNoteBtn.setAttribute('aria-label', existingNote ? 'Zapisano notatkę' : 'Zapisz notatkę');
+      saveNoteBtn.title = existingNote ? 'Zapisano w Notatnikach ✓' : 'Zapisz notatkę';
+      saveNoteBtn.setAttribute('aria-pressed', String(Boolean(existingNote)));
+      saveNoteBtn.appendChild(createReactionSvg('book'));
+      const syncBubbleSaveButtons = () => {
+        saveNoteBtn.classList.add('is-done');
+        saveNoteBtn.setAttribute('aria-pressed', 'true');
+        saveNoteBtn.setAttribute('aria-label', 'Zapisano w Notatnikach');
+        saveNoteBtn.title = 'Zapisano w Notatnikach ✓';
+      };
       saveNoteBtn.onclick = () => {
         const res = saveMessageToNotes(msg, prevUserMsg?.text || '', { savedLater: false });
         syncBubbleSaveButtons();
@@ -3878,46 +4595,212 @@ function renderConversation(animateMsgId = '') {
         showToast(res === 'exists' ? 'Ta odpowiedź jest już w Notatnikach.' : 'Zapisano notatkę w module Notatniki.');
       };
 
-      const calendarBtn = document.createElement('button');
-      calendarBtn.type = 'button';
-      calendarBtn.className = 'msg-action-btn';
-      calendarBtn.dataset.action = 'calendar';
-      calendarBtn.textContent = 'Dodaj do mojego kalendarza';
-      calendarBtn.onclick = () => {
-        trackAiEvent('ai_response_action', { action: 'calendar', ...reactionMeta });
-        openCalendarModal(msg, prevUserMsg?.text || '');
+      const favBtn = document.createElement('button');
+      favBtn.type = 'button';
+      favBtn.className = 'msg-action-btn msg-icon-btn msg-react-btn';
+      favBtn.dataset.reaction = 'favorite';
+      favBtn.title = 'Dodaj do ulubionych';
+      const syncFavUi = () => {
+        const isFav = (state.favorites || []).some((f) => f.id === msg.id);
+        favBtn.classList.toggle('is-favorited', isFav);
+        favBtn.setAttribute('aria-pressed', String(isFav));
+        favBtn.setAttribute('aria-label', isFav ? 'Usuń z ulubionych' : 'Dodaj do ulubionych');
+        favBtn.replaceChildren(createReactionSvg(isFav ? 'star-filled' : 'star'));
+      };
+      syncFavUi();
+      favBtn.onclick = () => {
+        const added = toggleMessageFavorite(msg, prevUserMsg?.text || '');
+        syncFavUi();
+        showToast(added ? 'Dodano odpowiedź do ulubionych (★).' : 'Usunięto z ulubionych.');
       };
 
-      const reminderBtn = document.createElement('button');
-      reminderBtn.type = 'button';
-      reminderBtn.className = 'msg-action-btn';
-      reminderBtn.dataset.action = 'reminder';
-      reminderBtn.textContent = 'Przypomnij mi';
-      reminderBtn.onclick = () => {
-        trackAiEvent('ai_response_action', { action: 'reminder', ...reactionMeta });
-        openReminderModal(msg, prevUserMsg?.text || '');
+      const moreWrap = document.createElement('div');
+      moreWrap.className = 'msg-more-wrap';
+
+      const morePanel = document.createElement('div');
+      morePanel.id = `msgMore-${msg.id}`;
+      morePanel.className = 'msg-more-panel';
+      morePanel.setAttribute('role', 'menu');
+      morePanel.setAttribute('aria-label', 'Więcej opcji odpowiedzi');
+      morePanel.hidden = true;
+      morePanel.addEventListener('click', (e) => e.stopPropagation());
+
+      const moreBtn = document.createElement('button');
+      moreBtn.type = 'button';
+      moreBtn.className = 'msg-action-btn msg-icon-btn msg-more-toggle';
+      moreBtn.setAttribute('aria-label', 'Więcej opcji');
+      moreBtn.title = 'Więcej opcji';
+      moreBtn.setAttribute('aria-haspopup', 'menu');
+      moreBtn.setAttribute('aria-expanded', 'false');
+      moreBtn.setAttribute('aria-controls', morePanel.id);
+      moreBtn.appendChild(createReactionSvg('more'));
+      moreBtn.onclick = (e) => {
+        e.stopPropagation();
+        const willOpen = morePanel.hidden;
+        closeAllMessageMoreMenus();
+        if (willOpen) {
+          morePanel.hidden = false;
+          moreBtn.classList.add('is-open');
+          moreBtn.setAttribute('aria-expanded', 'true');
+          aiBubble.classList.add('has-more-open');
+          const rect = moreBtn.getBoundingClientRect();
+          const spaceBelow = window.innerHeight - rect.bottom;
+          morePanel.classList.toggle('open-up', spaceBelow < 340 && rect.top > 280);
+          morePanel.classList.toggle('align-right', rect.left + 275 > window.innerWidth - 12);
+        }
+        trackAiEvent('ai_more_options_toggle', { open: willOpen, ...reactionMeta });
       };
 
-      moreActions.append(speakBtn, copyBtn, exportTxtBtn, rememberBtn, saveNoteBtn, calendarBtn, reminderBtn);
+      const timeStampEl = document.createElement('div');
+      timeStampEl.className = 'msg-more-timestamp';
+      timeStampEl.textContent = formatMessageTimestampPl(msg);
+      morePanel.appendChild(timeStampEl);
 
-      if (i === thread.messages.length - 1 && thread.messages[i - 1]?.role === 'user') {
-        const retryBtn = document.createElement('button');
-        retryBtn.type = 'button';
-        retryBtn.className = 'msg-action-btn';
-        retryBtn.textContent = 'Ponów';
-        retryBtn.onclick = () => {
-          if (busy) return;
-          trackAiEvent('ai_response_action', { action: 'retry', ...reactionMeta });
-          const lastUserText = thread.messages[i - 1].text;
-          thread.messages.pop();
-          thread.messages.pop();
-          sendChatMessage(lastUserText);
+      const moreActions = document.createElement('div');
+      moreActions.className = 'msg-more-actions';
+
+      const makePopoverRow = ({ icon, labelText, hasChevron = false, action = '', reaction = '', isDone = false, onClick }) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.setAttribute('role', 'menuitem');
+        btn.className = 'msg-menu-item' + (isDone ? ' is-done' : '');
+        if (action) btn.dataset.action = action;
+        if (reaction) btn.dataset.reaction = reaction;
+        const textSpan = document.createElement('span');
+        textSpan.className = 'msg-menu-label';
+        textSpan.textContent = labelText;
+        btn.append(createReactionSvg(icon), textSpan);
+        if (hasChevron) btn.appendChild(createReactionSvg('chevron-right'));
+        btn.onclick = (ev) => {
+          ev.stopPropagation();
+          closeAllMessageMoreMenus();
+          onClick?.(btn, textSpan);
         };
-        moreActions.appendChild(retryBtn);
+        return { btn, textSpan };
+      };
+
+      const precedingUserText = thread.messages[i - 1]?.role === 'user'
+        ? thread.messages[i - 1].text
+        : (prevUserMsg?.text || '');
+      if (precedingUserText) {
+        const retryRow = makePopoverRow({
+          icon: 'retry',
+          labelText: 'Ponów',
+          action: 'retry',
+          onClick: () => {
+            if (busy) return;
+            trackAiEvent('ai_response_action', { action: 'retry', ...reactionMeta });
+            if (i === thread.messages.length - 1 && thread.messages[i - 1]?.role === 'user') {
+              thread.messages.pop();
+              thread.messages.pop();
+            }
+            sendChatMessage(precedingUserText);
+          }
+        });
+        moreActions.appendChild(retryRow.btn);
       }
 
+      const branchRow = makePopoverRow({
+        icon: 'branch',
+        labelText: 'Rozgałęź rozmowę',
+        hasChevron: true,
+        action: 'branch',
+        onClick: () => {
+          trackAiEvent('ai_response_action', { action: 'branch', ...reactionMeta });
+          branchConversationAtMessage(thread, i);
+        }
+      });
+      moreActions.appendChild(branchRow.btn);
+
+      const divider = document.createElement('div');
+      divider.className = 'msg-more-divider';
+      divider.setAttribute('role', 'separator');
+      moreActions.appendChild(divider);
+
+      const hasOpInitial = (state.opinions || []).some((o) => o.msgId === msg.id);
+      const opinionRow = makePopoverRow({
+        icon: 'opinion',
+        labelText: hasOpInitial ? 'Opinia ✓' : 'Wystaw opinię',
+        hasChevron: true,
+        isDone: hasOpInitial,
+        onClick: (btnEl, spanEl) => {
+          openOpinionModal(msg, prevUserMsg?.text || '', () => {
+            const hasOp = (state.opinions || []).some((o) => o.msgId === msg.id);
+            btnEl.classList.toggle('is-done', hasOp);
+            spanEl.textContent = hasOp ? 'Opinia ✓' : 'Wystaw opinię';
+          });
+        }
+      });
+      opinionRow.btn.dataset.reaction = 'opinion';
+      opinionRow.btn.setAttribute('aria-label', 'Wystaw opinię o odpowiedzi');
+      moreActions.appendChild(opinionRow.btn);
+
+      const alreadyRemembered = (state.memory || []).some((m) => m.msgId === msg.id);
+      const rememberRow = makePopoverRow({
+        icon: 'brain',
+        labelText: alreadyRemembered ? 'Zapamiętano ✓' : 'Zapamiętaj dla AI',
+        action: 'remember',
+        isDone: alreadyRemembered,
+        onClick: (btnEl, spanEl) => {
+          const added = rememberMessageInMemory(msg, prevUserMsg?.text || '');
+          spanEl.textContent = 'Zapamiętano ✓';
+          btnEl.classList.add('is-done');
+          trackAiEvent('ai_response_action', { action: 'remember', ...reactionMeta });
+          showToast(added ? 'Zapamiętano w Twojej pamięci kontekstowej AI.' : 'Już zapisano w Pamięci.');
+        }
+      });
+      moreActions.appendChild(rememberRow.btn);
+
+      const calendarRow = makePopoverRow({
+        icon: 'calendar',
+        labelText: 'Dodaj do mojego kalendarza',
+        hasChevron: true,
+        action: 'calendar',
+        onClick: () => {
+          trackAiEvent('ai_response_action', { action: 'calendar', ...reactionMeta });
+          openCalendarModal(msg, prevUserMsg?.text || '');
+        }
+      });
+      moreActions.appendChild(calendarRow.btn);
+
+      const reminderRow = makePopoverRow({
+        icon: 'bell',
+        labelText: 'Przypomnij mi',
+        hasChevron: true,
+        action: 'reminder',
+        onClick: () => {
+          trackAiEvent('ai_response_action', { action: 'reminder', ...reactionMeta });
+          openReminderModal(msg, prevUserMsg?.text || '');
+        }
+      });
+      moreActions.appendChild(reminderRow.btn);
+
+      const exportRow = makePopoverRow({
+        icon: 'download',
+        labelText: 'Eksportuj .txt',
+        action: 'export_txt',
+        onClick: () => {
+          trackAiEvent('ai_response_action', { action: 'export_txt', ...reactionMeta });
+          const content = `${msg.text || ''}\n\n---\nAI dla Jezusa · Christian Culture\n`;
+          const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+          const href = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = href;
+          link.download = `ai-dla-jezusa-${(msg.id || 'odpowiedz').replace(/[^a-zA-Z0-9_-]/g, '')}.txt`;
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          setTimeout(() => URL.revokeObjectURL(href), 2000);
+          showToast('Pobrano odpowiedź jako plik .txt.');
+        }
+      });
+      moreActions.appendChild(exportRow.btn);
+
       morePanel.appendChild(moreActions);
-      actions.append(primaryRow, morePanel);
+      moreWrap.append(moreBtn, morePanel);
+
+      primaryRow.append(copyBtn, thumbsPair, speakBtn, shareBtn, saveNoteBtn, favBtn, moreWrap);
+      actions.appendChild(primaryRow);
 
       if (isStreamingThisMsg) {
         revealSkipBtn = document.createElement('button');
@@ -4146,6 +5029,8 @@ async function sendChatMessage(textOverride, titleHint = '', chatOpts = {}) {
         attachmentText: requestPrivate ? '' : currentAttText,
         tools: activeTools,
         memoryNotes: requestPrivate ? [] : [...state.memory.map((m) => m.text), ...extraNotesContext],
+        userPersonalization: requestPrivate ? null : getActivePersonalizationPayload(),
+        connectedApps: requestPrivate ? [] : (Array.isArray(state.connectedApps) ? state.connectedApps : ['mojabiblia']),
         privateMode: requestPrivate,
         voiceConversation: Boolean(chatOpts?.voiceConversation),
         preferredModel: model,
@@ -4161,10 +5046,20 @@ async function sendChatMessage(textOverride, titleHint = '', chatOpts = {}) {
       throw new Error(data?.detail || data?.error || `HTTP ${res.status}`);
     }
 
+    const incomingActions = Array.isArray(data.workspaceActions) ? data.workspaceActions : [];
+    if (!requestPrivate && !privateMode && incomingActions.length) {
+      for (const act of incomingActions) {
+        if (act?.type === 'connect_app' && act.autoConnect && act.appId) {
+          setEcosystemAppConnected(act.appId, true, { silent: true });
+        }
+      }
+    }
+
     revealMsgId = 'a-' + Date.now();
     deliveredReply = {
       id: revealMsgId,
       role: 'assistant',
+      createdAt: new Date().toISOString(),
       text: data.reply,
       provider: data.provider || 'cc-knowledge-hub',
       modelUsed: data.modelUsed || '',
@@ -4172,6 +5067,7 @@ async function sendChatMessage(textOverride, titleHint = '', chatOpts = {}) {
       assistant: data.assistant || activeAsst,
       mode: data.mode || currentMode,
       media: Array.isArray(data.media) ? data.media : [],
+      workspaceActions: incomingActions,
       mojabibliaVerses: Array.isArray(data.mojabibliaVerses) ? data.mojabibliaVerses : [],
       sources: Array.isArray(data.sources) ? data.sources : []
     };
@@ -4186,11 +5082,13 @@ async function sendChatMessage(textOverride, titleHint = '', chatOpts = {}) {
     deliveredReply = {
       id: revealMsgId,
       role: 'assistant',
+      createdAt: new Date().toISOString(),
       text: `Nie udało się uzyskać odpowiedzi z serwera (${err.message}). Spróbuj ponownie za chwilę lub sprawdź połączenie z internetem.`,
       provider: 'guard',
       assistant: activeAsst,
       mode: currentMode,
       media: [],
+      workspaceActions: [],
       sources: []
     };
     thread.messages.push(deliveredReply);
@@ -4747,6 +5645,424 @@ function renderModule(name) {
 
     moduleStage.append(form, listBox);
     drawMem();
+    return;
+  }
+
+  if (name === 'O mnie' || name === 'O tobie') {
+    const isAboutMe = name === 'O mnie';
+    sub.textContent = isAboutMe
+      ? 'Powiedz AI dla Jezusa, jak ma się do Ciebie zwracać, jaka powinna być Wasza relacja i co warto o Tobie wiedzieć. Dane są zapisywane lokalnie (RODO).'
+      : 'Określ, jak agent AI dla Jezusa ma się zachowywać: ton, długość wypowiedzi, sposób cytowania Biblii (UBG) oraz Twoje osobiste preferencje.';
+
+    // Pasek szybkiego przełączania między „O mnie” i „O tobie”
+    const tabBar = document.createElement('div');
+    tabBar.className = 'pers-tabs';
+    tabBar.setAttribute('role', 'tablist');
+    tabBar.setAttribute('aria-label', 'Zakładki personalizacji AI');
+    for (const [tabName, tabSub] of [
+      ['O mnie', 'Kim jestem i nasza relacja'],
+      ['O tobie', 'Jak ma się zachowywać agent']
+    ]) {
+      const tb = document.createElement('button');
+      tb.type = 'button';
+      tb.setAttribute('role', 'tab');
+      const active = tabName === name;
+      tb.className = 'pers-tab-btn' + (active ? ' is-active' : '');
+      tb.setAttribute('aria-selected', String(active));
+      const strong = document.createElement('strong');
+      strong.textContent = tabName;
+      const small = document.createElement('small');
+      small.textContent = tabSub;
+      tb.append(strong, small);
+      tb.onclick = () => {
+        if (tabName !== name) showModuleView(tabName);
+      };
+      tabBar.appendChild(tb);
+    }
+
+    const statusBar = document.createElement('div');
+    statusBar.className = 'pers-status-bar';
+    const statusPill = document.createElement('span');
+    const configured = isAboutMe ? hasCustomAboutMe() : hasCustomAboutYou();
+    statusPill.className = 'pers-status-pill' + (privateMode ? ' is-private' : configured ? ' is-active' : '');
+    statusPill.textContent = privateMode
+      ? 'Tryb prywatny aktywny — lokalna personalizacja jest wstrzymana w rozmowach'
+      : configured
+        ? 'Aktywne w Twoich rozmowach z AI dla Jezusa ✓'
+        : 'Ustawienia domyślne — spersonalizuj poniżej według swoich potrzeb';
+    const privacyLinkBtn = document.createElement('button');
+    privacyLinkBtn.type = 'button';
+    privacyLinkBtn.className = 'gold-card-link';
+    privacyLinkBtn.textContent = 'Prywatność i RODO →';
+    privacyLinkBtn.onclick = () => openPrivacyModal();
+    statusBar.append(statusPill, privacyLinkBtn);
+
+    const buildChipSection = (titleText, hintText, options, currentVal, onSelect) => {
+      const sec = document.createElement('section');
+      sec.className = 'pers-section';
+      const h = document.createElement('h3');
+      h.className = 'pers-section-title';
+      h.textContent = titleText;
+      sec.appendChild(h);
+      if (hintText) {
+        const p = document.createElement('p');
+        p.className = 'pers-section-hint';
+        p.textContent = hintText;
+        sec.appendChild(p);
+      }
+      const grid = document.createElement('div');
+      grid.className = 'pers-chip-grid';
+      grid.setAttribute('role', 'radiogroup');
+      grid.setAttribute('aria-label', titleText);
+      let selectedVal = currentVal;
+      const buttons = [];
+      for (const opt of options) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('role', 'radio');
+        const isSel = opt.id === selectedVal;
+        b.className = 'pers-chip' + (isSel ? ' is-selected' : '');
+        b.setAttribute('aria-checked', String(isSel));
+        b.dataset.value = opt.id;
+        const lbl = document.createElement('strong');
+        lbl.textContent = opt.label;
+        const dsc = document.createElement('span');
+        dsc.textContent = opt.desc;
+        b.append(lbl, dsc);
+        b.onclick = () => {
+          selectedVal = opt.id;
+          buttons.forEach((btnEl) => {
+            const on = btnEl.dataset.value === selectedVal;
+            btnEl.classList.toggle('is-selected', on);
+            btnEl.setAttribute('aria-checked', String(on));
+          });
+          onSelect(selectedVal);
+        };
+        buttons.push(b);
+        grid.appendChild(b);
+      }
+      sec.appendChild(grid);
+      return sec;
+    };
+
+    const form = document.createElement('form');
+    form.className = 'pers-form';
+
+    if (isAboutMe) {
+      const draft = normalizeAboutMe(state.aboutMe);
+
+      const nameSec = document.createElement('section');
+      nameSec.className = 'pers-section';
+      const nameLbl = document.createElement('label');
+      nameLbl.className = 'pers-section-title';
+      nameLbl.setAttribute('for', 'aboutMeNameInput');
+      nameLbl.textContent = 'Jak AI ma się do Ciebie zwracać?';
+      const nameInput = document.createElement('input');
+      nameInput.id = 'aboutMeNameInput';
+      nameInput.type = 'text';
+      nameInput.className = 'pers-input';
+      nameInput.maxLength = 60;
+      nameInput.placeholder = 'Np. Cezary, Ania, Bracie Marek…';
+      nameInput.value = draft.preferredName;
+      nameSec.append(nameLbl, nameInput);
+
+      const addrSec = buildChipSection(
+        'Forma zwracania się',
+        'Wybierz sposób, w jaki chcesz, aby asystent prowadził rozmowę.',
+        ABOUT_ME_ADDRESS_OPTIONS,
+        draft.addressStyle,
+        (val) => { draft.addressStyle = val; }
+      );
+
+      const relSec = buildChipSection(
+        'Jaka powinna być nasza relacja?',
+        'Dopasuj rolę, w jakiej AI dla Jezusa będzie Ci towarzyszyć na co dzień.',
+        ABOUT_ME_RELATIONSHIP_OPTIONS,
+        draft.relationship,
+        (val) => { draft.relationship = val; }
+      );
+
+      const bioSec = document.createElement('section');
+      bioSec.className = 'pers-section';
+      const bioHead = document.createElement('div');
+      bioHead.className = 'pers-label-row';
+      const bioLbl = document.createElement('label');
+      bioLbl.className = 'pers-section-title';
+      bioLbl.setAttribute('for', 'aboutMeBioInput');
+      bioLbl.textContent = 'Co AI powinno o mnie wiedzieć?';
+      const bioCount = document.createElement('span');
+      bioCount.className = 'pers-char-count';
+      bioCount.textContent = `${draft.aboutBio.length}/600`;
+      bioHead.append(bioLbl, bioCount);
+      const bioArea = document.createElement('textarea');
+      bioArea.id = 'aboutMeBioInput';
+      bioArea.className = 'pers-textarea';
+      bioArea.rows = 3;
+      bioArea.maxLength = 600;
+      bioArea.placeholder = 'Np. Czym się zajmujesz, jaką pełnisz służbę, jaki masz rytm tygodnia lub na jakim etapie życia jesteś…';
+      bioArea.value = draft.aboutBio;
+      bioArea.addEventListener('input', () => {
+        bioCount.textContent = `${bioArea.value.length}/600`;
+      });
+      bioSec.append(bioHead, bioArea);
+
+      const spiritSec = document.createElement('section');
+      spiritSec.className = 'pers-section';
+      const spHead = document.createElement('div');
+      spHead.className = 'pers-label-row';
+      const spLbl = document.createElement('label');
+      spLbl.className = 'pers-section-title';
+      spLbl.setAttribute('for', 'aboutMeSpiritInput');
+      spLbl.textContent = 'Twoje cele duchowe, tematy i osobista ścieżka';
+      const spCount = document.createElement('span');
+      spCount.className = 'pers-char-count';
+      spCount.textContent = `${draft.spiritualContext.length}/600`;
+      spHead.append(spLbl, spCount);
+      const spArea = document.createElement('textarea');
+      spArea.id = 'aboutMeSpiritInput';
+      spArea.className = 'pers-textarea';
+      spArea.rows = 3;
+      spArea.maxLength = 600;
+      spArea.placeholder = 'Np. Chcę rozwijać codzienny nawyk modlitwy i studium Pisma Świętego (UBG), przygotowuję treści misyjne, buduję plan uświęcenia w HOLOS…';
+      spArea.value = draft.spiritualContext;
+      spArea.addEventListener('input', () => {
+        spCount.textContent = `${spArea.value.length}/600`;
+      });
+      spiritSec.append(spHead, spArea);
+
+      // Osobisty ekosystem Christian Culture (szybkie łączenie aplikacji)
+      const ecoSec = document.createElement('section');
+      ecoSec.className = 'pers-section';
+      const ecoTitle = document.createElement('h3');
+      ecoTitle.className = 'pers-section-title';
+      ecoTitle.textContent = 'Mój osobisty ekosystem Christian Culture';
+      const ecoHint = document.createElement('p');
+      ecoHint.className = 'pers-section-hint';
+      ecoHint.textContent = 'Zaznacz aplikacje CC, z którymi AI dla Jezusa ma na co dzień współpracować (możesz je też łączyć głosem lub tekstem w czacie).';
+      const ecoChips = document.createElement('div');
+      ecoChips.className = 'ws-ecosystem-chips';
+      const ecoSet = new Set(Array.isArray(state.connectedApps) ? state.connectedApps : ['mojabiblia']);
+      for (const app of CC_CLIENT_ECOSYSTEM_APPS) {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'ws-eco-chip' + (ecoSet.has(app.id) ? ' is-selected' : '');
+        chip.setAttribute('aria-pressed', String(ecoSet.has(app.id)));
+        chip.textContent = `${ecoSet.has(app.id) ? '✓ ' : '+ '}${app.name}`;
+        chip.title = app.tagline;
+        chip.onclick = () => {
+          if (ecoSet.has(app.id)) ecoSet.delete(app.id);
+          else ecoSet.add(app.id);
+          const on = ecoSet.has(app.id);
+          chip.classList.toggle('is-selected', on);
+          chip.setAttribute('aria-pressed', String(on));
+          chip.textContent = `${on ? '✓ ' : '+ '}${app.name}`;
+        };
+        ecoChips.appendChild(chip);
+      }
+      ecoSec.append(ecoTitle, ecoHint, ecoChips);
+
+      const footerRow = document.createElement('div');
+      footerRow.className = 'pers-actions-row';
+      const saveBtn = document.createElement('button');
+      saveBtn.type = 'submit';
+      saveBtn.className = 'pers-save-btn';
+      saveBtn.textContent = 'Zapisz „O mnie”';
+
+      const testChatBtn = document.createElement('button');
+      testChatBtn.type = 'button';
+      testChatBtn.className = 'connect-btn';
+      testChatBtn.textContent = 'Przetestuj w rozmowie →';
+      testChatBtn.onclick = () => {
+        saveAboutMeNow();
+        startPromptDirectly('Przywitaj się ze mną zgodnie z moją zakładką „O mnie” i zaproponuj mój dzisiejszy krok rozwoju z ekosystemem Christian Culture.', 'Moja spersonalizowana ścieżka');
+      };
+
+      const resetBtn = document.createElement('button');
+      resetBtn.type = 'button';
+      resetBtn.className = 'dialog-btn-secondary';
+      resetBtn.textContent = 'Wyczyść';
+      resetBtn.onclick = () => {
+        state.aboutMe = { ...DEFAULT_ABOUT_ME };
+        saveState();
+        syncPersonalizationNavIndicators();
+        updatePersonalizedHero();
+        showToast('Przywrócono domyślne ustawienia zakładki „O mnie”.');
+        renderModule('O mnie');
+      };
+
+      footerRow.append(saveBtn, testChatBtn, resetBtn);
+      form.append(nameSec, addrSec, relSec, bioSec, spiritSec, ecoSec, footerRow);
+
+      const saveAboutMeNow = () => {
+        state.aboutMe = normalizeAboutMe({
+          preferredName: nameInput.value,
+          addressStyle: draft.addressStyle,
+          relationship: draft.relationship,
+          aboutBio: bioArea.value,
+          spiritualContext: spArea.value
+        });
+        state.connectedApps = [...ecoSet];
+        saveState();
+        syncConnectedAppsUi();
+        syncPersonalizationNavIndicators();
+        updatePersonalizedHero();
+        trackAiEvent('ai_personalization_save', { tab: 'about_me', relationship: state.aboutMe.relationship });
+      };
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        saveAboutMeNow();
+        showToast('Zapisano zakładkę „O mnie” — AI będzie stosować Twoje preferencje.');
+        renderModule('O mnie');
+      });
+    } else {
+      const draft = normalizeAboutYou(state.aboutYou);
+
+      const toneSec = buildChipSection(
+        'Ton i charakter odpowiedzi',
+        'Jakim głosem i stylem ma do Ciebie przemawiać agent AI dla Jezusa.',
+        ABOUT_YOU_TONE_OPTIONS,
+        draft.tone,
+        (val) => { draft.tone = val; }
+      );
+
+      const lenSec = buildChipSection(
+        'Długość odpowiedzi',
+        'Czy wolisz krótkie, zwięzłe sedno, czy pełne opracowania?',
+        ABOUT_YOU_LENGTH_OPTIONS,
+        draft.responseLength,
+        (val) => { draft.responseLength = val; }
+      );
+
+      const scripSec = buildChipSection(
+        'Jak korzystać z Pisma Świętego (UBG)',
+        'Określ głębokość odniesień biblijnych w codziennych rozmowach.',
+        ABOUT_YOU_SCRIPTURE_OPTIONS,
+        draft.scriptureStyle,
+        (val) => { draft.scriptureStyle = val; }
+      );
+
+      const fmtSec = buildChipSection(
+        'Struktura i przejrzystość',
+        'Wybierz układ odpowiedzi, który czyta Ci się najwygodniej.',
+        ABOUT_YOU_FORMAT_OPTIONS,
+        draft.responseFormat,
+        (val) => { draft.responseFormat = val; }
+      );
+
+      const togglesSec = document.createElement('section');
+      togglesSec.className = 'pers-section';
+      const togTitle = document.createElement('h3');
+      togTitle.className = 'pers-section-title';
+      togTitle.textContent = 'Nawyki zachowania agenta';
+      togglesSec.appendChild(togTitle);
+
+      const makeToggle = (id, label, desc, checked, onChange) => {
+        const row = document.createElement('label');
+        row.className = 'pers-toggle-row';
+        row.setAttribute('for', id);
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.id = id;
+        cb.checked = Boolean(checked);
+        cb.addEventListener('change', () => onChange(cb.checked));
+        const txt = document.createElement('span');
+        txt.className = 'pers-toggle-text';
+        const strong = document.createElement('strong');
+        strong.textContent = label;
+        const small = document.createElement('small');
+        small.textContent = desc;
+        txt.append(strong, small);
+        row.append(cb, txt);
+        return row;
+      };
+
+      togglesSec.append(
+        makeToggle('aboutYouAvoidFluff', 'Od razu do konkretu (zero lania wody)', 'Bez pustych wstępów i ogólnych frazesów — od pierwszego zdania odpowiedź na temat.', draft.avoidFluff, (v) => { draft.avoidFluff = v; }),
+        makeToggle('aboutYouProactive', 'Proponuj kolejny krok praktyczny', 'Na zakończenie odpowiedzi zaproponuj konkretne zadanie lub pytanie pogłębiające.', draft.proactiveSteps, (v) => { draft.proactiveSteps = v; }),
+        makeToggle('aboutYouPrayer', 'Wsparcie modlitewne w trudnych chwilach', 'Gdy dzielę się zmaganiem lub ciężarem, zaproponuj krótką, szczerą modlitwę.', draft.prayerSupport, (v) => { draft.prayerSupport = v; })
+      );
+
+      const customSec = document.createElement('section');
+      customSec.className = 'pers-section';
+      const cHead = document.createElement('div');
+      cHead.className = 'pers-label-row';
+      const cLbl = document.createElement('label');
+      cLbl.className = 'pers-section-title';
+      cLbl.setAttribute('for', 'aboutYouCustomInput');
+      cLbl.textContent = 'Twoje dodatkowe zasady zachowania agenta';
+      const cCount = document.createElement('span');
+      cCount.className = 'pers-char-count';
+      cCount.textContent = `${draft.customBehavior.length}/700`;
+      cHead.append(cLbl, cCount);
+      const cArea = document.createElement('textarea');
+      cArea.id = 'aboutYouCustomInput';
+      cArea.className = 'pers-textarea';
+      cArea.rows = 4;
+      cArea.maxLength = 700;
+      cArea.placeholder = 'Np. Zaczynaj od 1-zdaniowego podsumowania. Gdy widzisz błąd w moim myśleniu, powiedz to wprost, ale z szacunkiem. Unikaj żargonu…';
+      cArea.value = draft.customBehavior;
+      cArea.addEventListener('input', () => {
+        cCount.textContent = `${cArea.value.length}/700`;
+      });
+      customSec.append(cHead, cArea);
+
+      const footerRow = document.createElement('div');
+      footerRow.className = 'pers-actions-row';
+      const saveBtn = document.createElement('button');
+      saveBtn.type = 'submit';
+      saveBtn.className = 'pers-save-btn';
+      saveBtn.textContent = 'Zapisz „O tobie”';
+
+      const testBtn = document.createElement('button');
+      testBtn.type = 'button';
+      testBtn.className = 'connect-btn';
+      testBtn.textContent = 'Przetestuj styl w rozmowie →';
+      testBtn.onclick = () => {
+        saveAboutYouNow();
+        startPromptDirectly('Odpowiedz w moim nowym stylu z zakładki „O tobie”: jak dzisiaj najlepiej zadbać o relację z Bogiem w codziennym pośpiechu?', 'Test stylu odpowiedzi');
+      };
+
+      const resetBtn = document.createElement('button');
+      resetBtn.type = 'button';
+      resetBtn.className = 'dialog-btn-secondary';
+      resetBtn.textContent = 'Przywróć domyślne';
+      resetBtn.onclick = () => {
+        state.aboutYou = { ...DEFAULT_ABOUT_YOU };
+        saveState();
+        syncPersonalizationNavIndicators();
+        showToast('Przywrócono domyślne zachowanie agenta w zakładce „O tobie”.');
+        renderModule('O tobie');
+      };
+
+      footerRow.append(saveBtn, testBtn, resetBtn);
+      form.append(toneSec, lenSec, scripSec, fmtSec, togglesSec, customSec, footerRow);
+
+      const saveAboutYouNow = () => {
+        state.aboutYou = normalizeAboutYou({
+          tone: draft.tone,
+          responseLength: draft.responseLength,
+          scriptureStyle: draft.scriptureStyle,
+          responseFormat: draft.responseFormat,
+          proactiveSteps: draft.proactiveSteps,
+          prayerSupport: draft.prayerSupport,
+          avoidFluff: draft.avoidFluff,
+          customBehavior: cArea.value
+        });
+        saveState();
+        syncPersonalizationNavIndicators();
+        trackAiEvent('ai_personalization_save', { tab: 'about_you', tone: state.aboutYou.tone, length: state.aboutYou.responseLength });
+      };
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        saveAboutYouNow();
+        showToast('Zapisano zakładkę „O tobie” — agent dostosuje styl odpowiedzi.');
+        renderModule('O tobie');
+      });
+    }
+
+    moduleStage.append(tabBar, statusBar, form);
     return;
   }
 
@@ -5603,6 +6919,9 @@ $$('#toolsMenu .dropdown-option').forEach((opt) => {
 document.addEventListener('click', (e) => {
   const insidePopup = composerCommandPopup && !composerCommandPopup.hidden && composerCommandPopup.contains(e.target);
   closeAllComposerMenus({ keepPopup: Boolean(insidePopup) });
+  if (!(e.target instanceof Element) || !e.target.closest('.msg-more-wrap')) {
+    closeAllMessageMoreMenus();
+  }
   if (assistantStrip && !assistantStrip.contains(e.target)) {
     assistantStrip.classList.remove('is-mobile-expanded');
   }
@@ -5615,6 +6934,7 @@ document.addEventListener('keydown', (e) => {
       return;
     }
     closeAllComposerMenus();
+    closeAllMessageMoreMenus();
   }
 });
 
@@ -5906,9 +7226,30 @@ function openSettingsModal() {
   localPrivacyBtn.title = 'Rozmowy zapisywane lokalnie w Twojej przeglądarce';
   localPrivacyBtn.onclick = openPrivacyModal;
 
+  const persQuickRow = document.createElement('div');
+  persQuickRow.className = 'dialog-actions-row';
+  const aboutMeQuick = document.createElement('button');
+  aboutMeQuick.type = 'button';
+  aboutMeQuick.className = 'dialog-btn-secondary';
+  aboutMeQuick.textContent = 'Zakładka: O mnie →';
+  aboutMeQuick.onclick = () => {
+    infoDialog.close();
+    showModuleView('O mnie');
+  };
+  const aboutYouQuick = document.createElement('button');
+  aboutYouQuick.type = 'button';
+  aboutYouQuick.className = 'dialog-btn-secondary';
+  aboutYouQuick.textContent = 'Zakładka: O tobie →';
+  aboutYouQuick.onclick = () => {
+    infoDialog.close();
+    showModuleView('O tobie');
+  };
+  persQuickRow.append(aboutMeQuick, aboutYouQuick);
+
   infoDialogBody.append(
     summary,
     proLine,
+    persQuickRow,
     buildDesktopVisualSettingsSection(),
     buildTtsByokSettingsSection(),
     byokIntro,
@@ -6246,6 +7587,29 @@ function openProfileModal() {
 
     infoDialogBody.append(desc, loginBtn);
   }
+
+  const persBox = document.createElement('div');
+  persBox.className = 'dialog-actions-row';
+  persBox.style.marginTop = '14px';
+  const meBtn = document.createElement('button');
+  meBtn.type = 'button';
+  meBtn.className = 'dialog-btn-secondary';
+  meBtn.textContent = 'O mnie (relacja i zwrot) →';
+  meBtn.onclick = () => {
+    infoDialog.close();
+    showModuleView('O mnie');
+  };
+  const youBtn = document.createElement('button');
+  youBtn.type = 'button';
+  youBtn.className = 'dialog-btn-secondary';
+  youBtn.textContent = 'O tobie (styl agenta) →';
+  youBtn.onclick = () => {
+    infoDialog.close();
+    showModuleView('O tobie');
+  };
+  persBox.append(meBtn, youBtn);
+  infoDialogBody.appendChild(persBox);
+
   showInfoDialog();
 }
 
@@ -6301,6 +7665,9 @@ function clearAllLocalUserData() {
     memory: [],
     reminders: [],
     projects: [...DEFAULT_PROJECTS],
+    aboutMe: { ...DEFAULT_ABOUT_ME },
+    aboutYou: { ...DEFAULT_ABOUT_YOU },
+    connectedApps: ['mojabiblia'],
     assistantId: DEFAULT_ASSISTANT_ID,
     preferredModel: 'auto',
     mode: 'CC Auto',
@@ -6436,16 +7803,31 @@ $$('.footer-item:not(#shareAppBtn):not(#privacyToggleBtn)').forEach((btn) => {
 $$('.connect-btn').forEach((btn) => {
   btn.addEventListener('click', () => {
     const appName = btn.dataset.app || 'Aplikacja';
-    if (appName === 'MojaBiblia') {
+    const appId = btn.dataset.appId || '';
+    if (appName === 'MojaBiblia' || appId === 'mojabiblia') {
+      setEcosystemAppConnected('mojabiblia', true, { silent: true });
       showModuleView('Biblia');
       closeDrawers();
       showToast('Połączono z MojaBiblia Interlinear.');
       return;
     }
-    if (appName === 'Biblia Audio CC') {
-      btn.classList.add('connected');
-      btn.textContent = 'Połączono';
-      showToast('Biblia Audio CC połączona z kontekstem rozmowy.');
+    if (appName === 'HOLOS 2027' || appId === 'holos') {
+      const already = (state.connectedApps || []).includes('holos');
+      setEcosystemAppConnected('holos', true, { silent: true });
+      closeDrawers();
+      if (!already) {
+        startPromptDirectly(
+          'AI dla Jezusa, przygotuj mi połączenie z aplikacją HOLOS i dodaj sugestie, jak mogę stworzyć swój plan uświęcenia i rozwoju osobistego.',
+          'Połączenie z HOLOS 2027'
+        );
+      } else {
+        window.open('/holos', '_blank', 'noopener,noreferrer');
+        showToast('Otwarto HOLOS 2027 (połączono z AI dla Jezusa ✓).');
+      }
+      return;
+    }
+    if (appName === 'Biblia Audio CC' || appId === 'biblia-audio') {
+      setEcosystemAppConnected('biblia-audio', true);
       return;
     }
     showModuleView('Połączenia');
@@ -7331,6 +8713,7 @@ voiceStopBtn?.addEventListener('click', () => {
 const AT_MENTIONS = [
   { id: 'Biblia', label: '@Biblia', hint: 'Pismo Święte UBG i egzegeza', insert: '@Biblia ' },
   { id: 'MojaBiblia', label: '@MojaBiblia', hint: 'Interlinearny tekst grecki/hebrajski + Strong', insert: '@MojaBiblia ' },
+  { id: 'HOLOS', label: '@HOLOS', hint: 'Połączenie z HOLOS 2027, cele i plan uświęcenia', insert: '@HOLOS ' },
   { id: 'Kurs', label: '@Kurs', hint: 'Kurs Codzienny „Z Biblią za Pan Brat”', insert: '@Kurs ' },
   { id: 'Rozważanie', label: '@Rozważanie', hint: 'Dzisiejsze słowo Christian Culture', insert: '@Rozważanie ' },
   { id: 'Notatniki', label: '@Notatniki', hint: 'Twoje zapisane notatki jako kontekst', insert: '@Notatniki ' },
@@ -7346,6 +8729,10 @@ const AT_MENTIONS = [
 ];
 
 const SLASH_COMMANDS = [
+  { id: '/holos', label: '/holos', hint: 'Połącz z HOLOS 2027 i zbuduj plan uświęcenia', mode: 'CC Auto', autoSend: 'AI dla Jezusa, przygotuj mi połączenie z aplikacją HOLOS i dodaj sugestie, jak mogę stworzyć swój plan uświęcenia i rozwoju osobistego.' },
+  { id: '/ekosystem', label: '/ekosystem', hint: 'Spersonalizuj własny ekosystem Christian Culture', mode: 'CC Auto', autoSend: 'Pomóż mi spersonalizować mój własny ekosystem Christian Culture i ułożyć codzienną ścieżkę duchowego rozwoju.' },
+  { id: '/omnie', label: '/omnie', hint: 'Otwórz zakładkę „O mnie” (zwrot i relacja)', action: 'about_me' },
+  { id: '/otobie', label: '/otobie', hint: 'Otwórz zakładkę „O tobie” (preferencje agenta)', action: 'about_you' },
   { id: '/studium', label: '/studium', hint: 'Studium fragmentu w przekładzie UBG', mode: 'Studium Biblijne', text: 'Przygotuj głębokie studium biblijne (UBG) na temat: ' },
   { id: '/plan', label: '/plan', hint: 'Krok po kroku: plan działania z Jezusem', mode: 'CC Auto', text: 'Ułóż konkretny plan krok po kroku w duchu Słowa Bożego dla: ' },
   { id: '/poranek', label: '/poranek', hint: 'Dzisiejsze słowo i modlitwa poranna', mode: 'Studium Biblijne', autoSend: 'Poprowadź mój dzisiejszy poranek z Jezusem w oparciu o dzisiejsze rozważanie i werset UBG.' },
@@ -7412,6 +8799,18 @@ function applyCommandPopupItem(item) {
     promptInput.value = '';
     resizeTextarea();
     openVoiceCall();
+    return;
+  }
+  if (item.action === 'about_me') {
+    promptInput.value = '';
+    resizeTextarea();
+    showModuleView('O mnie');
+    return;
+  }
+  if (item.action === 'about_you') {
+    promptInput.value = '';
+    resizeTextarea();
+    showModuleView('O tobie');
     return;
   }
   if (item.action === 'notes') {
@@ -7855,6 +9254,27 @@ function initRailHoverFlyout() {
       list.append(
         makeActionBtn('Otwórz Notatniki', `${state.notes.length}`, () => showModuleView('Notatniki'), true),
         makeActionBtn('Otwórz Pamięć AI', `${state.memory.length}`, () => showModuleView('Pamięć'))
+      );
+      railFlyout.appendChild(list);
+      return;
+    }
+
+    if (railNav === 'O mnie') {
+      const me = normalizeAboutMe(state.aboutMe);
+      railFlyout.append(...makeHeader('O mnie', me.preferredName ? `Zwrot: ${me.preferredName}` : 'Jak AI ma się do Ciebie zwracać i jaka ma być Wasza relacja.', button));
+      list.append(
+        makeActionBtn('Otwórz zakładkę „O mnie”', hasCustomAboutMe() ? 'Aktywne' : 'Ustaw', () => showModuleView('O mnie'), true),
+        makeActionBtn('Przejdź do „O tobie”', 'Styl agenta', () => showModuleView('O tobie'))
+      );
+      railFlyout.appendChild(list);
+      return;
+    }
+
+    if (railNav === 'O tobie') {
+      railFlyout.append(...makeHeader('O tobie', 'Osobiste preferencje zachowania agenta AI dla Jezusa.', button));
+      list.append(
+        makeActionBtn('Otwórz zakładkę „O tobie”', hasCustomAboutYou() ? 'Aktywne' : 'Ustaw', () => showModuleView('O tobie'), true),
+        makeActionBtn('Przejdź do „O mnie”', 'Mój profil', () => showModuleView('O mnie'))
       );
       railFlyout.appendChild(list);
       return;
