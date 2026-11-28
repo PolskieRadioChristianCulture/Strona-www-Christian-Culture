@@ -1,0 +1,344 @@
+{
+  "schema": "cc-bible-scholar-xrefs-index-v1",
+  "datasetId": "openbible-cross-references",
+  "licenseId": "CC-BY-4.0",
+  "sourceUrl": "https://www.openbible.info/labs/cross-references/",
+  "zipSha256": "650CAFBDFE06458E78C67F33CE57CD11162DE867F5842240846863E96BCD62F2",
+  "upstreamHeader": "From Verse\tTo Verse\tVotes\t#www.openbible.info CC-BY 2026-11-23",
+  "importedAt": "2026-11-28T07:39:21.635Z",
+  "totalBooks": 66,
+  "totalEdges": 344799,
+  "skipped": 0,
+  "books": {
+    "GEN": {
+      "verses": 1382,
+      "edges": 13327,
+      "bytes": 226080
+    },
+    "EXO": {
+      "verses": 1084,
+      "edges": 9974,
+      "bytes": 169299
+    },
+    "LEV": {
+      "verses": 748,
+      "edges": 6870,
+      "bytes": 116561
+    },
+    "NUM": {
+      "verses": 1018,
+      "edges": 7743,
+      "bytes": 133822
+    },
+    "DEU": {
+      "verses": 917,
+      "edges": 9101,
+      "bytes": 155343
+    },
+    "JOS": {
+      "verses": 600,
+      "edges": 4621,
+      "bytes": 79698
+    },
+    "JDG": {
+      "verses": 539,
+      "edges": 4057,
+      "bytes": 69585
+    },
+    "RUT": {
+      "verses": 80,
+      "edges": 576,
+      "bytes": 10064
+    },
+    "1SA": {
+      "verses": 749,
+      "edges": 5945,
+      "bytes": 101979
+    },
+    "2SA": {
+      "verses": 640,
+      "edges": 5204,
+      "bytes": 89105
+    },
+    "1KI": {
+      "verses": 756,
+      "edges": 6991,
+      "bytes": 119037
+    },
+    "2KI": {
+      "verses": 685,
+      "edges": 6377,
+      "bytes": 108771
+    },
+    "1CH": {
+      "verses": 757,
+      "edges": 5206,
+      "bytes": 90620
+    },
+    "2CH": {
+      "verses": 800,
+      "edges": 7127,
+      "bytes": 122268
+    },
+    "EZR": {
+      "verses": 248,
+      "edges": 1970,
+      "bytes": 33518
+    },
+    "NEH": {
+      "verses": 365,
+      "edges": 3046,
+      "bytes": 52083
+    },
+    "EST": {
+      "verses": 151,
+      "edges": 1162,
+      "bytes": 19683
+    },
+    "JOB": {
+      "verses": 1031,
+      "edges": 9594,
+      "bytes": 163120
+    },
+    "PSA": {
+      "verses": 2450,
+      "edges": 30913,
+      "bytes": 527268
+    },
+    "PRO": {
+      "verses": 903,
+      "edges": 9643,
+      "bytes": 165228
+    },
+    "ECC": {
+      "verses": 221,
+      "edges": 2840,
+      "bytes": 48131
+    },
+    "SNG": {
+      "verses": 117,
+      "edges": 1667,
+      "bytes": 27396
+    },
+    "ISA": {
+      "verses": 1283,
+      "edges": 20294,
+      "bytes": 341342
+    },
+    "JER": {
+      "verses": 1328,
+      "edges": 18430,
+      "bytes": 309400
+    },
+    "LAM": {
+      "verses": 153,
+      "edges": 2011,
+      "bytes": 33820
+    },
+    "EZK": {
+      "verses": 1194,
+      "edges": 13659,
+      "bytes": 230507
+    },
+    "DAN": {
+      "verses": 345,
+      "edges": 4623,
+      "bytes": 76982
+    },
+    "HOS": {
+      "verses": 196,
+      "edges": 3363,
+      "bytes": 55236
+    },
+    "JOL": {
+      "verses": 73,
+      "edges": 1041,
+      "bytes": 17451
+    },
+    "AMO": {
+      "verses": 146,
+      "edges": 2078,
+      "bytes": 34532
+    },
+    "OBA": {
+      "verses": 21,
+      "edges": 308,
+      "bytes": 5401
+    },
+    "JON": {
+      "verses": 48,
+      "edges": 534,
+      "bytes": 9230
+    },
+    "MIC": {
+      "verses": 105,
+      "edges": 1949,
+      "bytes": 32582
+    },
+    "NAM": {
+      "verses": 47,
+      "edges": 582,
+      "bytes": 9927
+    },
+    "HAB": {
+      "verses": 56,
+      "edges": 893,
+      "bytes": 15369
+    },
+    "ZEP": {
+      "verses": 53,
+      "edges": 1022,
+      "bytes": 17088
+    },
+    "HAG": {
+      "verses": 37,
+      "edges": 476,
+      "bytes": 8102
+    },
+    "ZEC": {
+      "verses": 206,
+      "edges": 3710,
+      "bytes": 62047
+    },
+    "MAL": {
+      "verses": 55,
+      "edges": 1277,
+      "bytes": 21536
+    },
+    "MAT": {
+      "verses": 1038,
+      "edges": 13833,
+      "bytes": 236494
+    },
+    "MRK": {
+      "verses": 645,
+      "edges": 6468,
+      "bytes": 111127
+    },
+    "LUK": {
+      "verses": 1112,
+      "edges": 12371,
+      "bytes": 211748
+    },
+    "JHN": {
+      "verses": 856,
+      "edges": 11797,
+      "bytes": 199138
+    },
+    "ACT": {
+      "verses": 972,
+      "edges": 13319,
+      "bytes": 222829
+    },
+    "ROM": {
+      "verses": 431,
+      "edges": 7750,
+      "bytes": 128854
+    },
+    "1CO": {
+      "verses": 426,
+      "edges": 5717,
+      "bytes": 95611
+    },
+    "2CO": {
+      "verses": 256,
+      "edges": 4253,
+      "bytes": 70386
+    },
+    "GAL": {
+      "verses": 148,
+      "edges": 2533,
+      "bytes": 42179
+    },
+    "EPH": {
+      "verses": 155,
+      "edges": 3444,
+      "bytes": 56857
+    },
+    "PHP": {
+      "verses": 104,
+      "edges": 2227,
+      "bytes": 36922
+    },
+    "COL": {
+      "verses": 95,
+      "edges": 2122,
+      "bytes": 34902
+    },
+    "1TH": {
+      "verses": 89,
+      "edges": 1920,
+      "bytes": 31360
+    },
+    "2TH": {
+      "verses": 47,
+      "edges": 917,
+      "bytes": 14947
+    },
+    "1TI": {
+      "verses": 113,
+      "edges": 2418,
+      "bytes": 39275
+    },
+    "2TI": {
+      "verses": 83,
+      "edges": 1717,
+      "bytes": 28212
+    },
+    "TIT": {
+      "verses": 46,
+      "edges": 930,
+      "bytes": 15099
+    },
+    "PHM": {
+      "verses": 25,
+      "edges": 219,
+      "bytes": 3775
+    },
+    "HEB": {
+      "verses": 303,
+      "edges": 5562,
+      "bytes": 92239
+    },
+    "JAS": {
+      "verses": 107,
+      "edges": 2149,
+      "bytes": 35898
+    },
+    "1PE": {
+      "verses": 105,
+      "edges": 2497,
+      "bytes": 41085
+    },
+    "2PE": {
+      "verses": 61,
+      "edges": 1152,
+      "bytes": 18885
+    },
+    "1JN": {
+      "verses": 105,
+      "edges": 1995,
+      "bytes": 33111
+    },
+    "2JN": {
+      "verses": 13,
+      "edges": 146,
+      "bytes": 2631
+    },
+    "3JN": {
+      "verses": 15,
+      "edges": 152,
+      "bytes": 2763
+    },
+    "JUD": {
+      "verses": 25,
+      "edges": 492,
+      "bytes": 8308
+    },
+    "REV": {
+      "verses": 402,
+      "edges": 6495,
+      "bytes": 107481
+    }
+  }
+}

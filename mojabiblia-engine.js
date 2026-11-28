@@ -552,16 +552,34 @@
       return { text: raw, en: english };
     }
 
-    // Dostępne przekłady w widoku porównywarki (UBG, BW, BT, BG)
+    // Dostępne przekłady w widoku porównywarki (UBG zawsze aktywny; ukrywa duplikaty UBG czekające na audyt praw)
     availableTranslations(data) {
-      return ['UBG', 'BW', 'BT', 'BG'];
+      const verses = Array.isArray(data?.verses) ? data.verses : [];
+      if (!verses.length) return ['UBG'];
+      const ubgNorm = (verses[0]?.text?.UBG || '').trim();
+      const verified = ['UBG'];
+      for (const code of ['BW', 'BT', 'BG']) {
+        const hasDistinct = verses.some(v => {
+          const val = (v?.text?.[code] || '').trim();
+          const ubg = (v?.text?.UBG || '').trim();
+          return val && val !== ubg && val !== ubgNorm;
+        });
+        if (hasDistinct) verified.push(code);
+      }
+      return verified;
     }
 
     updateTranslationFilters() {
       const avail = this.availableTranslations(this.currentChapterData);
+      this.activeTranslations = (this.activeTranslations || []).filter(t => avail.includes(t));
+      if (!this.activeTranslations.length) {
+        this.activeTranslations = [avail[0] || 'UBG'];
+      }
       document.querySelectorAll('.mb-trans-filter').forEach(btn => {
-        btn.style.display = avail.includes(btn.dataset.trans) ? '' : 'none';
-        btn.classList.toggle('active', this.activeTranslations.includes(btn.dataset.trans));
+        const isVerified = avail.includes(btn.dataset.trans);
+        btn.style.display = isVerified ? '' : 'none';
+        btn.setAttribute('aria-hidden', isVerified ? 'false' : 'true');
+        btn.classList.toggle('active', isVerified && this.activeTranslations.includes(btn.dataset.trans));
       });
       return avail;
     }

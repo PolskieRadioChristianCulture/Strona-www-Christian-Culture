@@ -5109,13 +5109,33 @@
         }
       };
 
+      let pinnedContext = null;
+      let activePlugins = null;
+      try {
+        const rawCtx = sessionStorage.getItem('cc_lumimes_context_v1');
+        if (rawCtx) pinnedContext = JSON.parse(rawCtx);
+      } catch (_) {}
+      try {
+        const rawPlugins = localStorage.getItem('cc_connected_plugins_v1');
+        if (rawPlugins) {
+          const parsedPlugins = JSON.parse(rawPlugins);
+          if (Array.isArray(parsedPlugins)) activePlugins = parsedPlugins;
+        }
+      } catch (_) {}
+
       const ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
       const timer = ctrl ? setTimeout(() => ctrl.abort(), 7000) : null;
       fetch('/api/lumi-chat', {
         method: 'POST',
         signal: ctrl ? ctrl.signal : undefined,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ assistantId: asst.id, message: cleanText, history: histSnapshot })
+        body: JSON.stringify({
+          assistantId: asst.id,
+          message: cleanText,
+          history: histSnapshot,
+          ...(pinnedContext ? { context: pinnedContext } : {}),
+          ...(activePlugins ? { activePlugins } : {})
+        })
       })
         .then(r => r.ok ? r.json() : null)
         .then(data => {

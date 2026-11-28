@@ -5031,6 +5031,7 @@ async function sendChatMessage(textOverride, titleHint = '', chatOpts = {}) {
         memoryNotes: requestPrivate ? [] : [...state.memory.map((m) => m.text), ...extraNotesContext],
         userPersonalization: requestPrivate ? null : getActivePersonalizationPayload(),
         connectedApps: requestPrivate ? [] : (Array.isArray(state.connectedApps) ? state.connectedApps : ['mojabiblia']),
+        activePlugins: requestPrivate ? [] : (() => { try { const p = JSON.parse(localStorage.getItem('cc_connected_plugins_v1') || 'null'); return Array.isArray(p) ? p : null; } catch (_) { return null; } })(),
         privateMode: requestPrivate,
         voiceConversation: Boolean(chatOpts?.voiceConversation),
         preferredModel: model,
@@ -6067,21 +6068,23 @@ function renderModule(name) {
   }
 
   if (name === 'Wtyczki i aplikacje') {
-    sub.textContent = 'Katalog wtyczek CC Connect 2.0 — podłącz aplikacje Christian Culture do AI dla Jezusa.';
+    sub.textContent = 'CC Connect 2.0 & Pakiet CC Bible Scholar — uczciwy rejestr wtyczek, zależności i bramek licencyjnych.';
     const wrap = document.createElement('div');
     wrap.className = 'module-stage';
 
     const loadingP = document.createElement('p');
     loadingP.className = 'module-empty';
-    loadingP.textContent = 'Ładuję katalog wtyczek…';
+    loadingP.textContent = 'Ładuję katalog wtyczek i licencji…';
     wrap.appendChild(loadingP);
     moduleStage.append(header, wrap);
 
-    // CC_CONNECTED_KEY must match plugin-registry.js storage key
     const CC_CONNECTED_KEY = 'cc_connected_plugins_v1';
+    const FILTER_KEY = 'cc_plugins_filter_v1';
     function getConnectedSet() {
-      try { return new Set(JSON.parse(localStorage.getItem(CC_CONNECTED_KEY) || '[]')); }
-      catch (_) { return new Set(); }
+      try {
+        const parsed = JSON.parse(localStorage.getItem(CC_CONNECTED_KEY) || 'null');
+        return Array.isArray(parsed) ? new Set(parsed) : null;
+      } catch (_) { return null; }
     }
     function saveConnectedSet(s) {
       try { localStorage.setItem(CC_CONNECTED_KEY, JSON.stringify([...s])); } catch (_) {}
@@ -6097,82 +6100,206 @@ function renderModule(name) {
         return;
       }
 
-      const connected = getConnectedSet();
+      const defaultIds = data.plugins.filter((p) => p.defaultConnected && p.availability === 'ready' && p.licenseGate === 'approved').map((p) => p.id);
+      const storedSet = getConnectedSet();
+      const connected = storedSet || new Set(defaultIds);
+      if (!storedSet) saveConnectedSet(connected);
 
-      // --- Section 1: CC Plugins ---
+      const scholarList = Array.isArray(data.scholarPlugins) ? data.scholarPlugins : data.plugins.filter((p) => p.scholarCategory);
+      const stats = data.scholarStats || {
+        total: scholarList.length,
+        readyCount: scholarList.filter((p) => p.availability === 'ready' && p.licenseGate === 'approved').length,
+        plannedCount: scholarList.filter((p) => p.availability !== 'ready' || p.licenseGate !== 'approved').length
+      };
+      const pkgPlan = data.packages?.['cc-bible-scholar'] || null;
+
+      // --- Banner: Pakiet CC Bible Scholar ---
+      const pkgBox = document.createElement('section');
+      pkgBox.className = 'connect-section scholar-pkg-banner';
+      const pkgTitle = document.createElement('h3');
+      pkgTitle.className = 'connect-section-title';
+      pkgTitle.textContent = `📖 Pakiet CC Bible Scholar (${stats.readyCount} / ${stats.total} gotowych modułów)`;
+      const pkgDesc = document.createElement('p');
+      pkgDesc.className = 'scholar-pkg-desc';
+      pkgDesc.textContent = `Gotowe w P1: ${stats.readyCount} zweryfikowanych modułów (Strong, Morfologia, Greka/Hebrajski RTL, OpenBible CC BY Odsyłacze, Konkordancja UBG, 6/12 Pytań, Hermeneutyka, Zastosowanie, Most Studium). Pozostałe ${stats.plannedCount} wtyczek oczekuje na import danych i audyt licencji (Etap 4).`;
+
+      const pkgActions = document.createElement('div');
+      pkgActions.className = 'scholar-pkg-actions';
+      const installPkgBtn = document.createElement('button');
+      installPkgBtn.type = 'button';
+      installPkgBtn.id = 'installScholarPkgBtn';
+      installPkgBtn.className = 'connect-btn connect-btn--connect scholar-pkg-btn';
+      installPkgBtn.textContent = `Zainstaluj pakiet CC Bible Scholar (${stats.readyCount}/${stats.total} gotowych)`;
+      installPkgBtn.addEventListener('click', () => {
+        const s = new Set(connected);
+        const idsToAdd = Array.isArray(pkgPlan?.installableIds)
+          ? pkgPlan.installableIds
+          : scholarList.filter((p) => p.availability === 'ready' && p.licenseGate === 'approved').map((p) => p.id);
+        idsToAdd.forEach((id) => s.add(id));
+        saveConnectedSet(s);
+        showToast(`Zainstalowano ${idsToAdd.length}/${stats.total} zweryfikowanych modułów CC Bible Scholar (${stats.plannedCount} w przygotowaniu).`);
+        renderModule('Wtyczki i aplikacje');
+      });
+
+      const scholarConsoleLink = document.createElement('a');
+      scholarConsoleLink.href = '/test/bible-scholar/';
+      scholarConsoleLink.target = '_blank';
+      scholarConsoleLink.rel = 'noopener noreferrer';
+      scholarConsoleLink.className = 'connect-btn connect-btn--lumimes';
+      scholarConsoleLink.textContent = 'Otwórz konsolę CC Bible Scholar ↗';
+
+      pkgActions.append(installPkgBtn, scholarConsoleLink);
+      pkgBox.append(pkgTitle, pkgDesc, pkgActions);
+      wrap.appendChild(pkgBox);
+
+      // --- Filtry i zakładki kategorii ---
+      let activeFilter = 'all';
+      try { activeFilter = sessionStorage.getItem(FILTER_KEY) || 'all'; } catch (_) {}
+
+      const filterBar = document.createElement('div');
+      filterBar.className = 'scholar-filter-bar';
+      const filters = [
+        { id: 'all', label: `Wszystkie (${data.plugins.length})` },
+        { id: 'scholar', label: `CC Bible Scholar (${scholarList.length})` },
+        { id: 'ready', label: `Dostępne (${data.plugins.filter((p) => p.availability === 'ready' && p.licenseGate === 'approved').length})` },
+        { id: 'installed', label: `Zainstalowane (${[...connected].filter((id) => data.plugins.some((p) => p.id === id)).length})` },
+        { id: 'planned', label: `W przygotowaniu (${stats.plannedCount})` },
+        ...((data.categories || []).map((c) => ({ id: `cat:${c.id}`, label: `${c.code}. ${c.name}` })))
+      ];
+
       const sec1 = document.createElement('section');
       sec1.className = 'connect-section';
       const h3cc = document.createElement('h3');
       h3cc.className = 'connect-section-title';
-      h3cc.textContent = '🧩 Wtyczki Christian Culture';
-      sec1.appendChild(h3cc);
+      h3cc.textContent = '🧩 Katalog wtyczek i modułów';
       const grid = document.createElement('div');
       grid.className = 'plugins-grid';
 
-      data.plugins.forEach((plugin) => {
-        const card = document.createElement('div');
-        card.className = 'plugin-card' + (connected.has(plugin.id) ? ' plugin-card--connected' : '');
+      function matchesFilter(plugin) {
+        if (activeFilter === 'scholar') return Boolean(plugin.scholarCategory);
+        if (activeFilter === 'ready') return plugin.availability === 'ready' && plugin.licenseGate === 'approved';
+        if (activeFilter === 'installed') return connected.has(plugin.id);
+        if (activeFilter === 'planned') return plugin.availability !== 'ready' || plugin.licenseGate !== 'approved';
+        if (activeFilter.startsWith('cat:')) return plugin.scholarCategory === activeFilter.slice(4);
+        return true;
+      }
 
-        const iconBox = document.createElement('div');
-        iconBox.className = 'plugin-card-icon';
-        iconBox.setAttribute('aria-hidden', 'true');
-        iconBox.textContent = plugin.icon || '🔌';
-
-        const info = document.createElement('div');
-        info.className = 'plugin-card-info';
-
-        const pName = document.createElement('strong');
-        pName.className = 'plugin-card-name';
-        pName.textContent = plugin.name;
-
-        const pTag = document.createElement('span');
-        pTag.className = 'plugin-card-tagline';
-        pTag.textContent = plugin.tagline || '';
-
-        const badge = document.createElement('span');
-        badge.className = 'plugin-badge ' + (connected.has(plugin.id) ? 'plugin-badge--on' : 'plugin-badge--off');
-        badge.textContent = connected.has(plugin.id) ? '✓ Połączona' : 'Rozłączona';
-
-        info.append(pName, pTag, badge);
-
-        const actions = document.createElement('div');
-        actions.className = 'plugin-card-actions';
-
-        const toggleBtn = document.createElement('button');
-        toggleBtn.type = 'button';
-        toggleBtn.className = 'connect-btn ' + (connected.has(plugin.id) ? 'connect-btn--disconnect' : 'connect-btn--connect');
-        toggleBtn.textContent = connected.has(plugin.id) ? 'Odłącz' : 'Połącz';
-        toggleBtn.setAttribute('aria-label', (connected.has(plugin.id) ? 'Odłącz wtyczkę: ' : 'Połącz wtyczkę: ') + plugin.name);
-        toggleBtn.addEventListener('click', () => {
-          const s = getConnectedSet();
-          if (s.has(plugin.id)) { s.delete(plugin.id); } else { s.add(plugin.id); }
-          saveConnectedSet(s);
-          renderModule('Wtyczki i aplikacje');
-        });
-        actions.appendChild(toggleBtn);
-
-        if (plugin.lumimes && connected.has(plugin.id)) {
-          const chatBtn = document.createElement('button');
-          chatBtn.type = 'button';
-          chatBtn.className = 'connect-btn connect-btn--lumimes';
-          chatBtn.textContent = '💬 Rozmawiaj przez LumiMes';
-          chatBtn.setAttribute('aria-label', 'Otwórz LumiMes dla wtyczki ' + plugin.name);
-          chatBtn.addEventListener('click', () => {
-            if (window.CCLumiMes && typeof window.CCLumiMes.openWithContext === 'function') {
-              window.CCLumiMes.openWithContext({ appId: plugin.id, route: plugin.url || '/' });
-            } else if (window.CCUnifiedChat && typeof window.CCUnifiedChat.open === 'function') {
-              window.CCUnifiedChat.open();
-            } else {
-              window.open('/mess', '_blank', 'noopener,noreferrer');
-            }
-          });
-          actions.appendChild(chatBtn);
+      function renderCards() {
+        grid.replaceChildren();
+        const visible = data.plugins.filter(matchesFilter);
+        if (!visible.length) {
+          const emp = document.createElement('p');
+          emp.className = 'module-empty';
+          emp.textContent = 'Brak wtyczek pasujących do wybranego filtra.';
+          grid.appendChild(emp);
+          return;
         }
+        visible.forEach((plugin) => {
+          const isReady = plugin.availability === 'ready' && plugin.licenseGate === 'approved';
+          const isConn = isReady && connected.has(plugin.id);
+          const card = document.createElement('div');
+          card.className = 'plugin-card' + (isConn ? ' plugin-card--connected' : '') + (!isReady ? ' plugin-card--planned' : '');
+          card.dataset.pluginId = plugin.id;
 
-        card.append(iconBox, info, actions);
-        grid.appendChild(card);
+          const iconBox = document.createElement('div');
+          iconBox.className = 'plugin-card-icon';
+          iconBox.setAttribute('aria-hidden', 'true');
+          iconBox.textContent = plugin.icon || '🔌';
+
+          const info = document.createElement('div');
+          info.className = 'plugin-card-info';
+
+          const pName = document.createElement('strong');
+          pName.className = 'plugin-card-name';
+          pName.textContent = plugin.name;
+
+          const pTag = document.createElement('span');
+          pTag.className = 'plugin-card-tagline';
+          pTag.textContent = plugin.description || plugin.tagline || '';
+
+          const metaRow = document.createElement('div');
+          metaRow.className = 'plugin-meta-row';
+
+          const badge = document.createElement('span');
+          badge.className = 'plugin-badge ' + (isConn ? 'plugin-badge--on' : (isReady ? 'plugin-badge--off' : 'plugin-badge--planned'));
+          badge.textContent = isConn ? '✓ Zainstalowana' : (isReady ? 'Gotowa do instalacji' : `W przygotowaniu (${plugin.licenseGate})`);
+          metaRow.appendChild(badge);
+
+          if (Array.isArray(plugin.dependencies) && plugin.dependencies.length) {
+            const depTag = document.createElement('span');
+            depTag.className = 'plugin-dep-tag';
+            depTag.textContent = `Wymaga: ${plugin.dependencies.join(', ')}`;
+            metaRow.appendChild(depTag);
+          }
+
+          info.append(pName, pTag, metaRow);
+
+          const actions = document.createElement('div');
+          actions.className = 'plugin-card-actions';
+
+          const toggleBtn = document.createElement('button');
+          toggleBtn.type = 'button';
+          if (isReady) {
+            toggleBtn.className = 'connect-btn ' + (isConn ? 'connect-btn--disconnect' : 'connect-btn--connect');
+            toggleBtn.textContent = isConn ? 'Odłącz' : 'Połącz / Instaluj';
+            toggleBtn.setAttribute('aria-label', (isConn ? 'Odłącz wtyczkę: ' : 'Połącz wtyczkę: ') + plugin.name);
+            toggleBtn.addEventListener('click', () => {
+              const s = getConnectedSet() || new Set(connected);
+              if (s.has(plugin.id)) {
+                s.delete(plugin.id);
+              } else {
+                s.add(plugin.id);
+                (plugin.dependencies || []).forEach((dep) => s.add(dep));
+              }
+              saveConnectedSet(s);
+              renderModule('Wtyczki i aplikacje');
+            });
+          } else {
+            toggleBtn.className = 'connect-btn connect-btn--disabled';
+            toggleBtn.textContent = 'Etap 4 (Niedostępne)';
+            toggleBtn.disabled = true;
+            toggleBtn.title = `Bramka licencji/danych: ${plugin.licenseGate}`;
+          }
+          actions.appendChild(toggleBtn);
+
+          if (isConn && (plugin.samplePrompt || (plugin.surfaces || []).includes('lumimes'))) {
+            const tryBtn = document.createElement('button');
+            tryBtn.type = 'button';
+            tryBtn.className = 'connect-btn connect-btn--lumimes';
+            tryBtn.textContent = plugin.samplePrompt ? '✨ Przetestuj w czacie' : '💬 LumiMes';
+            tryBtn.addEventListener('click', () => {
+              if (plugin.samplePrompt && typeof startPromptDirectly === 'function') {
+                closeDrawers();
+                startPromptDirectly(plugin.samplePrompt, plugin.name);
+              } else if (window.CCLumiMes && typeof window.CCLumiMes.openWithContext === 'function') {
+                window.CCLumiMes.openWithContext({ appId: plugin.id, route: plugin.url || '/' });
+              }
+            });
+            actions.appendChild(tryBtn);
+          }
+
+          card.append(iconBox, info, actions);
+          grid.appendChild(card);
+        });
+      }
+
+      filters.forEach((f) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'scholar-filter-btn' + (activeFilter === f.id ? ' is-active' : '');
+        btn.textContent = f.label;
+        btn.addEventListener('click', () => {
+          activeFilter = f.id;
+          try { sessionStorage.setItem(FILTER_KEY, activeFilter); } catch (_) {}
+          filterBar.querySelectorAll('.scholar-filter-btn').forEach((b) => b.classList.remove('is-active'));
+          btn.classList.add('is-active');
+          renderCards();
+        });
+        filterBar.appendChild(btn);
       });
-      sec1.appendChild(grid);
+
+      renderCards();
+      sec1.append(h3cc, filterBar, grid);
       wrap.appendChild(sec1);
 
       // --- Section 2: External AI Providers ---
@@ -6190,7 +6317,7 @@ function renderModule(name) {
           const rLeft = document.createElement('span');
           rLeft.className = 'connect-row-label';
           rLeft.textContent = `${prov.icon || '🤖'} ${prov.name}`;
-          const mcpUrl = data.mcpEndpoint || `${location.origin}/api/ai-dla-jezusa/mcp`;
+          const mcpUrl = data.mcpEndpoint || `${location.origin}/api/ai-dla-jezusa/v1/mcp`;
           const rRight = document.createElement('div');
           rRight.className = 'connect-row-actions';
           const copyBtn = document.createElement('button');
@@ -6208,29 +6335,15 @@ function renderModule(name) {
         wrap.appendChild(sec2);
       }
 
-      // --- Section 3: MCP Tool Catalog ---
+      // --- Section 3: MCP Tool Catalog (dynamiczny z API) ---
       const sec3 = document.createElement('section');
       sec3.className = 'connect-section';
+      const mcpTools = Array.isArray(data.mcpTools) ? data.mcpTools : [];
       const h3mcp = document.createElement('h3');
       h3mcp.className = 'connect-section-title';
-      h3mcp.textContent = '🛠️ Katalog narzędzi MCP';
+      h3mcp.textContent = `🛠️ Katalog narzędzi MCP (${mcpTools.length} zweryfikowanych)`;
       sec3.appendChild(h3mcp);
 
-      const mcpTools = [
-        { name: 'cc_bible_get_verse', desc: 'Pobierz werset UBG-2025 po księdze, rozdziale i numerze.' },
-        { name: 'cc_bible_get_chapter', desc: 'Pobierz cały rozdział UBG-2025.' },
-        { name: 'cc_bible_get_context', desc: 'Pobierz rozszerzony kontekst (zakres wersetów).' },
-        { name: 'cc_sba_deep_study', desc: 'Uruchom głębokie studium biblijne SBA dla fragmentu.' },
-        { name: 'cc_find_sermon', desc: 'Znajdź kazania CC powiązane z fragmentem lub słowem kluczowym.' },
-        { name: 'cc_find_audio_bible', desc: 'Znajdź nagrania Biblii Audio powiązane z fragmentem.' },
-        { name: 'cc_search', desc: 'Przeszukaj cały ekosystem CC.' },
-        { name: 'cc_get_todays_reflection', desc: 'Pobierz dzisiejsze rozważanie z „Dobrze, że jesteś".' },
-        { name: 'cc_get_radio_status', desc: 'Sprawdź status radia CC (teraz na żywo).' },
-        { name: 'cc_get_sba_summary', desc: 'Skrót ze SBA — bieżąca księga/rozdział.' },
-        { name: 'cc_get_schedule', desc: 'Pobierz harmonogram programów CC.' },
-        { name: 'cc_send_lumimes', desc: 'Wyślij wiadomość przez LumiMes.' },
-        { name: 'cc_get_user_profile', desc: 'Pobierz publiczny profil LUMINA.' }
-      ];
       const toolList = document.createElement('ul');
       toolList.className = 'mcp-tool-list';
       mcpTools.forEach((t) => {
@@ -6239,7 +6352,7 @@ function renderModule(name) {
         const tName = document.createElement('code');
         tName.textContent = t.name;
         const tDesc = document.createElement('span');
-        tDesc.textContent = ' — ' + t.desc;
+        tDesc.textContent = ' — ' + (t.description || '');
         li.append(tName, tDesc);
         toolList.appendChild(li);
       });

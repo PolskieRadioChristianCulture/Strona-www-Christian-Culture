@@ -6,7 +6,11 @@
 
 import {
   getAllPlugins,
-  getPluginManifest,
+  getLegacyAppPlugins,
+  getScholarPlugins,
+  getScholarStats,
+  CC_BIBLE_SCHOLAR_CATEGORIES,
+  resolveScholarPackagePlan,
   EXTERNAL_AI_PROVIDERS
 } from './plugin-registry.js';
 import {
@@ -16,7 +20,18 @@ import {
   getTopicsCatalog
 } from './knowledge-hub.js';
 import { openApiSpec } from './openapi.js';
-import { handleMcpRequest } from './mcp-server.js';
+import { MCP_TOOLS, handleMcpRequest } from './mcp-server.js';
+import {
+  loadScholarAsset,
+  ccBibleLexiconLookup,
+  ccBibleTokenAnalysis,
+  ccBibleCrossReferences,
+  ccBibleConcordance,
+  ccBibleCompareEditions,
+  ccBibleStudyQuestions,
+  ccBibleStudyTemplate,
+  ccBibleMindMapSeed
+} from './scholar-tools.js';
 import { handleAiChatRequest, handleAiTranscribeRequest } from './chat-service.js';
 import { handleOwnerSessionRequest, handleOwnerActionRequest } from './owner-workspace.js';
 import { handleAiFeedbackPost, handleOwnerFeedbackGet } from './feedback-service.js';
@@ -43,7 +58,7 @@ import {
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, POST, DELETE, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Accept, Authorization, X-Requested-With, X-User-AI-Key, X-User-AI-Provider, X-TTS-Session-Token, X-Canva-Test-User',
+  'Access-Control-Allow-Headers': 'Content-Type, Accept, Authorization, X-Requested-With, X-User-AI-Key, X-User-AI-Provider, X-TTS-Session-Token, X-Canva-Test-User, X-CC-Active-Plugins',
   'Access-Control-Max-Age': '86400'
 };
 
@@ -123,15 +138,91 @@ export async function handleAiDlaJezusaApi(request, env = {}, deps = {}) {
     return privateJson({ ok: true, status: 200, connectors: getMcpClientRegistry() });
   }
 
-  // 0a2. CC Connect 2.0 Plugin Registry (P1)
+  // 0a2. CC Connect 2.0 + CC Bible Scholar Plugin Registry
   if (path === '/api/ai-dla-jezusa/v1/plugins' && request.method === 'GET') {
     return Response.json({
       ok: true,
       status: 200,
       plugins: getAllPlugins(),
+      legacyPlugins: getLegacyAppPlugins(),
+      scholarPlugins: getScholarPlugins(),
+      categories: CC_BIBLE_SCHOLAR_CATEGORIES,
+      scholarStats: getScholarStats(),
+      mcpTools: MCP_TOOLS.map((t) => ({ name: t.name, description: t.description })),
+      packages: {
+        'cc-bible-scholar': resolveScholarPackagePlan()
+      },
       externalProviders: EXTERNAL_AI_PROVIDERS,
       mcpEndpoint: 'https://polskieradio.cc/api/ai-dla-jezusa/v1/mcp'
     }, { status: 200, headers: JSON_HEADERS });
+  }
+
+  if (path === '/api/ai-dla-jezusa/v1/plugins/package-plan' && request.method === 'POST') {
+    const parsed = await readSafeJson(16384);
+    if (!parsed.ok) return privateJson(parsed);
+    return jsonResponse(resolveScholarPackagePlan(parsed.data?.requestedIds));
+  }
+
+  if (path === '/api/ai-dla-jezusa/v1/scholar/licenses' && request.method === 'GET') {
+    const reg = await loadScholarAsset('data/bible-scholar/licenses-registry.json', env, deps).catch(() => null);
+    return jsonResponse(reg || { ok: false, error: 'licenses_registry_unavailable' }, reg ? 200 : 500);
+  }
+
+  if (path === '/api/ai-dla-jezusa/v1/scholar/lexicon' && request.method === 'GET') {
+    const strongId = url.searchParams.get('strong') || url.searchParams.get('strongId') || '';
+    const query = url.searchParams.get('q') || url.searchParams.get('query') || '';
+    const limit = url.searchParams.get('limit') || '10';
+    return jsonResponse(await ccBibleLexiconLookup({ strongId, query, limit }, env, deps));
+  }
+
+  if (path === '/api/ai-dla-jezusa/v1/scholar/tokens' && request.method === 'GET') {
+    const reference = url.searchParams.get('ref') || url.searchParams.get('reference') || '';
+    const book = url.searchParams.get('book') || '';
+    const chapter = url.searchParams.get('ch') || url.searchParams.get('chapter') || '0';
+    const verse = url.searchParams.get('v') || url.searchParams.get('verse') || '0';
+    return jsonResponse(await ccBibleTokenAnalysis({ reference, book, chapter, verse }, env, deps));
+  }
+
+  if (path === '/api/ai-dla-jezusa/v1/scholar/xrefs' && request.method === 'GET') {
+    const reference = url.searchParams.get('ref') || url.searchParams.get('reference') || '';
+    const book = url.searchParams.get('book') || '';
+    const chapter = url.searchParams.get('ch') || url.searchParams.get('chapter') || '0';
+    const verse = url.searchParams.get('v') || url.searchParams.get('verse') || '0';
+    const limit = url.searchParams.get('limit') || '15';
+    const cursor = url.searchParams.get('cursor') || '';
+    return jsonResponse(await ccBibleCrossReferences({ reference, book, chapter, verse, limit, cursor }, env, deps));
+  }
+
+  if (path === '/api/ai-dla-jezusa/v1/scholar/concordance' && request.method === 'GET') {
+    const query = url.searchParams.get('q') || url.searchParams.get('query') || '';
+    const book = url.searchParams.get('book') || '';
+    const testament = url.searchParams.get('testament') || '';
+    const limit = url.searchParams.get('limit') || '15';
+    const cursor = url.searchParams.get('cursor') || '';
+    return jsonResponse(await ccBibleConcordance({ query, book, testament, limit, cursor }, env, deps));
+  }
+
+  if (path === '/api/ai-dla-jezusa/v1/scholar/compare' && request.method === 'GET') {
+    const reference = url.searchParams.get('ref') || url.searchParams.get('reference') || '';
+    const rawEd = url.searchParams.get('editions') || 'UBG,ORIGINAL';
+    const editions = rawEd.split(',').map((s) => s.trim()).filter(Boolean);
+    return jsonResponse(await ccBibleCompareEditions({ reference, editions }, env, deps));
+  }
+
+  if (path === '/api/ai-dla-jezusa/v1/scholar/study-questions' && request.method === 'GET') {
+    const method = url.searchParams.get('method') || 'six-questions';
+    const reference = url.searchParams.get('ref') || url.searchParams.get('reference') || '';
+    return jsonResponse(await ccBibleStudyQuestions({ method, reference }, env, deps));
+  }
+
+  if (path === '/api/ai-dla-jezusa/v1/scholar/study-template' && request.method === 'GET') {
+    const reference = url.searchParams.get('ref') || url.searchParams.get('reference') || '';
+    return jsonResponse(await ccBibleStudyTemplate({ reference }, env, deps));
+  }
+
+  if (path === '/api/ai-dla-jezusa/v1/scholar/mind-map-seed' && request.method === 'GET') {
+    const reference = url.searchParams.get('ref') || url.searchParams.get('reference') || '';
+    return jsonResponse(await ccBibleMindMapSeed({ reference }, env, deps));
   }
 
   if (path === '/api/ai-dla-jezusa/v1/canva/oauth/start' && request.method === 'GET') {

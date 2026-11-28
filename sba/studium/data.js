@@ -48,13 +48,13 @@ export function parseStudyParams(searchStr = '') {
     : (typeof location !== 'undefined' ? location.search : '');
   const sp = new URLSearchParams(qs.startsWith('?') ? qs.slice(1) : qs);
   const rawBook = (sp.get('book') || '').trim().toUpperCase();
-  const rawCh = (sp.get('ch') || '').trim();
-  const rawV = (sp.get('v') || '').trim();
+  const rawCh = (sp.get('ch') || sp.get('chapter') || '').trim();
+  const rawV = (sp.get('v') || sp.get('verse') || '').trim();
   const rawEnd = (sp.get('end') || rawV).trim();
   const rawTr = (sp.get('translation') || 'UBG').trim().toUpperCase();
   const rawStudyId = (sp.get('study') || '').trim();
 
-  const hasAnyParam = Boolean(rawBook || rawCh || rawV || sp.has('book') || sp.has('ch') || sp.has('v'));
+  const hasAnyParam = Boolean(rawBook || rawCh || rawV || sp.has('book') || sp.has('ch') || sp.has('chapter') || sp.has('v') || sp.has('verse'));
   const ch = /^\d+$/.test(rawCh) ? Number(rawCh) : NaN;
   const v = /^\d+$/.test(rawV) ? Number(rawV) : NaN;
   const end = /^\d+$/.test(rawEnd) ? Number(rawEnd) : v;

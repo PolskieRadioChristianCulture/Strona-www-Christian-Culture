@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" sizes="192x192" href="/sba/icon-192.png">
+  <title>CC Bible Scholar — Izolowana Konsola Testowa | Christian Culture</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b0b10;
+      --card: #15151e;
+      --border: rgba(196, 163, 90, 0.28);
+      --gold: #c4a35a;
+      --text: #f3f1ea;
+      --muted: #aba89f;
+      --orange: #ff7a00;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 16px 64px;
+    }
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.45rem;
+      color: #f9ebc7;
+    }
+    .sub {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .btn {
+      min-height: 44px;
+      padding: 0 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: #ffffff;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .card h2 {
+      margin: 0;
+      font-size: 1.05rem;
+      color: var(--gold);
+    }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    input, select {
+      min-height: 44px;
+      padding: 0 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: #0d0d13;
+      color: var(--text);
+      flex: 1 1 160px;
+      font-size: 0.95rem;
+    }
+    pre {
+      margin: 0;
+      padding: 12px;
+      border-radius: 10px;
+      background: #08080c;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #dedad0;
+      font-size: 0.82rem;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      max-height: 300px;
+    }
+    .stats-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .pill {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(196, 163, 90, 0.12);
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>CC Bible Scholar — Izolowane Środowisko Testowe (P1)</h1>
+        <p class="sub">Zero płatnych API • Uczciwy status wtyczek (40 modułów) • Bramka licencyjna i provenance</p>
+      </div>
+      <nav class="nav-links" aria-label="Nawigacja testowa">
+        <a class="btn btn-primary" href="/test/ai/">Otwórz /test/ai/</a>
+        <a class="btn" href="/sba/studium/">Głębokie studium (/sba/studium/)</a>
+        <a class="btn" href="/mojabiblia">MojaBiblia</a>
+      </nav>
+    </header>
+
+    <section id="statsBar" class="stats-bar" aria-live="polite">
+      <span class="pill">Ładuję statystyki katalogu…</span>
+    </section>
+
+    <div class="grid">
+      <section class="card">
+        <h2>1. Słownik Stronga & STEP (G/H)</h2>
+        <div class="row">
+          <input id="strongInput" value="G3056" aria-label="Kod Stronga lub hasło">
+          <button type="button" class="btn btn-primary" id="runStrongBtn">Sprawdź</button>
+        </div>
+        <pre id="strongOut">Gotowy do zapytania…</pre>
+      </section>
+
+      <section class="card">
+        <h2>2. Analiza Oryginału (RTL / Aramejski / Greka)</h2>
+        <div class="row">
+          <input id="tokenRefInput" value="DAN 2:4" aria-label="Referencja do rozbioru">
+          <button type="button" class="btn btn-primary" id="runTokenBtn">Analizuj</button>
+        </div>
+        <pre id="tokenOut" dir="auto">Gotowy do zapytania…</pre>
+      </section>
+
+      <section class="card">
+        <h2>3. Odsyłacze Biblijne (OpenBible CC BY 4.0)</h2>
+        <div class="row">
+          <input id="xrefRefInput" value="J 3:16" aria-label="Referencja dla odsyłaczy">
+          <button type="button" class="btn btn-primary" id="runXrefBtn">Pobierz</button>
+        </div>
+        <pre id="xrefOut">Gotowy do zapytania…</pre>
+      </section>
+
+      <section class="card">
+        <h2>4. Konkordancja UBG (Stronicowana)</h2>
+        <div class="row">
+          <input id="concInput" value="miłość" aria-label="Szukane słowo w UBG">
+          <button type="button" class="btn btn-primary" id="runConcBtn">Szukaj</button>
+        </div>
+        <pre id="concOut">Gotowy do zapytania…</pre>
+      </section>
+
+      <section class="card">
+        <h2>5. Metody Studium Offline (6/12 Pytań)</h2>
+        <div class="row">
+          <select id="methodSelect" aria-label="Wybierz metodę studium">
+            <option value="six-questions">6 Pytań Obserwacyjnych</option>
+            <option value="twelve-questions">12 Pytań Odkrywania Prawdy</option>
+            <option value="hermeneutics">Zasady Hermeneutyki</option>
+            <option value="life-application">Zastosowanie Życiowe</option>
+          </select>
+          <button type="button" class="btn btn-primary" id="runStudyBtn">Generuj</button>
+        </div>
+        <pre id="studyOut">Gotowy do zapytania…</pre>
+      </section>
+
+      <section class="card">
+        <h2>6. Audyt Licencji & Bramka BW/BT/BG</h2>
+        <div class="row">
+          <button type="button" class="btn" id="runLicenseBtn">Pokaż rejestr licencji</button>
+          <button type="button" class="btn btn-primary" id="runBlockedBtn">Testuj blokadę BW</button>
+        </div>
+        <pre id="licenseOut">Gotowy do weryfikacji…</pre>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    async function callJson(url, outId) {
+      const out = document.getElementById(outId);
+      out.textContent = 'Ładowanie…';
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        if (data.dir) out.setAttribute('dir', data.dir);
+        out.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        out.textContent = 'Błąd połączenia: ' + (err?.message || err);
+      }
+    }
+
+    fetch('/api/ai-dla-jezusa/v1/plugins').then((r) => r.json()).then((d) => {
+      const bar = document.getElementById('statsBar');
+      const st = d?.scholarStats;
+      if (!st) return;
+      bar.replaceChildren();
+      [
+        `Wtyczki Scholar: ${st.readyCount}/${st.total} gotowych`,
+        `W przygotowaniu (Etap 4): ${st.plannedCount}`,
+        `Narzędzia MCP: ${(d.mcpTools || []).length}`,
+        `Zablokowane zbiory: ${(st.blockedDatasets || []).join(', ')}`
+      ].forEach((txt) => {
+        const s = document.createElement('span');
+        s.className = 'pill';
+        s.textContent = txt;
+        bar.appendChild(s);
+      });
+    }).catch(() => {});
+
+    document.getElementById('runStrongBtn').addEventListener('click', () => {
+      const v = document.getElementById('strongInput').value.trim();
+      const param = /^[GH]\d+/i.test(v) ? `strong=${encodeURIComponent(v)}` : `q=${encodeURIComponent(v)}`;
+      callJson(`/api/ai-dla-jezusa/v1/scholar/lexicon?${param}`, 'strongOut');
+    });
+    document.getElementById('runTokenBtn').addEventListener('click', () => {
+      const v = document.getElementById('tokenRefInput').value.trim();
+      callJson(`/api/ai-dla-jezusa/v1/scholar/tokens?ref=${encodeURIComponent(v)}`, 'tokenOut');
+    });
+    document.getElementById('runXrefBtn').addEventListener('click', () => {
+      const v = document.getElementById('xrefRefInput').value.trim();
+      callJson(`/api/ai-dla-jezusa/v1/scholar/xrefs?ref=${encodeURIComponent(v)}&limit=8`, 'xrefOut');
+    });
+    document.getElementById('runConcBtn').addEventListener('click', () => {
+      const v = document.getElementById('concInput').value.trim();
+      callJson(`/api/ai-dla-jezusa/v1/scholar/concordance?q=${encodeURIComponent(v)}&limit=6`, 'concOut');
+    });
+    document.getElementById('runStudyBtn').addEventListener('click', () => {
+      const m = document.getElementById('methodSelect').value;
+      callJson(`/api/ai-dla-jezusa/v1/scholar/study-questions?method=${encodeURIComponent(m)}&ref=J%203:16`, 'studyOut');
+    });
+    document.getElementById('runLicenseBtn').addEventListener('click', () => {
+      callJson('/api/ai-dla-jezusa/v1/scholar/licenses', 'licenseOut');
+    });
+    document.getElementById('runBlockedBtn').addEventListener('click', () => {
+      callJson('/api/ai-dla-jezusa/v1/scholar/compare?ref=J%203:16&editions=BW', 'licenseOut');
+    });
+  </script>
+</body>
+</html>

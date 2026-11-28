@@ -5798,3 +5798,86 @@ body.ambient-bg-off .main-workspace {
     min-height: 44px;
   }
 }
+
+/* CC Bible Scholar — Katalog Wtyczek & Pakiet Studyjny */
+.scholar-pkg-banner {
+  background: linear-gradient(145deg, rgba(196, 163, 90, 0.14), rgba(20, 20, 26, 0.92));
+  border: 1px solid rgba(196, 163, 90, 0.38);
+  border-radius: 14px;
+  padding: 16px 18px;
+}
+
+.scholar-pkg-desc {
+  margin: 6px 0 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #cfcdc5;
+}
+
+.scholar-pkg-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.scholar-pkg-actions > .connect-btn,
+.scholar-filter-btn,
+.plugin-card-actions > .connect-btn {
+  min-height: 44px;
+}
+
+.scholar-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 14px;
+}
+
+.scholar-filter-btn {
+  padding: 0 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: #d6d3cb;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.scholar-filter-btn.is-active {
+  background: rgba(196, 163, 90, 0.2);
+  border-color: #c4a35a;
+  color: #f6e7bd;
+}
+
+.plugin-card--planned {
+  opacity: 0.78;
+  border-style: dashed;
+}
+
+.plugin-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.plugin-badge--planned {
+  background: rgba(148, 163, 184, 0.14);
+  color: #cbd5e1;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.plugin-dep-tag {
+  font-size: 11px;
+  color: #a9a79f;
+}
+
+.connect-btn--disabled {
+  background: rgba(255, 255, 255, 0.06);
+  color: #8f8e88;
+  border-color: rgba(255, 255, 255, 0.08);
+  cursor: not-allowed;
+}

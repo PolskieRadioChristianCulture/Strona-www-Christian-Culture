@@ -1,0 +1,11 @@
+{
+  "datasetId": "openbible-cross-references",
+  "name": "OpenBible Cross References",
+  "licenseId": "CC-BY-4.0",
+  "sourceUrl": "https://www.openbible.info/labs/cross-references/",
+  "archiveUrl": "https://a.openbible.info/data/cross-references.zip",
+  "zipSha256": "650CAFBDFE06458E78C67F33CE57CD11162DE867F5842240846863E96BCD62F2",
+  "upstreamHeader": "#www.openbible.info CC-BY 2026-11-23",
+  "attribution": "Cross-reference dataset provided by OpenBible.info under Creative Commons Attribution (CC BY 4.0).",
+  "importedBy": "scripts/bible-scholar-importer/import_cross_references.mjs"
+}

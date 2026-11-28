@@ -517,7 +517,18 @@ async function callWorkersAi(env, systemPrompt, query) {
   }
 }
 
-export async function processLumiChat({ assistantId = 'rut', message = '', history = [] }, env = {}, deps = {}) {
+import {
+  ccBibleLexiconLookup,
+  ccBibleCrossReferences,
+  ccBibleConcordance,
+  ccBibleStudyQuestions
+} from '../ai-dla-jezusa/scholar-tools.js';
+import {
+  sanitizePluginIds,
+  isToolAllowedForSession
+} from '../ai-dla-jezusa/plugin-registry.js';
+
+export async function processLumiChat({ assistantId = 'rut', message = '', history = [], context = null, activePlugins = null }, env = {}, deps = {}) {
   const personaKey = resolveAssistantKey(assistantId);
   const persona = PERSONAS[personaKey];
   const cleanMsg = String(message || '').trim().slice(0, 600);
@@ -542,8 +553,65 @@ export async function processLumiChat({ assistantId = 'rut', message = '', histo
   const { items } = matchCatalog(cleanMsg, ecoData.catalog);
   const actions = pickActionsForQuery(cleanMsg, items, reflection);
 
+  const sessionPlugins = Array.isArray(activePlugins) ? sanitizePluginIds(activePlugins) : null;
+  const ctxBible = context && typeof context === 'object' && context.bible ? context.bible : null;
+  const ctxRef = ctxBible && ctxBible.book && ctxBible.chapter
+    ? `${ctxBible.book} ${ctxBible.chapter}:${ctxBible.verseStart || ctxBible.verse || 1}`
+    : '';
+
+  let scholarData = null;
+  const toolsUsed = [];
+  const strongMatch = cleanMsg.match(/\b([GH]\d{1,5}[a-z]?)\b/i);
+  if (strongMatch && isToolAllowedForSession('cc_bible_lexicon_lookup', sessionPlugins).allowed) {
+    const lex = await ccBibleLexiconLookup({ strongId: strongMatch[1] }, env, deps);
+    if (lex?.found) {
+      scholarData = scholarData || {};
+      scholarData.lexicon = lex;
+      toolsUsed.push('cc_bible_lexicon_lookup');
+    }
+  }
+  if (/odsy[łl]acz|cross[- ]?ref|powi[ąa]zan/i.test(cleanMsg) && ctxRef && isToolAllowedForSession('cc_bible_cross_references', sessionPlugins).allowed) {
+    const xr = await ccBibleCrossReferences({ reference: ctxRef, limit: 6 }, env, deps);
+    if (xr?.found) {
+      scholarData = scholarData || {};
+      scholarData.crossReferences = xr;
+      toolsUsed.push('cc_bible_cross_references');
+    }
+  }
+  const concMatch = cleanMsg.match(/konkordanc\w*\s+(?:dla|słowa|slowa|w\s+ubg)?\s*[„"']?([A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ0-9 -]{2,40})[”"']?/i);
+  if (concMatch && isToolAllowedForSession('cc_bible_concordance', sessionPlugins).allowed) {
+    const conc = await ccBibleConcordance({ query: concMatch[1].trim(), limit: 4 }, env, deps);
+    if (conc?.found) {
+      scholarData = scholarData || {};
+      scholarData.concordance = conc;
+      toolsUsed.push('cc_bible_concordance');
+    }
+  }
+  if (/6 pyta[ńn]|sze[śs][ćc] pyta[ńn]|wielka sz[óo]stka|12 pyta[ńn]/i.test(cleanMsg) && isToolAllowedForSession('cc_bible_study_questions', sessionPlugins).allowed) {
+    const method = /12/.test(cleanMsg) ? 'twelve-questions' : 'six-questions';
+    const sq = await ccBibleStudyQuestions({ method, reference: ctxRef }, env, deps);
+    if (sq?.found) {
+      scholarData = scholarData || {};
+      scholarData.studyQuestions = sq;
+      toolsUsed.push('cc_bible_study_questions');
+    }
+  }
+  if (ctxBible && ctxBible.book && ctxBible.chapter) {
+    actions.unshift({
+      label: `Głębokie studium: ${ctxRef}`,
+      url: `/sba/studium/?book=${encodeURIComponent(ctxBible.book)}&ch=${encodeURIComponent(ctxBible.chapter)}&v=${encodeURIComponent(ctxBible.verseStart || ctxBible.verse || 1)}&translation=UBG`
+    });
+  }
+
   if (canUseQuota()) {
-    const sysPrompt = buildContextPrompt(persona, cleanMsg, history, ecoData);
+    let sysPrompt = buildContextPrompt(persona, cleanMsg, history, ecoData);
+    if (ctxRef) {
+      sysPrompt += `\nAktywny werset użytkownika: ${ctxRef}${context?.selectedText ? ` („${String(context.selectedText).slice(0, 180)}”)` : ''}.`;
+    }
+    if (scholarData?.lexicon?.entry) {
+      const e = scholarData.lexicon.entry;
+      sysPrompt += `\nStrong ${e.strong} (${e.original}, ${e.translit}): ${e.definitionPl}`;
+    }
     const fetchImpl = deps.fetch || fetch;
     const aiRes =
       (await callGemini(env, sysPrompt, cleanMsg, fetchImpl)) ||
@@ -557,10 +625,42 @@ export async function processLumiChat({ assistantId = 'rut', message = '', histo
         assistant: personaKey,
         reply: aiRes.reply,
         actions,
+        scholarData,
+        toolsUsed,
+        contextSnapshot: ctxBible ? { reference: ctxRef, book: ctxBible.book, chapter: ctxBible.chapter } : null,
         mode: aiRes.mode,
         zeroCostGuaranteed: true
       };
     }
+  }
+
+  if (scholarData) {
+    const chunks = [];
+    if (ctxRef) chunks.push(`Kontekst: ${ctxRef} (UBG).`);
+    if (scholarData.lexicon?.entry) {
+      const e = scholarData.lexicon.entry;
+      chunks.push(`Strong ${e.strong} (${e.original}, „${e.translit}”): ${e.definitionPl}`);
+    }
+    if (scholarData.crossReferences?.items?.length) {
+      chunks.push(`Odsyłacze (${scholarData.crossReferences.totalCount}, OpenBible CC BY): ${scholarData.crossReferences.items.slice(0, 5).map((x) => x.targetRef).join(', ')}.`);
+    }
+    if (scholarData.concordance?.items?.length) {
+      chunks.push(`Konkordancja UBG dla „${scholarData.concordance.query}”: ${scholarData.concordance.totalCount} wersetów, m.in. ${scholarData.concordance.items.slice(0, 3).map((x) => x.reference).join(', ')}.`);
+    }
+    if (scholarData.studyQuestions?.questions?.length) {
+      chunks.push(`${scholarData.studyQuestions.title}: ${scholarData.studyQuestions.questions.slice(0, 4).map((q) => q.label).join(' ')}`);
+    }
+    return {
+      ok: true,
+      assistant: personaKey,
+      reply: chunks.join(' '),
+      actions,
+      scholarData,
+      toolsUsed,
+      contextSnapshot: ctxBible ? { reference: ctxRef, book: ctxBible.book, chapter: ctxBible.chapter } : null,
+      mode: 'cc-bible-scholar-local',
+      zeroCostGuaranteed: true
+    };
   }
 
   const fallback = buildSmartCatalogReply(cleanMsg, personaKey, ecoData);
@@ -568,7 +668,9 @@ export async function processLumiChat({ assistantId = 'rut', message = '', histo
     ok: true,
     assistant: personaKey,
     reply: fallback.reply,
-    actions: fallback.actions,
+    actions,
+    toolsUsed,
+    contextSnapshot: ctxBible ? { reference: ctxRef, book: ctxBible.book, chapter: ctxBible.chapter } : null,
     mode: fallback.mode,
     zeroCostGuaranteed: true
   };
@@ -626,7 +728,7 @@ export async function handleLumiChatApi(request, env = {}, deps = {}) {
   }
 
   const contentLength = Number(request.headers.get('content-length') || 0);
-  if (contentLength > 4096) {
+  if (contentLength > 16384) {
     return Response.json({ ok: false, error: 'payload_too_large' }, { status: 413 });
   }
 
