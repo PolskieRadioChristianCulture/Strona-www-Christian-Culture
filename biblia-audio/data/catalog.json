@@ -634,10 +634,16 @@
     "book": "genesis",
     "chapter": 42,
     "description": "Kolejny rozdział Księgi Rodzaju",
-    "audioUrl": null,
+    "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_42_1-38_Biblia_Audio_CC.mp3",
     "textUrl": "https://polskieradio.cc/mojabiblia",
-    "status": "in_production",
-    "audioParts": null
+    "status": "published",
+    "audioParts": [
+      {
+        "name": "Księga Rodzaju 42,1–38 (UBG) — Bracia Józefa w Egipcie, Próba Uczciwości i Wyrzuty Sumienia",
+        "url": "/biblia-audio/audio/Ksiega_Rodzaju_42_1-38_Biblia_Audio_CC.mp3",
+        "verses": "1–38"
+      }
+    ]
   },
   {
     "id": "genesis-43",
