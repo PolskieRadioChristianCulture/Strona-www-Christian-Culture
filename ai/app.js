@@ -756,6 +756,16 @@ function trackAiEvent(name, params = {}) {
 }
 
 function getProStatus() {
+  if (typeof window !== 'undefined' && window.CCProManager && typeof window.CCProManager.getStatus === 'function') {
+    const st = window.CCProManager.getStatus('ai-dla-jezusa');
+    return {
+      active: Boolean(st.active),
+      tier: st.tier,
+      label: st.label,
+      daysLeft: st.daysLeft,
+      percent: st.percent
+    };
+  }
   if (ownerSession?.isOwner) {
     return { active: true, tier: 'owner', label: 'PRO · WŁAŚCICIEL', daysLeft: null, percent: 100 };
   }
@@ -877,7 +887,14 @@ function openProModal() {
   wspieramLink.target = '_blank';
   wspieramLink.rel = 'noopener noreferrer';
   wspieramLink.textContent = 'Mecenas CC (WspieramTO)';
-  wspieramLink.addEventListener('click', () => trackAiEvent('donate_click', { method: 'wspieramto', place: 'ai_pro_modal' }));
+  wspieramLink.addEventListener('click', (e) => {
+    trackAiEvent('donate_click', { method: 'wspieramto', place: 'ai_pro_modal' });
+    if (typeof window !== 'undefined' && window.CCProManager && typeof window.CCProManager.openUpgradeModal === 'function') {
+      e.preventDefault();
+      closeInfoDialog();
+      window.CCProManager.openUpgradeModal();
+    }
+  });
 
   row.append(patronLink, wspieramLink);
 
@@ -889,8 +906,13 @@ function openProModal() {
     togglePatronBtn.textContent = isPatronLocal ? 'Wyłącz lokalną deklarację Patrona' : 'Jestem Patronem / Mecenasem CC';
     togglePatronBtn.addEventListener('click', () => {
       try {
-        if (isPatronLocal) localStorage.removeItem(PRO_PATRON_STORAGE_KEY);
-        else localStorage.setItem(PRO_PATRON_STORAGE_KEY, '1');
+        if (isPatronLocal) {
+          localStorage.removeItem(PRO_PATRON_STORAGE_KEY);
+          if (window.CCProManager) window.CCProManager.deactivatePatron();
+        } else {
+          localStorage.setItem(PRO_PATRON_STORAGE_KEY, '1');
+          if (window.CCProManager) window.CCProManager.activatePatron();
+        }
       } catch {}
       syncProBadge();
       openProModal();

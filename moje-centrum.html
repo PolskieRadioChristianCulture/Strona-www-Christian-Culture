@@ -19,6 +19,7 @@
 
     <!-- Ikony & Fonty -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/components/cc-pro.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -587,8 +588,63 @@
             </div>
         </section>
 
-        <!-- ── Siatka 6 Strategicznych Modułów ── -->
+        <!-- ── Siatka Strategicznych Modułów CC ── -->
         <div class="hub-grid" id="hubGrid">
+
+            <!-- 0. Moje usługi PRO · WspieramTO -->
+            <article class="hub-card hub-card-pro" id="cardProServices" style="grid-column: 1 / -1; border-color: rgba(196, 163, 90, 0.45); background: linear-gradient(180deg, rgba(18, 22, 31, 0.98), rgba(11, 15, 25, 0.98));">
+                <header class="hub-card-header" style="background: rgba(196, 163, 90, 0.08);">
+                    <div class="hub-card-title-wrap">
+                        <span class="hub-card-icon" style="color: #c4a35a;"><i class="fa-solid fa-crown"></i></span>
+                        <div>
+                            <h2 class="hub-card-title" style="display: flex; align-items: center; gap: 8px;">
+                                <span>Moje usługi PRO</span>
+                                <span class="cc-pro-badge is-patron" id="proHeaderBadge">Mecenat WspieramTO</span>
+                            </h2>
+                            <p class="hub-card-subtitle">Jeden mecenat WspieramTO odblokowuje wszystkie zaawansowane narzędzia ekosystemu CC</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <button type="button" class="cc-btn-support-pro" id="hubProUpgradeBtn" title="Zarządzaj mecenatem lub wesprzyj misję">
+                            <i class="fa-solid fa-heart"></i>
+                            <span>WspieramTO</span>
+                        </button>
+                    </div>
+                </header>
+                <div class="hub-card-body" style="gap: 16px;">
+                    <!-- Belka statusu mecenatu -->
+                    <div id="hubProStatusBanner" style="padding: 14px 18px; border-radius: 12px; background: rgba(196, 163, 90, 0.1); border: 1px solid rgba(196, 163, 90, 0.25); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+                        <div>
+                            <div style="font-weight: 700; color: #f1f5f9; display: flex; align-items: center; gap: 8px;" id="hubProStatusTitle">
+                                <i class="fa-solid fa-shield-halved" style="color: #c4a35a;"></i>
+                                <span id="hubProStatusText">Status Mecenatu: Weryfikacja...</span>
+                            </div>
+                            <div style="font-size: 0.82rem; color: #94a3b8; margin-top: 4px;" id="hubProStatusDesc">
+                                Żadna aplikacja CC nie pobiera osobnych opłat. Twój mecenat w systemie WspieramTO utrzymuje wolne media Boże i aktywuje pełnię funkcji PRO.
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;" id="hubProActionsWrap">
+                            <button type="button" class="hub-pill-action" id="hubProTogglePatronBtn" style="color: #c4a35a; border-color: rgba(196, 163, 90, 0.4);">
+                                <i class="fa-solid fa-hand-holding-heart"></i> <span id="hubProTogglePatronText">Jestem Patronem CC</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Siatka Zintegrowanych Usług PRO -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;" id="hubProServicesGrid">
+                        <!-- Renderowane dynamicznie przez CCProManager -->
+                    </div>
+                </div>
+                <footer class="hub-card-footer" style="background: rgba(0, 0, 0, 0.25);">
+                    <span style="font-size: 0.78rem; color: #94a3b8; display: flex; align-items: center; gap: 6px;">
+                        <i class="fa-solid fa-lock-open" style="color: #c4a35a;"></i>
+                        Wspólny centralny portfel uprawnień CC (Zero-Cost / Mecenat WspieramTO)
+                    </span>
+                    <a href="/wspieramto" class="hub-card-link" style="color: #ff7a00;">
+                        Dowiedz się więcej o mecenacie WspieramTO &rarr;
+                    </a>
+                </footer>
+            </article>
 
             <!-- 1. Ulubione strony -->
             <article class="hub-card" id="cardFavorites">
@@ -727,6 +783,8 @@
     <script src="/js/cc-favorites.js" defer></script>
     <script src="/components/cc-omni-search.js?v=20261105_help3" defer></script>
     <script src="/js/cc-back-to-top.js?v=20261013_col2" defer></script>
+    <script src="/js/cc-pro-manager.js" defer></script>
+    <script src="/components/cc-wspieramto-modal.js" defer></script>
 
     <!-- Kontroler Pulpitu Moje Centrum CC -->
     <script>
@@ -1066,15 +1124,109 @@
                 return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
             }
 
+            // 8. Integracja panelu Moje usługi PRO (WspieramTO)
+            function renderProServices() {
+                if (!window.CCProManager) return;
+                const st = window.CCProManager.getStatus();
+                const headerBadge = document.getElementById('proHeaderBadge');
+                const statusTitle = document.getElementById('hubProStatusText');
+                const statusDesc = document.getElementById('hubProStatusDesc');
+                const toggleBtnText = document.getElementById('hubProTogglePatronText');
+                const grid = document.getElementById('hubProServicesGrid');
+
+                if (headerBadge) {
+                    headerBadge.textContent = st.badge || 'PRO';
+                    headerBadge.className = 'cc-pro-badge ' + (st.tier === 'patron' || st.tier === 'owner' ? 'is-patron' : (st.tier === 'trial' ? 'is-trial' : 'is-free'));
+                }
+
+                if (statusTitle) {
+                    if (st.tier === 'owner') {
+                        statusTitle.textContent = 'Pełny Dostęp Właściciela Ekosystemu Christian Culture';
+                    } else if (st.tier === 'patron') {
+                        statusTitle.textContent = 'Aktywny Mecenat WspieramTO (Status Patrona CC)';
+                    } else if (st.tier === 'trial') {
+                        statusTitle.textContent = 'Darmowy Start PRO: Pozostało ' + st.daysLeft + ' z 7 dni';
+                    } else {
+                        statusTitle.textContent = 'Wersja Podstawowa (Wsparcie w WspieramTO odblokowuje pełnię PRO)';
+                    }
+                }
+
+                if (statusDesc) {
+                    if (st.active) {
+                        statusDesc.textContent = 'Wszystkie 8 usług PRO jest odblokowane i aktywne. Twój dar utrzymuje wolne media Boże bez reklam i paywalli.';
+                    } else {
+                        statusDesc.textContent = 'Nie prowadzimy odrębnych płatności w aplikacjach. Każde dobrowolne wsparcie w systemie WspieramTO odblokowuje wszystkie usługi PRO.';
+                    }
+                }
+
+                if (toggleBtnText) {
+                    toggleBtnText.textContent = st.tier === 'patron' ? 'Wyłącz status Patrona' : 'Jestem Patronem CC';
+                }
+
+                if (grid) {
+                    const services = window.CCProManager.SERVICES || [];
+                    grid.innerHTML = services.map(svc => `
+                        <div class="cc-pro-service-item">
+                            <div class="cc-pro-service-icon"><i class="${escapeHtml(svc.icon)}"></i></div>
+                            <div class="cc-pro-service-details">
+                                <div class="cc-pro-service-name">
+                                    <span>${escapeHtml(svc.name)}</span>
+                                    <span class="cc-pro-badge ${st.active ? 'is-active' : 'is-free'}" style="font-size:0.68rem;padding:1px 6px;min-height:20px;">
+                                        ${st.active ? 'Aktywne' : 'WspieramTO'}
+                                    </span>
+                                </div>
+                                <p class="cc-pro-service-tagline">${escapeHtml(svc.tagline)}</p>
+                            </div>
+                            <div class="cc-pro-service-action">
+                                <a href="${escapeHtml(svc.url)}" class="cc-pro-service-link" title="Przejdź do ${escapeHtml(svc.name)}">
+                                    Otwórz &rarr;
+                                </a>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            }
+
             // Inicjalizacja całego pulpitu
             document.addEventListener('DOMContentLoaded', () => {
                 initUserProfile();
+                renderProServices();
                 renderFavorites();
                 renderHistory();
                 renderMusic();
                 renderAcademy();
                 renderBible();
                 renderCommunity();
+
+                // Obsługa WspieramTO i przełącznika mecenatu PRO
+                const upgradeBtn = document.getElementById('hubProUpgradeBtn');
+                if (upgradeBtn) {
+                    upgradeBtn.addEventListener('click', () => {
+                        if (window.CCProManager) window.CCProManager.openUpgradeModal();
+                        else if (window.CCWspieramTo) window.CCWspieramTo.open();
+                        else window.location.href = '/wspieramto';
+                    });
+                }
+
+                const togglePatronBtn = document.getElementById('hubProTogglePatronBtn');
+                if (togglePatronBtn) {
+                    togglePatronBtn.addEventListener('click', () => {
+                        if (!window.CCProManager) return;
+                        const st = window.CCProManager.getStatus();
+                        if (st.tier === 'patron') {
+                            window.CCProManager.deactivatePatron();
+                        } else {
+                            window.CCProManager.activatePatron({ supportMethod: 'deklaracja_uzytkownika' });
+                        }
+                        renderProServices();
+                    });
+                }
+
+                if (window.CCProManager) {
+                    window.CCProManager.subscribe(() => {
+                        renderProServices();
+                    });
+                }
 
                 // Reakcja na zmiany w ulubionych
                 if (window.CCFavorites?.onFavoritesChange) {

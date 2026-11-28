@@ -406,6 +406,14 @@
         </div>
       </div>
 
+      <div class="cc-wt-pro-perk-bar" style="background: rgba(196, 163, 90, 0.12); border: 1px solid rgba(196, 163, 90, 0.35); border-radius: 12px; padding: 10px 14px; margin: 14px 0 16px; font-size: 12px; color: #f1f5f9; display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 18px; color: #c4a35a;">★</span>
+        <div style="flex: 1; text-align: left; line-height: 1.4;">
+          <strong style="color: #e2cc9a;">Pakiet Usług PRO w Ekosystemie:</strong><br>
+          Twój dar odblokowuje pełny dostęp PRO we wszystkich aplikacjach (AI dla Jezusa, CC Connect 2.0, CC Bible Scholar, MojaBiblia, Moje Centrum). Zero odrębnych opłat.
+        </div>
+      </div>
+
       <div class="cc-wt-footer-note">
         100% jawności celów i etapów budowy studia na <a href="/wspieramto#nowe-studio">polskieradio.cc/wspieramto</a>.<br>
         Wszystkie treści pozostają bezpłatne i bez reklam dzięki dobrowolnym darczyńcom.
@@ -450,6 +458,24 @@
       primaryCta.href = isPln ? 'https://zrzutka.pl/z/ChristianCulture' : 'https://revolut.me/christianculture';
       primaryCta.setAttribute('data-support-method', isPln ? 'zrzutka_1click' : 'revolut_global_1click');
     }
+  }
+
+  const primaryBtnEl = modalDiv.querySelector('#ccWtPrimaryCta');
+  if (primaryBtnEl) {
+    primaryBtnEl.addEventListener('click', () => {
+      if (typeof window !== 'undefined' && window.CCProManager && typeof window.CCProManager.activatePatron === 'function') {
+        window.CCProManager.activatePatron({ supportMethod: currentCurrency === 'PLN' ? 'zrzutka' : 'revolut' });
+      }
+    });
+  }
+
+  const patroniteBtnEl = modalDiv.querySelector('#ccWtPatroniteCta');
+  if (patroniteBtnEl) {
+    patroniteBtnEl.addEventListener('click', () => {
+      if (typeof window !== 'undefined' && window.CCProManager && typeof window.CCProManager.activatePatron === 'function') {
+        window.CCProManager.activatePatron({ supportMethod: 'patronite' });
+      }
+    });
   }
 
   // Przełączanie walut

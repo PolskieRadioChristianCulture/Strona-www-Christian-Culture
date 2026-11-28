@@ -1091,3 +1091,50 @@ export function isToolAllowedForSession(toolName, activePluginIds = null, opts =
 
   return { allowed: true, ownerPlugin: matchedOwner.id };
 }
+
+export const CC_CONNECTED_PLUGINS_STORAGE_KEY = 'cc_connected_plugins_v1';
+
+export function getConnectedPluginIds(storage = typeof localStorage !== 'undefined' ? localStorage : null) {
+  if (!storage) {
+    return CC_PLUGIN_REGISTRY.filter((p) => p.defaultConnected && p.availability === 'ready').map((p) => p.id);
+  }
+  try {
+    const raw = storage.getItem(CC_CONNECTED_PLUGINS_STORAGE_KEY);
+    if (!raw) {
+      return CC_PLUGIN_REGISTRY.filter((p) => p.defaultConnected && p.availability === 'ready').map((p) => p.id);
+    }
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+export function setPluginConnected(pluginId, connected, storage = typeof localStorage !== 'undefined' ? localStorage : null) {
+  if (!storage) return [];
+  const current = new Set(getConnectedPluginIds(storage));
+  if (connected) {
+    current.add(pluginId);
+  } else {
+    current.delete(pluginId);
+  }
+  const updated = Array.from(current);
+  try {
+    storage.setItem(CC_CONNECTED_PLUGINS_STORAGE_KEY, JSON.stringify(updated));
+  } catch {}
+  return updated;
+}
+
+export function togglePluginConnection(pluginId, storage = typeof localStorage !== 'undefined' ? localStorage : null) {
+  if (!storage) return false;
+  const current = new Set(getConnectedPluginIds(storage));
+  const willConnect = !current.has(pluginId);
+  setPluginConnected(pluginId, willConnect, storage);
+  return willConnect;
+}
+
+export function isPluginProRequired(pluginId) {
+  const p = getPluginManifest(pluginId);
+  if (!p) return false;
+  return Boolean(p.tier === 'pro' || p.proRequired || (p.scholarCategory && p.scholarCategory !== 'A'));
+}

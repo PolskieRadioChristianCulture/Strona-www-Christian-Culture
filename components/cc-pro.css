@@ -1,0 +1,204 @@
+/**
+ * ══════════════════════════════════════════════════════════════════════════════
+ * CHRISTIAN CULTURE — SPÓJNE OZNACZENIA USŁUG PRO (EKOCC PREMIUM)
+ * Plik: /components/cc-pro.css
+ * 
+ * Standard wizualny PRO dla całego ekosystemu Christian Culture:
+ * - Champagne Gold (#C4A35A) & Akcja Pomarańczowa (#FF7A00 wg JOMA-D052)
+ * - Ergonomia min. 44x44px (WCAG 2.2 AA)
+ * - Brak komercyjnych paywalli — powiązanie wyłącznie ze WspieramTO
+ * ══════════════════════════════════════════════════════════════════════════════
+ */
+
+:root {
+  --cc-pro-gold: #c4a35a;
+  --cc-pro-gold-hover: #dfc27e;
+  --cc-pro-gold-glow: rgba(196, 163, 90, 0.22);
+  --cc-pro-gold-border: rgba(196, 163, 90, 0.38);
+  --cc-btn-orange: #ff7a00;
+  --cc-btn-orange-hover: #ff8c33;
+  --cc-btn-orange-active: #e66a00;
+}
+
+/* ── Odznaka PRO ── */
+.cc-pro-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: rgba(196, 163, 90, 0.12);
+  border: 1px solid var(--cc-pro-gold-border);
+  color: var(--cc-pro-gold);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Klikalny badge o minimalnej wysokości 44px dotyku */
+button.cc-pro-badge,
+a.cc-pro-badge {
+  min-height: 44px;
+  padding: 6px 14px;
+  text-decoration: none;
+}
+
+.cc-pro-badge:hover {
+  background: var(--cc-pro-gold-glow);
+  border-color: var(--cc-pro-gold-hover);
+  color: var(--cc-pro-gold-hover);
+  transform: translateY(-1px);
+}
+
+/* Stan: Pełny Patron / Mecenas / Właściciel */
+.cc-pro-badge.is-patron,
+.cc-pro-badge.is-active:not(.is-trial) {
+  background: linear-gradient(135deg, rgba(196, 163, 90, 0.25), rgba(226, 204, 154, 0.15));
+  border-color: var(--cc-pro-gold);
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 14px rgba(196, 163, 90, 0.25);
+}
+
+/* Stan: Okres Próbny (Trial) */
+.cc-pro-badge.is-trial {
+  background: rgba(56, 189, 248, 0.14);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: #38bdf8;
+}
+
+/* Stan: Wersja Free / Wygasły Trial */
+.cc-pro-badge.is-free {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #94a3b8;
+}
+
+/* ── Główny Przycisk Akcji Mecenatu WspieramTO (#FF7A00) ── */
+.cc-btn-support-pro {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  background-color: var(--cc-btn-orange);
+  color: #ffffff !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(255, 122, 0, 0.35);
+  transition: background-color 0.18s ease, transform 0.15s ease, box-shadow 0.18s ease;
+  touch-action: manipulation;
+}
+
+.cc-btn-support-pro:hover {
+  background-color: var(--cc-btn-orange-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(255, 122, 0, 0.45);
+}
+
+.cc-btn-support-pro:active {
+  background-color: var(--cc-btn-orange-active);
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(255, 122, 0, 0.3);
+}
+
+/* ── Karta Usługi PRO w Pulpicie ── */
+.cc-pro-service-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cc-pro-service-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--cc-pro-gold-border);
+  transform: translateX(2px);
+}
+
+.cc-pro-service-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--cc-pro-gold-glow);
+  border: 1px solid var(--cc-pro-gold-border);
+  color: var(--cc-pro-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+.cc-pro-service-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.cc-pro-service-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cc-pro-service-tagline {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin-top: 2px;
+  line-height: 1.35;
+}
+
+.cc-pro-service-action {
+  align-self: center;
+  flex-shrink: 0;
+}
+
+.cc-pro-service-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  padding: 0 10px;
+  color: var(--cc-pro-gold);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: color 0.15s ease;
+}
+
+.cc-pro-service-link:hover {
+  color: var(--cc-pro-gold-hover);
+  text-decoration: underline;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-pro-badge,
+  .cc-btn-support-pro,
+  .cc-pro-service-item {
+    transition: none !important;
+    transform: none !important;
+  }
+}
