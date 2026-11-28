@@ -24,19 +24,24 @@
   'use strict';
 
   var STORAGE_KEY = 'cc_pro_entitlement_v1';
+  var WALLET_LOG_KEY = 'cc_wspieramto_wallet_log_v1';
   var LEGACY_AI_PATRON_KEY = 'ai_dla_jezusa_is_patron_v1';
   var LEGACY_AI_TRIAL_KEY = 'ai_dla_jezusa_pro_trial_started_v1';
   var OWNER_SESSION_KEY = 'ai_owner_session_v1';
+  var PANEL_URL = '/wspieramto/panel';
   var TRIAL_DAYS = 7;
 
   /**
    * Kanoniczny rejestr wszystkich obecnych i planowanych usług PRO ekosystemu Christian Culture.
    * Wszystkie podpięte pod JEDEN wspólny mecenat WspieramTO.
+   * Nowe moduły lub wtyczki wystarczy rejestrować w CCProManager.SERVICES (przez registerService),
+   * a uzyskają natychmiastową spójność w całym ekosystemie i w Panelu Użytkownika.
    */
   var CC_PRO_SERVICES = [
     {
       id: 'ai-dla-jezusa',
       name: 'AI dla Jezusa PRO',
+      category: 'ai-biblia',
       tagline: 'Głębokie modele badawcze, nielimitowani asystenci biblijni i zaawansowane konspekty',
       url: '/ai/aplikacja',
       icon: 'fa-solid fa-brain',
@@ -50,6 +55,7 @@
     {
       id: 'cc-connect',
       name: 'CC Connect 2.0 PRO',
+      category: 'ai-biblia',
       tagline: 'Pełna orkiestracja 40+ wtyczek domenowych i narzędzi Scholar',
       url: '/ai/aplikacja?nav=Połączenia',
       icon: 'fa-solid fa-network-wired',
@@ -63,19 +69,21 @@
     {
       id: 'cc-bible-scholar',
       name: 'CC Bible Scholar PRO',
-      tagline: '344 799 odsyłaczy OpenBible, pełna konkordancja UBG, leksykon Stronga i mapy myśli',
+      category: 'ai-biblia',
+      tagline: '344 799 odsyłaczy OpenBible, morfologia SBLGNT/OSHB, atlas Theographic i synopsa Ewangelii',
       url: '/mojabiblia',
       icon: 'fa-solid fa-scroll',
       badge: 'PRO · SCHOLAR',
       benefits: [
-        'Pełna baza odsyłaczy krzyżowych OpenBible CC-BY sharded per book',
-        'Błyskawiczna konkordancja 31 212 wersetów Pisma Świętego UBG',
-        'Eksport graficznych map myśli egzegezy do formatu SVG/XML'
+        'Pełna baza odsyłaczy krzyżowych OpenBible CC-BY oraz synopsa czterech Ewangelii',
+        'Dekoder morfologii SBLGNT/OSHB oraz atlas miejsc i postaci Theographic',
+        'Błyskawiczna konkordancja UBG i eksport map myśli egzegezy do SVG/XML'
       ]
     },
     {
       id: 'mojabiblia',
       name: 'MojaBiblia Interlinearna PRO',
+      category: 'ai-biblia',
       tagline: 'Morfologia greki i hebrajskiego, kody Stronga i wielopoziomowe porównywarki',
       url: '/mojabiblia',
       icon: 'fa-solid fa-book-bible',
@@ -89,6 +97,7 @@
     {
       id: 'akademia',
       name: 'Akademia Biblijna PRO',
+      category: 'ai-biblia',
       tagline: 'Pełne archiwum Kursu Codziennego, konspekty PDF do druku i certyfikaty formacji',
       url: '/akademia',
       icon: 'fa-solid fa-graduation-cap',
@@ -102,6 +111,7 @@
     {
       id: 'cc-studio',
       name: 'CC Studio DAW PRO',
+      category: 'media-spolecznosc',
       tagline: 'Wielościeżkowa oś czasu, mastering radiowy -16 LUFS i eksport słuchowisk',
       url: '/studio',
       icon: 'fa-solid fa-sliders',
@@ -115,6 +125,7 @@
     {
       id: 'player',
       name: 'Radio CC Player Hi-Fi PRO',
+      category: 'media-spolecznosc',
       tagline: 'Transmisja bezstratna, profile korektora audio i ekskluzywne streamy studyjne',
       url: '/player',
       icon: 'fa-solid fa-radio',
@@ -128,6 +139,7 @@
     {
       id: 'lumina',
       name: 'LUMINA Mecenat PRO',
+      category: 'media-spolecznosc',
       tagline: 'Złota odznaka Mecenasa Ewangelii, zamknięte spotkania live i pokoje dyskusyjne',
       url: '/lumina',
       icon: 'fa-solid fa-users',
@@ -205,6 +217,7 @@
         daysLeft: null,
         percent: 100,
         supportUrl: '/wspieramto',
+        panelUrl: PANEL_URL,
         servicesCount: CC_PRO_SERVICES.length,
         serviceAccess: true
       };
@@ -227,6 +240,7 @@
         daysLeft: null,
         percent: 100,
         supportUrl: '/wspieramto',
+        panelUrl: PANEL_URL,
         servicesCount: CC_PRO_SERVICES.length,
         serviceAccess: true
       };
@@ -247,6 +261,7 @@
         daysLeft: null,
         percent: 100,
         supportUrl: '/wspieramto',
+        panelUrl: PANEL_URL,
         servicesCount: CC_PRO_SERVICES.length,
         serviceAccess: true
       };
@@ -288,6 +303,7 @@
         daysLeft: daysLeft,
         percent: Math.round((daysLeft / TRIAL_DAYS) * 100),
         supportUrl: '/wspieramto',
+        panelUrl: PANEL_URL,
         servicesCount: CC_PRO_SERVICES.length,
         serviceAccess: true
       };
@@ -303,9 +319,117 @@
       daysLeft: 0,
       percent: 0,
       supportUrl: '/wspieramto',
+      panelUrl: PANEL_URL,
       servicesCount: CC_PRO_SERVICES.length,
       serviceAccess: false
     };
+  }
+
+  /**
+   * Zwraca pełną listę zarejestrowanych usług PRO (kanoniczne + dynamicznie dodane moduły/wtyczki).
+   */
+  function getServices() {
+    return CC_PRO_SERVICES.slice();
+  }
+
+  /**
+   * Zwraca pojedynczą usługę PRO wg identyfikatora lub null.
+   * @param {string} serviceId
+   */
+  function getService(serviceId) {
+    var cleanId = String(serviceId || '').trim();
+    if (!cleanId) return null;
+    for (var i = 0; i < CC_PRO_SERVICES.length; i++) {
+      if (CC_PRO_SERVICES[i].id === cleanId) return CC_PRO_SERVICES[i];
+    }
+    return null;
+  }
+
+  /**
+   * Rejestruje nowy moduł lub wtyczkę w centralnym rejestrze CCProManager.SERVICES.
+   * Zapewnia natychmiastową spójność uprawnień i widoczność w Panelu Użytkownika WspieramTO.
+   * @param {object} serviceDef
+   */
+  function registerService(serviceDef) {
+    if (!serviceDef || typeof serviceDef !== 'object') {
+      throw new Error('Wymagana definicja usługi PRO.');
+    }
+    var id = String(serviceDef.id || '').trim();
+    var name = String(serviceDef.name || '').trim();
+    var tagline = String(serviceDef.tagline || serviceDef.description || '').trim();
+    var url = String(serviceDef.url || '/wspieramto/panel').trim();
+
+    if (!id || !name || !tagline) {
+      throw new Error('Usługa PRO musi zawierać pola id, name oraz tagline.');
+    }
+
+    var badge = String(serviceDef.badge || ('PRO · ' + id.toUpperCase())).trim();
+    var entry = {
+      id: id,
+      name: name,
+      category: String(serviceDef.category || 'ai-biblia').trim(),
+      tagline: tagline,
+      url: url,
+      icon: String(serviceDef.icon || 'fa-solid fa-star').trim(),
+      badge: badge,
+      benefits: Array.isArray(serviceDef.benefits) && serviceDef.benefits.length > 0
+        ? serviceDef.benefits.slice()
+        : ['Dostęp odblokowany jednym mecenatem WspieramTO (bez odrębnych opłat)']
+    };
+
+    var replaced = false;
+    for (var i = 0; i < CC_PRO_SERVICES.length; i++) {
+      if (CC_PRO_SERVICES[i].id === id) {
+        CC_PRO_SERVICES[i] = entry;
+        replaced = true;
+        break;
+      }
+    }
+    if (!replaced) {
+      CC_PRO_SERVICES.push(entry);
+    }
+
+    notifyListeners();
+    return entry;
+  }
+
+  /**
+   * Odczytuje lokalny dziennik aktywności portfela WspieramTO (maks. 30 wpisów, bez PII).
+   */
+  function getWalletLog() {
+    var raw = safeGetStorage(WALLET_LOG_KEY);
+    if (!raw) return [];
+    try {
+      var parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  /**
+   * Dopisuje wpis o aktywności portfela uprawnień (lokalnie w przeglądarce).
+   * @param {object} entry
+   */
+  function appendWalletLog(entry) {
+    entry = entry || {};
+    var log = getWalletLog();
+    var item = {
+      action: String(entry.action || 'status_update'),
+      method: String(entry.method || 'wspieramto'),
+      note: String(entry.note || ''),
+      timestamp: entry.timestamp || Date.now()
+    };
+    log.unshift(item);
+    if (log.length > 30) log = log.slice(0, 30);
+    safeSetStorage(WALLET_LOG_KEY, log);
+    return log;
+  }
+
+  function clearWalletLog() {
+    safeSetStorage(WALLET_LOG_KEY, []);
+    notifyListeners();
+    return [];
   }
 
   /**
@@ -337,6 +461,11 @@
     };
     safeSetStorage(STORAGE_KEY, data);
     safeSetStorage(LEGACY_AI_PATRON_KEY, '1');
+    appendWalletLog({
+      action: 'patron_activated',
+      method: data.supportMethod,
+      note: options.donorRef ? ('Ref: ' + String(options.donorRef).slice(0, 64)) : 'Aktywacja statusu Patrona CC (WspieramTO)'
+    });
     notifyListeners();
     return getStatus();
   }
@@ -350,6 +479,11 @@
     ent.tier = 'free';
     ent.source = 'none';
     safeSetStorage(STORAGE_KEY, ent);
+    appendWalletLog({
+      action: 'patron_deactivated',
+      method: 'wspieramto',
+      note: 'Powrót do wersji podstawowej'
+    });
     notifyListeners();
     return getStatus();
   }
@@ -442,12 +576,20 @@
 
   return {
     STORAGE_KEY: STORAGE_KEY,
+    WALLET_LOG_KEY: WALLET_LOG_KEY,
+    PANEL_URL: PANEL_URL,
     TRIAL_DAYS: TRIAL_DAYS,
     SERVICES: CC_PRO_SERVICES,
+    getServices: getServices,
+    getService: getService,
+    registerService: registerService,
     getStatus: getStatus,
     hasAccess: hasAccess,
     activatePatron: activatePatron,
     deactivatePatron: deactivatePatron,
+    getWalletLog: getWalletLog,
+    appendWalletLog: appendWalletLog,
+    clearWalletLog: clearWalletLog,
     openUpgradeModal: openUpgradeModal,
     syncBadgeElement: syncBadgeElement,
     subscribe: subscribe

@@ -1,0 +1,12 @@
+{
+  "datasetId": "theographic-bible-data",
+  "name": "Theographic Bible Data",
+  "version": "1.4.0",
+  "author": "Theographic Project",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "sourceUrl": "https://github.com/robert-rouse/theographic-bible-data",
+  "provenanceNotice": "Public geospatial and prosopographical Bible datasets adapted for Christian Culture EkoCC. Attributed under CC BY-SA 4.0.",
+  "status": "approved",
+  "auditedAt": "2026-11-28T13:05:00Z"
+}

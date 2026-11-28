@@ -54,8 +54,37 @@ describe('Punkt 1 & 2: Centralny mechanizm zarządzania dostępem PRO powiązany
     const CCProManager = globalThis.CCProManager;
     assert.ok(CCProManager, 'CCProManager musi być poprawnie wyeksportowany');
     assert.equal(CCProManager.STORAGE_KEY, 'cc_pro_entitlement_v1');
+    assert.equal(CCProManager.WALLET_LOG_KEY, 'cc_wspieramto_wallet_log_v1');
+    assert.equal(CCProManager.PANEL_URL, '/wspieramto/panel');
     assert.ok(Array.isArray(CCProManager.SERVICES), 'SERVICES musi być tablicą');
     assert.ok(CCProManager.SERVICES.length >= 8, `Oczekiwano co najmniej 8 usług PRO, jest: ${CCProManager.SERVICES.length}`);
+
+    // Test centralnej rejestracji nowej wtyczki/usługi PRO
+    assert.equal(typeof CCProManager.registerService, 'function', 'Musi eksportować registerService');
+    assert.equal(typeof CCProManager.getServices, 'function', 'Musi eksportować getServices');
+    assert.equal(typeof CCProManager.getWalletLog, 'function', 'Musi eksportować getWalletLog');
+    const beforeLen = CCProManager.SERVICES.length;
+    const added = CCProManager.registerService({
+      id: 'test-plugin-pro',
+      name: 'Testowa Wtyczka PRO',
+      tagline: 'Weryfikacja natychmiastowej spójności przez CCProManager.SERVICES',
+      url: '/test/bible-scholar/'
+    });
+    assert.equal(added.id, 'test-plugin-pro');
+    assert.equal(CCProManager.SERVICES.length, beforeLen + 1);
+    assert.equal(CCProManager.getService('test-plugin-pro')?.name, 'Testowa Wtyczka PRO');
+    // Deduplikacja po ID przy ponownej rejestracji
+    CCProManager.registerService({
+      id: 'test-plugin-pro',
+      name: 'Testowa Wtyczka PRO v2',
+      tagline: 'Zaktualizowany opis wtyczki',
+      url: '/test/bible-scholar/'
+    });
+    assert.equal(CCProManager.SERVICES.length, beforeLen + 1);
+    assert.equal(CCProManager.getService('test-plugin-pro')?.name, 'Testowa Wtyczka PRO v2');
+    // Posprzątaj po teście w pamięci
+    const idx = CCProManager.SERVICES.findIndex((s) => s.id === 'test-plugin-pro');
+    if (idx !== -1) CCProManager.SERVICES.splice(idx, 1);
 
     // Sprawdź wymagane usługi
     const serviceIds = CCProManager.SERVICES.map((s) => s.id);
@@ -85,6 +114,7 @@ describe('Punkt 1 & 2: Centralny mechanizm zarządzania dostępem PRO powiązany
     assert.ok(typeof st.active === 'boolean');
     assert.ok(['free', 'trial', 'patron', 'owner'].includes(st.tier));
     assert.equal(st.supportUrl, '/wspieramto');
+    assert.equal(st.panelUrl, '/wspieramto/panel');
   });
 });
 

@@ -1,0 +1,12 @@
+{
+  "datasetId": "sblgnt-morphology",
+  "name": "SBL Greek New Testament & Morphological Analysis",
+  "version": "2020.1",
+  "author": "Society of Biblical Literature / Logos Bible Software / STEPBible",
+  "license": "CC BY 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+  "sourceUrl": "https://sblgnt.com/",
+  "provenanceNotice": "SBLGNT text and Robinson/STEP morphological tags adapted for Christian Culture EkoCC.",
+  "status": "approved",
+  "auditedAt": "2026-11-28T13:05:00Z"
+}

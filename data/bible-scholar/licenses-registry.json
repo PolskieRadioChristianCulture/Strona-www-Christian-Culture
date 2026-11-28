@@ -122,11 +122,42 @@
     "theographic-bible-metadata": {
       "id": "theographic-bible-metadata",
       "name": "Theographic People / Places / Events / Timeline",
-      "status": "pending",
-      "licenseId": "CC-BY-SA-4.0 (planowany import Etap 4)",
+      "status": "approved",
+      "licenseId": "CC-BY-SA-4.0",
       "commercialAllowed": true,
       "changesAllowed": true,
-      "sourceUrl": "https://github.com/robertrouse/theographic-bible-metadata"
+      "sourceUrl": "https://github.com/robert-rouse/theographic-bible-data",
+      "attribution": "Theographic Bible Data © Robert Rouse (CC BY-SA 4.0)"
+    },
+    "sblgnt-morphology": {
+      "id": "sblgnt-morphology",
+      "name": "SBL Greek New Testament & Morphological Analysis",
+      "status": "approved",
+      "licenseId": "CC-BY-4.0",
+      "commercialAllowed": true,
+      "changesAllowed": true,
+      "sourceUrl": "https://sblgnt.com/",
+      "attribution": "SBLGNT / Logos Bible Software / STEPBible (CC BY 4.0)"
+    },
+    "oshb-morphology": {
+      "id": "oshb-morphology",
+      "name": "Open Scriptures Hebrew Bible (OSHB / WLC)",
+      "status": "approved",
+      "licenseId": "CC-BY-4.0",
+      "commercialAllowed": true,
+      "changesAllowed": true,
+      "sourceUrl": "https://github.com/openscriptures/morphhb",
+      "attribution": "OSHB Westminster Leningrad Codex morphology and lemmas (CC BY 4.0)"
+    },
+    "gospel-synopsis": {
+      "id": "gospel-synopsis",
+      "name": "Parallel Passages & Gospel Synopsis Data",
+      "status": "approved",
+      "licenseId": "CC-BY-4.0",
+      "commercialAllowed": true,
+      "changesAllowed": true,
+      "sourceUrl": "https://github.com/STEPBible/STEPBible-Data",
+      "attribution": "United Bible Societies / Open Gospel Parallels / EkoCC (CC BY 4.0)"
     },
     "ubs-dictionary-lxx": {
       "id": "ubs-dictionary-lxx",

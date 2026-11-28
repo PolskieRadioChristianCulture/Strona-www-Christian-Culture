@@ -30,7 +30,10 @@ import {
   ccBibleCompareEditions,
   ccBibleStudyQuestions,
   ccBibleStudyTemplate,
-  ccBibleMindMapSeed
+  ccBibleMindMapSeed,
+  ccBibleMorphologyParse,
+  ccBibleEntityLookup,
+  ccBibleGospelSynopsis
 } from './scholar-tools.js';
 import { handleAiChatRequest, handleAiTranscribeRequest } from './chat-service.js';
 import { handleOwnerSessionRequest, handleOwnerActionRequest } from './owner-workspace.js';
@@ -223,6 +226,26 @@ export async function handleAiDlaJezusaApi(request, env = {}, deps = {}) {
   if (path === '/api/ai-dla-jezusa/v1/scholar/mind-map-seed' && request.method === 'GET') {
     const reference = url.searchParams.get('ref') || url.searchParams.get('reference') || '';
     return jsonResponse(await ccBibleMindMapSeed({ reference }, env, deps));
+  }
+
+  if (path === '/api/ai-dla-jezusa/v1/scholar/morphology' && request.method === 'GET') {
+    const code = url.searchParams.get('code') || url.searchParams.get('morph') || '';
+    const lang = url.searchParams.get('lang') || '';
+    return jsonResponse(await ccBibleMorphologyParse({ code, lang }, env, deps));
+  }
+
+  if (path === '/api/ai-dla-jezusa/v1/scholar/entities' && request.method === 'GET') {
+    const query = url.searchParams.get('q') || url.searchParams.get('query') || '';
+    const type = url.searchParams.get('type') || 'all';
+    const limit = url.searchParams.get('limit') || '10';
+    return jsonResponse(await ccBibleEntityLookup({ query, type, limit }, env, deps));
+  }
+
+  if (path === '/api/ai-dla-jezusa/v1/scholar/synopsis' && request.method === 'GET') {
+    const pericopeId = url.searchParams.get('id') || url.searchParams.get('pericopeId') || '';
+    const passage = url.searchParams.get('ref') || url.searchParams.get('passage') || '';
+    const query = url.searchParams.get('q') || url.searchParams.get('query') || '';
+    return jsonResponse(await ccBibleGospelSynopsis({ pericopeId, passage, query }, env, deps));
   }
 
   if (path === '/api/ai-dla-jezusa/v1/canva/oauth/start' && request.method === 'GET') {

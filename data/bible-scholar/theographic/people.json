@@ -1,0 +1,131 @@
+[
+  {
+    "id": "person-jesus-christ",
+    "namePl": "Jezus Chrystus",
+    "nameEn": "Jesus Christ",
+    "original": "יֵשׁוּעַ / Ἰησοῦς Χριστός",
+    "strong": "G2424 / G5547",
+    "role": "Mesjasz, Syn Boży, Zbawiciel świata",
+    "gender": "male",
+    "era": "Nowy Testament",
+    "relatives": {
+      "mother": "person-mary-mother",
+      "legalFather": "person-joseph-husband",
+      "lineage": "Z rodu Dawida, plemię Judy"
+    },
+    "description": "Wcielone Słowo Boże, Mesjasz obiecany w pismach Starego Testamentu, który oddał swoje życie jako okup za wielu i zmartwychwstał dnia trzeciego.",
+    "references": ["Mt 1:21", "Łk 2:11", "J 1:1-14", "Dz 4:12", "Rz 5:8", "Flp 2:5-11", "Obj 1:17-18"]
+  },
+  {
+    "id": "person-abraham",
+    "namePl": "Abraham",
+    "nameEn": "Abraham",
+    "original": "אַבְרָהָם / Ἀβραάμ",
+    "strong": "H0085 / G0011",
+    "role": "Patriarcha, ojciec wiary",
+    "gender": "male",
+    "era": "Patriarchowie",
+    "relatives": {
+      "wife": "Sara",
+      "sons": ["Izaak", "Izmael"]
+    },
+    "description": "Praojciec narodu wybranego i ojciec wszystkich wierzących; Bóg zawarł z nim wieczne przymierze obietnicy błogosławieństwa dla wszystkich narodów ziemi.",
+    "references": ["Rdz 12:1-3", "Rdz 15:6", "Rdz 17:5", "Rz 4:1-12", "Ga 3:6-9", "Hbr 11:8-19"]
+  },
+  {
+    "id": "person-moses",
+    "namePl": "Mojżesz",
+    "nameEn": "Moses",
+    "original": "מֹשֶׁה / Μωϋσῆς",
+    "strong": "H4872 / G3475",
+    "role": "Prawodawca, prorok, wódz wyjścia z Egiptu",
+    "gender": "male",
+    "era": "Wyjście i Pustynia",
+    "relatives": {
+      "brother": "Aaron",
+      "sister": "Miriam",
+      "fatherInLaw": "Jetro"
+    },
+    "description": "Sługa Boży powołany do wyprowadzenia Izraela z niewoli egipskiej, pośrednik przymierza pod Synajem i autor Pięcioksięgu (Tory).",
+    "references": ["Wj 3:1-14", "Wj 14:21-31", "Wj 20:1-17", "Pwt 34:10-12", "J 1:17", "Hbr 11:23-29"]
+  },
+  {
+    "id": "person-david",
+    "namePl": "Dawid",
+    "nameEn": "David",
+    "original": "דָּוִד / Δαυίδ",
+    "strong": "H1732 / G1138",
+    "role": "Król Izraela, psalmista, przodek Mesjasza",
+    "gender": "male",
+    "era": "Zjednoczone Królestwo",
+    "relatives": {
+      "father": "Jesse",
+      "son": "Salomon"
+    },
+    "description": "Najwybitniejszy król Izraela, człowiek według serca Bożego, autor wielu Psalmów; Bóg obiecał mu wieczny tron w Jego potomku, Mesjaszu.",
+    "references": ["1Sm 16:1-13", "1Sm 17:45-50", "2Sm 7:12-16", "Ps 23:1", "Mt 1:1", "Łk 1:32"]
+  },
+  {
+    "id": "person-paul-apostle",
+    "namePl": "Apostoł Paweł (Saul z Tarsu)",
+    "nameEn": "Paul the Apostle",
+    "original": "Παῦλος / Σαῦλος",
+    "strong": "G3972 / G4569",
+    "role": "Apostoł pogan, teolog, autor listów",
+    "gender": "male",
+    "era": "Wczesny Kościół",
+    "relatives": {
+      "tribe": "Beniamin"
+    },
+    "description": "Faryzeusz nawrócony pod Damaszkiem przez zmartwychwstałego Jezusa; niestrudzony misjonarz zakładający zbory w Azji Mniejszej i Europie, autor trzynastu listów.",
+    "references": ["Dz 9:1-22", "Dz 13:9", "Rz 1:1", "1Kor 15:9-10", "2Kor 12:9", "2Tm 4:7-8"]
+  },
+  {
+    "id": "person-peter-apostle",
+    "namePl": "Apostoł Piotr (Szymon syn Jony)",
+    "nameEn": "Peter the Apostle",
+    "original": "Πέτρος / שִׁמְעוֹן",
+    "strong": "G4074 / G4613",
+    "role": "Apostoł, filar wczesnego Kościoła",
+    "gender": "male",
+    "era": "Nowy Testament",
+    "relatives": {
+      "brother": "Andrzej Apostoł",
+      "father": "Jona"
+    },
+    "description": "Rybak z Betsaidy powołany przez Jezusa; wyznał w Cezarei Filipowej 'Ty jesteś Chrystus, Syn Boga żywego'; kaznodzieja w dniu Pięćdziesiątnicy.",
+    "references": ["Mt 16:16-19", "Mk 14:66-72", "Łk 22:31-32", "J 21:15-19", "Dz 2:14-41", "1P 1:1-5"]
+  },
+  {
+    "id": "person-mary-mother",
+    "namePl": "Maria (matka Jezusa)",
+    "nameEn": "Mary, mother of Jesus",
+    "original": "Μαριάμ / מִרְיָם",
+    "strong": "G3137",
+    "role": "Matka Jezusa Chrystusa",
+    "gender": "female",
+    "era": "Nowy Testament",
+    "relatives": {
+      "husband": "Józef",
+      "son": "Jezus Chrystus",
+      "cousin": "Elżbieta"
+    },
+    "description": "Młoda dziewica z Nazaretu, która z wiarą przyjęła zwiastowanie archanioła Gabriela i poczęła Mesjasza z Ducha Świętego.",
+    "references": ["Łk 1:26-38", "Łk 1:46-55", "Łk 2:19", "J 19:25-27", "Dz 1:14"]
+  },
+  {
+    "id": "person-elijah",
+    "namePl": "Eliasz Prorok",
+    "nameEn": "Elijah the Prophet",
+    "original": "אֵלִיָּהוּ / Ἠλίας",
+    "strong": "H0452 / G2243",
+    "role": "Wielki prorok królestwa północnego",
+    "gender": "male",
+    "era": "Podzielone Królestwo",
+    "relatives": {
+      "successor": "Elizeusz"
+    },
+    "description": "Prorok walczący z bałwochwalstwem króla Achaba i Izebel; zatrzymał deszcz, pokonał proroków Baala na Karmelu i został wzięty do nieba w wozie ognistym.",
+    "references": ["1Krl 17:1", "1Krl 18:20-40", "2Krl 2:11-12", "Ml 4:5", "Mt 17:3", "Jk 5:17"]
+  }
+]

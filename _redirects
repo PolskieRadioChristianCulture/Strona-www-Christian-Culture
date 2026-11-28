@@ -54,6 +54,11 @@
 /Wyszukiwarka/ /wyszukiwarka 301
 
 # === WSPIERAMTO 2.0 GLOBAL (/wspieramto) ===
+/wspieramto/panel /wspieramto/panel/index.html 200
+/wspieramto/panel/ /wspieramto/panel/index.html 200
+/WspieramTO/panel /wspieramto/panel 301
+/Wspieramto/panel /wspieramto/panel 301
+/panel-uzytkownika /wspieramto/panel 301
 /wspieramto /wspieramto/index.html 200
 /wspieramto/ /wspieramto/index.html 200
 /WspieramTO /wspieramto 301

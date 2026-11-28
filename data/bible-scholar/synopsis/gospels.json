@@ -1,0 +1,132 @@
+[
+  {
+    "id": "synopsis-baptism-jesus",
+    "titlePl": "Chrzest Jezusa w Jordanie",
+    "titleEn": "The Baptism of Jesus",
+    "category": "Początek służby",
+    "pericope": {
+      "matthew": "Mt 3:13-17",
+      "mark": "Mk 1:9-11",
+      "luke": "Łk 3:21-22",
+      "john": "J 1:29-34"
+    },
+    "summary": "Jezus przychodzi z Galilei nad Jordan do Jana, aby przyjąć chrzest; Duch Święty zstępuje w postaci gołębicy, a głos Ojca z nieba obwieszcza: 'Ten jest mój Syn umiłowany'."
+  },
+  {
+    "id": "synopsis-temptation-wilderness",
+    "titlePl": "Kuszenie Jezusa na pustyni",
+    "titleEn": "The Temptation of Jesus in the Wilderness",
+    "category": "Początek służby",
+    "pericope": {
+      "matthew": "Mt 4:1-11",
+      "mark": "Mk 1:12-13",
+      "luke": "Łk 4:1-13",
+      "john": null
+    },
+    "summary": "Po 40 dniach postu diabeł kusi Jezusa chlebem, rzuceniem się ze świątyni i władzą nad światem; Jezus odpiera każdy atak słowami Pisma Świętego z Księgi Powtórzonego Prawa."
+  },
+  {
+    "id": "synopsis-calming-storm",
+    "titlePl": "Uciszenie burzy na Jeziorze Galilejskim",
+    "titleEn": "Calming of the Storm",
+    "category": "Cuda Jezusa",
+    "pericope": {
+      "matthew": "Mt 8:23-27",
+      "mark": "Mk 4:35-41",
+      "luke": "Łk 8:22-25",
+      "john": null
+    },
+    "summary": "Gwałtowny wicher zalewa łódź z uczniami, podczas gdy Jezus śpi; obudzony gromi wiatr i fale, nakazując 'Ucisz się!', ukazując boską suwerenność nad stworzeniem."
+  },
+  {
+    "id": "synopsis-feeding-5000",
+    "titlePl": "Nakarmienie pięciu tysięcy ludzi",
+    "titleEn": "Feeding of the 5,000",
+    "category": "Cuda Jezusa",
+    "pericope": {
+      "matthew": "Mt 14:13-21",
+      "mark": "Mk 6:30-44",
+      "luke": "Łk 9:10-17",
+      "john": "J 6:1-14"
+    },
+    "summary": "Jedyny cud opisany we wszystkich czterech Ewangeliach: z pięciu chlebów jęczmiennych i dwóch ryb Jezus błogosławi i nasyca wielotysięczny tłum, a zebranych ułomków zostaje 12 koszy."
+  },
+  {
+    "id": "synopsis-peters-confession",
+    "titlePl": "Wyznanie Piotra w Cezarei Filipowej",
+    "titleEn": "Peter's Confession of Christ",
+    "category": "Objawienie tożsamości",
+    "pericope": {
+      "matthew": "Mt 16:13-20",
+      "mark": "Mk 8:27-30",
+      "luke": "Łk 9:18-21",
+      "john": "J 6:68-69"
+    },
+    "summary": "Na pytanie Jezusa 'Za kogo mnie uważacie?', Szymon Piotr odpowiada: 'Ty jesteś Chrystus, Syn Boga żywego'."
+  },
+  {
+    "id": "synopsis-transfiguration",
+    "titlePl": "Przemienienie na Świętej Górze",
+    "titleEn": "The Transfiguration",
+    "category": "Objawienie chwały",
+    "pericope": {
+      "matthew": "Mt 17:1-9",
+      "mark": "Mk 9:2-10",
+      "luke": "Łk 9:28-36",
+      "john": null
+    },
+    "summary": "W obecności Piotra, Jakuba i Jana oblicze Jezusa zajaśniało jak słońce, a Jego szaty stały się białe jak światłość; zjawiają się Mojżesz i Eliasz rozmawiający o Jego odejściu."
+  },
+  {
+    "id": "synopsis-triumphal-entry",
+    "titlePl": "Uroczysty wjazd do Jerozolimy (Niedziela Palmowa)",
+    "titleEn": "The Triumphal Entry into Jerusalem",
+    "category": "Wielki Tydzień",
+    "pericope": {
+      "matthew": "Mt 21:1-11",
+      "mark": "Mk 11:1-11",
+      "luke": "Łk 19:28-40",
+      "john": "J 12:12-19"
+    },
+    "summary": "Jezus wjeżdża do Jerozolimy na oślęciu w wypełnieniu proroctwa Zachariasza 9:9, a rzesze wołają: 'Hosanna Synowi Dawida! Błogosławiony, który przychodzi w imieniu Pańskim!'."
+  },
+  {
+    "id": "synopsis-last-supper",
+    "titlePl": "Ostatnia Wieczerza i ustanowienie Pamiątki",
+    "titleEn": "The Last Supper",
+    "category": "Męka Pańska",
+    "pericope": {
+      "matthew": "Mt 26:26-30",
+      "mark": "Mk 14:22-26",
+      "luke": "Łk 22:14-20",
+      "john": "J 13:1-30"
+    },
+    "summary": "Podczas paschy Jezus łamie chleb mówiąc 'To jest ciało moje' i podaje kielich 'To jest krew moja nowego przymierza, wylana za wielu na odpuszczenie grzechów'."
+  },
+  {
+    "id": "synopsis-crucifixion",
+    "titlePl": "Ukrzyżowanie i śmierć na Golgocie",
+    "titleEn": "The Crucifixion of Jesus",
+    "category": "Męka Pańska",
+    "pericope": {
+      "matthew": "Mt 27:32-56",
+      "mark": "Mk 15:21-41",
+      "luke": "Łk 23:26-49",
+      "john": "J 19:16-37"
+    },
+    "summary": "Chrystus umiera na krzyżu za grzechy świata, wołając: 'Wykonało się!'; zasłona w świątyni rozdziera się na dwoje od góry do dołu."
+  },
+  {
+    "id": "synopsis-resurrection",
+    "titlePl": "Zmartwychwstanie Jezusa Chrystusa",
+    "titleEn": "The Resurrection of Jesus",
+    "category": "Zmartwychwstanie",
+    "pericope": {
+      "matthew": "Mt 28:1-10",
+      "mark": "Mk 16:1-8",
+      "luke": "Łk 24:1-12",
+      "john": "J 20:1-18"
+    },
+    "summary": "Pierwszego dnia po szabacie niewiasty zastają pusty grób i odwalony kamień; anioł zwiastuje: 'Nie ma go tu, bo zmartwychwstał, jak powiedział'."
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "place-jerusalem",
+    "namePl": "Jerozolima",
+    "nameEn": "Jerusalem",
+    "original": "יְרוּשָׁלִַם / Ἱεροσόλυμα",
+    "strong": "H3389 / G2419",
+    "type": "city",
+    "lat": 31.7767,
+    "lon": 35.2342,
+    "description": "Święte Miasto, stolica zjednoczonego królestwa Izraela i Judy, miejsce Świątyni Salomona oraz męki, zmartwychwstania i wniebowstąpienia Jezusa Chrystusa.",
+    "references": ["2Sm 5:6-9", "1Krl 8:1", "Ps 122:6", "Mt 21:1-11", "Dz 1:8", "Obj 21:2"]
+  },
+  {
+    "id": "place-bethlehem",
+    "namePl": "Betlejem",
+    "nameEn": "Bethlehem",
+    "original": "בֵּית לֶחֶם / Βηθλεέμ",
+    "strong": "H1035 / G0965",
+    "type": "city",
+    "lat": 31.7054,
+    "lon": 35.2024,
+    "description": "Miasto Dawida w Judzie, miejsce narodzin Dawida oraz wypełnienia proroctwa Micheasza o narodzinach Mesjasza Jezusa.",
+    "references": ["Rdz 35:19", "Rut 1:19", "1Sm 16:1", "Mi 5:2", "Mt 2:1", "Łk 2:4-7"]
+  },
+  {
+    "id": "place-nazareth",
+    "namePl": "Nazaret",
+    "nameEn": "Nazareth",
+    "original": "Ναζαρέτ / נָצְרַת",
+    "strong": "G3478",
+    "type": "city",
+    "lat": 32.7019,
+    "lon": 35.3033,
+    "description": "Miejscowość w Galilei, gdzie wychował się Jezus Chrystus i skąd pochodziło określenie Nazarejczyk.",
+    "references": ["Mt 2:23", "Łk 1:26", "Łk 4:16", "J 1:46", "Dz 10:38"]
+  },
+  {
+    "id": "place-jordan-river",
+    "namePl": "Rzeka Jordan",
+    "nameEn": "Jordan River",
+    "original": "יַרְדֵּן / Ἰορδάνης",
+    "strong": "H3383 / G2446",
+    "type": "river",
+    "lat": 31.8361,
+    "lon": 35.5458,
+    "description": "Główna rzeka Ziemi Obiecanej, przez którą Izraelici przeszli pod wodzą Jozuego i w której Jan Chrzciciel ochrzcił Jezusa.",
+    "references": ["Joz 3:14-17", "2Krl 5:10", "Mt 3:13-17", "Mk 1:9", "Łk 3:21"]
+  },
+  {
+    "id": "place-mount-sinai",
+    "namePl": "Góra Synaj (Horeb)",
+    "nameEn": "Mount Sinai",
+    "original": "סִינַי / חֹרֵב",
+    "strong": "H5514 / H2722",
+    "type": "mountain",
+    "lat": 28.5394,
+    "lon": 33.9753,
+    "description": "Święta góra, na której Bóg zawarł przymierze z Izraelem i przekazał Mojżeszowi Dekalog (Prawo Boże).",
+    "references": ["Wj 19:1-25", "Wj 20:1-17", "Wj 34:1-4", "1Krl 19:8", "Ga 4:24-25"]
+  },
+  {
+    "id": "place-sea-of-galilee",
+    "namePl": "Jezioro Galilejskie (Tyberiadzkie / Genezaret)",
+    "nameEn": "Sea of Galilee",
+    "original": "יָם כִּנֶּרֶת / Θάλασσα τῆς Γαλιλαίας",
+    "strong": "H3672 / G1056",
+    "type": "lake",
+    "lat": 32.8222,
+    "lon": 35.5861,
+    "description": "Słodkowodne jezioro w Galilei, centrum publicznej służby Jezusa, powołania rybaków i wielu cudów (uciszenie burzy, kroczenie po falach).",
+    "references": ["Lb 34:11", "Mt 4:18", "Mt 8:23-27", "Mt 14:22-33", "J 6:1"]
+  },
+  {
+    "id": "place-capernaum",
+    "namePl": "Kafarnaum",
+    "nameEn": "Capernaum",
+    "original": "Καφαρναούμ / כְּפַר נַחוּם",
+    "strong": "G2584",
+    "type": "city",
+    "lat": 32.8805,
+    "lon": 35.5756,
+    "description": "Miasto nad Jeziorem Galilejskim, główna baza działalności Jezusa w Galilei ('Jego miasto').",
+    "references": ["Mt 4:13", "Mt 9:1", "Mk 1:21", "Łk 4:31", "J 6:59"]
+  },
+  {
+    "id": "place-mount-carmel",
+    "namePl": "Góra Karmel",
+    "nameEn": "Mount Carmel",
+    "original": "כַּרְמֶל / Κάρμηλος",
+    "strong": "H3760",
+    "type": "mountain",
+    "lat": 32.7369,
+    "lon": 35.0456,
+    "description": "Masyw górski, miejsce zwycięstwa proroka Eliasza nad prorokami Baala i zesłania ognia z nieba przez Boga.",
+    "references": ["1Krl 18:19-40", "2Krl 2:25", "Iz 35:2", "Pnp 7:5"]
+  },
+  {
+    "id": "place-antioch-syria",
+    "namePl": "Antiochia Syryjska",
+    "nameEn": "Antioch in Syria",
+    "original": "Ἀντιόχεια",
+    "strong": "G0490",
+    "type": "city",
+    "lat": 36.2021,
+    "lon": 36.1606,
+    "description": "Centrum misyjne wczesnego Kościoła, skąd wyruszały podróże Pawła i Barnaby; miejsce, gdzie po raz pierwszy nazwano uczniów chrześcijanami.",
+    "references": ["Dz 11:19-26", "Dz 13:1-3", "Dz 14:26", "Dz 15:22-35", "Ga 2:11"]
+  },
+  {
+    "id": "place-rome",
+    "namePl": "Rzym",
+    "nameEn": "Rome",
+    "original": "Ῥώμη",
+    "strong": "G4516",
+    "type": "city",
+    "lat": 41.9028,
+    "lon": 12.4964,
+    "description": "Stolica Cesarstwa Rzymskiego, cel podróży apostoła Pawła jako więźnia i adresat Listu do Rzymian.",
+    "references": ["Dz 19:21", "Dz 28:14-16", "Rz 1:7", "2Tm 1:17"]
+  }
+]

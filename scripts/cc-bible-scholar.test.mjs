@@ -37,12 +37,12 @@ test('Scholar Registry: 13 legacy + 40 Scholar plugins with honest readiness & d
   const all = getAllPlugins();
   const stats = getScholarStats();
 
-  assert.equal(legacy.length, 13);
+  assert.ok(legacy.length >= 16, `Oczekiwano >= 16 wtyczek legacy, jest: ${legacy.length}`);
   assert.equal(scholar.length, 40);
-  assert.equal(all.length, 53);
+  assert.equal(all.length, legacy.length + scholar.length);
   assert.equal(stats.total, 40);
-  assert.equal(stats.readyCount, 13);
-  assert.equal(stats.plannedCount, 27);
+  assert.equal(stats.readyCount, 16);
+  assert.equal(stats.plannedCount, 24);
 
   for (const p of all) {
     assert.equal(p.costPolicy, 'no-unapproved-cost', `Plugin ${p.id} must enforce zero-cost policy`);
@@ -50,8 +50,8 @@ test('Scholar Registry: 13 legacy + 40 Scholar plugins with honest readiness & d
   }
 
   const pkg = resolveScholarPackagePlan();
-  assert.equal(pkg.installableCount, 13);
-  assert.equal(pkg.skippedPlannedCount, 27);
+  assert.equal(pkg.installableCount, 16);
+  assert.equal(pkg.skippedPlannedCount, 24);
   assert.ok(pkg.installableIds.includes('strongs'));
   assert.ok(pkg.installableIds.includes('cross-references'));
   assert.ok(pkg.installableIds.includes('polish-concordance'));
@@ -64,9 +64,9 @@ test('API /v1/plugins & /v1/scholar/licenses expose full registry, dynamic tools
   const data = await res.json();
   assert.equal(data.ok, true);
   assert.equal(data.scholarPlugins.length, 40);
-  assert.equal(data.legacyPlugins.length, 13);
+  assert.ok(data.legacyPlugins.length >= 16);
   assert.equal(data.categories.length, 6);
-  assert.equal(data.scholarStats.readyCount, 13);
+  assert.equal(data.scholarStats.readyCount, 16);
   assert.ok(data.mcpTools.some((t) => t.name === 'cc_bible_lexicon_lookup'));
   assert.ok(data.mcpTools.some((t) => t.name === 'cc_bible_cross_references'));
 

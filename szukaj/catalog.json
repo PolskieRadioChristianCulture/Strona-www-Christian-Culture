@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-28T08:09:56.643Z",
-  "totalItems": 718,
+  "updatedAt": "2026-11-28T12:23:58.480Z",
+  "totalItems": 719,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -1103,6 +1103,26 @@
     }
   },
   "items": [
+    {
+      "title": "Panel Użytkownika WspieramTO — Moje Usługi PRO (Christian Culture)",
+      "category": "Wsparcie i społeczność",
+      "url": "https://polskieradio.cc/wspieramto/panel",
+      "description": "Osobisty Panel Użytkownika WspieramTO dla zalogowanych członków LUMINA: centralny portfel uprawnień PRO, zarządzanie statusem Patrona CC, lista wszystkich usług z CCProManager.SERVICES oraz dziennik aktywności.",
+      "tags": [
+        "wspieramto",
+        "panel użytkownika",
+        "moje usługi pro",
+        "pro",
+        "patron",
+        "mecenas",
+        "portfel",
+        "ccpromanager",
+        "ai dla jezusa",
+        "mojabiblia",
+        "akademia"
+      ],
+      "featured": true
+    },
     {
       "title": "CC Bible Scholar — Otwarte Wtyczki Badacza Pisma & Narzędzia Egzegetyczne (EkoCC)",
       "category": "Biblia i formacja",

@@ -457,10 +457,10 @@ export const CC_BIBLE_SCHOLAR_PLUGINS = Object.freeze([
     priority: 'P1',
     availability: 'ready',
     dependencies: ['strongs'],
-    datasets: ['step-mojabiblia-interlinear'],
-    tools: ['cc_bible_token_analysis'],
+    datasets: ['sblgnt-morphology', 'oshb-morphology', 'step-mojabiblia-interlinear'],
+    tools: ['cc_bible_morphology_parse', 'cc_bible_token_analysis'],
     icon: '🧩',
-    description: 'Rozbiór gramatyczny tokenów werset po wersecie (czas, tryb, przypadek, forma źródłowa) na bazie warstwy interlinearnej MojaBiblia.',
+    description: 'Rozbiór gramatyczny tokenów werset po wersecie (SBLGNT/Robinson + OSHB/WLC: czas, tryb, przypadek, biniam, forma źródłowa) po polsku.',
     licenseGate: 'approved',
     samplePrompt: 'Pokaż analizę morfologiczną wersetu J 1:1 słowo po słowie'
   }),
@@ -581,12 +581,14 @@ export const CC_BIBLE_SCHOLAR_PLUGINS = Object.freeze([
     shortName: 'Równoległe',
     scholarCategory: 'cross-refs-analysis',
     priority: 'P2',
-    availability: 'planned',
+    availability: 'ready',
     dependencies: ['cross-references'],
-    datasets: ['aquifer-biblical-knowledge'],
+    datasets: ['gospel-synopsis'],
+    tools: ['cc_bible_gospel_synopsis'],
     icon: '⚖️',
-    description: 'Planowana synopsa czterech Ewangelii oraz Królów/Kronik.',
-    licenseGate: 'pending_import'
+    description: 'Synopsa czterech Ewangelii (perykopy paralelne Mateusza, Marka, Łukasza i Jana) na licencji CC BY 4.0.',
+    licenseGate: 'approved',
+    samplePrompt: 'Pokaż synopsę czterech Ewangelii dla chrztu Jezusa lub nakarmienia pięciu tysięcy'
   }),
   scholarPlugin({
     id: 'polish-concordance',
@@ -674,11 +676,13 @@ export const CC_BIBLE_SCHOLAR_PLUGINS = Object.freeze([
     shortName: 'Atlas biblijny',
     scholarCategory: 'historical-geo',
     priority: 'P2',
-    availability: 'planned',
-    datasets: ['theographic-bible-metadata'],
+    availability: 'ready',
+    datasets: ['theographic-bible-data'],
+    tools: ['cc_bible_entity_lookup'],
     icon: '🗺️',
-    description: 'Planowany atlas miast, rzek i krain biblijnych z koordynatami z otwartego zbioru Theographic.',
-    licenseGate: 'pending_import'
+    description: 'Atlas miast, rzek, gór i krain biblijnych z koordynatami GPS i odniesieniami z otwartego zbioru Theographic (CC BY-SA 4.0).',
+    licenseGate: 'approved',
+    samplePrompt: 'Pokaż położenie i opis biblijny Jerozolimy oraz Betlejem'
   }),
   scholarPlugin({
     id: 'timeline',
@@ -710,11 +714,13 @@ export const CC_BIBLE_SCHOLAR_PLUGINS = Object.freeze([
     shortName: 'Postacie',
     scholarCategory: 'historical-geo',
     priority: 'P2',
-    availability: 'planned',
-    datasets: ['theographic-bible-metadata'],
+    availability: 'ready',
+    datasets: ['theographic-bible-data'],
+    tools: ['cc_bible_entity_lookup'],
     icon: '👥',
-    description: 'Planowany katalog ponad 3 000 osób biblijnych, genealogii i powiązań.',
-    licenseGate: 'pending_import'
+    description: 'Katalog postaci biblijnych, ich ról, genealogii i powiązań rodzinnych z otwartego zbioru Theographic (CC BY-SA 4.0).',
+    licenseGate: 'approved',
+    samplePrompt: 'Wyszukaj postać króla Dawida i jego rodzinę w Biblii'
   }),
   scholarPlugin({
     id: 'archaeology',

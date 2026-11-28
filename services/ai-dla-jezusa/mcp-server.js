@@ -43,7 +43,10 @@ import {
   ccBibleCompareEditions,
   ccBibleStudyQuestions,
   ccBibleStudyTemplate,
-  ccBibleMindMapSeed
+  ccBibleMindMapSeed,
+  ccBibleMorphologyParse,
+  ccBibleEntityLookup,
+  ccBibleGospelSynopsis
 } from './scholar-tools.js';
 import { isToolAllowedForSession } from './plugin-registry.js';
 
@@ -536,6 +539,43 @@ export const MCP_TOOLS = [
         lang: { type: "string", enum: ["pl", "en"], default: "pl" }
       }
     }
+  },
+  {
+    name: "cc_bible_morphology_parse",
+    description: "Dekoduje kody morfologiczne greki (SBLGNT/Robinson) i hebrajskiego/aramejskiego (OSHB/WLC) na polskie pojęcia gramatyczne (część mowy, przypadek, biniam, czas, tryb).",
+    inputSchema: {
+      type: "object",
+      properties: {
+        code: { type: "string", description: "Kod morfologiczny (np. 'V-IAI-3S', 'N-DSF', 'HVqp3ms')" },
+        lang: { type: "string", description: "Opcjonalna wskazówka językowa: 'grc', 'heb', 'arc' lub 'auto'" }
+      },
+      required: ["code"]
+    }
+  },
+  {
+    name: "cc_bible_entity_lookup",
+    description: "Przeszukuje bazę Theographic Bible Data pod kątem postaci i miejsc biblijnych z koordynatami GPS, rolami i powiązaniami rodzinnymi.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        query: { type: "string", description: "Szukana nazwa miejsca lub imię postaci biblijnej (np. 'Jerozolima', 'Dawid')" },
+        type: { type: "string", enum: ["all", "places", "people"], description: "Typ encji: 'places', 'people' lub 'all'" },
+        limit: { type: "number", description: "Maksymalna liczba wyników (domyślnie 10, max 50)" }
+      },
+      required: ["query"]
+    }
+  },
+  {
+    name: "cc_bible_gospel_synopsis",
+    description: "Wyszukuje perykopy i paralelizmy w synopsie czterech Ewangelii (Mateusz, Marek, Łukasz, Jan).",
+    inputSchema: {
+      type: "object",
+      properties: {
+        pericopeId: { type: "string", description: "Identyfikator perykopy (np. 'synopsis-baptism-jesus')" },
+        passage: { type: "string", description: "Fragment biblijny do dopasowania (np. 'Mt 3:13' lub 'J 6:1')" },
+        query: { type: "string", description: "Fraza tekstowa do wyszukania w tytułach i opisach synopsy" }
+      }
+    }
   }
 ];
 
@@ -936,6 +976,18 @@ async function executeTool(name, args, env = {}, deps = {}) {
 
     case 'cc_sabbath_school_get_sources': {
       return ccSabbathSchoolGetSources(args, env, deps);
+    }
+
+    case 'cc_bible_morphology_parse': {
+      return ccBibleMorphologyParse(args, env, deps);
+    }
+
+    case 'cc_bible_entity_lookup': {
+      return ccBibleEntityLookup(args, env, deps);
+    }
+
+    case 'cc_bible_gospel_synopsis': {
+      return ccBibleGospelSynopsis(args, env, deps);
     }
 
     default:

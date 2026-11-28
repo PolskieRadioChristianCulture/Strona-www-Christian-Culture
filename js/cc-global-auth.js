@@ -710,6 +710,10 @@
                             <i class="fa-solid fa-id-card"></i>
                             <span>Mój Profil (${firstName})</span>
                         </a>
+                        <a href="/wspieramto/panel" class="cc-auth-dropdown-item">
+                            <i class="fa-solid fa-crown"></i>
+                            <span>Panel Użytkownika (PRO)</span>
+                        </a>
                         <a href="/tablica" class="cc-auth-dropdown-item">
                             <i class="fa-solid fa-users-viewfinder"></i>
                             <span>Tablica Społeczności</span>

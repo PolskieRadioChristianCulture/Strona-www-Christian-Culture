@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="pl" class="no-js">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4EFTVBPE3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
+</script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#050914">
+<title>Panel Użytkownika WspieramTO — Moje Usługi PRO | Christian Culture</title>
+<meta name="description" content="Osobisty Panel Użytkownika WspieramTO w ekosystemie Christian Culture: centralny portfel uprawnień PRO, status mecenatu, wszystkie usługi PRO i lokalny dziennik wsparcia.">
+<link rel="canonical" href="https://polskieradio.cc/wspieramto/panel">
+<link rel="alternate" hreflang="pl" href="https://polskieradio.cc/wspieramto/panel">
+<link rel="alternate" hreflang="en" href="https://polskieradio.cc/wspieramto/panel?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://polskieradio.cc/wspieramto/panel">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:site_name" content="Christian Culture">
+<meta property="og:title" content="Panel Użytkownika WspieramTO — Moje Usługi PRO | Christian Culture">
+<meta property="og:description" content="Centralny portfel uprawnień PRO powiązany z systemem WspieramTO. Jeden mecenat odblokowuje wszystkie usługi PRO ekosystemu Christian Culture.">
+<meta property="og:url" content="https://polskieradio.cc/wspieramto/panel">
+<meta property="og:image" content="https://polskieradio.cc/wspieramto/assets/wsparcie-zrzutka-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="/app-christian-culture.png">
+<link rel="preload" as="image" href="/wspieramto/assets/wsparcie-zrzutka-poster.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="/css/cc-mobile-edge.css?v=20261113_edge13">
+<link rel="stylesheet" href="/wspieramto/wspieramto-v3.css?v=20261125_gift1">
+<link rel="stylesheet" href="/components/cc-pro.css">
+<link rel="stylesheet" href="/wspieramto/panel/panel.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Panel Użytkownika WspieramTO — Moje Usługi PRO",
+  "url": "https://polskieradio.cc/wspieramto/panel",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Christian Culture",
+    "url": "https://polskieradio.cc"
+  }
+}
+</script>
+<script src="/js/cc-global-auth.js?v=20261116_a007_auth" defer></script>
+<script src="/js/cc-favorites.js?v=20261114_favz1" defer></script>
+<script src="/js/cc-mobile-edge.js?v=20261110_edge12" defer></script>
+<script src="/js/cc-edge-plus.js?v=20261110_edgep2" defer></script>
+<script src="/components/cc-omni-search.js?v=20261030_feat11" defer></script>
+<script src="/components/cc-global-chat-button.js?v=20261119_gold2" defer></script>
+<script src="/js/cc-back-to-top.js?v=20261116_btt5" defer></script>
+<script src="/components/cc-support-footer.js?v=20261119_gold2" defer></script>
+<script src="/js/cc-eco-bars.js?v=20261125_promo1" defer></script>
+<script src="/js/cc-pro-manager.js" defer></script>
+<script src="/components/cc-wspieramto-modal.js?v=20261125_attr1" defer></script>
+<script src="/wspieramto/panel/panel.js" defer></script>
+</head>
+<body class="panel-page">
+<a class="skip" href="#tresc" data-i18n="skip">Przejdź do treści</a>
+
+<!-- Górny pasek informacyjny (CCEco Ticker) -->
+<div class="tick" role="region" aria-label="Pasek informacyjny ekosystemu">
+  <span class="tick__badge"><i aria-hidden="true"></i><span data-i18n="tickBadge">WspieramTO PRO</span></span>
+  <div class="tick__track"><div class="tick__run" id="tickRun"></div></div>
+</div>
+
+<!-- Nawigacja główna + Motion Primitives ScrollProgress -->
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="/wspieramto" aria-label="WspieramTO — strona główna mecenatu">
+      <img src="/app-christian-culture.png" width="38" height="38" alt="Christian Culture">
+      <span><b>Christian Culture</b><small data-i18n="brandSub">WspieramTO · Panel Użytkownika</small></span>
+    </a>
+
+    <nav aria-label="Nawigacja Panelu Użytkownika">
+      <ul class="menu" id="menu">
+        <li><a href="/wspieramto" data-i18n="navHome">WspieramTO</a></li>
+        <li><a href="#portfel-mecenatu" data-i18n="navWallet">Portfel PRO</a></li>
+        <li><a href="#moje-uslugi" data-i18n="navServices">Moje Usługi PRO</a></li>
+        <li><a href="#zarzadzanie-mecenatem" data-i18n="navPatronage">Mecenat</a></li>
+        <li><a href="/moje-centrum" data-i18n="navCenter">Moje Centrum</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-right nav__actions">
+      <a class="support-btn magnetic" href="https://zrzutka.pl/z/ChristianCulture" target="_blank" rel="noopener noreferrer" data-cc-wspieramto="true" aria-label="Wesprzyj misję WspieramTO">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.1 0 3.6 1.1 5.2 3 1.6-1.9 3.1-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg>
+        <span class="support-txt" data-i18n="navCta">Wesprzyj teraz</span>
+      </a>
+      <div class="lang-sw" role="group" aria-label="Język strony">
+        <button type="button" class="lang-btn is-on" data-lang="pl" aria-pressed="true">PL</button>
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+
+    <button class="burger" id="burgerBtn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Otwórz menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="scroll-progress" aria-hidden="true"><i id="scrollProgressBar"></i></div>
+</header>
+
+<main id="tresc">
+  <!-- HERO: LIVING AMBIENT + CANVAS PARTICLES + BORDER BEAM PORTFEL STATUS -->
+  <section class="hero panel-hero" aria-labelledby="h1">
+    <div class="hero__bg-photo" aria-hidden="true"></div>
+    <div class="hero__grid-bg" aria-hidden="true"></div>
+    <canvas class="hero__canvas" id="heroParticles" aria-hidden="true"></canvas>
+    <div class="hero__spotlight" id="heroSpotlight" aria-hidden="true"></div>
+    <div class="hero__vignette" aria-hidden="true"></div>
+
+    <div class="wrap hero__stage panel-hero__stage">
+      <div class="hero__copy">
+        <div class="hero-pill">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          <span data-i18n="heroBadge">WspieramTO · Panel Użytkownika PRO</span>
+        </div>
+
+        <h1 id="h1">
+          <span class="l"><span data-i18n="h1a">Twoje centrum</span></span>
+          <span class="l"><span class="shimmer" data-i18n="h1b">usług PRO</span></span>
+        </h1>
+
+        <p class="hero__lead" data-i18n="heroLead">
+          Wszystkie usługi PRO ekosystemu Christian Culture działają w oparciu o jeden centralny portfel uprawnień WspieramTO — bez odrębnych abonamentów i bez paywalli w aplikacjach.
+        </p>
+
+        <div class="hero__ctas">
+          <button type="button" class="btn btn--orange btn--shimmer magnetic" id="heroActionBtn">
+            <span id="heroActionText" data-i18n="heroCtaLogin">Zaloguj z Google (LUMINA)</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <a class="btn btn--glass magnetic" href="/wspieramto" data-i18n="heroCtaBack">Poznaj WspieramTO →</a>
+        </div>
+
+        <div class="hero__trust">
+          <span class="trust-chip"><i aria-hidden="true"></i><span data-i18n="trust1">1 portfel uprawnień dla wszystkich aplikacji</span></span>
+          <span class="trust-chip"><i aria-hidden="true"></i><span data-i18n="trust2">Zero odrębnych subskrypcji</span></span>
+          <span class="trust-chip"><i aria-hidden="true"></i><span data-i18n="trust3">Natychmiastowa spójność CCProManager.SERVICES</span></span>
+        </div>
+      </div>
+
+      <!-- KARTA LIVE STANU PORTFELA W HERO -->
+      <div class="hero-wallet-wrap" data-tilt>
+        <div class="glow-aura" aria-hidden="true"></div>
+        <div class="border-beam-shell">
+          <span class="border-beam-orbit" aria-hidden="true"></span>
+          <div class="wallet-hero-card">
+            <div class="wallet-hero-card__top">
+              <span class="vc-live"><i aria-hidden="true"></i><span data-i18n="walletLiveLabel">PORTFEL WSPIERAMTO</span></span>
+              <span class="cc-pro-badge" id="heroProBadge">PRO</span>
+            </div>
+
+            <div class="wallet-hero-card__metric">
+              <strong id="heroServicesCount" class="reel">8</strong>
+              <span data-i18n="walletServicesLabel">usług PRO w jednym rejestrze</span>
+            </div>
+
+            <p class="wallet-hero-card__status" id="heroStatusSummary" data-i18n="walletStatusChecking">
+              Sprawdzanie połączenia z Twoim kontem LUMINA...
+            </p>
+
+            <div class="wallet-hero-card__meter" aria-hidden="true">
+              <i id="heroProgressBar" style="width: 100%"></i>
+            </div>
+
+            <div class="wallet-hero-card__foot">
+              <a href="#moje-uslugi" class="wallet-mini-link" data-i18n="walletQuickList">Lista usług PRO ↓</a>
+              <button type="button" class="wallet-mini-btn" id="heroSupportModalBtn" data-i18n="walletQuickSupport">Wesprzyj 1-Click ↗</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRAMKA LOGOWANIA (GOŚĆ NIEZALOGOWANY) -->
+  <section class="sect panel-gate-sect" id="panelAuthGate" aria-labelledby="h-gate">
+    <div class="wrap">
+      <div class="border-beam-shell gate-shell reveal">
+        <span class="border-beam-orbit" aria-hidden="true"></span>
+        <div class="gate-card magic-card">
+          <div class="gate-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+          </div>
+          <p class="eyebrow" data-i18n="gateEyebrow">Strefa Zalogowanego Użytkownika LUMINA &amp; CC</p>
+          <h2 id="h-gate" data-i18n="gateTitle">Zaloguj się, aby otworzyć swój Panel Użytkownika WspieramTO</h2>
+          <p class="sect__lead gate-card__lead" data-i18n="gateLead">
+            Po zalogowaniu jednym kliknięciem przez Google uzyskasz natychmiastowy dostęp do swojego portfela uprawnień PRO, zarządzania statusem Patrona WspieramTO oraz pełnej listy wszystkich zintegrowanych narzędzi i wtyczek Christian Culture.
+          </p>
+
+          <ul class="gate-perks">
+            <li data-i18n="gatePerk1">Podgląd aktywnego statusu PRO (Patron CC / 7-dniowy start / Właściciel)</li>
+            <li data-i18n="gatePerk2">Wszystkie moduły zarejestrowane w CCProManager.SERVICES w jednym miejscu</li>
+            <li data-i18n="gatePerk3">Synchronizacja mecenatu WspieramTO bez oddzielnych płatności w aplikacjach</li>
+          </ul>
+
+          <div class="gate-card__actions">
+            <button type="button" class="btn btn--orange btn--shimmer magnetic" id="panelGateLoginBtn">
+              <span data-i18n="gateLoginBtn">Zaloguj się przez Google (LUMINA)</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <a class="btn btn--glass magnetic" href="/wspieramto" data-i18n="gateBackBtn">Wróć do WspieramTO</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ZAWARTOŚĆ PANELU DLA ZALOGOWANEGO UŻYTKOWNIKA -->
+  <div id="userPanelContent" hidden>
+
+    <!-- 1. KARTA TOŻSAMOŚCI I PORTFELA PRO -->
+    <section class="sect panel-sect" id="portfel-mecenatu" aria-labelledby="h-wallet">
+      <div class="wrap">
+        <div class="sect__head reveal">
+          <p class="eyebrow" data-i18n="walletEyebrow">Centralny Portfel Uprawnień WspieramTO</p>
+          <h2 id="h-wallet" data-i18n="walletTitle">Twój profil i status PRO w ekosystemie</h2>
+        </div>
+
+        <div class="panel-identity-grid">
+          <article class="panel-card magic-card reveal" data-tilt>
+            <div class="identity-row">
+              <img id="panelUserAvatar" class="identity-avatar" src="/lumina_icon.jpg" width="68" height="68" alt="Awatar użytkownika">
+              <div class="identity-meta">
+                <div class="identity-name-row">
+                  <h3 id="panelUserName">Członek LUMINA</h3>
+                  <span class="cc-pro-badge" id="panelProBadge">PRO</span>
+                </div>
+                <p id="panelUserSub" class="identity-sub">Konto połączone z LUMINA</p>
+                <div class="identity-links">
+                  <a id="panelUserProfileLink" href="/lumina-profile.html" class="inline-pill-link" data-i18n="openLuminaProfile">Mój profil LUMINA →</a>
+                  <a href="/moje-centrum" class="inline-pill-link" data-i18n="openMyCenter">Moje Centrum →</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel-card panel-card--highlight magic-card reveal">
+            <div class="status-card__head">
+              <div>
+                <span class="status-kicker" data-i18n="statusLabel">BIEŻĄCY STATUS PORTFELA</span>
+                <h3 id="panelStatusTitle">Weryfikacja uprawnień PRO...</h3>
+              </div>
+              <span class="services-pill" id="panelServicesBadge">8 / 8</span>
+            </div>
+            <p id="panelStatusDesc" class="status-card__desc">
+              Twój portfel WspieramTO zarządza uprawnieniami we wszystkich zintegrowanych aplikacjach Christian Culture.
+            </p>
+            <div class="wallet-meter-wrap">
+              <div class="wallet-meter-labels">
+                <span data-i18n="accessLevelLabel">Poziom dostępu PRO</span>
+                <strong id="panelPercentText">100%</strong>
+              </div>
+              <div class="gm-bar gm-bar--orange"><i id="panelProgressFill" style="width: 100%"></i></div>
+            </div>
+            <div class="status-card__actions">
+              <button type="button" class="btn btn--orange btn--shimmer magnetic" id="panelOpenSupportBtn">
+                <span data-i18n="btnOpenSupport">Wesprzyj w WspieramTO (1-Click)</span>
+              </button>
+              <a href="/wspieramto#nowe-studio" class="btn btn--glass magnetic" data-i18n="btnSeeStudio">Cel: Nowe Studio 4K →</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. ZARZĄDZANIE MECENATEM WSPIERAMTO -->
+    <section class="sect sect--alt panel-sect" id="zarzadzanie-mecenatem" aria-labelledby="h-patronage">
+      <div class="wrap">
+        <div class="sect__head reveal">
+          <p class="eyebrow" data-i18n="patEyebrow">Jeden mecenat zamiast dziesięciu abonamentów</p>
+          <h2 id="h-patronage" data-i18n="patTitle">Zarządzanie mecenatem WspieramTO</h2>
+          <p class="sect__lead" data-i18n="patLead">
+            Nie prowadzimy oddzielnych płatności w aplikacjach. Wybierz preferowany kanał wsparcia i zsynchronizuj swój status Patrona CC w portfelu.
+          </p>
+        </div>
+
+        <div class="patronage-grid">
+          <article class="panel-card magic-card reveal">
+            <h3 data-i18n="channelsTitle">Bezpośrednie kanały WspieramTO</h3>
+            <p class="panel-muted" data-i18n="channelsLead">Każda wpłata bezpośrednio utrzymuje 37 kanałów Radia/TV 24/7, Biblię Audio i rozwój narzędzi:</p>
+            <div class="channel-list">
+              <a href="https://zrzutka.pl/z/ChristianCulture" target="_blank" rel="noopener noreferrer" class="channel-item">
+                <span><strong>Zrzutka.pl</strong><small>BLIK, karta, szybki przelew (Polska)</small></span>
+                <span class="channel-go">Otwórz ↗</span>
+              </a>
+              <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" class="channel-item">
+                <span><strong>Patronite</strong><small>Comiesięczny Patron Christian Culture</small></span>
+                <span class="channel-go">Otwórz ↗</span>
+              </a>
+              <a href="https://revolut.me/christianculture" target="_blank" rel="noopener noreferrer" class="channel-item">
+                <span><strong>Revolut Pay</strong><small>GBP · EUR · USD · Świat</small></span>
+                <span class="channel-go">Otwórz ↗</span>
+              </a>
+            </div>
+          </article>
+
+          <article class="panel-card magic-card reveal">
+            <h3 data-i18n="syncTitle">Synchronizacja statusu Patrona CC</h3>
+            <p class="panel-muted" data-i18n="syncLead">Wspierasz już misję CC przez Zrzutka.pl, Patronite, Revolut lub przelew bankowy? Potwierdź status w swoim portfelu:</p>
+
+            <div class="method-pills" role="radiogroup" aria-label="Wybierz formę wsparcia" id="panelMethodPills">
+              <button type="button" class="m-pill is-on" data-method="zrzutka" aria-checked="true">Zrzutka.pl</button>
+              <button type="button" class="m-pill" data-method="patronite" aria-checked="false">Patronite</button>
+              <button type="button" class="m-pill" data-method="revolut" aria-checked="false">Revolut</button>
+              <button type="button" class="m-pill" data-method="przelew" aria-checked="false">Przelew / BLIK</button>
+            </div>
+
+            <label for="panelDonorRefInput" class="input-label" data-i18n="refLabel">Opcjonalna notatka lokalna w portfelu (np. „Patronite od XI 2026”)</label>
+            <input type="text" id="panelDonorRefInput" class="panel-input" maxlength="64" placeholder="Np. Wsparcie Zrzutka / Patronite" autocomplete="off">
+
+            <div class="patron-btn-row">
+              <button type="button" class="btn btn--gold magnetic" id="panelActivatePatronBtn" data-i18n="btnActivatePatron">
+                ★ Jestem Patronem CC — Aktywuj PRO
+              </button>
+              <button type="button" class="btn btn--glass magnetic" id="panelDeactivatePatronBtn" data-i18n="btnDeactivatePatron">
+                Przełącz na wersję podstawową
+              </button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. MOJE USŁUGI PRO (DYNAMICZNY REJESTR CCProManager.SERVICES) -->
+    <section class="sect panel-sect" id="moje-uslugi" aria-labelledby="h-services">
+      <div class="wrap">
+        <div class="services-head reveal">
+          <div>
+            <p class="eyebrow" data-i18n="svcEyebrow">Centralny rejestr CCProManager.SERVICES</p>
+            <h2 id="h-services" data-i18n="svcTitle">Moje Usługi PRO</h2>
+            <p class="sect__lead" data-i18n="svcLead">
+              Każdy nowy moduł lub wtyczka zarejestrowana w <code>CCProManager.SERVICES</code> automatycznie otrzymuje tutaj swoją kartę i wspólny dostęp.
+            </p>
+          </div>
+          <div class="svc-filters" role="tablist" aria-label="Filtruj usługi PRO">
+            <button type="button" class="svc-tab is-on" data-filter="all" role="tab" aria-selected="true" data-i18n="filterAll">Wszystkie</button>
+            <button type="button" class="svc-tab" data-filter="ai-biblia" role="tab" aria-selected="false" data-i18n="filterAi">AI &amp; Biblia</button>
+            <button type="button" class="svc-tab" data-filter="media-spolecznosc" role="tab" aria-selected="false" data-i18n="filterMedia">Media &amp; Społeczność</button>
+          </div>
+        </div>
+
+        <div class="panel-services-grid" id="panelServicesGrid" aria-live="polite">
+          <!-- Renderowane dynamicznie z CCProManager.SERVICES -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. LOKALNY DZIENNIK AKTYWNOŚCI PORTFELA -->
+    <section class="sect sect--alt panel-sect" id="dziennik-portfela" aria-labelledby="h-log">
+      <div class="wrap">
+        <div class="log-head reveal">
+          <div>
+            <p class="eyebrow" data-i18n="logEyebrow">Przejrzysta historia w Twojej przeglądarce</p>
+            <h2 id="h-log" data-i18n="logTitle">Dziennik Portfela WspieramTO</h2>
+          </div>
+          <button type="button" class="btn btn--glass" id="panelClearLogBtn" data-i18n="btnClearLog">Wyczyść historię lokalną</button>
+        </div>
+
+        <div class="wallet-log-card magic-card reveal" id="panelWalletLog">
+          <!-- Renderowane dynamicznie z CCProManager.getWalletLog() -->
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- STATYCZNY CYTAT PISMA ŚWIĘTEGO + POLECAMY + STOPKA -->
+  <section class="sect sect--footer-eco">
+    <div class="wrap">
+      <blockquote class="scripture-box reveal" style="margin-bottom: 34px;">
+        „Każdy niech postąpi tak, jak postanowił w swoim sercu, nie z żalem albo z przymusu, gdyż radosnego dawcę Bóg miłuje.” (2 Kor 9:7, UBG)
+      </blockquote>
+
+      <div class="promo-box reveal">
+        <div class="promo-box__head">
+          <h2 data-i18n="promoHead">★ Polecamy w ekosystemie Christian Culture</h2>
+          <div class="promo-dots" id="promoDots" aria-label="Slajdy poleceń"></div>
+        </div>
+        <div class="promo-stage" id="promoStage"></div>
+        <div class="promo-bar" aria-hidden="true"><i id="promoBar"></i></div>
+      </div>
+
+      <footer class="legal-note reveal">
+        <p><strong>Nota Prawna &amp; Misja:</strong> Christian Culture (polskieradio.cc) to niezależna, prywatna chrześcijańska inicjatywa misyjna i ewangelizacyjna, finansowana z dobrowolnych darowizn i prowadzona w duchu wolontariatu.</p>
+        <p><a href="/privacy">Polityka Prywatności</a> &bull; <a href="/wspieramto">WspieramTO</a> &bull; <a href="/moje-centrum">Moje Centrum CC</a> &bull; <a href="/wizytowki">Katalog Wizytówek CC</a></p>
+      </footer>
+    </div>
+  </section>
+</main>
+
+<div class="cc-toast" id="ccToast" role="status" aria-live="polite"></div>
+</body>
+</html>

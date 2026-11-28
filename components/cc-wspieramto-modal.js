@@ -410,7 +410,8 @@
         <span style="font-size: 18px; color: #c4a35a;">★</span>
         <div style="flex: 1; text-align: left; line-height: 1.4;">
           <strong style="color: #e2cc9a;">Pakiet Usług PRO w Ekosystemie:</strong><br>
-          Twój dar odblokowuje pełny dostęp PRO we wszystkich aplikacjach (AI dla Jezusa, CC Connect 2.0, CC Bible Scholar, MojaBiblia, Moje Centrum). Zero odrębnych opłat.
+          Twój dar odblokowuje pełny dostęp PRO we wszystkich aplikacjach (AI dla Jezusa, CC Connect 2.0, CC Bible Scholar, MojaBiblia, Moje Centrum). Zero odrębnych opłat.<br>
+          <a href="/wspieramto/panel" style="color: #FF8C33; font-weight: 700; text-decoration: underline; display: inline-block; margin-top: 4px;">Otwórz Panel Użytkownika PRO &rarr;</a>
         </div>
       </div>
 
