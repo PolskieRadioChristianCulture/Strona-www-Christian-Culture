@@ -94,7 +94,7 @@ function saveState(state) {
   fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
 }
 
-export async function publishEpisode(epNum = 1, { visibility = 'public', scheduleYmd = null, scheduleTime = null } = {}) {
+export async function publishEpisode(epNum = 1, { visibility = 'public', scheduleYmd = null, scheduleTime = null, channelsFilter = null } = {}) {
   const cat = JSON.parse(fs.readFileSync(CATALOG_PATH, 'utf8'));
   const ep = cat.episodes.find(e => e.epNum === epNum);
   if (!ep) throw new Error(`Nie znaleziono odcinka #${epNum} w katalogu!`);
@@ -124,6 +124,9 @@ export async function publishEpisode(epNum = 1, { visibility = 'public', schedul
 
   for (const chDef of CHANNEL_DEFS) {
     const chName = chDef.name;
+    if (Array.isArray(channelsFilter) && channelsFilter.length > 0 && !channelsFilter.includes(chName)) {
+      continue;
+    }
     const chCfg = CHANNELS[chName];
     if (!chCfg) {
       console.warn(`⚠️ Pomijam nieznany kanał: ${chName}`);
@@ -247,14 +250,18 @@ if (process.argv[1] && process.argv[1].includes('publish_apokalipsa_dpd_pipeline
   let vis = 'public';
   let scheduleYmd = null;
   let scheduleTime = null;
+  let channelsFilter = null;
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--ep' && args[i + 1]) ep = Number(args[++i]);
     if (args[i] === '--visibility' && args[i + 1]) vis = args[++i];
     if (args[i] === '--schedule-ymd' && args[i + 1]) scheduleYmd = args[++i];
     if (args[i] === '--schedule-time' && args[i + 1]) scheduleTime = args[++i];
+    if (args[i] === '--channels' && args[i + 1]) {
+      channelsFilter = args[++i].split(',').map(s => s.trim()).filter(Boolean);
+    }
   }
 
-  publishEpisode(ep, { visibility: vis, scheduleYmd, scheduleTime })
+  publishEpisode(ep, { visibility: vis, scheduleYmd, scheduleTime, channelsFilter })
     .then(() => process.exit(0))
     .catch(err => {
       console.error('Fatal error:', err);

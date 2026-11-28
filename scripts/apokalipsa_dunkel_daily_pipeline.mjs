@@ -56,8 +56,25 @@ function ffmpeg(args, desc) {
   if (r.status !== 0) throw new Error(`${desc} — FFmpeg kod ${r.status}`);
 }
 
-async function download(id, target) {
+const LOCAL_DUNKEL_MP3_DIR = 'H:/Mój dysk/Jonathan_Dunkel_Apokalipsa_MP3';
+
+async function download(ep, target) {
   if (fs.existsSync(target) && fs.statSync(target).size > 1_000_000) return target;
+  const nn = String(ep.ep).padStart(2, '0');
+  if (fs.existsSync(LOCAL_DUNKEL_MP3_DIR)) {
+    const match = fs.readdirSync(LOCAL_DUNKEL_MP3_DIR).find(
+      f => f.startsWith(`${nn} - `) && f.toLowerCase().endsWith('.mp3')
+    );
+    if (match) {
+      const localPath = path.join(LOCAL_DUNKEL_MP3_DIR, match);
+      if (fs.statSync(localPath).size > 1_000_000) {
+        console.log(`[DriveFS] Kopiuję lokalny MP3 odc. ${nn}: ${match}`);
+        fs.copyFileSync(localPath, target);
+        return target;
+      }
+    }
+  }
+  const id = ep.id;
   for (const url of [`https://drive.usercontent.google.com/download?id=${id}&export=download&confirm=t`,
     `https://drive.google.com/uc?export=download&id=${id}&confirm=t`]) {
     const res = await fetch(url);
@@ -66,14 +83,14 @@ async function download(id, target) {
       if (fs.statSync(target).size > 1_000_000) return target;
     }
   }
-  throw new Error(`Nie pobrano MP3 z Dysku Google (ID ${id})`);
+  throw new Error(`Nie pobrano MP3 odc. ${nn} z DriveFS ani Dysku Google (ID ${id})`);
 }
 
 export async function renderEpisode(ep) {
   const nn = String(ep.ep).padStart(2, '0');
   const out = path.join(OUT_DIR, `Apokalipsa_Jonatan_Dunkel_Odc_${nn}_${slug(ep.title)}.mp4`);
   if (fs.existsSync(out) && fs.statSync(out).size > 10_000_000) return out;
-  const mp3 = await download(ep.id, path.join(WORK, `odc_${nn}.mp3`));
+  const mp3 = await download(ep, path.join(WORK, `odc_${nn}.mp3`));
   if (!fs.existsSync(INTRO_1080)) {
     ffmpeg(['-i', INTRO, '-vf', 'scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,fps=30',
       '-c:v', 'h264_mf', '-b:v', '6M', '-c:a', 'aac', '-b:a', '320k', '-ar', '48000', INTRO_1080], 'Normalizacja intro');
@@ -117,8 +134,22 @@ async function main() {
   const done = new Set(state.history.filter(h => h.allChannelsOk).map(h => h.ep));
   const due = forced ? [forced] : catalog.map(e => e.ep).filter(n => n >= FIRST_AUTO_EP && n <= dueMax && !done.has(n));
 
+  let minNextPremiereYmd = addDays(today, 2);
+  for (const h of state.history || []) {
+    if (h.allChannelsOk && typeof h.premiere === 'string' && /^\d{4}-\d{2}-\d{2}/.test(h.premiere)) {
+      const nextAfter = addDays(h.premiere.slice(0, 10), 1);
+      if (nextAfter > minNextPremiereYmd) minNextPremiereYmd = nextAfter;
+    }
+  }
+  const plannedPremieres = new Map();
+  for (const n of due) {
+    const ymd = [premiereDayFor(n), minNextPremiereYmd].sort().pop();
+    plannedPremieres.set(n, ymd);
+    minNextPremiereYmd = addDays(ymd, 1);
+  }
+
   console.log(`📅 ${today} | odcinki do publikacji: ${due.length ? due.join(', ') : 'brak'}`);
-  if (dry) { due.forEach(n => console.log(`  odc. ${n} → premiera ${premiereDayFor(n)} 20:00`)); return; }
+  if (dry) { due.forEach(n => console.log(`  odc. ${n} → premiera ${plannedPremieres.get(n)} 20:00`)); return; }
   if (!due.length) return;
 
   const { uploadEpisodeToChannel } = await import('./publish_perfect.mjs');
@@ -127,8 +158,8 @@ async function main() {
   for (const n of due) {
     const ep = catalog.find(e => e.ep === n);
     if (!ep) throw new Error(`Brak odc. ${n} w katalogu`);
-    // Premiera nigdy wcześniej niż za 48 h od wgrania (przy nadrabianiu zaległości przesuwa się w przód)
-    const ymd = [premiereDayFor(n), addDays(today, 2)].sort().pop();
+    // Premiera nigdy wcześniej niż za 48 h od wgrania oraz co najwyżej 1 odcinek dziennie o 20:00
+    const ymd = plannedPremieres.get(n);
     const video = await renderEpisode(ep);
     const metaPath = writeMeta(ep);
     const results = [];

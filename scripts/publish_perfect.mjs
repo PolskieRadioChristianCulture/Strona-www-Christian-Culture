@@ -809,7 +809,19 @@ export async function uploadEpisodeToChannel({
     let confirmed = false;
     let clickedOk = false;
     for (const end = Date.now() + 90000; Date.now() < end && !confirmed;) {
-      if (await confirmText.isVisible().catch(() => false) || await shareDialog.isVisible().catch(() => false)) { confirmed = true; break; }
+      const domConfirmed = await page.evaluate(() => {
+        const dialogHit = Array.from(document.querySelectorAll('ytcp-video-share-dialog, tp-yt-paper-dialog, ytcp-dialog')).some(d => {
+          if (d.offsetParent === null) return false;
+          const t = d.innerText || '';
+          return /Film został (zaplanowany|opublikowany)|Opublikowano film|Film zostanie opublikowany|zostanie ustawiony jako publiczny|Udostępnij link|Link do filmu|Video (published|scheduled)|Video will be published/i.test(t);
+        });
+        if (dialogHit) return true;
+        return /Film został (zaplanowany|opublikowany)|Opublikowano film|Video (published|scheduled)/i.test(document.body?.innerText || '');
+      }).catch(() => false);
+      if (domConfirmed || await confirmText.isVisible().catch(() => false) || await shareDialog.isVisible().catch(() => false)) {
+        confirmed = true;
+        break;
+      }
       if (await stillChecking.isVisible().catch(() => false)) {
         console.log('  -> YouTube: „Nadal sprawdzamy Twoje treści” — klikam OK / Opublikuj mimo to.');
         const confirmCheckBtn = stillChecking.locator('ytcp-button, button').filter({ hasText: /^\s*(OK|Opublikuj mimo to|Publish anyway)\s*$/i }).first();
@@ -833,6 +845,18 @@ export async function uploadEpisodeToChannel({
         const finalLink = page.locator('a.ytcp-video-share-dialog, a[href*="youtu.be"], a[href*="/shorts/"], #share-url a, input#share-url, input[readonly][value*="youtu.be"]').first();
         if (await finalLink.count() > 0) {
           videoUrl = (await finalLink.getAttribute('href')) || (await finalLink.getAttribute('value')) || (await finalLink.innerText()) || '';
+        }
+        if (!videoUrl) {
+          videoUrl = await page.evaluate(() => {
+            const links = Array.from(document.querySelectorAll('a[href*="youtu.be"], a[href*="/shorts/"], input'));
+            for (const el of links) {
+              const cand = el.getAttribute('href') || el.value || el.innerText || '';
+              const m = cand.match(/https:\/\/(?:youtu\.be\/[A-Za-z0-9_-]+|(?:www\.)?youtube\.com\/shorts\/[A-Za-z0-9_-]+)/);
+              if (m) return m[0];
+            }
+            const bodyMatch = (document.body?.innerText || '').match(/https:\/\/(?:youtu\.be\/[A-Za-z0-9_-]+|(?:www\.)?youtube\.com\/shorts\/[A-Za-z0-9_-]+)/);
+            return bodyMatch ? bodyMatch[0] : '';
+          }).catch(() => '');
         }
       } catch {}
     }
