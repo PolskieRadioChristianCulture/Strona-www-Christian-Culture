@@ -80,7 +80,7 @@ test('URL parsing, passage validation and real UBG verses work cleanly', () => {
   assert.ok(Array.isArray(parallels));
 });
 
-test('Spec domain structures are complete and exclude fabricated /kazania link', () => {
+test('Spec domain structures are complete and keep Mission Control private', () => {
   assert.equal(STAGES.length, 8);
   assert.equal(BIG_SIX.length, 6);
   assert.equal(BIG_TWELVE.length, 12);
@@ -93,7 +93,7 @@ test('Spec domain structures are complete and exclude fabricated /kazania link',
   assert.equal(CREATIVE_TEMPLATES.length, 13);
 
   const appJs = fs.readFileSync(path.join(ROOT, 'test', 'sba', 'studium', 'app.js'), 'utf8');
-  assert.doesNotMatch(appJs, /href\s*=\s*.*\/kazania/);
+  assert.match(appJs, /'\/kazania\/'/);
   assert.doesNotMatch(appJs, /Mission Control/i);
 });
 

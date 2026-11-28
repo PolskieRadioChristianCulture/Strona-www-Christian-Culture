@@ -1286,7 +1286,8 @@ function renderStage08(root) {
     mkLink('MojaBiblia (kody Stronga)', `/mojabiblia?book=${bookId}&ch=${chapter}&chapter=${chapter}&mode=reader&verse=${verseStart}`),
     mkLink('Biblia Audio (katalog nagrań)', '/biblia-audio'),
     mkLink('Wyszukiwarka CC', `/wyszukiwarka?q=${encodeURIComponent(refText)}`),
-    mkLink('Kartki CC', '/kartki/')
+    mkLink('Kartki CC', '/kartki/'),
+    mkLink('Kazania z Pasją', '/kazania/')
   );
 
   const aiBtn = el('button', 'ds-btn ds-btn-outline-accent', 'AI dla Jezusa (wymaga Twojej zgody)');
@@ -1295,7 +1296,7 @@ function renderStage08(root) {
   intCard.append(linksRow);
 
   intCard.append(
-    el('p', 'ds-subtle-note', 'Uwaga o integracjach: AI dla Jezusa nigdy nie wysyła pytań automatycznie i nie używa ukrytych płatnych API. Dedykowana podstrona „Kazania z Pasją” (/kazania) nie jest obecnie opublikowana w repozytorium — zamiast niej możesz skorzystać z Wyszukiwarki CC lub szablonu „Konspekt kazania” w etapie 07.')
+    el('p', 'ds-subtle-note', 'Uwaga o integracjach: AI dla Jezusa nigdy nie wysyła pytań automatycznie i nie używa ukrytych płatnych API — przed otwarciem widzisz podgląd pytania i udzielasz zgody.')
   );
   root.append(intCard);
 }
