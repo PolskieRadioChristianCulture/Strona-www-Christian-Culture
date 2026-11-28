@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <title>Głębokie studium — Scrolluj Biblię (UBG) | Christian Culture</title>
+  <link rel="icon" type="image/png" sizes="192x192" href="/sba/icon-192.png?v=1">
+  <link rel="stylesheet" href="/test/sba/studium/styles.css?v=20261128_1">
+  <script type="module" src="/test/sba/studium/app.js?v=20261128_1"></script>
+</head>
+<body>
+  <a class="skip-link" href="#stage-workspace">Przejdź do obszaru roboczego</a>
+
+  <header class="ds-header" aria-label="Nagłówek warsztatu Głębokie studium">
+    <div class="ds-header-top">
+      <div class="ds-brand">
+        <span class="ds-brand-logo">Christian Culture</span>
+        <div class="ds-brand-titles">
+          <h1>Głębokie studium</h1>
+          <div class="ds-passage-meta">
+            <span id="hdr-passage-ref" class="ds-badge ds-badge-accent">Wczytywanie…</span>
+            <span id="hdr-translation" class="ds-badge">UBG</span>
+            <span id="hdr-save-status" class="ds-save-status" role="status" aria-live="polite">Łączenie z bazą…</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-header-actions">
+        <div class="ds-mode-switch" role="group" aria-label="Tryb pracy">
+          <button type="button" id="mode-quick" class="ds-btn ds-btn-ghost" aria-pressed="false">Szybki</button>
+          <button type="button" id="mode-full" class="ds-btn ds-btn-ghost is-active" aria-pressed="true">Pełny</button>
+        </div>
+        <button type="button" id="btn-prev-stage" class="ds-btn ds-btn-ghost">Wstecz</button>
+        <button type="button" id="btn-next-stage" class="ds-btn ds-btn-ghost">Dalej</button>
+        <button type="button" id="btn-save-now" class="ds-btn ds-btn-primary">Zapisz</button>
+        <button type="button" id="btn-my-studies" class="ds-btn ds-btn-ghost">Moje studia</button>
+        <button type="button" id="btn-export-modal" class="ds-btn ds-btn-ghost">Eksportuj</button>
+        <button type="button" id="btn-stuck-help" class="ds-btn ds-btn-outline-accent">Nie rozumiem tekstu</button>
+        <button type="button" id="btn-theme-toggle" class="ds-btn ds-btn-ghost" aria-label="Przełącz motyw jasny lub ciemny" title="Motyw jasny / ciemny">Motyw</button>
+      </div>
+    </div>
+
+    <div id="ds-conflict-banner" class="ds-conflict-banner" role="alert" hidden>
+      <span>Wykryto nowszy zapis tego studium w innej karcie przeglądarki.</span>
+      <div class="ds-conflict-actions">
+        <button type="button" id="btn-conflict-load" class="ds-btn ds-btn-primary">Wczytaj nowszą wersję</button>
+        <button type="button" id="btn-conflict-keep" class="ds-btn ds-btn-ghost">Zachowaj moją</button>
+      </div>
+    </div>
+
+    <div id="ds-stage-strip" class="ds-stage-strip" hidden>
+      <nav id="stage-nav" class="ds-stage-nav" aria-label="Etapy Głębokiego studium"></nav>
+      <div class="ds-progress-wrap" aria-label="Postęp ukończonych etapów">
+        <span id="ds-progress-text" class="ds-progress-text">Ukończone etapy: 0 z 8</span>
+        <div class="ds-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0" id="ds-progress-bar">
+          <div id="ds-progress-fill" class="ds-progress-fill" style="width: 0%"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="ds-main" class="ds-main">
+    <section id="ds-loading-panel" class="ds-card ds-center-card" role="status">
+      <p id="ds-loading-msg">Wczytuję tekst Biblii UBG z repozytorium Christian Culture…</p>
+      <button type="button" id="btn-retry-load" class="ds-btn ds-btn-primary" hidden>Spróbuj ponownie</button>
+    </section>
+
+    <section id="ds-error-panel" class="ds-card ds-error-card" hidden>
+      <h2>Nieprawidłowy adres fragmentu lub brak danych</h2>
+      <p id="ds-error-detail"></p>
+      <div class="ds-row-actions">
+        <button type="button" id="btn-use-fallback" class="ds-btn ds-btn-primary">Otwórz sugerowany fragment</button>
+        <button type="button" id="btn-open-picker-err" class="ds-btn ds-btn-ghost">Wybierz księgę i werset</button>
+      </div>
+    </section>
+
+    <section id="ds-prayer-gate" class="ds-prayer-gate" hidden aria-labelledby="prayer-gate-heading">
+      <div class="ds-prayer-hero">
+        <p class="ds-kicker">01 / CZYTAJ W OBECNOŚCI AUTORA</p>
+        <h2 id="prayer-gate-heading"></h2>
+        <p class="ds-motto-primary" id="prayer-motto-1"></p>
+        <p class="ds-motto-secondary" id="prayer-motto-2"></p>
+        <p class="ds-lead" id="prayer-intro-text"></p>
+      </div>
+
+      <div class="ds-prayer-grid">
+        <div class="ds-card">
+          <h3>Modlitwa przed otwarciem tekstu</h3>
+          <blockquote class="ds-quote-box" id="prayer-proposed-text"></blockquote>
+
+          <label class="ds-field-label" for="prayer-personal-input">Moja modlitwa (opcjonalna i w 100% prywatna — zostaje tylko na tym urządzeniu)</label>
+          <textarea id="prayer-personal-input" class="ds-textarea" rows="4" placeholder="Możesz zapisać własną krótką modlitwę lub przejść od razu do studium…"></textarea>
+
+          <div class="ds-row-actions ds-prayer-cta-row">
+            <button type="button" id="btn-start-study" class="ds-btn ds-btn-primary ds-btn-lg">Rozpoczynam studium</button>
+            <button type="button" id="btn-prayer-stuck" class="ds-btn ds-btn-outline-accent">Nie rozumiem tekstu</button>
+          </div>
+          <p class="ds-subtle-note">Modlitwa nie jest wymuszana. Po wejściu możesz poruszać się po wszystkich 8 etapach w dowolnej kolejności.</p>
+        </div>
+
+        <div class="ds-card">
+          <h3>Wersety prowadzące (przekład UBG)</h3>
+          <div id="prayer-verses-list" class="ds-prayer-verses"></div>
+        </div>
+      </div>
+    </section>
+
+    <div id="ds-workspace-grid" class="ds-workspace-grid" hidden>
+      <aside id="bible-panel" class="ds-bible-panel ds-card" aria-label="Tekst Biblii UBG">
+        <div class="ds-bible-panel-head">
+          <div>
+            <p class="ds-kicker">TEKST BIBLII · UBG</p>
+            <h2 id="bible-panel-title">Ewangelia Jana 3:16</h2>
+          </div>
+          <button type="button" id="btn-toggle-bible-mobile" class="ds-btn ds-btn-ghost ds-mobile-only" aria-expanded="true">Zwiń tekst</button>
+        </div>
+
+        <div id="bible-panel-body" class="ds-bible-panel-body">
+          <div class="ds-range-bar" role="group" aria-label="Zakres wyświetlanego tekstu">
+            <button type="button" class="ds-btn ds-btn-chip is-active" data-range="verse">Werset</button>
+            <button type="button" class="ds-btn ds-btn-chip" data-range="paragraph">Akapit</button>
+            <button type="button" class="ds-btn ds-btn-chip" data-range="chapter">Rozdział</button>
+            <button type="button" id="btn-change-passage" class="ds-btn ds-btn-chip">Zmień fragment</button>
+          </div>
+
+          <div class="ds-audio-bar">
+            <button type="button" id="btn-play-passage-audio" class="ds-btn ds-btn-ghost">Odtwórz audio fragmentu</button>
+            <span id="audio-status-label" class="ds-subtle-note"></span>
+            <audio id="ds-audio-el" preload="none" hidden></audio>
+          </div>
+
+          <div class="ds-brush-bar" aria-label="Oznaczanie wersetów">
+            <span class="ds-brush-label">Aktywne oznaczenie:</span>
+            <div id="annotation-brushes" class="ds-brush-chips"></div>
+          </div>
+
+          <div id="bible-verses-container" class="ds-verses-list" tabindex="0"></div>
+        </div>
+      </aside>
+
+      <section id="stage-workspace" class="ds-stage-panel" aria-live="polite"></section>
+    </div>
+  </main>
+
+  <section id="print-sheet" class="ds-print-sheet" aria-hidden="true"></section>
+
+  <dialog id="ds-modal" class="ds-modal" aria-labelledby="ds-modal-title">
+    <div class="ds-modal-head">
+      <h2 id="ds-modal-title"></h2>
+      <button type="button" id="ds-modal-close" class="ds-btn ds-btn-ghost" aria-label="Zamknij okno">Zamknij</button>
+    </div>
+    <div id="ds-modal-body" class="ds-modal-body"></div>
+  </dialog>
+
+  <div id="ds-toast" class="ds-toast" role="status" aria-live="polite"></div>
+</body>
+</html>

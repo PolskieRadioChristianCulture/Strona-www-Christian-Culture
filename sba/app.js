@@ -136,6 +136,9 @@ const I18N = {
     noteSavedToast: 'Zapisano notatkę na tym urządzeniu.',
     askAiPrompt: 'Pomóż mi zrozumieć ten werset w kontekście całego rozdziału: {quote}. Wyjaśnij kontekst i wskaż powiązane fragmenty Biblii.',
     askAiRow: 'Zapytaj AI dla Jezusa o ten fragment',
+    deepStudyRow: 'Głębokie studiowanie',
+    deepStudyHint: '8 etapów · modlitwa, kontekst, mapa myśli',
+    opensNewTabSr: '(otwiera w nowej karcie)',
     removeHighlight: 'Usuń podkreślenie',
     highlightVerse: 'Podkreśl werset',
     shareVerse: 'Udostępnij werset',
@@ -249,6 +252,9 @@ const I18N = {
     noteSavedToast: 'Saved note on this device.',
     askAiPrompt: 'Help me understand this verse in the context of the whole chapter: {quote}. Explain the context and point to related Bible passages.',
     askAiRow: 'Ask AI for Jesus about this passage',
+    deepStudyRow: 'Deep Bible Study',
+    deepStudyHint: '8 stages · prayer, context, mind map',
+    opensNewTabSr: '(opens in a new tab)',
     removeHighlight: 'Remove highlight',
     highlightVerse: 'Highlight verse',
     shareVerse: 'Share verse',
@@ -362,6 +368,9 @@ const I18N = {
     noteSavedToast: 'Notiz auf diesem Gerät gespeichert.',
     askAiPrompt: 'Hilf mir, diesen Vers im Zusammenhang des ganzen Kapitels zu verstehen: {quote}. Erkläre den Kontext und zeige verwandte Bibelstellen.',
     askAiRow: 'KI für Jesus nach diesem Abschnitt fragen',
+    deepStudyRow: 'Tiefes Bibelstudium',
+    deepStudyHint: '8 Schritte · Gebet, Kontext, Mindmap',
+    opensNewTabSr: '(öffnet in einem neuen Tab)',
     removeHighlight: 'Hervorhebung entfernen',
     highlightVerse: 'Vers hervorheben',
     shareVerse: 'Vers teilen',
@@ -915,6 +924,11 @@ feed.addEventListener('wheel', (event) => {
 $('#previous').addEventListener('click', () => goTo(active - 1));
 $('#next').addEventListener('click', () => goTo(active + 1));
 feed.addEventListener('keydown', (event) => {
+  if ((event.key === 'Enter' || event.key === ' ') && !dialog.open && selected() && event.target === feed) {
+    event.preventDefault();
+    openVerseMenu(selected());
+    return;
+  }
   if (!['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp'].includes(event.key)) return;
   event.preventDefault();
   goTo(active + (['ArrowDown', 'PageDown'].includes(event.key) ? 1 : -1));
@@ -1132,6 +1146,50 @@ function askAiUrl(verse) {
   return url;
 }
 
+function deepStudyUrl(verse) {
+  const baseOrigin = location.origin && location.origin !== 'null' ? location.origin : site('/').origin;
+  const url = new URL('/test/sba/studium/', baseOrigin);
+  url.searchParams.set('book', verse.book);
+  url.searchParams.set('ch', String(verse.chapter));
+  url.searchParams.set('v', String(verse.number));
+  url.searchParams.set('end', String(verse.number));
+  url.searchParams.set('translation', 'UBG');
+  return url;
+}
+
+function featuredDeepStudyLink(verse) {
+  const anchor = element('a', 'menu-row menu-row-featured');
+  anchor.href = deepStudyUrl(verse).href;
+  anchor.target = '_blank';
+  anchor.rel = 'noopener noreferrer';
+
+  const iconBox = element('span', 'menu-row-featured-icon');
+  iconBox.setAttribute('aria-hidden', 'true');
+  icon(iconBox, 'book');
+
+  const copyBox = element('span', 'menu-row-featured-copy');
+  copyBox.append(
+    element('strong', '', tr('deepStudyRow')),
+    element('small', '', tr('deepStudyHint'))
+  );
+
+  const arrow = element('span', 'menu-row-featured-arrow', '↗');
+  arrow.setAttribute('aria-hidden', 'true');
+
+  const sr = element('span', 'sr-only', ' ' + tr('opensNewTabSr'));
+  anchor.append(iconBox, copyBox, arrow, sr);
+  anchor.addEventListener('click', () => {
+    dialog.close();
+    trackEvent('sba_deep_study_open', {
+      verse_key: verse.key,
+      book: verse.book,
+      chapter: verse.chapter,
+      verse: verse.number
+    });
+  });
+  return anchor;
+}
+
 function openVerseMenu(verse) {
   const saved = settings[verse.key];
   const recording = officialTrack(recordings, verse);
@@ -1142,6 +1200,7 @@ function openVerseMenu(verse) {
     navigator.clipboard?.writeText(askAiQuestion(verse)).catch(() => {});
   });
   show(ref(verse), [
+    featuredDeepStudyLink(verse),
     row(saved?.marked ? tr('removeHighlight') : tr('highlightVerse'), () => {
       dialog.close();
       const marked = !saved?.marked;

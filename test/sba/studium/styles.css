@@ -1,0 +1,752 @@
+:root {
+  --bg: #ffffff;
+  --surface: #faf8f8;
+  --surface-2: #f3efef;
+  --fg: #121212;
+  --muted: #524d4c;
+  --line: #e4dedd;
+  --accent: #b71933;
+  --accent-dark: #8f1227;
+  --accent-soft: #fdecef;
+  --ok: #1b6b3a;
+  --ok-soft: #e8f5ee;
+  --warn: #9a4b00;
+  --err: #a81226;
+  --shadow: 0 8px 26px rgba(18, 18, 18, 0.08);
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  --bg: #111113;
+  --surface: #1a1a1e;
+  --surface-2: #242429;
+  --fg: #f5f2f2;
+  --muted: #b8b2b1;
+  --line: #34343b;
+  --accent: #f05a74;
+  --accent-dark: #b71933;
+  --accent-soft: #361920;
+  --ok: #5dd389;
+  --ok-soft: #162e20;
+  --warn: #f4b266;
+  --err: #ff7a8a;
+  --shadow: 0 8px 26px rgba(0, 0, 0, 0.35);
+  color-scheme: dark;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--accent);
+  color: #ffffff;
+  padding: 12px 16px;
+  font-weight: 700;
+  z-index: 100;
+}
+.skip-link:focus {
+  left: 12px;
+  top: 12px;
+}
+
+button, a, input, textarea, select {
+  font: inherit;
+}
+
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.ds-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 16px;
+}
+
+.ds-header-top {
+  max-width: 1380px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.ds-brand {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.ds-brand-logo {
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.ds-brand-titles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.ds-brand-titles h1 {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.1rem, 2.6vw, 1.45rem);
+  letter-spacing: -.02em;
+}
+
+.ds-passage-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.ds-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: .78rem;
+  font-weight: 700;
+  background: var(--surface-2);
+  color: var(--fg);
+  border: 1px solid var(--line);
+}
+
+.ds-badge-accent {
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+  border-color: rgba(183, 25, 51, 0.25);
+}
+
+html[data-theme="dark"] .ds-badge-accent {
+  color: #ffb8c4;
+}
+
+.ds-save-status {
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+.ds-save-status.is-saved { color: var(--ok); }
+.ds-save-status.is-error { color: var(--err); }
+
+.ds-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.ds-mode-switch {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 2px;
+  background: var(--surface);
+}
+
+.ds-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px 13px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--fg);
+  font-size: .88rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .16s ease, border-color .16s ease, color .16s ease;
+}
+.ds-btn:hover { background: var(--surface-2); }
+.ds-btn:disabled { opacity: .45; cursor: not-allowed; }
+
+.ds-btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+.ds-btn-primary:hover {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
+  color: #ffffff;
+}
+
+.ds-btn-outline-accent {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent-dark);
+}
+html[data-theme="dark"] .ds-btn-outline-accent { color: #ffd4dc; }
+.ds-btn-outline-accent:hover {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.ds-btn-ghost { background: var(--surface); }
+.ds-btn-ghost.is-active,
+.ds-btn-chip.is-active {
+  background: var(--fg);
+  color: var(--bg);
+  border-color: var(--fg);
+}
+
+.ds-btn-chip {
+  min-height: 44px;
+  padding: 6px 12px;
+  font-size: .82rem;
+}
+
+.ds-btn-lg {
+  padding: 12px 20px;
+  font-size: 1rem;
+}
+
+.ds-conflict-banner {
+  max-width: 1380px;
+  margin: 8px auto 0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #fff3e2;
+  border: 1px solid #d9822b;
+  color: #5c2e00;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ds-conflict-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.ds-stage-strip {
+  max-width: 1380px;
+  margin: 10px auto 0;
+  display: grid;
+  gap: 8px;
+}
+
+.ds-stage-nav {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: thin;
+}
+
+.ds-stage-pill {
+  flex: none;
+  min-height: 44px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--fg);
+  font-size: .83rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.ds-stage-pill.is-current {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+.ds-stage-pill.is-done:not(.is-current) {
+  border-color: var(--ok);
+  background: var(--ok-soft);
+  color: var(--ok);
+}
+.ds-stage-pill.is-dimmed {
+  opacity: .62;
+}
+
+.ds-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ds-progress-text {
+  font-size: .78rem;
+  font-weight: 700;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.ds-progress-track {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.ds-progress-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width .2s ease;
+}
+
+.ds-main {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.ds-card {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+.ds-center-card,
+.ds-error-card {
+  max-width: 660px;
+  margin: 24px auto;
+  text-align: center;
+}
+
+.ds-kicker {
+  margin: 0 0 4px;
+  font-size: .74rem;
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.ds-prayer-gate {
+  display: grid;
+  gap: 16px;
+}
+
+.ds-prayer-hero {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--accent);
+  border-radius: 18px;
+  padding: 20px;
+}
+
+.ds-prayer-hero h2 {
+  margin: 4px 0 8px;
+  font-family: Georgia, serif;
+  font-size: clamp(1.35rem, 3.2vw, 2rem);
+}
+
+.ds-motto-primary {
+  margin: 0 0 6px;
+  font-family: Georgia, serif;
+  font-size: 1.08rem;
+  font-weight: 700;
+}
+
+.ds-motto-secondary {
+  margin: 0 0 12px;
+  color: var(--accent-dark);
+  font-weight: 700;
+}
+html[data-theme="dark"] .ds-motto-secondary { color: #ff99ab; }
+
+.ds-lead { margin: 0; max-width: 78ch; }
+
+.ds-prayer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.ds-quote-box {
+  margin: 10px 0 14px;
+  padding: 14px 16px;
+  border-left: 4px solid var(--accent);
+  background: var(--surface);
+  border-radius: 0 12px 12px 0;
+  font-family: Georgia, serif;
+  font-size: 1.02rem;
+}
+
+.ds-prayer-verses {
+  display: grid;
+  gap: 10px;
+}
+
+.ds-verse-ref-card {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.ds-verse-ref-card strong {
+  display: block;
+  color: var(--accent);
+  font-size: .82rem;
+  margin-bottom: 4px;
+}
+.ds-verse-ref-card p {
+  margin: 0;
+  font-family: Georgia, serif;
+}
+
+.ds-field-label {
+  display: block;
+  margin: 12px 0 6px;
+  font-size: .86rem;
+  font-weight: 700;
+}
+
+.ds-input,
+.ds-textarea,
+.ds-select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--fg);
+  min-height: 44px;
+}
+
+.ds-textarea { min-height: 88px; resize: vertical; }
+
+.ds-row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.ds-subtle-note {
+  font-size: .8rem;
+  color: var(--muted);
+  margin: 8px 0 0;
+}
+
+.ds-workspace-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.ds-bible-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ds-bible-panel-head h2 {
+  margin: 0;
+  font-family: Georgia, serif;
+  font-size: 1.2rem;
+}
+
+.ds-bible-panel-body.is-collapsed { display: none; }
+
+.ds-range-bar,
+.ds-audio-bar,
+.ds-brush-bar {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.ds-brush-label { font-size: .8rem; font-weight: 700; color: var(--muted); }
+.ds-brush-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.ds-brush-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 44px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-size: .78rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.ds-brush-btn.is-active {
+  outline: 2px solid var(--fg);
+  outline-offset: 1px;
+}
+
+.ds-verses-list {
+  margin-top: 14px;
+  display: grid;
+  gap: 8px;
+  max-height: 55vh;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.ds-verse-row {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  color: var(--fg);
+}
+.ds-verse-row.is-focus {
+  border-left: 4px solid var(--accent);
+  background: var(--accent-soft);
+}
+.ds-verse-row-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.ds-verse-num {
+  font-weight: 800;
+  color: var(--accent);
+  font-size: .84rem;
+}
+.ds-verse-text {
+  font-family: Georgia, serif;
+  font-size: 1.02rem;
+}
+
+.ds-ann-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+}
+.ds-ann-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: .74rem;
+  font-weight: 700;
+}
+
+.ds-stage-panel {
+  display: grid;
+  gap: 14px;
+}
+
+.ds-stage-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.ds-stage-header h2 {
+  margin: 2px 0 4px;
+  font-family: Georgia, serif;
+  font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+}
+
+.ds-question-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.ds-q-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+  background: var(--surface);
+}
+.ds-q-card.is-skipped { opacity: .72; border-style: dashed; }
+
+.ds-q-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+.ds-q-badge {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 2px;
+}
+.ds-q-card h3 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+}
+.ds-q-help {
+  margin: 0 0 8px;
+  font-size: .86rem;
+  color: var(--muted);
+}
+
+.ds-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0;
+}
+
+.ds-mindmap-wrap {
+  display: grid;
+  gap: 12px;
+}
+.ds-mindmap-svg-box {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #ffffff;
+  overflow: auto;
+  padding: 6px;
+}
+.ds-mindmap-svg-box svg {
+  display: block;
+  width: 100%;
+  min-width: 560px;
+  height: auto;
+}
+
+.ds-outline-box {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.ds-modal {
+  width: min(94vw, 760px);
+  max-height: 86dvh;
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--accent);
+  border-radius: 18px;
+  padding: 18px;
+  background: var(--bg);
+  color: var(--fg);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+.ds-modal::backdrop { background: rgba(18, 18, 18, 0.56); }
+.ds-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.ds-modal-head h2 {
+  margin: 0;
+  font-family: Georgia, serif;
+}
+
+.ds-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  z-index: 60;
+  background: #121212;
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: .86rem;
+  font-weight: 600;
+  box-shadow: var(--shadow);
+}
+.ds-toast:empty { display: none; }
+
+.ds-print-sheet { display: none; }
+
+@media (min-width: 980px) {
+  .ds-prayer-grid {
+    grid-template-columns: 1.05fr .95fr;
+  }
+  .ds-workspace-grid {
+    grid-template-columns: minmax(320px, 38%) 1fr;
+  }
+  .ds-bible-panel {
+    position: sticky;
+    top: 132px;
+    max-height: calc(100dvh - 150px);
+    overflow-y: auto;
+  }
+  .ds-mobile-only { display: none !important; }
+}
+
+@media (max-width: 480px) {
+  .ds-main { padding: 10px; }
+  .ds-header { padding: 8px 10px; }
+  .ds-card { padding: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media print {
+  .ds-header,
+  .ds-main,
+  .ds-modal,
+  .ds-toast,
+  .skip-link {
+    display: none !important;
+  }
+  .ds-print-sheet {
+    display: block !important;
+    color: #000000;
+    background: #ffffff;
+    font-family: Georgia, 'Times New Roman', serif;
+    padding: 16px;
+    line-height: 1.5;
+  }
+  .ds-print-sheet h1, .ds-print-sheet h2, .ds-print-sheet h3 {
+    color: #000000;
+    page-break-after: avoid;
+  }
+  .ds-print-section {
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #cccccc;
+  }
+}
