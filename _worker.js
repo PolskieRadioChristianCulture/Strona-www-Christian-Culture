@@ -2335,6 +2335,11 @@ export default {
       redirectUrl.pathname = '/aplikacje/';
       return Response.redirect(redirectUrl.toString(), 301);
     }
+    if (decodedP === '/test/sba/studium') {
+      const redirectUrl = new URL(request.url);
+      redirectUrl.pathname = '/sba/studium/';
+      return Response.redirect(redirectUrl.toString(), 301);
+    }
     // Biblioteka Pionierów Adwentyzmu (/biblioteka-pionierow/) — produkcja L0 23.11.2026
     if (p.startsWith('/test/biblioteka-pionierow/ksiazka/')) {
       const slug = p
