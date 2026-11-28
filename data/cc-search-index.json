@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-28T05:53:48.235Z",
-  "totalItems": 717,
+  "updatedAt": "2026-11-28T08:09:56.643Z",
+  "totalItems": 718,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -1103,6 +1103,32 @@
     }
   },
   "items": [
+    {
+      "title": "CC Bible Scholar — Otwarte Wtyczki Badacza Pisma & Narzędzia Egzegetyczne (EkoCC)",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/mojabiblia",
+      "description": "Ekosystem 40 wtyczek badacza Pisma Świętego i narzędzi egzegetycznych: greka i hebrajski (kody Stronga, leksykon), 344 799 odsyłaczy krzyżowych OpenBible, pełna konkordancja UBG, porównywarka wydań, pytania indukcyjne i generowanie konspektów kazań.",
+      "tags": [
+        "bible scholar",
+        "scholar",
+        "badacz pisma",
+        "wtyczki biblijne",
+        "odsyłacze",
+        "cross references",
+        "openbible",
+        "leksykon",
+        "greka",
+        "hebrajski",
+        "strong",
+        "konkordancja",
+        "mojabiblia",
+        "ai dla jezusa",
+        "lumi scholar",
+        "egzegeza",
+        "studium biblijne"
+      ],
+      "featured": true
+    },
     {
       "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
       "category": "Narzędzia i misja",

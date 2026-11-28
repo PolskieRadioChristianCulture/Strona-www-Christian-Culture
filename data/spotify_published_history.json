@@ -4,7 +4,7 @@
   "showName": "Biblia Audio Christian Culture",
   "creatorsUrl": "https://creators.spotify.com/home/show/6M2mU6VzRCPCOjWihgO8Aw",
   "publicUrl": "https://open.spotify.com/show/6M2mU6VzRCPCOjWihgO8Aw",
-  "auditedAt": "2026-11-27T07:15:23.788Z",
+  "auditedAt": "2026-11-28T07:18:44.726Z",
   "liveSpotifyTotalCount": 77,
   "latestOnSpotify": {
     "id": "4WVur9iL9Slld8foA4lujp",
@@ -19,8 +19,8 @@
     "ewangeliaJana": 14,
     "ksiegaRodzaju": 0
   },
-  "v7InventoryTotal": 42,
-  "v7PublishedCount": 41,
+  "v7InventoryTotal": 43,
+  "v7PublishedCount": 42,
   "v7BacklogCount": 1,
   "v7Published": [
     {
@@ -358,21 +358,29 @@
       "spotifyTitle": "Księga Rodzaju 41:1–57 (UBG) — Sny Faraona, Wywyższenie Józefa i Ocalenie przed Głodem | Biblia Audio CC | polskieradio.cc",
       "publishedAt": "2026-11-27T07:16:05.609Z",
       "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
+    },
+    {
+      "code": "GEN-042",
+      "chapter": 42,
+      "mp3File": "Ksiega_Rodzaju_42_1-38_Biblia_Audio_CC.mp3",
+      "spotifyTitle": "Księga Rodzaju 42:1–38 (UBG) — Kolejny rozdział Księgi Rodzaju | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-28T07:19:34.890Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     }
   ],
   "v7Backlog": [
     {
-      "code": "GEN-041",
-      "chapter": 41,
-      "verseLabel": "41:1–57",
-      "theme": "Sny Faraona, Wywyższenie Józefa i Ocalenie przed Głodem",
-      "mp3File": "Ksiega_Rodzaju_41_1-57_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 23.62,
-      "producedAt": "2026-11-27T07:13:06.149Z",
+      "code": "GEN-042",
+      "chapter": 42,
+      "verseLabel": "42:1–38",
+      "theme": "Kolejny rozdział Księgi Rodzaju",
+      "mp3File": "Ksiega_Rodzaju_42_1-38_Biblia_Audio_CC.mp3",
+      "mp3SizeMb": 17.72,
+      "producedAt": "2026-11-28T07:17:32.411Z",
       "webStatus": "published",
       "has4kVideo": false,
       "hasShortsVideo": false,
-      "spotifyTitle": "Księga Rodzaju 41:1–57 (UBG) — Sny Faraona, Wywyższenie Józefa i Ocalenie przed Głodem | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 42:1–38 (UBG) — Kolejny rozdział Księgi Rodzaju | Biblia Audio CC | polskieradio.cc"
     }
   ],
   "liveEpisodes": [
