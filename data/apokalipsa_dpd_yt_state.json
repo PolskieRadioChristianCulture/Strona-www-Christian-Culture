@@ -172,16 +172,16 @@
           "failedAt": "2026-11-26T06:45:01.691Z"
         },
         "Werset Dnia - Chrześcijański Serwis Biblijny": {
-          "status": "error",
+          "status": "ok",
           "channelId": "UCyOvW5DuDLVq5XWFyijgtbw",
-          "error": "page.goto: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.youtube.com/channel_switcher\", waiting until \"domcontentloaded\"\u001b[22m\n",
-          "failedAt": "2026-11-26T06:52:27.137Z"
+          "videoUrl": "https://youtu.be/WsTfZeb2rSQ",
+          "publishedAt": "2026-11-28T04:49:27.157Z"
         },
         "Christian Culture TV": {
-          "status": "error",
+          "status": "ok",
           "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
-          "error": "page.goto: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.youtube.com/channel_switcher\", waiting until \"domcontentloaded\"\u001b[22m\n",
-          "failedAt": "2026-11-26T06:59:11.214Z"
+          "videoUrl": "https://youtu.be/K3D8HgDM548",
+          "publishedAt": "2026-11-28T04:53:03.411Z"
         },
         "Polskie Radio CHRISTIAN CULTURE": {
           "status": "error",
@@ -206,6 +206,54 @@
           "channelId": "UC-LPFt-vmJCeap746DOWMgw",
           "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
           "failedAt": "2026-11-26T07:42:35.743Z"
+        }
+      }
+    },
+    "5": {
+      "epNum": 5,
+      "title": "APOKALIPSA Dzień Po Dniu - Błogosławieństwa Apokalipsy #005",
+      "channels": {
+        "Biblia Audio Christian Culture": {
+          "status": "error",
+          "channelId": "UCCqHRCEuSDhlRcvcQ6qM1Kw",
+          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
+          "failedAt": "2026-11-27T06:32:30.930Z"
+        },
+        "Werset Dnia - Chrześcijański Serwis Biblijny": {
+          "status": "error",
+          "channelId": "UCyOvW5DuDLVq5XWFyijgtbw",
+          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
+          "failedAt": "2026-11-27T06:35:00.016Z"
+        },
+        "Christian Culture TV": {
+          "status": "error",
+          "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
+          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
+          "failedAt": "2026-11-27T06:40:36.652Z"
+        },
+        "Polskie Radio CHRISTIAN CULTURE": {
+          "status": "error",
+          "channelId": "UCNnCdsJ-K6FXulZzXZHWkjQ",
+          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
+          "failedAt": "2026-11-27T06:45:41.563Z"
+        },
+        "Osobowość +": {
+          "status": "error",
+          "channelId": "UCHmPxDM2zzlUAf5ZvlotPLw",
+          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
+          "failedAt": "2026-11-27T06:50:18.510Z"
+        },
+        "CC Men": {
+          "status": "error",
+          "channelId": "UCUpuq9JS7jitIcm9iBn0jnA",
+          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
+          "failedAt": "2026-11-27T06:53:35.849Z"
+        },
+        "CC Women": {
+          "status": "error",
+          "channelId": "UC-LPFt-vmJCeap746DOWMgw",
+          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
+          "failedAt": "2026-11-27T06:56:38.977Z"
         }
       }
     }

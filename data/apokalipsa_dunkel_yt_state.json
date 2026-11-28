@@ -1,5 +1,5 @@
 {
-  "lastPublishedEpisode": 14,
+  "lastPublishedEpisode": 20,
   "history": [
     {
       "ep": 1,
@@ -285,6 +285,150 @@
       ],
       "allChannelsOk": true,
       "at": "2026-11-22T09:31:53.462Z"
+    },
+    {
+      "ep": 15,
+      "title": "Zbrodnie inkwizycji",
+      "premiere": "2026-11-30 20:00",
+      "results": [
+        {
+          "channel": "Osobowość +",
+          "ok": true,
+          "url": "https://youtu.be/AQgaqbSo20E"
+        },
+        {
+          "channel": "Polskie Radio CHRISTIAN CULTURE",
+          "ok": true,
+          "url": "https://youtu.be/CvXoZDdvHBg"
+        },
+        {
+          "channel": "Christian Culture TV",
+          "ok": true,
+          "url": "https://youtu.be/NzieOYue8N8"
+        }
+      ],
+      "allChannelsOk": true,
+      "at": "2026-11-28T05:07:47.976Z"
+    },
+    {
+      "ep": 16,
+      "title": "Czy człowiek może być nieomylny",
+      "premiere": "2026-12-01 20:00",
+      "results": [
+        {
+          "channel": "Osobowość +",
+          "ok": true,
+          "url": "https://youtu.be/q4qMfS8J3bQ"
+        },
+        {
+          "channel": "Polskie Radio CHRISTIAN CULTURE",
+          "ok": true,
+          "url": "https://youtu.be/Y7Efx25rQ3k"
+        },
+        {
+          "channel": "Christian Culture TV",
+          "ok": true,
+          "url": "https://youtu.be/4cOYzKu6QI4"
+        }
+      ],
+      "allChannelsOk": true,
+      "at": "2026-11-28T05:14:23.514Z"
+    },
+    {
+      "ep": 17,
+      "title": "Sukcesja apostolska",
+      "premiere": "2026-12-02 20:00",
+      "results": [
+        {
+          "channel": "Osobowość +",
+          "ok": true,
+          "url": "https://youtu.be/WfvYclPtwno"
+        },
+        {
+          "channel": "Polskie Radio CHRISTIAN CULTURE",
+          "ok": true,
+          "url": "https://youtu.be/POT1FyGgIlo"
+        },
+        {
+          "channel": "Christian Culture TV",
+          "ok": true,
+          "url": "https://youtu.be/L6ny7TOqD3M"
+        }
+      ],
+      "allChannelsOk": true,
+      "at": "2026-11-28T05:23:34.316Z"
+    },
+    {
+      "ep": 18,
+      "title": "Prawdziwe korzenie celibatu",
+      "premiere": "2026-12-03 20:00",
+      "results": [
+        {
+          "channel": "Osobowość +",
+          "ok": true,
+          "url": "https://youtu.be/ZlFEaPP5j3Q"
+        },
+        {
+          "channel": "Polskie Radio CHRISTIAN CULTURE",
+          "ok": true,
+          "url": "https://youtu.be/U_-LFBXk3mE"
+        },
+        {
+          "channel": "Christian Culture TV",
+          "ok": true,
+          "url": "https://youtu.be/16uRHM6R7SA"
+        }
+      ],
+      "allChannelsOk": true,
+      "at": "2026-11-28T05:32:03.187Z"
+    },
+    {
+      "ep": 19,
+      "title": "Supermocarstwo w proroctwach",
+      "premiere": "2026-12-04 20:00",
+      "results": [
+        {
+          "channel": "Osobowość +",
+          "ok": true,
+          "url": "https://youtu.be/XLrp7UvDV5Y"
+        },
+        {
+          "channel": "Polskie Radio CHRISTIAN CULTURE",
+          "ok": true,
+          "url": "https://youtu.be/dvmOuXIq4co"
+        },
+        {
+          "channel": "Christian Culture TV",
+          "ok": true,
+          "url": "https://youtu.be/MFaLTWX5S3o"
+        }
+      ],
+      "allChannelsOk": true,
+      "at": "2026-11-28T05:44:36.930Z"
+    },
+    {
+      "ep": 20,
+      "title": "Rozdział kościoła od państwa",
+      "premiere": "2026-12-05 20:00",
+      "results": [
+        {
+          "channel": "Osobowość +",
+          "ok": true,
+          "url": "https://youtu.be/QD52mvql8W0"
+        },
+        {
+          "channel": "Polskie Radio CHRISTIAN CULTURE",
+          "ok": true,
+          "url": "https://youtu.be/himh8RwtAhU"
+        },
+        {
+          "channel": "Christian Culture TV",
+          "ok": true,
+          "url": "https://youtu.be/pg6WimbTHIM"
+        }
+      ],
+      "allChannelsOk": true,
+      "at": "2026-11-28T05:50:55.510Z"
     }
   ]
 }
