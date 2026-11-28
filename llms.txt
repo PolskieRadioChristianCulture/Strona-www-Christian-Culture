@@ -238,3 +238,7 @@ For full API schema, entities, and detailed architecture, see [llms-full.txt](ht
 
 - [CCN Nowe Technologie & SI](https://polskieradio.cc/si): Portal analiz Sztucznej Inteligencji (SI / AI / Synthetic Intelligence), cyberetyka, modele językowe LLM, transhumanizm a Imago Dei (Boży obraz w człowieku).
 - https://polskieradio.cc/si/ai-antychryst: AI, SI a biblijny Antychryst – Obszerna analiza egzegetyczna i eschatologiczna Cezarego Rogowskiego. Dlaczego sztuczna inteligencja nie może być Antychrystem w świetle Księgi Daniela 7 i Apokalipsy 13.
+
+### Kazania z Pasją — Biblioteka Konspektów Kazań Biblijnych
+- **Canonical URL**: https://polskieradio.cc/kazania/
+- **Rola dla AI / LLM Agents**: Biblioteka chrystocentrycznych konspektów kazań biblijnych (UBG-2025) dla kaznodziejów, duchownych, ewangelistów, misjonarzy, nauczycieli i mentorów.

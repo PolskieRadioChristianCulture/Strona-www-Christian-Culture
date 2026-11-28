@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-28T04:28:40.009Z",
-  "totalItems": 713,
+  "updatedAt": "2026-11-28T04:49:12.060Z",
+  "totalItems": 714,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -15696,6 +15696,26 @@
       "type": "page",
       "access": "public",
       "lang": "en"
+    },
+    {
+      "title": "Kazania z Pasją — Biblioteka Konspektów Kazań Biblijnych",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/kazania/",
+      "description": "Profesjonalne, chrystocentryczne konspekty kazań biblijnych (UBG-2025) dla kaznodziejów, duchownych, ewangelistów, nauczycieli i mentorów. Czytaj, słuchaj, drukuj PDF i dziel się Słowem Bożym.",
+      "tags": [
+        "kazania",
+        "kazania z pasja",
+        "konspekty kazan",
+        "kaznodzieja",
+        "homiletyka",
+        "biblioteka kazan",
+        "gloszenie slowa",
+        "szkice kazan",
+        "serie kaznodziejskie",
+        "studium biblii",
+        "ubg"
+      ],
+      "featured": true
     }
   ],
   "recommendedToday": [

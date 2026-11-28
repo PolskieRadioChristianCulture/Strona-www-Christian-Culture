@@ -1,0 +1,186 @@
+{
+  "version": "1.0.0",
+  "updatedAt": "2026-11-28",
+  "translation": "UBG-2025 (Uwspółcześniona Biblia Gdańska)",
+  "motto": {
+    "ref": "2 List do Tymoteusza 4:2",
+    "text": "Głoś słowo Boże, nalegaj w porę i nie w porę, upominaj, strofuj i zachęcaj ze wszelką cierpliwością i nauką.",
+    "bookUrl": "/mojabiblia"
+  },
+  "categories": [
+    "Jezus Chrystus",
+    "Ewangelia i zbawienie",
+    "Wiara i modlitwa",
+    "Proroctwa biblijne",
+    "Duch Święty",
+    "Misja i ewangelizacja",
+    "Rodzina i relacje",
+    "Uczniostwo",
+    "Życie chrześcijańskie",
+    "Kazania okolicznościowe",
+    "Studia ksiąg biblijnych",
+    "Serie kaznodziejskie"
+  ],
+  "sermons": [
+    {
+      "id": "wiara",
+      "title": "Wiara większa niż strach",
+      "ref": "Ewangelia Mateusza 14:22–33",
+      "chapterId": "MAT-014",
+      "cat": "Wiara i modlitwa",
+      "series": "Śladami Jezusa",
+      "desc": "Zaufanie Chrystusowi pośród niepewności.",
+      "objective": "Poprowadzić słuchaczy od lęku wobec przeciwnych okoliczności do osobistego zaufania Jezusowi i wyznania Jego Synostwa Bożego.",
+      "context": "Po nakarmieniu pięciu tysięcy Jezus wysyła uczniów na drugi brzeg i sam udaje się na górę na modlitwę. O czwartej straży nocnej spotyka ich na wzburzonym morzu.",
+      "keyVerses": [
+        {
+          "v": 27,
+          "text": "Ale Jezus zaraz do nich powiedział: Ufajcie, to ja jestem! Nie bójcie się!"
+        },
+        {
+          "v": 30,
+          "text": "Lecz widząc gwałtowny wiatr, zląkł się, a gdy zaczął tonąć, krzyknął: Panie, ratuj mnie!"
+        },
+        {
+          "v": 31,
+          "text": "Jezus natychmiast wyciągnął rękę, uchwycił go i powiedział: Człowieku małej wiary, dlaczego zwątpiłeś?"
+        },
+        {
+          "v": 33,
+          "text": "Ci zaś, którzy byli w łodzi, podeszli i oddali mu pokłon, mówiąc: Naprawdę jesteś Synem Bożym."
+        }
+      ],
+      "points": [
+        "Jezus przychodzi do uczniów pośród burzy (w. 22–27).",
+        "Piotr doświadcza zarówno odwagi, jak i lęku (w. 28–30).",
+        "Jezus ratuje Piotra, a uczniowie oddają Mu pokłon (w. 31–33)."
+      ],
+      "christocentric": "Ratunek nie wypływa z doskonałości naszej odwagi, lecz z wyciągniętej dłoni Chrystusa, który natychmiast odpowiada na wołanie „Panie, ratuj mnie!”.",
+      "apply": "W modlitwie nazwij swój lęk i powierz go Chrystusowi.",
+      "reflectionQuestion": "Kiedy wiatr życiowych okoliczności przybiera na sile, na czym skupiasz wzrok — na falach czy na słowie Jezusa „Ufajcie, to ja jestem”?",
+      "pdf": "",
+      "mp3": "",
+      "isDemo": true,
+      "bookUrl": "/mojabiblia"
+    },
+    {
+      "id": "laska",
+      "title": "Łaska, która zmienia wszystko",
+      "ref": "List do Efezjan 2:1–10",
+      "chapterId": "EPH-002",
+      "cat": "Ewangelia i zbawienie",
+      "series": "Fundamenty wiary",
+      "desc": "Zbawienie jako dar Boga, prowadzący do nowego życia.",
+      "objective": "Ukazać kontrast między duchową śmiercią człowieka bez Chrystusa a bogactwem Bożego miłosierdzia, które ożywia z łaski i posyła do dobrych uczynków.",
+      "context": "Apostoł Paweł przypomina wierzącym w Efezie ich przeszły stan przed poznaniem Ewangelii oraz suwerenną inicjatywę Boga w Chrystusie Jezusie.",
+      "keyVerses": [
+        {
+          "v": 4,
+          "text": "Lecz Bóg, który jest bogaty w miłosierdzie, z powodu swojej wielkiej miłości, którą nas umiłował;"
+        },
+        {
+          "v": 5,
+          "text": "I to wtedy, gdy byliśmy umarli w grzechach, ożywił nas razem z Chrystusem, gdyż łaską jesteście zbawieni;"
+        },
+        {
+          "v": 8,
+          "text": "Łaską bowiem jesteście zbawieni przez wiarę, i to nie jest z was, jest to dar Boga."
+        },
+        {
+          "v": 9,
+          "text": "Nie z uczynków, aby nikt się nie chlubił."
+        },
+        {
+          "v": 10,
+          "text": "Jesteśmy bowiem jego dziełem, stworzeni w Chrystusie Jezusie do dobrych uczynków, które Bóg wcześniej przygotował, abyśmy w nich postępowali."
+        }
+      ],
+      "points": [
+        "Stan człowieka bez Chrystusa (w. 1–3).",
+        "Miłosierdzie Boga i nowe życie (w. 4–7).",
+        "Zbawienie przez łaskę i dobre uczynki jako jego owoc (w. 8–10)."
+      ],
+      "christocentric": "Człowiek nie wysługuje zbawienia własną sprawiedliwością — Bóg z miłości ożywił nas razem z Chrystusem, czyniąc nas w Nim swoim dziełem.",
+      "apply": "Odpowiedz na łaskę Boga konkretnym czynem miłości.",
+      "reflectionQuestion": "Czy służysz Bogu z lęku, by zapracować na przyjęcie, czy z wdzięczności za dar zbawienia w Chrystusie?",
+      "pdf": "",
+      "mp3": "",
+      "isDemo": true,
+      "bookUrl": "/mojabiblia"
+    },
+    {
+      "id": "milczenie",
+      "title": "Kiedy Bóg milczy",
+      "ref": "Psalm 13:1–6",
+      "chapterId": "PSA-013",
+      "cat": "Wiara i modlitwa",
+      "series": "Modlitwy serca",
+      "desc": "Od lamentu do wyznania ufności.",
+      "objective": "Zachęcić wierzących do szczerej, opartej na zaufaniu modlitwy w czasie długiego oczekiwania i duchowej próby.",
+      "context": "Krótki, trzyczęściowy psalm Dawida ukazuje biblijną drogę modlitwy: od bólu i pytań „Jak długo?” przez prośbę o światło aż po śpiew ufności w miłosierdzie Pana.",
+      "keyVerses": [
+        {
+          "v": 1,
+          "text": "Jak długo, PANIE? Zapomnisz o mnie na wieki? Jak długo będziesz ukrywał przede mną swoje oblicze?"
+        },
+        {
+          "v": 5,
+          "text": "Lecz ja zaufałem twemu miłosierdziu; moje serce rozraduje się twoim zbawieniem."
+        },
+        {
+          "v": 6,
+          "text": "Będę śpiewał PANU, bo obdarzył mnie dobrem."
+        }
+      ],
+      "points": [
+        "Szczery lament przed Bogiem (w. 1–2).",
+        "Prośba o odpowiedź i pomoc (w. 3–4).",
+        "Ufność w miłosierdzie Boga (w. 5–6)."
+      ],
+      "christocentric": "Biblijny lament nie jest ucieczką od Boga, lecz zwróceniem się do Jego wiernego miłosierdzia, które najpełniej objawiło się w zbawieniu przez Chrystusa.",
+      "apply": "Przedstaw Bogu swoją sytuację bez ukrywania trudnych emocji.",
+      "reflectionQuestion": "Co pomaga ci wytrwać między wersetem 1 („Jak długo, PANIE?”) a wersetem 5 („Lecz ja zaufałem twemu miłosierdziu”)?",
+      "pdf": "",
+      "mp3": "",
+      "isDemo": true,
+      "bookUrl": "/mojabiblia"
+    },
+    {
+      "id": "burza",
+      "title": "Jezus pośród burzy",
+      "ref": "Ewangelia Marka 4:35–41",
+      "chapterId": "MRK-004",
+      "cat": "Jezus Chrystus",
+      "series": "Śladami Jezusa",
+      "desc": "Kim jest Ten, któremu posłuszne są wiatr i morze?",
+      "objective": "Ukazać Boski autorytet Jezusa Chrystusa nad żywiołami i zaprosić słuchaczy do odpowiedzi wiary pośród kryzysów.",
+      "context": "Pod koniec dnia nauczania nad morzem uczniowie płyną z Jezusem na drugą stronę. Gwałtowny wicher napełnia łódź wodą, podczas gdy Jezus śpi na wezgłowiu.",
+      "keyVerses": [
+        {
+          "v": 39,
+          "text": "Wówczas wstał, zgromił wiatr i powiedział do morza: Milcz i uspokój się! I ustał wiatr, i nastała wielka cisza."
+        },
+        {
+          "v": 40,
+          "text": "Wtedy powiedział do nich: Czemu się tak boicie? Jak to jest, że nie macie wiary?"
+        },
+        {
+          "v": 41,
+          "text": "I ogarnął ich wielki strach, i mówili jeden do drugiego: Kim on jest, że nawet wiatr i morze są mu posłuszne?"
+        }
+      ],
+      "points": [
+        "Uczniowie spotykają niebezpieczeństwo (w. 35–38).",
+        "Jezus ucisza burzę (w. 39).",
+        "Pytanie o wiarę i tożsamość Jezusa (w. 40–41)."
+      ],
+      "christocentric": "Słowem Stwórcy Jezus ucisza wiatr i morze, objawiając swoją Boską moc i obecność razem z uczniami w tej samej łodzi.",
+      "apply": "Rozważ, jak obecność Chrystusa kształtuje twoją reakcję na trudności.",
+      "reflectionQuestion": "Jak obecność Jezusa w twojej „łodzi” zmienia sposób, w jaki przeżywasz gwałtowne chwile tego tygodnia?",
+      "pdf": "",
+      "mp3": "",
+      "isDemo": true,
+      "bookUrl": "/mojabiblia"
+    }
+  ]
+}

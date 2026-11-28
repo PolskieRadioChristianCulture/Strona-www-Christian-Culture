@@ -336,4 +336,10 @@
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
+  <url>
+    <loc>https://polskieradio.cc/kazania/</loc>
+    <lastmod>2026-11-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
 </urlset>

@@ -986,3 +986,9 @@
 /ekartki/ /kartki/ 301
 /test/kartki /kartki/ 301
 /test/kartki/ /kartki/ 301
+
+# === KAZANIA Z PASJĄ (/kazania/) ===
+/kazania /kazania/index.html 200
+/kazania/ /kazania/index.html 200
+/Kazania /kazania/ 301
+/Kazania/ /kazania/ 301

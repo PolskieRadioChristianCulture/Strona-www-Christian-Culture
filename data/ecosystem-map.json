@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-28",
+      "topic": "Kazania z Pasją (/kazania/) — uruchomienie portalu FULL PREMIUM z biblioteką konspektów kazań biblijnych (UBG-2025), czytnikiem PDF, odsłuchem, wyszukiwarką @w, modalem WspieramTO i integracją EkoCC",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-28",
       "topic": "Kurs Codzienny „Z Biblią za Pan Brat” — nocna publikacja i aktywacja Dnia 59 (Wj 29:1–46: Poświęcenie Aarona i jego synów, ofiary oczyszczenia oraz nieustanne całopalenie), aktualizacja Dnia 58, synchronizacja Akademii (8 plików), Discovery/SEO, @w i @m",
       "agent": "A"
     },
@@ -6242,9 +6247,33 @@
         "lumina-profile",
         "lumina-tablica"
       ]
+    },
+    {
+      "id": "kazania-z-pasja",
+      "branchId": "biblia-edukacja",
+      "name": "Kazania z Pasją — Biblioteka Kaznodziei",
+      "shortDesc": "Chrystocentryczne konspekty kazań biblijnych (UBG-2025).",
+      "fullDesc": "Portal biblioteki kazań dla kaznodziejów, ewangelistów, nauczycieli i mentorów: czytnik z wersetami UBG-2025, druk do PDF, odsłuch, serie kaznodziejskie, wyszukiwarka @w i WspieramTO.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/kazania/",
+      "status": "active",
+      "lang": "pl",
+      "icon": "✦",
+      "category": "Biblia i Edukacja",
+      "keywords": [
+        "kazania",
+        "kazania z pasją",
+        "konspekty kazań",
+        "homiletyka",
+        "UBG-2025"
+      ],
+      "connections": [
+        "biblia-audio",
+        "mojabiblia"
+      ]
     }
   ],
-  "lastUpdated": "2026-11-27T14:06:00+01:00",
+  "lastUpdated": "2026-11-28",
   "recentUpdates": [
     {
       "date": "2026-11-27",
