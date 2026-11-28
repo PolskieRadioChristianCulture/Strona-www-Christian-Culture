@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-27T17:35:33.274Z",
+  "updatedAt": "2026-11-28T04:28:40.009Z",
   "totalItems": 713,
   "contextGuides": {
     "nadzieja": {
@@ -1103,23 +1103,6 @@
     }
   },
   "items": [
-    {
-      "title": "Scrolluj Biblię — Czytaj i słuchaj jednocześnie (Biblia UBG)",
-      "category": "Biblia i formacja",
-      "url": "https://polskieradio.cc/sba",
-      "description": "Przewijaj losowe wersety Uwspółcześnionej Biblii Gdańskiej, czytaj kontekst, zapisuj ulubione fragmenty i słuchaj Biblii Audio Christian Culture.",
-      "tags": [
-        "biblia ubg",
-        "scrolluj biblię",
-        "losowe wersety",
-        "czytaj i słuchaj",
-        "biblia audio",
-        "ulubione wersety",
-        "czytaj i słuchaj jednocześnie",
-        "sba"
-      ],
-      "image": "/sba/logo.webp"
-    },
     {
       "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
       "category": "Narzędzia i misja",
@@ -9508,12 +9491,29 @@
         "lekcja 58",
         "księga wyjścia",
         "lekcja biblijna",
+        "rozważanie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Z Biblią za Pan Brat — Dzień 59: POŚWIĘCENIE AARONA I JEGO SYNÓW, OFIARY OCZYSZCZENIA ORAZ NIEUSTANNE CAŁOPALENIE (Wj 29:1–46)",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-59",
+      "description": "Dzień 59 Kursu Codziennego Pisma Świętego „Z Biblią za Pan Brat”. KSIĘGA WYJŚCIA Wj 29:1–46: Obmycie wodą, namaszczenie olejkiem, ofiara za grzech, baran poświęcenia, codzienne poranne i wieczorne całopalenie oraz obietnica Boga: „I będę mieszkał pośród synów Izraela” (Wj 29:1–46)",
+      "tags": [
+        "kurs codzienny",
+        "z biblią za pan brat",
+        "dzień 59",
+        "dzien 59",
+        "lekcja 59",
+        "księga wyjścia",
+        "lekcja biblijna",
         "rozważanie",
-        "lekcja 58 na dziś",
+        "lekcja 59 na dziś",
         "lekcja na dziś",
         "rozważanie na dziś",
         "słowo na dziś",
-        "27 listopada 2026",
+        "28 listopada 2026",
         "dzisiaj",
         "dziś"
       ],
@@ -15697,5 +15697,206 @@
       "access": "public",
       "lang": "en"
     }
-  ]
+  ],
+  "recommendedToday": [
+    {
+      "tag": "Nowość • 7 dni PRO na start",
+      "title": "AI dla Jezusa — Chrześcijańska Aplikacja AI",
+      "desc": "Rozmowy oparte na Biblii (UBG), 5 asystentów głosowych, multimedia CC i 7 dni PRO na start.",
+      "url": "/ai/aplikacja",
+      "icon": "sparkle"
+    },
+    {
+      "tag": "Inspiracja na Dziś",
+      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 28",
+      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 28 listopada 2026.",
+      "url": "/player",
+      "icon": "heart"
+    },
+    {
+      "tag": "Akademia Biblijna",
+      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 59)",
+      "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
+      "url": "/akademia/kurscodzienny/dzien-59",
+      "icon": "book"
+    },
+    {
+      "tag": "Dzień Reformacji 2026 • Na Dziś",
+      "title": "Reformacja nie skończyła się w 1517 roku — film „Luter”",
+      "desc": "509 lat od 1517 r. Sola Scriptura, Sola Gratia i odnowa sumienia (Cezary Rogowski).",
+      "url": "/news/dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski",
+      "icon": "newspaper"
+    },
+    {
+      "tag": "Nadajemy 24/7",
+      "title": "Radio Christian Culture & Player",
+      "desc": "Muzyka uwielbienia, słuchowiska Biblia Audio i stacje tematyczne.",
+      "url": "/player",
+      "icon": "radio"
+    }
+  ],
+  "searchRecommendations": {
+    "updatedAt": "2026-11-28T04:28:40.279Z",
+    "heading": "Polecane na dziś",
+    "dateFormattedPL": "28 listopada 2026",
+    "pools": [
+      [
+        {
+          "tag": "Nowość • 7 dni PRO na start",
+          "title": "AI dla Jezusa — Chrześcijańska Aplikacja AI",
+          "desc": "Rozmowy oparte na Biblii (UBG), 5 asystentów głosowych, multimedia CC i 7 dni PRO na start.",
+          "url": "/ai/aplikacja",
+          "icon": "sparkle"
+        },
+        {
+          "tag": "Inspiracja na Dziś",
+          "title": "Rozważanie „Dobrze, że jesteś” • Dzień 28",
+          "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 28 listopada 2026.",
+          "url": "/player",
+          "icon": "heart"
+        },
+        {
+          "tag": "Słowo Boże na Dziś",
+          "title": "Mój Werset Dnia z Obietnicą",
+          "desc": "Losuj i rozważaj żywe obietnice Pisma Świętego przygotowane na dziś.",
+          "url": "/werset-dnia",
+          "icon": "sparkle"
+        },
+        {
+          "tag": "Modlitwa & Wstawiennictwo",
+          "title": "Zjednoczeni za Polskę — Czuwanie",
+          "desc": "Wspólna modlitwa narodu o pokój, Boże prowadzenie i przebudzenie.",
+          "url": "/modlitwa",
+          "icon": "shield"
+        }
+      ],
+      [
+        {
+          "tag": "Akademia Biblijna",
+          "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 59)",
+          "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
+          "url": "/akademia/kurscodzienny/dzien-59",
+          "icon": "book"
+        },
+        {
+          "tag": "Interlinearna Biblia",
+          "title": "MojaBiblia: Kody Stronga & Greka",
+          "desc": "Oryginalne znaczenie słów hebrajskich i greckich w Twojej przeglądarce.",
+          "url": "/mojabiblia",
+          "icon": "scroll"
+        },
+        {
+          "tag": "Wyszukiwarka Ekosystemu",
+          "title": "Błyskawiczne Odkrywanie w CC",
+          "desc": "Szukaj wersetów, lekcji, audycji i artykułów natychmiast od 1. litery.",
+          "url": "/wyszukiwarka",
+          "icon": "search"
+        },
+        {
+          "tag": "Kurs Proroctw Biblijnych",
+          "title": "Księga Daniela — 2300 Wieczorów i Poranków",
+          "desc": "Klucz do zrozumienia czasów ostatecznych i nadziei Zbawienia w Chrystusie.",
+          "url": "/akademia",
+          "icon": "compass"
+        }
+      ],
+      [
+        {
+          "tag": "Dzień Reformacji 2026 • Na Dziś",
+          "title": "Reformacja nie skończyła się w 1517 roku — film „Luter”",
+          "desc": "509 lat od 1517 r. Sola Scriptura, Sola Gratia i odnowa sumienia (Cezary Rogowski).",
+          "url": "/news/dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski",
+          "icon": "newspaper"
+        },
+        {
+          "tag": "Rodzina & Zdrowie • Nowość",
+          "title": "Cyfrowy detoks w chrześcijańskim domu",
+          "desc": "Jak odzyskać prawdziwą bliskość przy wspólnym stole (Wioletta Rogowska).",
+          "url": "/news/cyfrowy-detoks-rodziny-jak-odzyskac-bliskosc-i-spokoj",
+          "icon": "newspaper"
+        },
+        {
+          "tag": "Podcast Spotify SDS",
+          "title": "APOKALIPSA — Księga Nadziei",
+          "desc": "Profetyczny cykl wykładów biblijnych Studia Dobrego Słowa.",
+          "url": "/podcasty",
+          "icon": "mic"
+        },
+        {
+          "tag": "Kino Chrześcijańskie VOD",
+          "title": "Filmy Fabularne i Dokumentalne CC",
+          "desc": "Wartościowe kino chrześcijańskie bez reklam, opłat i subskrypcji.",
+          "url": "/vod",
+          "icon": "film"
+        }
+      ],
+      [
+        {
+          "tag": "Nadajemy 24/7",
+          "title": "Radio Christian Culture & Player",
+          "desc": "Muzyka uwielbienia, słuchowiska Biblia Audio i stacje tematyczne.",
+          "url": "/player",
+          "icon": "radio"
+        },
+        {
+          "tag": "Przegląd Ekosystemu • Nowość",
+          "title": "Tętno Misji: Nowe Lekcje i Artykuły",
+          "desc": "Aktualne premiery, audycje i materiały w całym ekosystemie CC.",
+          "url": "/news/przeglad-ekosystemu-nowe-artykuly-i-lekcje-akademii",
+          "icon": "sparkle"
+        },
+        {
+          "tag": "Telewizja CCTV24 Worship",
+          "title": "CCTV24 — Pasmo Bożej Obecności",
+          "desc": "Nocne czuwania, modlitwy i pieśni chwały w krystalicznej jakości HD.",
+          "url": "/cctv24-worship",
+          "icon": "play"
+        },
+        {
+          "tag": "Społeczność Wiary",
+          "title": "Portal Społecznościowy LUMINA",
+          "desc": "Dołącz do chrześcijan z całej Polski — dyskusje, świadectwa, modlitwa.",
+          "url": "/lumina",
+          "icon": "users"
+        }
+      ]
+    ],
+    "recommendedToday": [
+      {
+        "tag": "Nowość • 7 dni PRO na start",
+        "title": "AI dla Jezusa — Chrześcijańska Aplikacja AI",
+        "desc": "Rozmowy oparte na Biblii (UBG), 5 asystentów głosowych, multimedia CC i 7 dni PRO na start.",
+        "url": "/ai/aplikacja",
+        "icon": "sparkle"
+      },
+      {
+        "tag": "Inspiracja na Dziś",
+        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 28",
+        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 28 listopada 2026.",
+        "url": "/player",
+        "icon": "heart"
+      },
+      {
+        "tag": "Akademia Biblijna",
+        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 59)",
+        "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
+        "url": "/akademia/kurscodzienny/dzien-59",
+        "icon": "book"
+      },
+      {
+        "tag": "Dzień Reformacji 2026 • Na Dziś",
+        "title": "Reformacja nie skończyła się w 1517 roku — film „Luter”",
+        "desc": "509 lat od 1517 r. Sola Scriptura, Sola Gratia i odnowa sumienia (Cezary Rogowski).",
+        "url": "/news/dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski",
+        "icon": "newspaper"
+      },
+      {
+        "tag": "Nadajemy 24/7",
+        "title": "Radio Christian Culture & Player",
+        "desc": "Muzyka uwielbienia, słuchowiska Biblia Audio i stacje tematyczne.",
+        "url": "/player",
+        "icon": "radio"
+      }
+    ]
+  }
 }

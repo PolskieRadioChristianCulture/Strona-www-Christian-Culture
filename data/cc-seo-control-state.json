@@ -1,6 +1,6 @@
 {
   "standardVersion": "CCN Global SEO & AI Search 2026 v1.0",
-  "generatedAt": "2026-11-27T05:05:57.012Z",
+  "generatedAt": "2026-11-28T04:28:38.051Z",
   "zeroFakeDataPolicy": true,
   "counts": {
     "totalValidatedUrls": 110,
@@ -8,7 +8,7 @@
     "invalidUrls": 0,
     "newsArticlesCount": 104,
     "googleNews48hCount": 58,
-    "akademiaUrlsCount": 89,
+    "akademiaUrlsCount": 90,
     "bibliaUrlsCount": 7,
     "muzykaUrlsCount": 9,
     "videoUrlsCount": 12,
@@ -31,31 +31,31 @@
     {
       "path": "/feed.xml",
       "exists": true,
-      "sizeBytes": 24295,
+      "sizeBytes": 24419,
       "status": "OK"
     },
     {
       "path": "/news/feed.xml",
       "exists": true,
-      "sizeBytes": 33372,
+      "sizeBytes": 33642,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news.xml",
       "exists": true,
-      "sizeBytes": 47780,
+      "sizeBytes": 48822,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news-google.xml",
       "exists": true,
-      "sizeBytes": 46031,
+      "sizeBytes": 46218,
       "status": "OK"
     },
     {
       "path": "/sitemaps/akademia.xml",
       "exists": true,
-      "sizeBytes": 16837,
+      "sizeBytes": 17026,
       "status": "OK"
     },
     {
@@ -92,9 +92,9 @@
   "indexNow": {
     "keyConfigured": true,
     "keyNote": "Skonfigurowany (cc77...8e)",
-    "totalQueued": 63,
+    "totalQueued": 64,
     "pendingCount": 0,
-    "submittedCount": 63,
+    "submittedCount": 64,
     "failedCount": 0,
     "recentItems": [
       {
@@ -291,7 +291,7 @@
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-27T05:05:57.003Z",
+        "queuedAt": "2026-11-28T04:28:37.194Z",
         "attempts": 1,
         "maxRetries": 3,
         "lastAttemptAt": "2026-11-26T06:52:44.421Z",
@@ -310,7 +310,7 @@
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-27T05:05:57.003Z",
+        "queuedAt": "2026-11-28T04:28:37.194Z",
         "attempts": 1,
         "maxRetries": 3,
         "lastAttemptAt": "2026-11-26T06:52:44.421Z",
@@ -329,7 +329,7 @@
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-27T05:05:57.003Z",
+        "queuedAt": "2026-11-28T04:28:37.194Z",
         "attempts": 1,
         "maxRetries": 3,
         "lastAttemptAt": "2026-11-26T06:52:44.421Z",
@@ -348,7 +348,7 @@
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-27T05:05:57.003Z",
+        "queuedAt": "2026-11-28T04:28:37.194Z",
         "attempts": 1,
         "maxRetries": 3,
         "lastAttemptAt": "2026-11-26T06:52:44.421Z",
@@ -367,7 +367,7 @@
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
-        "queuedAt": "2026-11-27T05:05:57.003Z",
+        "queuedAt": "2026-11-28T04:28:37.194Z",
         "attempts": 1,
         "maxRetries": 3,
         "lastAttemptAt": "2026-11-26T06:52:44.421Z",
@@ -384,9 +384,9 @@
       }
     ],
     "keyMasked": "cc777b...c28e",
-    "totalIndexedUrls": 512,
-    "lastSubmittedCount": 512,
-    "lastSubmittedAt": "2026-11-27T05:05:58.909Z"
+    "totalIndexedUrls": 515,
+    "lastSubmittedCount": 515,
+    "lastSubmittedAt": "2026-11-28T04:28:39.621Z"
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -532,7 +532,7 @@
     },
     {
       "file": "news/dobroc-nie-jest-slaboscia-7-decyzji-ktore-zmieniaja-relacje.html",
-      "canonicalUrl": "https://polskieradio.cc/eM",
+      "canonicalUrl": "https://polskieradio.cc/news/dobroc-nie-jest-slaboscia-7-decyzji-ktore-zmieniaja-relacje",
       "section": "news",
       "valid": true,
       "errors": [],
@@ -596,12 +596,12 @@
     },
     {
       "file": "news/czy-zyczliwosc-bez-granic-moze-nas-wyczerpac-biblia-o-madrym-pomaganiu.html",
-      "canonicalUrl": "https://polskieradio.cc/eM",
+      "canonicalUrl": "https://polskieradio.cc/news/czy-zyczliwosc-bez-granic-moze-nas-wyczerpac-biblia-o-madrym-pomaganiu",
       "section": "news",
       "valid": true,
       "errors": [],
       "warnings": []
     }
   ],
-  "lastInstantIndexingAt": "2026-11-27T05:05:58.909Z"
+  "lastInstantIndexingAt": "2026-11-28T04:28:39.621Z"
 }

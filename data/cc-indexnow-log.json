@@ -1,6 +1,43 @@
 {
   "entries": [
     {
+      "timestamp": "2026-11-28T04:28:39.619Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "Bing Direct",
+      "httpStatus": 200,
+      "urlCount": 515
+    },
+    {
+      "timestamp": "2026-11-28T04:28:39.220Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "IndexNow Global",
+      "httpStatus": 200,
+      "urlCount": 515
+    },
+    {
+      "timestamp": "2026-11-28T04:28:38.049Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMITTED",
+      "httpStatus": 200,
+      "urlCount": 1,
+      "maskedKey": "cc77...8e"
+    },
+    {
+      "timestamp": "2026-11-28T04:28:37.196Z",
+      "level": "INFO",
+      "event": "INDEXNOW_ENQUEUED",
+      "count": 24,
+      "sampleUrls": [
+        "https://polskieradio.cc/finanse/cbdc-prawo-niedzielne-apokalipsa-13",
+        "https://polskieradio.cc/finanse",
+        "https://polskieradio.cc/news/czy-zaplace-kare-finansowa-w-kosciele-grzywny-laska",
+        "https://polskieradio.cc/news/milosc-do-blizniego-w-praktyce-jeden-telefon-ktory-moze-zmienic-dzien",
+        "https://polskieradio.cc/news/co-na-to-bog-chrzescijan-jan-pawel-ii-koran"
+      ]
+    },
+    {
       "timestamp": "2026-11-27T05:05:58.907Z",
       "level": "INFO",
       "event": "INDEXNOW_SUBMIT_SUCCESS",

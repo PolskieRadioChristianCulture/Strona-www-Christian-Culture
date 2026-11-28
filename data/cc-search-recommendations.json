@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-11-27T05:06:00.059Z",
+  "updatedAt": "2026-11-28T04:28:40.279Z",
   "heading": "Polecane na dziś",
-  "dateFormattedPL": "27 listopada 2026",
+  "dateFormattedPL": "28 listopada 2026",
   "pools": [
     [
       {
@@ -13,8 +13,8 @@
       },
       {
         "tag": "Inspiracja na Dziś",
-        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 27",
-        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 27 listopada 2026.",
+        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 28",
+        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 28 listopada 2026.",
         "url": "/player",
         "icon": "heart"
       },
@@ -36,9 +36,9 @@
     [
       {
         "tag": "Akademia Biblijna",
-        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 58)",
+        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 59)",
         "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-        "url": "/akademia/kurscodzienny/dzien-58",
+        "url": "/akademia/kurscodzienny/dzien-59",
         "icon": "book"
       },
       {
@@ -134,16 +134,16 @@
     },
     {
       "tag": "Inspiracja na Dziś",
-      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 27",
-      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 27 listopada 2026.",
+      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 28",
+      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 28 listopada 2026.",
       "url": "/player",
       "icon": "heart"
     },
     {
       "tag": "Akademia Biblijna",
-      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 58)",
+      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 59)",
       "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-      "url": "/akademia/kurscodzienny/dzien-58",
+      "url": "/akademia/kurscodzienny/dzien-59",
       "icon": "book"
     },
     {

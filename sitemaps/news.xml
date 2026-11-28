@@ -172,13 +172,13 @@
     </image:image>
   </url>
   <url>
-    <loc>https://polskieradio.cc/eM</loc>
-    <lastmod>2026-10-24</lastmod>
+    <loc>https://polskieradio.cc/news/dobroc-nie-jest-slaboscia-7-decyzji-ktore-zmieniaja-relacje</loc>
+    <lastmod>2026-11-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
-      <image:loc>https://polskieradio.cc/images/news/art-kim-jestem-gdy-nikt-nie-patrzy-uczciwosc-sumienie.jpg</image:loc>
-      <image:title>Kim jestem, gdy nikt nie patrzy? Uczciwość i sumienie według Biblii</image:title>
+      <image:loc>https://polskieradio.cc/images/news/art-dobroc-nie-jest-slaboscia-7-decyzji-ktore-zmieniaja-relacje.jpg</image:loc>
+      <image:title>Dobroć nie jest słabością. 7 decyzji, które zmieniają relacje</image:title>
     </image:image>
   </url>
   <url>
@@ -189,6 +189,16 @@
     <image:image>
       <image:loc>https://polskieradio.cc/images/news/mlody-inwestor-chrzescijanski-zloto-nieruchomosci-nawyki.png</image:loc>
       <image:title>Młody inwestor chrześcijański: złoto, nawyki i dochód bez długu</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/news/czy-zyczliwosc-bez-granic-moze-nas-wyczerpac-biblia-o-madrym-pomaganiu</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/art-czy-zyczliwosc-bez-granic-moze-nas-wyczerpac.jpg</image:loc>
+      <image:title>Czy życzliwość bez granic może nas wyczerpać? Biblia o mądrym pomaganiu</image:title>
     </image:image>
   </url>
   <url>
@@ -399,6 +409,16 @@
     <image:image>
       <image:loc>https://polskieradio.cc/images/news/art-z-biblia-za-pan-brat-dzien-26-od-wiezienia-do-palacu.jpg</image:loc>
       <image:title>Z Biblią za Pan Brat: Dzień 26 — Od więzienia do pałacu: Teologia oczekiwania, roztropności gospodarczej i opatrzności (Rdz 40–41)</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/news/kim-jestem-gdy-nikt-nie-patrzy-uczciwosc-sumienie</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/art-kim-jestem-gdy-nikt-nie-patrzy-uczciwosc-sumienie.jpg</image:loc>
+      <image:title>Kim jestem, gdy nikt nie patrzy? Uczciwość i sumienie według Biblii</image:title>
     </image:image>
   </url>
   <url>

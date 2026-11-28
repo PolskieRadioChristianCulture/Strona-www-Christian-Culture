@@ -785,6 +785,7 @@ export async function buildAllDiscoverySignals() {
     { url: `${PRIMARY_ORIGIN}/vod`, section: 'pages', publishedAt: '2026-11-26T00:00:00Z' },
     { url: `${PRIMARY_ORIGIN}/akademia/kurscodzienny/dzien-57`, section: 'akademia', publishedAt: '2026-11-26T05:00:00Z' },
     { url: `${PRIMARY_ORIGIN}/akademia/kurscodzienny/dzien-58`, section: 'akademia', publishedAt: '2026-11-27T00:00:00Z' },
+    { url: `${PRIMARY_ORIGIN}/akademia/kurscodzienny/dzien-59`, section: 'akademia', publishedAt: '2026-11-28T00:00:00Z' },
   ];
   queueManager.enqueue(candidatesForQueue);
   const resolvedKey = resolveIndexNowKey({ rootDir: ROOT });

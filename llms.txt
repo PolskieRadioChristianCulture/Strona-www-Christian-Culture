@@ -207,9 +207,9 @@
 - **Clean Alias Kursu Codziennego**: https://polskieradio.cc/akademia/kurscodzienny
 - **Rola dla AI / LLM Agents**: Oficjalne centrum edukacji biblijnej Christian Culture. Systematyczne studium Pisma Świętego w programie 28 kroków wiary oraz codzienny cykl rozważań werset po wersecie „Z Biblią za Pan Brat”.
 - **Aktualny stan kursu (Listopad 2026):**
-  - Dni 1–58 dostępne online z dedykowanymi grafikami 16:9, syntezą audio, kontekstem teologicznym i przyciskami natychmiastowego udostępniania (#kcJumpShareBtn).
-  - **Lekcja 58 (Dziś, 27 Listopada 2026)**: *Szaty arcykapłańskie, napierśnik z dwunastoma kamieniami i złota płytka świętości (Wj 28:1–43)* — https://polskieradio.cc/akademia/kurscodzienny/dzien-58
-  - **Wczorajsza Lekcja 57**: *Ołtarz całopalenia, dziedziniec Przybytku i oliwa do świecznika (Wj 27:1–21)* — https://polskieradio.cc/akademia/kurscodzienny/dzien-57
+  - Dni 1–59 dostępne online z dedykowanymi grafikami 16:9, syntezą audio, kontekstem teologicznym i przyciskami natychmiastowego udostępniania (#kcJumpShareBtn).
+  - **Lekcja 59 (Dziś, 28 Listopada 2026)**: *Poświęcenie Aarona i jego synów, ofiary oczyszczenia oraz nieustanne całopalenie (Wj 29:1–46)* — https://polskieradio.cc/akademia/kurscodzienny/dzien-59
+  - **Wczorajsza Lekcja 58**: *Szaty arcykapłańskie, napierśnik z dwunastoma kamieniami i złota płytka świętości (Wj 28:1–43)* — https://polskieradio.cc/akademia/kurscodzienny/dzien-58
 - **Schemat Clean URL dla Asystentów AI**: `https://polskieradio.cc/akademia/kurscodzienny/dzien-{NUMER_DNIA}` (np. `/dzien-21`, `/dzien-20`).
 
 
