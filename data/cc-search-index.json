@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-28T04:49:12.060Z",
+  "updatedAt": "2026-11-28T05:05:08.469Z",
   "totalItems": 714,
   "contextGuides": {
     "nadzieja": {
@@ -3229,6 +3229,26 @@
         "nauka pisma"
       ],
       "featured": false
+    },
+    {
+      "title": "Kazania z Pasją — Biblioteka Konspektów Kazań Biblijnych",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/kazania/",
+      "description": "Profesjonalne, chrystocentryczne konspekty kazań biblijnych (UBG-2025) dla kaznodziejów, duchownych, ewangelistów, nauczycieli i mentorów. Czytaj, słuchaj, drukuj PDF i dziel się Słowem Bożym.",
+      "tags": [
+        "kazania",
+        "kazania z pasja",
+        "konspekty kazan",
+        "kaznodzieja",
+        "homiletyka",
+        "biblioteka kazan",
+        "gloszenie slowa",
+        "szkice kazan",
+        "serie kaznodziejskie",
+        "studium biblii",
+        "ubg"
+      ],
+      "featured": true
     },
     {
       "title": "THE JOURNAL — pamiętnik dla młodzieży na 90 dni",
@@ -15696,26 +15716,6 @@
       "type": "page",
       "access": "public",
       "lang": "en"
-    },
-    {
-      "title": "Kazania z Pasją — Biblioteka Konspektów Kazań Biblijnych",
-      "category": "Biblia i formacja",
-      "url": "https://polskieradio.cc/kazania/",
-      "description": "Profesjonalne, chrystocentryczne konspekty kazań biblijnych (UBG-2025) dla kaznodziejów, duchownych, ewangelistów, nauczycieli i mentorów. Czytaj, słuchaj, drukuj PDF i dziel się Słowem Bożym.",
-      "tags": [
-        "kazania",
-        "kazania z pasja",
-        "konspekty kazan",
-        "kaznodzieja",
-        "homiletyka",
-        "biblioteka kazan",
-        "gloszenie slowa",
-        "szkice kazan",
-        "serie kaznodziejskie",
-        "studium biblii",
-        "ubg"
-      ],
-      "featured": true
     }
   ],
   "recommendedToday": [
@@ -15756,7 +15756,7 @@
     }
   ],
   "searchRecommendations": {
-    "updatedAt": "2026-11-28T04:28:40.279Z",
+    "updatedAt": "2026-11-28T05:05:09.016Z",
     "heading": "Polecane na dziś",
     "dateFormattedPL": "28 listopada 2026",
     "pools": [

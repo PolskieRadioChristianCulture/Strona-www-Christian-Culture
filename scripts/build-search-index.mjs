@@ -250,6 +250,14 @@ const CONTEXT_GUIDES = {
 // --- 2. GŁÓWNE PLATFORMY I MODUŁY EKOSYSTEMU ---
 const CORE_PROJECTS = [
 {
+  title: "Kazania z Pasją — Biblioteka Konspektów Kazań Biblijnych",
+  category: "Biblia i formacja",
+  url: "https://polskieradio.cc/kazania/",
+  description: "Profesjonalne, chrystocentryczne konspekty kazań biblijnych (UBG-2025) dla kaznodziejów, duchownych, ewangelistów, nauczycieli i mentorów. Czytaj, słuchaj, drukuj PDF i dziel się Słowem Bożym.",
+  tags: ["kazania", "kazania z pasja", "konspekty kazan", "kaznodzieja", "homiletyka", "biblioteka kazan", "gloszenie slowa", "szkice kazan", "serie kaznodziejskie", "studium biblii", "ubg"],
+  featured: true
+},
+{
   title: "THE JOURNAL — pamiętnik dla młodzieży na 90 dni",
   category: "Edukacja i rozwój",
   url: "https://polskieradio.cc/the-journal",

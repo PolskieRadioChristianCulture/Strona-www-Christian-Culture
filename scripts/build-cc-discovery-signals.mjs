@@ -540,6 +540,7 @@ export async function buildAllDiscoverySignals() {
     { path: '/ai', lastmod: '2026-11-26', priority: '0.95', changefreq: 'daily' },
     { path: '/ai/aplikacja', lastmod: '2026-11-26', priority: '0.98', changefreq: 'daily' },
     { path: '/wspieramto', lastmod: '2026-11-21', priority: '0.90', changefreq: 'weekly' },
+    { path: '/kazania/', lastmod: '2026-11-28', priority: '0.90', changefreq: 'weekly' },
     ...(() => {
       const pionierzyFile = path.join(ROOT, 'biblioteka-pionierow', 'data', 'partia-01.json');
       if (!fs.existsSync(pionierzyFile)) return [];
