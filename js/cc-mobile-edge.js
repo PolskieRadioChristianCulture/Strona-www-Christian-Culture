@@ -142,7 +142,7 @@
   const commonItems = [
     ['home','Strona główna','/'], ['users','LUMINA — społeczność','/lumina'],
     ['chat','LUMI Messenger','/mess'], ['news','CCN News','/news'],
-    ['book','Moja Biblia','/mojabiblia'], ['study','Akademia Biblijna','/akademia'],
+    ['book','Moja Biblia','/mojabiblia'], ['book','Scrolluj Biblię','/sba'], ['study','Akademia Biblijna','/akademia'],
     ['calendar','HOLOS — planer','/holos'], ['play','Kino VOD','/vod'],
     ['search','Szukaj w ekosystemie','/szukaj'],
     ['mail','LIVE LETTER • Newsletter CC','/newsletter'],

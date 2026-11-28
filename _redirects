@@ -993,6 +993,8 @@
 /Kazania /kazania/ 301
 /Kazania/ /kazania/ 301
 
-# === SCROLLUJ BIBLIĘ — GŁĘBOKIE STUDIUM (ŚRODOWISKO TESTOWE NOINDEX DO AKCEPTACJI L0) ===
-/test/sba/studium /test/sba/studium/index.html 200
-/test/sba/studium/ /test/sba/studium/index.html 200
+# === SCROLLUJ BIBLIĘ — GŁĘBOKIE STUDIUM (/sba/studium/) ===
+/sba/studium /sba/studium/index.html 200
+/sba/studium/ /sba/studium/index.html 200
+/test/sba/studium /sba/studium/ 301
+/test/sba/studium/ /sba/studium/ 301

@@ -63,8 +63,6 @@ export function isPublicFile(relativePath) {
   if (file.startsWith('test/wyszukiwarka/')) return true;
   // Portal „Odkryj Biblię — dla katolików” (/test/katolik, noindex do akceptacji L0).
   if (file.startsWith('test/katolik/')) return true;
-  // Scrolluj Biblię — Głębokie studium (środowisko testowe noindex do akceptacji L0).
-  if (file.startsWith('test/sba/studium/')) return true;
   if (segments.some((segment) => BLOCKED_DIRECTORIES.has(segment))) return false;
   if (BLOCKED_FILES.has(lower) || BLOCKED_FILES.has(path.posix.basename(lower))) return false;
   if (lower.includes('backup') || lower.includes('.matrix_sessions')) return false;

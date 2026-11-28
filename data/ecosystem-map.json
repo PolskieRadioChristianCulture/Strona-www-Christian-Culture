@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-28",
+      "topic": "Scrolluj Biblię (/sba) & Głębokie studiowanie (/sba/studium/) — produkcyjne wdrożenie wyróżnionej opcji studiowania wersetów oraz 8-etapowego warsztatu Pisma Świętego (UBG, IndexedDB, Mapa myśli SVG/PNG)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-28",
       "topic": "AI dla Jezusa (/ai/aplikacja) — nowy dolny pasek ikon odpowiedzi z pływającą szarą zakładką opcji, zakładki personalizacji „O mnie” i „O tobie” oraz narzędzia zarządzania własnym ekosystemem CC w oknie czatu (w tym realne połączenie z HOLOS 2027)",
       "agent": "A"
     },
@@ -1396,6 +1401,63 @@
     }
   ],
   "nodes": [
+    {
+      "id": "glebokie-studium",
+      "branchId": "biblia-edukacja",
+      "name": "Głębokie studium Biblii (/sba/studium/)",
+      "shortDesc": "8-etapowy warsztat modlitwy, obserwacji, hermeneutyki, egzegezy i Mapy myśli.",
+      "fullDesc": "Rozszerzenie aplikacji Scrolluj Biblię (/sba/studium/): czytanie w obecności Autora, Wielka Szóstka i Dwunastka, 7 kręgów kontekstu, zasady Sola Scriptura, Studio Kreatywne (13 szablonów) oraz eksport Mapy myśli SVG/PNG.",
+      "type": "app",
+      "url": "https://polskieradio.cc/sba/studium/",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🔍",
+      "category": "Biblia & Edukacja",
+      "verifiedDate": "2026-11-28",
+      "keywords": [
+        "głębokie studium",
+        "głębokie studiowanie",
+        "scrolluj biblię",
+        "sba",
+        "hermeneutyka",
+        "egzegeza",
+        "mapa myśli"
+      ],
+      "connections": [
+        "scrolluj-biblie",
+        "mojabiblia",
+        "akademia",
+        "biblia-audio"
+      ]
+    },
+    {
+      "id": "scrolluj-biblie",
+      "branchId": "biblia-edukacja",
+      "name": "Scrolluj Biblię (UBG)",
+      "shortDesc": "Czytaj i słuchaj jednocześnie — losowe wersety UBG z Biblią Audio i Głębokim studiowaniem.",
+      "fullDesc": "Mobilna aplikacja Christian Culture (/sba) do przewijania wersetów Uwspółcześnionej Biblii Gdańskiej (UBG), odsłuchu Biblii Audio i radia 24/7 oraz uruchamiania 8-etapowego warsztatu Głębokie studium.",
+      "type": "app",
+      "url": "https://polskieradio.cc/sba",
+      "status": "active",
+      "lang": "pl",
+      "icon": "📖",
+      "category": "Biblia & Edukacja",
+      "verifiedDate": "2026-11-28",
+      "keywords": [
+        "scrolluj biblię",
+        "sba",
+        "biblia ubg",
+        "losowy werset",
+        "biblia audio",
+        "czytaj i słuchaj"
+      ],
+      "connections": [
+        "glebokie-studium",
+        "mojabiblia",
+        "biblia-audio",
+        "akademia"
+      ]
+    },
     {
       "id": "zaneta-cc-women",
       "branchId": "cc-network",

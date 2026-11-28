@@ -1148,7 +1148,7 @@ function askAiUrl(verse) {
 
 function deepStudyUrl(verse) {
   const baseOrigin = location.origin && location.origin !== 'null' ? location.origin : site('/').origin;
-  const url = new URL('/test/sba/studium/', baseOrigin);
+  const url = new URL('/sba/studium/', baseOrigin);
   url.searchParams.set('book', verse.book);
   url.searchParams.set('ch', String(verse.chapter));
   url.searchParams.set('v', String(verse.number));

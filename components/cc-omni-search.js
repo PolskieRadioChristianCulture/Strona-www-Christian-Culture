@@ -304,9 +304,11 @@
     'dzisiaj': ['dziś', 'dzis', 'na dziś', 'dzisiejsza'],
 
     // Pismo Święte
-    'biblia': ['pismo święte', 'słowo boże', 'ewangelia', 'mojabiblia', 'interlinearna', 'werset'],
-    'pismo': ['biblia', 'słowo boże', 'pismo święte'],
-    'werset': ['słowo', 'cytat', 'mojabiblia', 'werset dnia', 'pismo'],
+    'biblia': ['pismo święte', 'słowo boże', 'ewangelia', 'mojabiblia', 'interlinearna', 'werset', 'scrolluj biblię', 'scrolluj', 'sba', 'głębokie studium'],
+    'pismo': ['biblia', 'słowo boże', 'pismo święte', 'scrolluj biblię', 'głębokie studium'],
+    'werset': ['słowo', 'cytat', 'mojabiblia', 'werset dnia', 'pismo', 'scrolluj biblię', 'sba'],
+    'scrolluj': ['scrolluj biblię', 'sba', 'głębokie studium', 'głębokie studiowanie', 'biblia ubg', 'losowy werset'],
+    'studium': ['głębokie studium', 'głębokie studiowanie', 'sba/studium', 'hermeneutyka', 'egzegeza', 'mapa myśli'],
 
     // Muzyka, Radio & Transmisje
     'muzyka': ['worship', 'pieśni', 'uwielbienie', 'radio', 'ambient', 'sleep', 'hymny', 'karaoke'],
@@ -9936,6 +9938,7 @@ ${isStandalonePage ? '' : `
       ['Uwielbienie', '/BiblijneUwielbienie', 'worship'], ['Karaoke', '/karaoke-studio', 'karaoke'], ['CC Network', '/network', 'globe']
     ] },
     { title: 'Słowo i modlitwa', items: [
+      ['Scrolluj Biblię', '/sba', 'scroll'], ['Głębokie studium', '/sba/studium/', 'brain'],
       ['Akademia', '/akademia', 'book'], ['Lekcja dnia', '/akademia/kurscodzienny', 'calendar'], ['MojaBiblia', '/mojabiblia', 'bible'],
       ['Werset dnia', '/werset-dnia', 'quote'], ['Ewangelia', '/Ewangelia', 'cross'], ['Modlitwa 24/7', '/BCM24', 'pray'],
       ['Za Polskę', '/zapolske-live', 'flag'], ['Apokalipsa', '/apokalipsa-live', 'scroll'], ['Kalendarz', '/kalendarz', 'calendar'],

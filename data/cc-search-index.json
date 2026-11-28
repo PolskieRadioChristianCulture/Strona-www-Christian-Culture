@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-28T05:06:17.588Z",
-  "totalItems": 714,
+  "updatedAt": "2026-11-28T05:21:39.055Z",
+  "totalItems": 716,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -15716,6 +15716,40 @@
       "type": "page",
       "access": "public",
       "lang": "en"
+    },
+    {
+      "title": "Głębokie studium — Warsztat odkrywania Biblii UBG (Scrolluj Biblię)",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/sba/studium/",
+      "description": "8-etapowy warsztat głębokiego studiowania Pisma Świętego (UBG) z ekranem modlitwy, Wielką Szóstką i Dwunastką obserwacji, 7 kręgami kontekstu, zasadami egzegezy Sola Scriptura, Studiem Kreatywnym (13 szablonów) oraz interaktywną Mapą myśli (SVG/PNG).",
+      "tags": [
+        "głębokie studium",
+        "głębokie studiowanie",
+        "studium biblii",
+        "hermeneutyka",
+        "egzegeza",
+        "mapa myśli",
+        "scrolluj biblię",
+        "sba",
+        "ubg",
+        "obserwacja tekstu"
+      ],
+      "featured": true
+    },
+    {
+      "title": "Scrolluj Biblię — Czytaj i słuchaj jednocześnie (Biblia UBG)",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/sba",
+      "description": "Mobilny czytnik losowych wersetów Uwspółcześnionej Biblii Gdańskiej (UBG) z odtwarzaczem Biblii Audio, trzema stacjami radiowymi 24/7, kontekstem rozdziału i opcją Głębokie studiowanie.",
+      "tags": [
+        "scrolluj biblię",
+        "sba",
+        "biblia ubg",
+        "losowy werset",
+        "biblia audio",
+        "czytnik biblii"
+      ],
+      "featured": true
     }
   ],
   "recommendedToday": [

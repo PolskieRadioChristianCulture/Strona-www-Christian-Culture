@@ -5,14 +5,14 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { isPublicFile } from './cc-release-files.mjs';
-import { parseStudyParams, validatePassage, buildBibleIndex, getVerseRange, findLexicalParallels } from '../test/sba/studium/data.js';
+import { parseStudyParams, validatePassage, buildBibleIndex, getVerseRange, findLexicalParallels } from '../sba/studium/data.js';
 import {
   OPENING_SCREEN, STAGES, BIG_SIX, BIG_TWELVE, ANNOTATION_CATEGORIES,
   CONTEXT_CIRCLES, HERMENEUTIC_QUESTIONS, INTERPRETATION_PRINCIPLES,
   INTERPRETATION_QUESTIONS, APPLICATION_QUESTIONS, CREATIVE_TEMPLATES
-} from '../test/sba/studium/content.js';
-import { SCHEMA_VERSION, createEmptyStudy, migrateStudy, serializeStudyJson, parseImportedJson } from '../test/sba/studium/db.js';
-import { createDefaultMindMap, addBranchNode, removeBranchNode, addMindMapEdge, buildMindMapSvgString, buildMindMapTextOutline } from '../test/sba/studium/mindmap.js';
+} from '../sba/studium/content.js';
+import { SCHEMA_VERSION, createEmptyStudy, migrateStudy, serializeStudyJson, parseImportedJson } from '../sba/studium/db.js';
+import { createDefaultMindMap, addBranchNode, removeBranchNode, addMindMapEdge, buildMindMapSvgString, buildMindMapTextOutline } from '../sba/studium/mindmap.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -25,28 +25,29 @@ test('/sba menu has highlighted Głębokie studiowanie opening in new tab safely
   assert.match(sbaJs, /menu-row menu-row-featured/);
   assert.match(sbaJs, /anchor\.target = '_blank'/);
   assert.match(sbaJs, /anchor\.rel = 'noopener noreferrer'/);
-  assert.match(sbaJs, /new URL\('\/test\/sba\/studium\/'/);
+  assert.match(sbaJs, /new URL\('\/sba\/studium\/'/);
   assert.match(sbaJs, /translation', 'UBG'/);
   assert.doesNotMatch(sbaJs, /deepStudyUrl[\s\S]{0,400}note/);
   assert.match(sbaCss, /\.menu-row\.menu-row-featured\s*\{/);
 });
 
-test('test/sba/studium is allowlisted for release, routed in _redirects, and has noindex', () => {
-  assert.equal(isPublicFile('test/sba/studium/index.html'), true);
-  assert.equal(isPublicFile('test/sba/studium/app.js'), true);
-  assert.equal(isPublicFile('test/sba/studium/data.js'), true);
-  assert.equal(isPublicFile('test/sba/studium/db.js'), true);
-  assert.equal(isPublicFile('test/sba/studium/mindmap.js'), true);
-  assert.equal(isPublicFile('test/sba/studium/content.js'), true);
-  assert.equal(isPublicFile('test/sba/studium/styles.css'), true);
+test('sba/studium is public for release, routed in _redirects, and indexed', () => {
+  assert.equal(isPublicFile('sba/studium/index.html'), true);
+  assert.equal(isPublicFile('sba/studium/app.js'), true);
+  assert.equal(isPublicFile('sba/studium/data.js'), true);
+  assert.equal(isPublicFile('sba/studium/db.js'), true);
+  assert.equal(isPublicFile('sba/studium/mindmap.js'), true);
+  assert.equal(isPublicFile('sba/studium/content.js'), true);
+  assert.equal(isPublicFile('sba/studium/styles.css'), true);
 
-  const html = fs.readFileSync(path.join(ROOT, 'test', 'sba', 'studium', 'index.html'), 'utf8');
-  assert.match(html, /<meta name="robots" content="noindex, nofollow">/);
+  const html = fs.readFileSync(path.join(ROOT, 'sba', 'studium', 'index.html'), 'utf8');
+  assert.match(html, /<meta name="robots" content="index, follow/);
   assert.doesNotMatch(html, /Mission Control/i);
 
   const redirects = fs.readFileSync(path.join(ROOT, '_redirects'), 'utf8');
-  assert.match(redirects, /\/test\/sba\/studium\s+\/test\/sba\/studium\/index\.html\s+200/);
-  assert.match(redirects, /\/test\/sba\/studium\/\s+\/test\/sba\/studium\/index\.html\s+200/);
+  assert.match(redirects, /\/sba\/studium\s+\/sba\/studium\/index\.html\s+200/);
+  assert.match(redirects, /\/sba\/studium\/\s+\/sba\/studium\/index\.html\s+200/);
+  assert.match(redirects, /\/test\/sba\/studium\/\s+\/sba\/studium\/\s+301/);
 });
 
 test('URL parsing, passage validation and real UBG verses work cleanly', () => {
@@ -92,7 +93,7 @@ test('Spec domain structures are complete and keep Mission Control private', () 
   assert.equal(APPLICATION_QUESTIONS.length, 12);
   assert.equal(CREATIVE_TEMPLATES.length, 13);
 
-  const appJs = fs.readFileSync(path.join(ROOT, 'test', 'sba', 'studium', 'app.js'), 'utf8');
+  const appJs = fs.readFileSync(path.join(ROOT, 'sba', 'studium', 'app.js'), 'utf8');
   assert.match(appJs, /'\/kazania\/'/);
   assert.doesNotMatch(appJs, /Mission Control/i);
 });
@@ -150,4 +151,23 @@ test('Mind map nodes, edges, accessible outline and XML-safe SVG export', () => 
   mm = removeBranchNode(mm, r1.added.id);
   assert.equal(mm.nodes.length, 1);
   assert.equal(mm.edges.length, 0);
+});
+
+test('Scrolluj Biblię and Głębokie studium are registered in all CC search, map, and apps catalogs', () => {
+  for (const rel of ['data/cc-search-index.json', 'szukaj/catalog.json']) {
+    const idx = JSON.parse(fs.readFileSync(path.join(ROOT, rel), 'utf8'));
+    assert.ok(idx.items.some((x) => x.url === 'https://polskieradio.cc/sba'), `${rel} missing /sba`);
+    assert.ok(idx.items.some((x) => x.url === 'https://polskieradio.cc/sba/studium/'), `${rel} missing /sba/studium/`);
+  }
+  const map = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/ecosystem-map.json'), 'utf8'));
+  assert.ok(map.nodes.some((n) => n.url === 'https://polskieradio.cc/sba'), 'ecosystem-map nodes missing /sba');
+  assert.ok(map.nodes.some((n) => n.url === 'https://polskieradio.cc/sba/studium/'), 'ecosystem-map nodes missing /sba/studium/');
+
+  const media = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/cc-search-media-index.json'), 'utf8'));
+  assert.ok(media.channels.some((c) => c.url === '/sba'), 'cc-search-media-index missing /sba');
+  assert.ok(media.channels.some((c) => c.url === '/sba/studium/'), 'cc-search-media-index missing /sba/studium/');
+
+  const omni = fs.readFileSync(path.join(ROOT, 'components/cc-omni-search.js'), 'utf8');
+  assert.match(omni, /\['Scrolluj Biblię',\s*'\/sba'/);
+  assert.match(omni, /\['Głębokie studium',\s*'\/sba\/studium\/'/);
 });

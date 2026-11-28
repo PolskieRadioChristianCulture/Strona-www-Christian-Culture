@@ -171,6 +171,29 @@ const APPS = [
     keys: 'mojabiblia biblia ubg bw bt bg strong interlinearna hebrajski grecki czytnik'
   },
   {
+    id: 'scrolluj-biblie',
+    cats: ['biblia', 'android'],
+    platformsPl: ['Web App', 'UBG + Audio'],
+    platformsEn: ['Web App', 'UBG + Audio'],
+    isIcon: true,
+    img: '/sba/icon-192.png',
+    hrefPl: '/sba',
+    hrefEn: '/sba',
+    secHrefPl: '/sba/studium/',
+    secHrefEn: '/sba/studium/',
+    secLabelPl: 'Głębokie studium',
+    secLabelEn: 'Deep Bible Study',
+    catLabelPl: 'Czytaj i słuchaj jednocześnie',
+    catLabelEn: 'Read & Listen to Scripture',
+    titlePl: 'Scrolluj Biblię (UBG)',
+    titleEn: 'Scroll the Bible (UBG)',
+    descPl: 'Pionowe przewijanie wersetów Uwspółcześnionej Biblii Gdańskiej z jednoczesnym odtwarzaczem Biblii Audio 24/7 oraz 8-etapowym warsztatem Głębokie studium.',
+    descEn: 'Vertical random verse reader in Polish UBG with synchronized Biblia Audio player and the 8-stage Deep Bible Study workshop.',
+    ctaPl: 'Scrolluj Biblię',
+    ctaEn: 'Open Scrolluj Biblię',
+    keys: 'scrolluj biblie sba glebokie studium studiowanie ubg losowy werset mapa mysli'
+  },
+  {
     id: 'biblia-audio',
     cats: ['biblia', 'media'],
     platformsPl: ['Audio 320 kbps'],
@@ -327,7 +350,7 @@ const T = {
     navLabel: 'Główna nawigacja',
     menuStart: 'Start',
     menuAndroid: 'Google Play',
-    menuCatalog: 'Wszystkie (14)',
+    menuCatalog: 'Wszystkie (15)',
     menuInstall: 'Instalacja',
     menuPromo: 'Polecamy',
     supportTxt: 'Wspieram to',
@@ -342,7 +365,7 @@ const T = {
     claim: 'Jedna misja, kilkanaście żywych narzędzi — zawsze pod ręką',
     lead: 'Słuchaj radia 24/7, czytaj Słowo Boże z kodami Stronga, dołącz do modlitwy na LUMINA i korzystaj z codziennych rozważań — bez opłat i bez reklam.',
     heroPlayCta: 'Pobierz na Androida',
-    heroCatalogCta: 'Wszystkie aplikacje (14)',
+    heroCatalogCta: 'Wszystkie aplikacje (15)',
     stageVerDefault: 'ZWERYFIKOWANE 24/7',
     stageTabs: [
       { id: 'android', label: 'Android Play', tag: 'OFICJALNA APLIKACJA GOOGLE PLAY', title: 'Christian Culture', desc: 'Radio PL i Global, Biblia Audio CC, Motywacyjny Werset Dnia i Planer Biblijny w jednym pakiecie.', liveLabel: 'Wydawca', liveVal: 'Polskie Radio Christian Culture TV', cta: 'Pobierz z Google Play', href: PLAY_APP_PL, ext: true, img: '/app-christian-culture.png', badge: 'Google Play · 0 zł' },
@@ -352,7 +375,7 @@ const T = {
       { id: '40dm', label: '40DM', tag: 'WSPÓLNA MODLITWA', title: '40 Dni Modlitwy', desc: '40-dniowy program modlitwy ze Słowem Bożym, obietnicami UBG i żywym pokojem rozmów.', liveLabel: 'Edycja', liveVal: 'Wersja polska i angielska', cta: 'Otwórz plan 40DM', href: '/40DM/', ext: false, img: '/images/social/40dm/40dm-promo-16x9-pl.jpg', badge: 'Plan 40 dni' }
     ],
     stats: [
-      { id: 'statApps', val: '14', suffix: '', label: 'Aktywnych aplikacji i narzędzi' },
+      { id: 'statApps', val: '15', suffix: '', label: 'Aktywnych aplikacji i narzędzi' },
       { id: 'statReflections', val: '108', suffix: '+', label: 'Rozważań w bazie na dziś' },
       { id: 'statTime', val: '24', suffix: '/7', label: 'Dostęp non-stop bez przerw' },
       { id: 'statPrice', val: '0', suffix: ' zł', label: 'Bez opłat i bez reklam' }
@@ -470,7 +493,7 @@ const T = {
     navLabel: 'Main navigation',
     menuStart: 'Start',
     menuAndroid: 'Google Play',
-    menuCatalog: 'All Apps (14)',
+    menuCatalog: 'All Apps (15)',
     menuInstall: 'Install Guide',
     menuPromo: 'Featured',
     supportTxt: 'Support this',
@@ -482,10 +505,10 @@ const T = {
     h1a: 'Apps for',
     h1b: 'Your Faith',
     sub: 'Android · Google Play · iPhone · Web PWA',
-    claim: 'One Gospel mission, fourteen living tools — always within reach',
+    claim: 'One Gospel mission, fifteen living tools — always within reach',
     lead: 'Stream Christian radio 24/7, explore Scripture with Strong’s interlinear lexicon, join prayer rooms on LUMINA and read daily reflections — free forever, zero ads.',
     heroPlayCta: 'Get it on Google Play (Android)',
-    heroCatalogCta: 'Explore all 14 apps',
+    heroCatalogCta: 'Explore all 15 apps',
     stageVerDefault: 'VERIFIED 24/7',
     stageTabs: [
       { id: 'android', label: 'Android Play', tag: 'OFFICIAL GOOGLE PLAY APP', title: 'Christian Culture', desc: 'Radio PL & Global, Biblia Audio CC, Daily Verse & Bible Planner packed into one free Android app.', liveLabel: 'Publisher', liveVal: 'Polskie Radio Christian Culture TV', cta: 'Open Google Play', href: PLAY_APP_EN, ext: true, img: '/app-christian-culture.png', badge: 'Google Play · Free' },
@@ -495,7 +518,7 @@ const T = {
       { id: '40dm', label: '40DM', tag: 'PRAYER JOURNEY', title: '40 Days of Prayer', desc: '40-day guided Scripture & prayer challenge with daily promises and community room.', liveLabel: 'Edition', liveVal: 'English & Polish editions', cta: 'Open 40DM Plan', href: '/40DM/en/', ext: false, img: '/images/social/40dm/40dm-promo-16x9-en.jpg', badge: '40-Day Plan' }
     ],
     stats: [
-      { id: 'statApps', val: '14', suffix: '', label: 'Active Web & Android tools' },
+      { id: 'statApps', val: '15', suffix: '', label: 'Active Web & Android tools' },
       { id: 'statReflections', val: '108', suffix: '+', label: 'Reflections published' },
       { id: 'statTime', val: '24', suffix: '/7', label: 'Non-stop availability' },
       { id: 'statPrice', val: '0', suffix: '$', label: 'Free & ad-free forever' }
