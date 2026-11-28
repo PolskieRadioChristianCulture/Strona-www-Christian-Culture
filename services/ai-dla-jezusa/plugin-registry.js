@@ -324,6 +324,90 @@ const LEGACY_APP_PLUGINS = [
     description: 'Interaktywna mapa wszystkich modułów Christian Culture, radia, telewizji i aplikacji.',
     tools: ['cc_search', 'cc_topics'],
     samplePrompt: 'Pokaż pełną mapę usług i kanałów w ekosystemie Christian Culture'
+  }),
+  Object.freeze({
+    id: 'spiewajmy-panu',
+    version: '1.0.0',
+    name: 'Śpiewajmy Panu — Śpiewnik Biblijny (W przygotowaniu)',
+    shortName: 'Śpiewajmy Panu',
+    category: 'Uwielbienie i Muzyka',
+    scholarCategory: null,
+    priority: 'P1',
+    availability: 'ready',
+    statusLabel: 'W przygotowaniu',
+    costPolicy: 'no-unapproved-cost',
+    licenseGate: 'approved',
+    datasets: ['spiewajmy-panu-meta-700'],
+    dependencies: [],
+    permissions: ['read:public_catalog'],
+    contexts: ['hymn', 'worship', 'bible'],
+    surfaces: ['ai', 'lumimes', 'sba', 'mcp'],
+    icon: '🎶',
+    url: 'https://polskieradio.cc/spiewnik-biblijny/',
+    authMode: 'open',
+    defaultConnected: true,
+    description: 'W przygotowaniu · Katalog 700 pieśni śpiewnika „Śpiewajmy Panu” (57 tekstów Domena Publiczna; pozostałe metadane + oficjalny link muzycy.adwent.pl do potwierdzenia licencji).',
+    tools: ['cc_hymnal_get_song', 'cc_hymnal_search', 'cc_hymnal_by_category'],
+    samplePrompt: 'Znajdź w śpiewniku Śpiewajmy Panu pieśń na dzień sobotni albo pokaż pieśń nr 1'
+  }),
+  Object.freeze({
+    id: 'cc.my-church',
+    version: '2.0.0',
+    name: 'Mój kościół — Scrolluj Biblię (W przygotowaniu)',
+    shortName: 'Mój kościół',
+    category: 'Zbór & Społeczność',
+    scholarCategory: null,
+    priority: 'P1',
+    availability: 'ready',
+    statusLabel: 'W przygotowaniu',
+    costPolicy: 'no-unapproved-cost',
+    licenseGate: 'approved',
+    datasets: ['moj-kosciol-public-catalog'],
+    dependencies: [],
+    permissions: ['read:public_church', 'read:public_service', 'read:public_announcements', 'read:hymn_metadata'],
+    contexts: ['church', 'service', 'bible'],
+    surfaces: ['ai', 'lumimes', 'sba', 'mcp'],
+    icon: '⛪',
+    url: 'https://polskieradio.cc/test/sba/moj-kosciol/',
+    authMode: 'open',
+    defaultConnected: true,
+    description: 'W przygotowaniu (Pilot DEMO) · Publiczne wizytówki zborów, program nabożeństwa LIVE, ogłoszenia, wydarzenia i licencjonowane metadane śpiewników. Działa również bez modelu AI.',
+    tools: [
+      'cc_church_search',
+      'cc_church_get_profile',
+      'cc_church_get_service',
+      'cc_church_get_live_state',
+      'cc_church_get_announcements',
+      'cc_church_get_public_announcements',
+      'cc_church_get_events',
+      'cc_church_get_hymn_metadata'
+    ],
+    samplePrompt: 'Co teraz dzieje się na nabożeństwie w moim zborze i jaki fragment Biblii jest czytany?'
+  }),
+  Object.freeze({
+    id: 'cc.sabbath-school',
+    version: '2.0.0',
+    name: 'Szkoła Sobotnia PL/EN (W przygotowaniu)',
+    shortName: 'Szkoła Sobotnia',
+    category: 'Nauczanie',
+    scholarCategory: null,
+    priority: 'P1',
+    availability: 'ready',
+    statusLabel: 'W przygotowaniu',
+    costPolicy: 'no-unapproved-cost',
+    licenseGate: 'approved',
+    datasets: ['sabbath-school-stage-a-links'],
+    dependencies: [],
+    permissions: ['read:sabbath_school_metadata'],
+    contexts: ['sabbath-school', 'bible', 'study'],
+    surfaces: ['ai', 'lumimes', 'sba', 'mcp'],
+    icon: '📚',
+    url: 'https://polskieradio.cc/test/sba/moj-kosciol/#szkola-sobotnia',
+    authMode: 'open',
+    defaultConnected: true,
+    description: 'W przygotowaniu (Etap A · linki i metadane) · Niezależna wtyczka Szkoły Sobotniej PL/EN działająca bez wybranego zboru i bez modelu AI (adwent.pl / absg.sspmadventist.org / Adventech).',
+    tools: ['cc_sabbath_school_get_current', 'cc_sabbath_school_get_sources'],
+    samplePrompt: 'Jaka jest aktualna lekcja Szkoły Sobotniej (PL i EN) i jakie są jej główne wersety biblijne?'
   })
 ];
 
@@ -1109,6 +1193,8 @@ export function getConnectedPluginIds(storage = typeof localStorage !== 'undefin
     return [];
   }
 }
+
+export const getConnectedPluginIdsFromStorage = getConnectedPluginIds;
 
 export function setPluginConnected(pluginId, connected, storage = typeof localStorage !== 'undefined' ? localStorage : null) {
   if (!storage) return [];

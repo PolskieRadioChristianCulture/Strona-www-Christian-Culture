@@ -74,3 +74,6 @@ patronite/logs/
 # Wiadomości z nieba — lokalny stan SQLite i pliki próbne
 wiadomosci-z-nieba/state/*.sqlite*
 wiadomosci-z-nieba/state/probe-*
+
+# Pełny zbiór tekstów Śpiewajmy Panu wyłącznie lokalnie (do potwierdzenia praw wydawcy)
+data/spiewajmy-panu.json

@@ -917,3 +917,35 @@ html body #ccWspieramToModal .cc-wt-copy-btn:hover {
 html body #ccWspieramToModal .cc-wt-footer-note a {
   color: #ff8ea2 !important;
 }
+
+/* Śpiewnik Biblijny „Śpiewajmy Panu” wbudowany w Scrolluj Biblię (/sba) */
+.sba-hymnal-wrap { display: flex; flex-direction: column; gap: 12px; }
+.sba-hymnal-controls { display: flex; flex-wrap: wrap; gap: 8px; }
+.sba-hymnal-search {
+  flex: 1 1 220px; min-height: 44px; padding: 10px 12px; border-radius: 12px;
+  border: 1px solid rgba(196, 163, 90, 0.35); background: rgba(255, 255, 255, 0.06);
+  color: inherit; font-size: 0.95rem;
+}
+.sba-hymnal-pill {
+  min-height: 44px; padding: 8px 12px; border-radius: 12px;
+  border: 1px solid rgba(196, 163, 90, 0.38); background: rgba(196, 163, 90, 0.14);
+  color: inherit; font-size: 0.86rem; font-weight: 600; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+}
+.sba-hymnal-pill.is-active { background: #FF7A00; color: #ffffff; border-color: #FF7A00; }
+.sba-hymnal-list { display: flex; flex-direction: column; gap: 6px; max-height: 56vh; overflow-y: auto; }
+.sba-hymnal-hint, .sba-hymnal-meta, .sba-hymnal-license { margin: 4px 0; font-size: 0.84rem; opacity: 0.78; }
+.sba-hymnal-stage { display: flex; flex-direction: column; gap: 10px; max-height: 62vh; overflow-y: auto; }
+.sba-hymnal-stage-top { display: flex; flex-wrap: wrap; gap: 8px; }
+.sba-hymnal-title { margin: 4px 0 0; font-size: 1.15rem; line-height: 1.3; }
+.sba-hymnal-audio {
+  display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border-radius: 12px;
+  background: rgba(255, 122, 0, 0.12); border: 1px solid rgba(255, 122, 0, 0.4);
+}
+.sba-hymnal-audio audio { width: 100%; height: 40px; }
+.sba-hymnal-stanza {
+  padding: 12px 14px; border-radius: 12px; background: rgba(128, 128, 128, 0.1);
+  border-left: 3px solid rgba(196, 163, 90, 0.5);
+}
+.sba-hymnal-stanza.is-chorus { border-left-color: #FF7A00; background: rgba(196, 163, 90, 0.14); }
+.sba-hymnal-stanza p { margin: 4px 0 0; font-size: 1.02rem; line-height: 1.6; }

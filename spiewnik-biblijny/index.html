@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="pl" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="author" content="Christian Culture — Cezary Rogowski">
+  <meta name="description" content="Śpiewnik biblijny Śpiewajmy Panu (W przygotowaniu) — katalog 700 pieśni, 41 kategorii tematycznych, 57 tekstów w domenie publicznej oraz linki do oficjalnych źródeł muzycy.adwent.pl.">
+  <title>Śpiewajmy Panu — W przygotowaniu | Śpiewnik Biblijny | Christian Culture</title>
+  <link rel="canonical" href="https://polskieradio.cc/spiewnik-biblijny/">
+  <link rel="icon" type="image/png" sizes="192x192" href="/sba/icon-192.png?v=1">
+  <link rel="stylesheet" href="/spiewnik-biblijny/styles.css?v=20261128_1">
+  <script src="/spiewnik-biblijny/app.js?v=20261128_1" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-stage">Przejdź do tekstu pieśni</a>
+
+  <div role="note" style="background:rgba(196,163,90,0.18);border-bottom:1px solid rgba(196,163,90,0.35);padding:8px 16px;font-size:0.84rem;text-align:center;">
+    🛠️ <strong>W PRZYGOTOWANIU</strong> · Katalog 700 pieśni (57 pełnych tekstów w domenie publicznej; pozostałe utwory w trybie metadanych i oficjalnego linku <a href="https://muzycy.adwent.pl/" target="_blank" rel="noopener noreferrer" style="color:#E2CC9A;font-weight:700;">muzycy.adwent.pl</a> do czasu potwierdzenia praw wydawcy).
+  </div>
+
+  <header class="sp-header">
+    <div class="sp-header-inner">
+      <div class="sp-brand">
+        <span class="sp-logo" aria-hidden="true">🎶</span>
+        <div>
+          <h1>Śpiewajmy Panu <span style="font-size:0.72rem;padding:2px 8px;border-radius:999px;background:rgba(255,122,0,0.22);border:1px solid #FF7A00;color:#FFD5A3;vertical-align:middle;">W przygotowaniu</span></h1>
+          <p class="sp-sub">Śpiewnik Biblijny · Katalog 700 pieśni · Christian Culture</p>
+        </div>
+      </div>
+      <nav class="sp-nav" aria-label="Nawigacja ekosystemu">
+        <a class="sp-chip-link" href="/sba">📖 Scrolluj Biblię</a>
+        <a class="sp-chip-link" href="/test/sba/moj-kosciol/">⛪ Mój kościół</a>
+        <a class="sp-chip-link" href="/ai/aplikacja">✨ AI dla Jezusa</a>
+        <button type="button" class="sp-icon-btn" id="themeToggleBtn" aria-label="Przełącz motyw jasny/ciemny" title="Motyw jasny/ciemny">🌓</button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="sp-layout">
+    <aside class="sp-sidebar" aria-label="Wyszukiwarka i spis pieśni">
+      <div class="sp-search-box">
+        <label for="songSearchInput" class="sr-only">Szukaj pieśni po numerze, tytule lub fragmencie</label>
+        <input id="songSearchInput" type="search" placeholder="Nr (1–700), tytuł, słowa lub autor…" autocomplete="off">
+        <div class="sp-quick-filters" role="group" aria-label="Szybkie filtry">
+          <button type="button" class="sp-filter is-active" data-filter="all">Wszystkie (700)</button>
+          <button type="button" class="sp-filter" data-filter="audio">🎧 Z audio MP3</button>
+          <button type="button" class="sp-filter" data-filter="sabbath">🕊️ Dzień sobotni</button>
+          <button type="button" class="sp-filter" data-filter="pd">📜 Domena publiczna</button>
+        </div>
+        <label for="categorySelect" class="sr-only">Wybierz kategorię tematyczną</label>
+        <select id="categorySelect" class="sp-select">
+          <option value="">Wszystkie 41 kategorii tematycznych</option>
+        </select>
+      </div>
+
+      <div class="sp-stats" id="listStats" role="status" aria-live="polite">Wczytuję śpiewnik…</div>
+      <ul class="sp-list" id="songList" aria-label="Lista pieśni"></ul>
+    </aside>
+
+    <main class="sp-stage" id="main-stage" tabindex="-1">
+      <div class="sp-stage-toolbar">
+        <div class="sp-stage-nav">
+          <button type="button" class="sp-btn" id="prevSongBtn" aria-label="Poprzednia pieśń">← Poprzednia</button>
+          <button type="button" class="sp-btn" id="nextSongBtn" aria-label="Następna pieśń">Następna →</button>
+        </div>
+        <div class="sp-stage-controls">
+          <button type="button" class="sp-btn" id="fontDownBtn" aria-label="Zmniejsz tekst">A−</button>
+          <button type="button" class="sp-btn" id="fontUpBtn" aria-label="Powiększ tekst">A+</button>
+          <button type="button" class="sp-btn" id="fullscreenBtn" aria-label="Tryb pełnoekranowy do śpiewania">⛶ Pełny ekran</button>
+          <button type="button" class="sp-btn sp-btn-gold" id="askAiBtn">✨ Zapytaj AI dla Jezusa</button>
+        </div>
+      </div>
+
+      <article class="sp-song-card" id="songStage" aria-live="polite">
+        <p class="sp-loading">Wczytuję pieśń ze śpiewnika „Śpiewajmy Panu”…</p>
+      </article>
+
+      <footer class="sp-license-footer">
+        <p>
+          <strong>Nota licencyjna i źródłowa:</strong>
+          Katalog i teksty historyczne (domena publiczna) oraz nagrania studyjne Christian Culture (30 utworów MP3).
+          Oficjalne informacje o śpiewnikach i prawach autorskich Kościoła Adwentystów Dnia Siódmego:
+          <a href="https://muzycy.adwent.pl/" target="_blank" rel="noopener noreferrer">muzycy.adwent.pl</a>.
+        </p>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>

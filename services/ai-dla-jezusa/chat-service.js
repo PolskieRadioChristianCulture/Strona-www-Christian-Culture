@@ -35,7 +35,10 @@ import {
   ccBibleGetContext,
   ccSbaDeepStudy,
   ccFindSermon,
-  ccFindAudioBible
+  ccFindAudioBible,
+  ccHymnalGetSong,
+  ccChurchGetLiveState,
+  ccSabbathSchoolGetCurrent
 } from './cc-domain-tools.js';
 import {
   ccBibleLexiconLookup,
@@ -851,6 +854,89 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
           type: 'open-app'
         });
       }
+    }
+  }
+
+  // CC Connect 2.0: Kontekst pieśni ze śpiewnika „Śpiewajmy Panu”
+  if (incomingContext && incomingContext.hymn && (incomingContext.hymn.number || incomingContext.hymn.title)) {
+    const hRes = await ccHymnalGetSong({
+      number: incomingContext.hymn.number,
+      query: incomingContext.hymn.title || ''
+    }, env, deps);
+    if (hRes && hRes.ok) {
+      activeContextSnapshot = {
+        schemaVersion: 1,
+        appId: incomingContext.appId || 'spiewajmy-panu',
+        route: incomingContext.route || `/spiewnik-biblijny/#nr=${hRes.number}`,
+        contextType: 'hymn',
+        reference: `Śpiewajmy Panu nr ${hRes.number} — ${hRes.title}`,
+        hymnNumber: hRes.number,
+        title: hRes.title,
+        key: hRes.key,
+        category: hRes.category,
+        licenseStatus: hRes.licenseStatus,
+        audioUrl: hRes.audioUrl,
+        sourceUrl: hRes.webUrl
+      };
+      contextActions.push({
+        label: `Śpiewaj pieśń nr ${hRes.number}: ${hRes.title}`,
+        url: hRes.webUrl,
+        target: '_blank',
+        type: 'open-app'
+      });
+    }
+  }
+
+  // CC Connect 2.0: Kontekst Mój kościół / Szkoła Sobotnia (WYŁĄCZNIE publiczny; twarda blokada prywatnych próśb modlitewnych!)
+  if (incomingContext && incomingContext.church && incomingContext.visibility !== 'private_prayer') {
+    const liveRes = await ccChurchGetLiveState({
+      serviceId: incomingContext.church.serviceId || '',
+      churchId: incomingContext.church.churchId || ''
+    }, env, deps);
+    if (liveRes && liveRes.ok) {
+      activeContextSnapshot = {
+        schemaVersion: 1,
+        appId: 'cc.my-church',
+        route: incomingContext.route || '/test/sba/moj-kosciol/',
+        contextType: 'church',
+        visibility: 'public',
+        churchId: incomingContext.church.churchId || '',
+        serviceId: liveRes.serviceId,
+        activeItemId: liveRes.liveState?.activeItemId || null,
+        reference: liveRes.currentItem ? `Nabożeństwo LIVE: ${liveRes.currentItem.title}` : 'Program nabożeństwa',
+        nextItemTitle: liveRes.nextItem?.title || null,
+        bibleRefs: liveRes.currentItem?.bibleRefs || []
+      };
+      contextActions.push({
+        label: 'Otwórz program nabożeństwa (Mój kościół)',
+        url: 'https://polskieradio.cc/test/sba/moj-kosciol/',
+        target: '_blank',
+        type: 'open-app'
+      });
+    }
+  } else if (incomingContext && incomingContext.sabbathSchool) {
+    const ssRes = await ccSabbathSchoolGetCurrent({
+      lang: incomingContext.sabbathSchool.locale || 'pl',
+      lessonId: incomingContext.sabbathSchool.lessonId || null
+    }, env, deps);
+    if (ssRes && ssRes.ok && ssRes.lesson) {
+      activeContextSnapshot = {
+        schemaVersion: 1,
+        appId: 'cc.sabbath-school',
+        route: incomingContext.route || '/test/sba/moj-kosciol/#szkola-sobotnia',
+        contextType: 'sabbath-school',
+        locale: ssRes.locale,
+        lessonId: ssRes.lesson.externalId,
+        reference: `${ssRes.lesson.title} (${ssRes.lesson.memoryVerseRef})`,
+        bibleRefs: ssRes.lesson.bibleRefs || [],
+        sourceUrl: ssRes.lesson.sourceUrl
+      };
+      contextActions.push({
+        label: 'Oficjalne źródło Szkoły Sobotniej',
+        url: ssRes.lesson.sourceUrl,
+        target: '_blank',
+        type: 'open-app'
+      });
     }
   }
 

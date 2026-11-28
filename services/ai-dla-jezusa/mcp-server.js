@@ -20,7 +20,20 @@ import {
   ccBibleGetContext,
   ccSbaDeepStudy,
   ccFindSermon,
-  ccFindAudioBible
+  ccFindAudioBible,
+  ccHymnalGetSong,
+  ccHymnalSearch,
+  ccHymnalByCategory,
+  ccChurchSearch,
+  ccChurchGetProfile,
+  ccChurchGetService,
+  ccChurchGetLiveState,
+  ccChurchGetAnnouncements,
+  ccChurchGetPublicAnnouncements,
+  ccChurchGetEvents,
+  ccChurchGetHymnMetadata,
+  ccSabbathSchoolGetCurrent,
+  ccSabbathSchoolGetSources
 } from './cc-domain-tools.js';
 import {
   ccBibleLexiconLookup,
@@ -377,6 +390,152 @@ export const MCP_TOOLS = [
       },
       required: ["reference"]
     }
+  },
+  {
+    name: "cc_hymnal_get_song",
+    description: "Pobiera pieśń ze śpiewnika biblijnego „Śpiewajmy Panu” (1–700) wraz z tonacją, kategorią, zwrotkami (zgodnie z licencją) i linkiem do nagrania MP3.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        number: { type: "integer", description: "Numer pieśni (1–700)" },
+        query: { type: "string", description: "Tytuł lub fragment tekstu, jeśli brak numeru" }
+      }
+    }
+  },
+  {
+    name: "cc_hymnal_search",
+    description: "Przeszukuje śpiewnik biblijny „Śpiewajmy Panu” (700 pieśni) po tytule, kategorii, numerze lub nagraniach audio MP3.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        query: { type: "string" },
+        category: { type: "string" },
+        withAudioOnly: { type: "boolean", default: false },
+        limit: { type: "integer", default: 12 }
+      }
+    }
+  },
+  {
+    name: "cc_hymnal_by_category",
+    description: "Zwraca 41 kategorii śpiewnika „Śpiewajmy Panu” lub listę pieśni z wybranej kategorii (np. Dzień sobotni 92–127).",
+    inputSchema: {
+      type: "object",
+      properties: {
+        categoryId: { type: "integer" },
+        query: { type: "string" }
+      }
+    }
+  },
+  {
+    name: "cc_church_search",
+    description: "Wyszukuje publiczne wizytówki zborów w module Mój kościół (działa bez modelu AI).",
+    inputSchema: {
+      type: "object",
+      properties: {
+        query: { type: "string" },
+        city: { type: "string" },
+        denomination: { type: "string" }
+      }
+    }
+  },
+  {
+    name: "cc_church_get_profile",
+    description: "Zwraca publiczną wizytówkę zboru, status weryfikacji, zweryfikowane cele darów, ogłoszenia i wydarzenia.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        churchId: { type: "string" },
+        slug: { type: "string" }
+      }
+    }
+  },
+  {
+    name: "cc_church_get_service",
+    description: "Zwraca opublikowany program nabożeństwa z punktami agendy, tekstami biblijnymi, pieśniami i rewizją LIVE.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        serviceId: { type: "string" },
+        churchId: { type: "string" }
+      }
+    }
+  },
+  {
+    name: "cc_church_get_live_state",
+    description: "Zwraca bieżący stan LIVE nabożeństwa: co trwa teraz, co będzie następne, rewizję i znacznik czasu.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        serviceId: { type: "string" },
+        churchId: { type: "string" }
+      }
+    }
+  },
+  {
+    name: "cc_church_get_announcements",
+    description: "Zwraca aktualne, niewygasłe publiczne ogłoszenia zboru.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        churchId: { type: "string" }
+      }
+    }
+  },
+  {
+    name: "cc_church_get_public_announcements",
+    description: "Alias publicznych, moderowanych i niewygasłych ogłoszeń zboru (rozszerzenie v2.0).",
+    inputSchema: {
+      type: "object",
+      properties: {
+        churchId: { type: "string" }
+      }
+    }
+  },
+  {
+    name: "cc_church_get_events",
+    description: "Zwraca publiczny kalendarz wydarzeń zboru (bez publicznych list uczestników RSVP).",
+    inputSchema: {
+      type: "object",
+      properties: {
+        churchId: { type: "string" }
+      }
+    }
+  },
+  {
+    name: "cc_church_get_hymn_metadata",
+    description: "Zwraca licencjonowane metadane pieśni ze śpiewnika (pełny tekst wyłącznie dla utworów w domenie publicznej; dla pozostałych metadane i legalny link muzycy.adwent.pl).",
+    inputSchema: {
+      type: "object",
+      properties: {
+        number: { type: "integer" },
+        query: { type: "string" },
+        hymnalId: { type: "string", default: "spiewajmy-panu-kads" }
+      }
+    }
+  },
+  {
+    name: "cc_sabbath_school_get_current",
+    description: "Zwraca aktualną lekcję Szkoły Sobotniej (PL/EN, Etap A: metadane + oficjalne linki) z uwzględnieniem strefy czasowej. Działa bez wybranego zboru i bez modelu AI.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        lang: { type: "string", enum: ["pl", "en"], default: "pl" },
+        date: { type: "string", description: "Opcjonalna data ISO (YYYY-MM-DD)" },
+        timeZone: { type: "string", default: "Europe/Warsaw" },
+        mode: { type: "string", enum: ["discussion", "preparation"], default: "discussion" },
+        lessonId: { type: "string" }
+      }
+    }
+  },
+  {
+    name: "cc_sabbath_school_get_sources",
+    description: "Zwraca oficjalne źródła, zakres praw (Etap A) i status dostępności adaptera Szkoły Sobotniej PL/EN.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        lang: { type: "string", enum: ["pl", "en"], default: "pl" }
+      }
+    }
   }
 ];
 
@@ -725,6 +884,58 @@ async function executeTool(name, args, env = {}, deps = {}) {
 
     case 'cc_bible_mind_map_seed': {
       return ccBibleMindMapSeed(args, env, deps);
+    }
+
+    case 'cc_hymnal_get_song': {
+      return ccHymnalGetSong(args, env, deps);
+    }
+
+    case 'cc_hymnal_search': {
+      return ccHymnalSearch(args, env, deps);
+    }
+
+    case 'cc_hymnal_by_category': {
+      return ccHymnalByCategory(args, env, deps);
+    }
+
+    case 'cc_church_search': {
+      return ccChurchSearch(args, env, deps);
+    }
+
+    case 'cc_church_get_profile': {
+      return ccChurchGetProfile(args, env, deps);
+    }
+
+    case 'cc_church_get_service': {
+      return ccChurchGetService(args, env, deps);
+    }
+
+    case 'cc_church_get_live_state': {
+      return ccChurchGetLiveState(args, env, deps);
+    }
+
+    case 'cc_church_get_announcements': {
+      return ccChurchGetAnnouncements(args, env, deps);
+    }
+
+    case 'cc_church_get_public_announcements': {
+      return ccChurchGetPublicAnnouncements(args, env, deps);
+    }
+
+    case 'cc_church_get_events': {
+      return ccChurchGetEvents(args, env, deps);
+    }
+
+    case 'cc_church_get_hymn_metadata': {
+      return ccChurchGetHymnMetadata(args, env, deps);
+    }
+
+    case 'cc_sabbath_school_get_current': {
+      return ccSabbathSchoolGetCurrent(args, env, deps);
+    }
+
+    case 'cc_sabbath_school_get_sources': {
+      return ccSabbathSchoolGetSources(args, env, deps);
     }
 
     default:

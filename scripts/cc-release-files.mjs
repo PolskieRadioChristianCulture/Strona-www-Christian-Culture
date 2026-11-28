@@ -35,6 +35,7 @@ export function isPublicFile(relativePath) {
   if (basename === '.env' || basename.startsWith('.env.')) return false;
   if (/service[-_]?account(?:key)?(?:[._-]|$)/.test(basename) || /(?:^|-)firebase-adminsdk(?:-|\.)/.test(basename)) return false;
   if (/^data\/whatsapp_[^/]*\.json$/.test(lower)) return false;
+  if (lower === 'data/spiewajmy-panu.json') return false;
   if (file === 'lib/bu-voting-worker.js') return true;
   if (file === 'test/wspieraj/index.html') return true;
   if (file.startsWith('test/patronite/')) return true;

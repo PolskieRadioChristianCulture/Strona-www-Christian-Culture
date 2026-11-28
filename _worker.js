@@ -13,6 +13,7 @@ import { handleLumiChatApi } from './services/lumi-chat/lumi-chat-service.js';
 import { handlePrayerCounter } from './services/prayer-40dm/counter-service.js';
 import { handleAnalyticsMissionControlApi } from './services/cc-analytics-mc/analytics-mc-service.js';
 import { handleKazaniaApi } from './services/kazania/kazania-service.js';
+import { handleMojKosciolApi } from './services/moj-kosciol/moj-kosciol-service.js';
 
 const BLOCKED_PREFIXES = [
   '/.git/', '/.codex/', '/.cursor/', '/.claude/', '/repozytoria-cc/', '/joma_shared_memory/',
@@ -25,6 +26,7 @@ const BLOCKED_PREFIXES = [
 
 const BLOCKED_FILES = new Set([
   '/data/whatsapp_zaczepki_log.json', '/data/whatsapp_zaczepki_state.json',
+  '/data/spiewajmy-panu.json',
   // Prywatny Kalendarz Google właściciela — tylko przez /api/mission-calendar/gcal/live-report po zalogowaniu
   '/ccmc/gcalendar-live-report.json', '/ccmc/gcal-calendars.json', '/ccmc/gcal-events.json', '/ccmc/gcal-mission.json', '/ccmc/data/mission-calendar.ics', '/data/mission-calendar-config.json',
   '/.env', '/.env.example', '/.firebaserc', '/.gitignore', '/agents.md', '/claude.md',
@@ -1928,6 +1930,42 @@ export default {
     }
     if (url.pathname.startsWith('/api/kazania/')) {
       return handleKazaniaApi(request, env, { verifyToken: (tok) => verifyFirebaseIdToken(tok) });
+    }
+    if (url.pathname.startsWith('/api/moj-kosciol/v1')) {
+      return handleMojKosciolApi(request, env, { verifyToken: (tok) => verifyFirebaseIdToken(tok) });
+    }
+    if (url.pathname === '/test/sba/moj-kosciol' || url.pathname === '/test/sba/moj-kosciol/' || url.pathname === '/test/sba/moj-kosciol/index.html') {
+      const targetUrl = new URL(request.url);
+      targetUrl.pathname = '/test/sba/moj-kosciol/index.html';
+      targetUrl.search = '';
+      const assetResp = await env.ASSETS.fetch(new Request(targetUrl.toString(), { method: 'GET', headers: { Accept: 'text/html' } }));
+      const body = await assetResp.arrayBuffer();
+      return new Response(body, {
+        status: assetResp.status === 404 ? 404 : 200,
+        headers: {
+          'Content-Type': 'text/html; charset=utf-8',
+          'Cache-Control': 'no-store, no-cache, must-revalidate',
+          'X-Robots-Tag': 'noindex, nofollow, noarchive',
+          'X-Content-Type-Options': 'nosniff',
+          'Referrer-Policy': 'strict-origin-when-cross-origin'
+        }
+      });
+    }
+    if (url.pathname === '/spiewnik-biblijny' || url.pathname === '/spiewnik-biblijny/') {
+      const targetUrl = new URL(request.url);
+      targetUrl.pathname = '/spiewnik-biblijny/index.html';
+      targetUrl.search = '';
+      const assetResp = await env.ASSETS.fetch(new Request(targetUrl.toString(), { method: 'GET', headers: { Accept: 'text/html' } }));
+      const body = await assetResp.arrayBuffer();
+      return new Response(body, {
+        status: assetResp.status === 404 ? 404 : 200,
+        headers: {
+          'Content-Type': 'text/html; charset=utf-8',
+          'Cache-Control': 'no-store, no-cache, must-revalidate',
+          'X-Robots-Tag': 'noindex, nofollow, noarchive',
+          'X-Content-Type-Options': 'nosniff'
+        }
+      });
     }
     if (url.pathname.startsWith('/api/ai-dla-jezusa/v1')) {
       return handleAiDlaJezusaApi(request, env, { verifyToken: (tok) => verifyAiOwnerToken(tok, env) });

@@ -8100,14 +8100,15 @@
       if (typeof getFabStateController === 'function') return getFabStateController();
       return { hidden: safeLsGet(CC_FAB_HIDDEN_KEY) === '1', customPosition: null };
     },
-    // CC Connect 2.0 — API do otwierania LumiMes z kontekstem aplikacji (SBA, MojaBiblia, itd.)
-    openWithContext: function ({ appId, route, contextType, bible, text, suggestions } = {}) {
-      // 1. Zbuduj i ustaw aktywny kontekst w pamięci sesji
+    // CC Connect 2.0 — API do otwierania LumiMes z kontekstem aplikacji (SBA, Śpiewajmy Panu, Mój kościół, Szkoła Sobotnia)
+    openWithContext: function ({ appId, route, contextType, bible, hymn, church, sabbathSchool, visibility, text, suggestions } = {}) {
+      // 1. Zbuduj i ustaw aktywny kontekst w pamięci sesji (NIGDY nie przesyłaj prywatnych próśb modlitewnych!)
       const ctx = {
         schemaVersion: 1,
         appId: String(appId || 'generic').trim().slice(0, 40),
-        route: String(route || window.location.pathname).trim().slice(0, 100),
+        route: String(route || window.location.pathname).trim().slice(0, 120),
         contextType: String(contextType || 'generic').trim(),
+        visibility: visibility === 'public' ? 'public' : 'public',
         capturedAt: new Date().toISOString(),
         revision: Date.now()
       };
@@ -8120,6 +8121,28 @@
           verseEnd: Number(bible.verseEnd) || undefined
         };
         if (!ctx.bible.verseEnd) delete ctx.bible.verseEnd;
+      }
+      if (hymn && (hymn.number || hymn.title)) {
+        ctx.hymn = {
+          number: Number(hymn.number) || undefined,
+          title: String(hymn.title || '').trim().slice(0, 120),
+          key: String(hymn.key || '').trim().slice(0, 12)
+        };
+      }
+      if (church && (church.churchId || church.serviceId)) {
+        ctx.church = {
+          churchId: String(church.churchId || '').trim().slice(0, 80),
+          serviceId: String(church.serviceId || '').trim().slice(0, 80),
+          activeItemId: String(church.activeItemId || '').trim().slice(0, 80),
+          bibleRefs: Array.isArray(church.bibleRefs) ? church.bibleRefs.slice(0, 8) : []
+        };
+      }
+      if (sabbathSchool && (sabbathSchool.lessonId || sabbathSchool.locale)) {
+        ctx.sabbathSchool = {
+          lessonId: String(sabbathSchool.lessonId || '').trim().slice(0, 60),
+          locale: String(sabbathSchool.locale || 'pl').trim().slice(0, 8),
+          bibleRefs: Array.isArray(sabbathSchool.bibleRefs) ? sabbathSchool.bibleRefs.slice(0, 8) : []
+        };
       }
       if (text) ctx.selectedText = String(text).trim().slice(0, 500);
 
@@ -8145,10 +8168,17 @@
         if (window.setCCChatMode) window.setCCChatMode('assistant');
         const liveBtn = document.getElementById('ccChatTabLiveBtn');
         if (liveBtn) liveBtn.click();
-        // Pokaż chip kontekstu biblijnego w nagłówku
+        // Pokaż chip kontekstu w nagłówku
         if (ctx.bible) {
           const ref = `${ctx.bible.book} ${ctx.bible.chapter}:${ctx.bible.verseStart}`;
           this._setContextChip(ref, appId, route);
+        } else if (ctx.hymn) {
+          const ref = `🎶 Nr ${ctx.hymn.number || ''} ${ctx.hymn.title}`.trim();
+          this._setContextChip(ref, appId, route);
+        } else if (ctx.church) {
+          this._setContextChip('⛪ Mój kościół LIVE', appId, route);
+        } else if (ctx.sabbathSchool) {
+          this._setContextChip(`📚 Szkoła Sobotnia (${ctx.sabbathSchool.locale.toUpperCase()})`, appId, route);
         }
       } else if (window.CCUnifiedChat && typeof window.CCUnifiedChat.open === 'function') {
         window.CCUnifiedChat.open({ tab: 'assistant' });

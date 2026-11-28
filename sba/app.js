@@ -1238,6 +1238,208 @@ async function showScholarPanel(verse) {
   }
 }
 
+let sbaHymnalDataCache = null;
+
+async function loadSpiewajmyPanuData() {
+  if (sbaHymnalDataCache) return sbaHymnalDataCache;
+  const res = await fetch('/data/spiewajmy-panu-meta.json');
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  sbaHymnalDataCache = await res.json();
+  return sbaHymnalDataCache;
+}
+
+function suggestHymnCategoryForVerse(verse) {
+  if (!verse) return null;
+  const text = String(verse.text || '').toLowerCase();
+  const book = String(verse.book || '').toUpperCase();
+  if (/sobot|szabat|siódm|siodm/.test(text) || (book === 'EXO' && Number(verse.chapter) === 20)) return { from: 92, to: 127, label: 'Dzień sobotni (92–127)' };
+  if (/duch święt|ducha święt|pocieszyciel/.test(text)) return { from: 62, to: 75, label: 'Duch Święty (62–75)' };
+  if (/modl|prośb|błag/.test(text)) return { from: 384, to: 409, label: 'Modlitwa (384–409)' };
+  if (book === 'REV' || /przyjd|obłok|królestw/.test(text)) return { from: 180, to: 218, label: 'Powtórne przyjście Jezusa (180–218)' };
+  if (book === 'PSA' || /chwal|wielb|dzięk|śpiew/.test(text)) return { from: 1, to: 61, label: 'Uwielbienie Boga i dziękczynienie (1–61)' };
+  if (['MAT', 'MRK', 'LUK', 'JHN'].includes(book)) return { from: 266, to: 360, label: 'Uwielbienie Jezusa (266–360)' };
+  return { from: 1, to: 61, label: 'Uwielbienie Boga (1–61)' };
+}
+
+async function openSpiewajmyPanuDialog(verse = null) {
+  const wrap = element('div', 'sba-hymnal-wrap');
+  const statusEl = element('p', 'sba-hymnal-status', 'Wczytuję śpiewnik „Śpiewajmy Panu” (700 pieśni)…');
+  wrap.append(statusEl);
+  show('🎶 Śpiewajmy Panu (W przygotowaniu)', [wrap], { view: 'hymnal' });
+  trackEvent('sba_hymnal_open', { verse_key: verse?.key || '' });
+
+  try {
+    const data = await loadSpiewajmyPanuData();
+    wrap.replaceChildren();
+
+    const suggested = suggestHymnCategoryForVerse(verse);
+    let onlyAudio = false;
+
+    const controls = element('div', 'sba-hymnal-controls');
+    const searchInput = element('input', 'sba-hymnal-search');
+    searchInput.type = 'search';
+    searchInput.placeholder = 'Wpisz numer (1–700), tytuł lub słowo…';
+    searchInput.setAttribute('aria-label', 'Szukaj pieśni w śpiewniku Śpiewajmy Panu');
+
+    const audioBtn = element('button', 'sba-hymnal-pill', `🎧 Z audio MP3 (${data.audioCount || 0})`);
+    audioBtn.type = 'button';
+    audioBtn.setAttribute('aria-pressed', 'false');
+
+    const fullAppLink = element('a', 'sba-hymnal-pill', '↗ Pełny śpiewnik');
+    fullAppLink.href = '/spiewnik-biblijny/';
+    fullAppLink.target = '_blank';
+    fullAppLink.rel = 'noopener noreferrer';
+
+    controls.append(searchInput, audioBtn, fullAppLink);
+
+    const listBox = element('div', 'sba-hymnal-list');
+    const stageBox = element('div', 'sba-hymnal-stage');
+    stageBox.hidden = true;
+
+    const norm = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ł/g, 'l').trim();
+
+    function renderSongStage(song) {
+      listBox.hidden = true;
+      stageBox.hidden = false;
+      stageBox.replaceChildren();
+
+      const topBar = element('div', 'sba-hymnal-stage-top');
+      const backBtn = element('button', 'sba-hymnal-pill', '← Lista pieśni');
+      backBtn.type = 'button';
+      backBtn.addEventListener('click', () => {
+        stageBox.hidden = true;
+        listBox.hidden = false;
+      });
+      const extLink = element('a', 'sba-hymnal-pill', '⛶ Tryb pełnoekranowy ↗');
+      extLink.href = `/spiewnik-biblijny/#nr=${song.number}`;
+      extLink.target = '_blank';
+      extLink.rel = 'noopener noreferrer';
+
+      const aiBtn = element('button', 'sba-hymnal-pill', '✨ Zapytaj AI');
+      aiBtn.type = 'button';
+      aiBtn.addEventListener('click', () => {
+        dialog.close();
+        if (window.CCLumiMes && typeof window.CCLumiMes.openWithContext === 'function') {
+          window.CCLumiMes.openWithContext({
+            appId: 'spiewajmy-panu',
+            route: `/spiewnik-biblijny/#nr=${song.number}`,
+            contextType: 'hymn',
+            hymn: { number: song.number, title: song.title, key: song.key },
+            suggestions: [
+              'Jakie wersety UBG pasują do pieśni nr ' + song.number + '?',
+              'Wyjaśnij biblijne przesłanie tej pieśni',
+              'Jak zastosować te słowa w codziennej modlitwie?',
+              'Zaproponuj podobną pieśń na dzień sobotni',
+              'Przejdź do Głębokiego Studium powiązanego fragmentu'
+            ]
+          });
+        } else {
+          window.open(`/ai/aplikacja?q=${encodeURIComponent(`Opowiedz o pieśni nr ${song.number} "${song.title}" ze śpiewnika Śpiewajmy Panu`)}`, '_blank', 'noopener,noreferrer');
+        }
+      });
+      topBar.append(backBtn, extLink, aiBtn);
+
+      const heading = element('h3', 'sba-hymnal-title', `Nr ${song.number}. ${song.title}${song.key ? ` (${song.key})` : ''}`);
+      const meta = element('p', 'sba-hymnal-meta', `${song.section} · ${song.category}${song.author ? ' · ' + song.author : ''}`);
+      stageBox.append(topBar, heading, meta);
+
+      if (song.audioUrl) {
+        const audioWrap = element('div', 'sba-hymnal-audio');
+        const audioLabel = element('small', '', `🎧 Nagranie studyjne Christian Culture (${song.audioSourceAlbum || 'Śpiewajmy Panu'})`);
+        const audioEl = document.createElement('audio');
+        audioEl.controls = true;
+        audioEl.preload = 'none';
+        audioEl.src = song.audioUrl;
+        audioWrap.append(audioLabel, audioEl);
+        stageBox.append(audioWrap);
+      }
+
+      if (song.lyricsPublicAllowed && Array.isArray(song.stanzas) && song.stanzas.length) {
+        for (const st of song.stanzas) {
+          const stanzaEl = element('div', 'sba-hymnal-stanza' + (st.type === 'chorus' ? ' is-chorus' : ''));
+          stanzaEl.append(
+            element('strong', '', st.type === 'chorus' ? 'Refren' : `${st.label}.`),
+            element('p', '', st.text)
+          );
+          stageBox.append(stanzaEl);
+        }
+      } else {
+        const noticeEl = element('div', 'sba-hymnal-stanza is-chorus');
+        noticeEl.append(
+          element('strong', '', '🛠️ W przygotowaniu — ochrona praw autorskich'),
+          element('p', '', 'Pełny tekst tej pieśni oczekuje na formalne potwierdzenie licencji wydawcy. Dostępne są metadane, tonacja oraz oficjalne źródło muzycy.adwent.pl.')
+        );
+        const offLink = element('a', 'sba-hymnal-pill', '↗ Oficjalny śpiewnik (muzycy.adwent.pl)');
+        offLink.href = song.officialUrl || 'https://muzycy.adwent.pl/';
+        offLink.target = '_blank';
+        offLink.rel = 'noopener noreferrer';
+        noticeEl.append(offLink);
+        stageBox.append(noticeEl);
+      }
+
+      const licNote = element('p', 'sba-hymnal-license',
+        song.licenseStatus === 'public_domain'
+          ? 'Status: Domena publiczna · Źródło: muzycy.adwent.pl'
+          : 'Śpiewnik „Śpiewajmy Panu” · Informacje o prawach: muzycy.adwent.pl'
+      );
+      stageBox.append(licNote);
+    }
+
+    function renderSongList() {
+      const q = norm(searchInput.value);
+      let items = data.songs || [];
+      if (onlyAudio) items = items.filter((s) => Boolean(s.audioUrl));
+      if (q) {
+        items = items.filter((s) =>
+          String(s.number) === q ||
+          norm(s.title).includes(q) ||
+          norm(s.category).includes(q) ||
+          (Array.isArray(s.stanzas) && s.stanzas.some((st) => norm(st.text).includes(q)))
+        );
+      } else if (suggested && !onlyAudio) {
+        const matched = items.filter((s) => s.number >= suggested.from && s.number <= suggested.to);
+        const withAudioFirst = items.filter((s) => s.audioUrl && (s.number < suggested.from || s.number > suggested.to));
+        items = [...matched, ...withAudioFirst];
+      }
+
+      listBox.replaceChildren();
+      if (!q && suggested && !onlyAudio) {
+        listBox.append(element('p', 'sba-hymnal-hint', `Proponowane do wersetu (${suggested.label}) — lub wpisz dowolny numer 1–700:`));
+      }
+      if (!items.length) {
+        listBox.append(element('p', 'sba-hymnal-hint', 'Brak pasujących pieśni.'));
+        return;
+      }
+      for (const song of items.slice(0, 40)) {
+        const btn = element('button', 'menu-row sba-hymnal-row');
+        btn.type = 'button';
+        btn.textContent = `${song.audioUrl ? '🎧 ' : ''}Nr ${song.number} · ${song.title}${song.key ? ` (${song.key})` : ''}`;
+        btn.addEventListener('click', () => renderSongStage(song));
+        listBox.append(btn);
+      }
+    }
+
+    searchInput.addEventListener('input', () => {
+      stageBox.hidden = true;
+      listBox.hidden = false;
+      renderSongList();
+    });
+    audioBtn.addEventListener('click', () => {
+      onlyAudio = !onlyAudio;
+      audioBtn.setAttribute('aria-pressed', String(onlyAudio));
+      audioBtn.classList.toggle('is-active', onlyAudio);
+      stageBox.hidden = true;
+      listBox.hidden = false;
+      renderSongList();
+    });
+
+    wrap.append(controls, listBox, stageBox);
+    renderSongList();
+  } catch {
+    statusEl.textContent = 'Nie udało się wczytać śpiewnika. Otwórz bezpośrednio /spiewnik-biblijny/.';
+  }
+}
+
 function openVerseMenu(verse) {
   const saved = settings[verse.key];
   const recording = officialTrack(recordings, verse);
@@ -1297,6 +1499,7 @@ function openVerseMenu(verse) {
     })] : []),
     row(saved?.note ? tr('editNote') : tr('addNote'), () => showNote(verse)),
     row('📖 CC Bible Scholar (Strong i odsyłacze)', () => showScholarPanel(verse)),
+    row('🎶 Śpiewaj pieśń — Śpiewajmy Panu (W przygotowaniu)', () => openSpiewajmyPanuDialog(verse)),
     link(tr('searchInCc'), ccSearchUrl(verse, '/szukaj')),
     link(tr('openCcSearch'), ccSearchUrl(verse, '/wyszukiwarka')),
     askAiHandler
@@ -1673,7 +1876,21 @@ function edgeChannelLinks() {
     openSettingsDialog();
   });
 
+  const hymnalBtn = element('button', 'menu-row sba-edge-hymnal-btn', '🎶 Śpiewnik „Śpiewajmy Panu” (W przygotowaniu)');
+  hymnalBtn.type = 'button';
+  hymnalBtn.addEventListener('click', (event) => {
+    event.stopPropagation();
+    closeEdgePanelIfOpen();
+    void openSpiewajmyPanuDialog(selected());
+  });
+
+  const myChurchLink = link('⛪ Mój kościół (W przygotowaniu)', '/test/sba/moj-kosciol/');
+  myChurchLink.classList.add('sba-edge-my-church');
+  myChurchLink.addEventListener('click', () => closeEdgePanelIfOpen());
+
   group.append(
+    hymnalBtn,
+    myChurchLink,
     settingsBtn,
     element('h3', 'sba-edge-label', 'YouTube'),
     link('Osobowość PLUS', 'https://www.youtube.com/@osobowo%C5%9B%C4%87PLUS'),

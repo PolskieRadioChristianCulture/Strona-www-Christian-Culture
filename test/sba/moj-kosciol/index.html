@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="pl" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="description" content="Mój kościół — pilot rozszerzenia Scrolluj Biblię (SBA): publiczne wizytówki zborów, program nabożeństwa LIVE, Szkoła Sobotnia PL/EN i zaproszenia.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Mój kościół — Scrolluj Biblię (Pilot v2.0)">
+  <meta property="og:description" content="Program nabożeństwa na żywo, Szkoła Sobotnia PL/EN, pieśni i wizytówka zboru — bez logowania.">
+  <title>Mój kościół — Scrolluj Biblię (Pilot v2.0) | Christian Culture</title>
+  <link rel="icon" type="image/png" sizes="192x192" href="/sba/icon-192.png?v=1">
+  <link rel="stylesheet" href="/test/sba/moj-kosciol/styles.css?v=20261128_v2">
+  <script src="/test/sba/moj-kosciol/app.js?v=20261128_v2" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#mk-main">Przejdź do głównej treści</a>
+
+  <div class="mk-pilot-banner" role="note">
+    <span>🛠️ <strong>W PRZYGOTOWANIU — Pilot „Mój kościół” (/test/sba/moj-kosciol/)</strong> · Dane oznaczone <strong>DEMO</strong>. Nie sugeruje oficjalnego partnerstwa KADS bez pisemnej zgody.</span>
+    <a href="/sba">← Wróć do Scrolluj Biblię</a>
+  </div>
+
+  <header class="mk-header">
+    <div class="mk-header-top">
+      <div class="mk-church-ident">
+        <div class="mk-badges-row" id="headerBadges"></div>
+        <h1 id="churchNameHeading">Wczytuję zbór…</h1>
+        <p class="mk-next-service" id="nextServiceSummary">Sprawdzam harmonogram nabożeństwa…</p>
+      </div>
+      <div class="mk-header-tools" role="group" aria-label="Narzędzia dostępności i skupienia">
+        <button type="button" class="mk-tool-btn" id="churchPickerBtn" aria-label="Zmień lub znajdź zbór">🔍 Zmień zbór</button>
+        <button type="button" class="mk-tool-btn" id="focusModeBtn" aria-pressed="false" title="Tryb skupienia: ukrywa przyciski społecznościowe i powiadomienia podczas modlitwy i kazania">🕊️ Skupienie</button>
+        <button type="button" class="mk-tool-btn" id="largeTextBtn" aria-pressed="false" aria-label="Duże litery">A+</button>
+        <button type="button" class="mk-tool-btn" id="themeBtn" aria-label="Przełącz motyw jasny/ciemny">🌓</button>
+      </div>
+    </div>
+
+    <div class="mk-primary-actions">
+      <button type="button" class="mk-cta-orange" id="followLiveBtn">● Śledź program LIVE</button>
+      <button type="button" class="mk-cta-gold mk-hide-in-focus" id="inviteFriendBtn">💌 Zaproś przyjaciela</button>
+      <button type="button" class="mk-tool-btn mk-hide-in-focus" id="followChurchBtn" aria-pressed="false">☆ Obserwuj zbór</button>
+      <button type="button" class="mk-tool-btn mk-hide-in-focus" id="askLumiMesBtn">✨ Zapytaj AI (LumiMes)</button>
+    </div>
+
+    <div class="mk-sync-strip" id="syncStrip" role="status" aria-live="polite">
+      <span id="syncStatusText">Łączę z programem zboru…</span>
+      <label class="mk-inline-check">
+        <input type="checkbox" id="autoFollowToggle" checked>
+        <span>Podążaj za prowadzącym</span>
+      </label>
+    </div>
+
+    <nav class="mk-tabs" role="tablist" aria-label="Sekcje Mój kościół">
+      <button type="button" role="tab" class="mk-tab is-active" data-tab="dzisiaj" aria-selected="true">Dzisiaj</button>
+      <button type="button" role="tab" class="mk-tab" data-tab="szkola-sobotnia" aria-selected="false">Szkoła Sobotnia</button>
+      <button type="button" role="tab" class="mk-tab mk-hide-in-focus" data-tab="ogloszenia" aria-selected="false">Ogłoszenia</button>
+      <button type="button" role="tab" class="mk-tab mk-hide-in-focus" data-tab="wydarzenia" aria-selected="false">Wydarzenia</button>
+      <button type="button" role="tab" class="mk-tab" data-tab="piesni" aria-selected="false">Pieśni</button>
+      <button type="button" role="tab" class="mk-tab" data-tab="dary" aria-selected="false">Dary</button>
+      <button type="button" role="tab" class="mk-tab" data-tab="o-zborze" aria-selected="false">O zborze</button>
+      <button type="button" role="tab" class="mk-tab" data-tab="wiecej" aria-selected="false">Więcej</button>
+    </nav>
+  </header>
+
+  <main id="mk-main" class="mk-main" tabindex="-1">
+    <section id="panel-dzisiaj" class="mk-panel" role="tabpanel"></section>
+    <section id="panel-szkola-sobotnia" class="mk-panel" role="tabpanel" hidden></section>
+    <section id="panel-ogloszenia" class="mk-panel" role="tabpanel" hidden></section>
+    <section id="panel-wydarzenia" class="mk-panel" role="tabpanel" hidden></section>
+    <section id="panel-piesni" class="mk-panel" role="tabpanel" hidden></section>
+    <section id="panel-dary" class="mk-panel" role="tabpanel" hidden></section>
+    <section id="panel-o-zborze" class="mk-panel" role="tabpanel" hidden></section>
+    <section id="panel-wiecej" class="mk-panel" role="tabpanel" hidden></section>
+  </main>
+
+  <!-- Modal: Zaproś przyjaciela -->
+  <dialog id="inviteDialog" class="mk-dialog" aria-labelledby="inviteDialogTitle">
+    <div class="mk-dialog-head">
+      <h2 id="inviteDialogTitle">💌 Zaproś przyjaciela</h2>
+      <button type="button" class="mk-tool-btn" data-close-dialog="inviteDialog" aria-label="Zamknij">✕</button>
+    </div>
+    <div class="mk-dialog-body" id="inviteDialogBody"></div>
+  </dialog>
+
+  <!-- Modal: Wybierz lub znajdź zbór -->
+  <dialog id="churchPickerDialog" class="mk-dialog" aria-labelledby="churchPickerTitle">
+    <div class="mk-dialog-head">
+      <h2 id="churchPickerTitle">⛪ Znajdź zbór</h2>
+      <button type="button" class="mk-tool-btn" data-close-dialog="churchPickerDialog" aria-label="Zamknij">✕</button>
+    </div>
+    <div class="mk-dialog-body" id="churchPickerBody"></div>
+  </dialog>
+
+  <div class="mk-toast" id="mkToast" role="status" aria-live="polite" hidden></div>
+
+  <footer class="mk-footer">
+    <p>Mój kościół — Scrolluj Biblię (Pilot v2.0) · ZERO COST FIRST · Technologia wspiera nabożeństwo, relacje i misję, nie zastępuje ich.</p>
+    <p><a href="/sba">Scrolluj Biblię</a> · <a href="/spiewnik-biblijny/">Śpiewnik Śpiewajmy Panu</a> · <a href="/ai/aplikacja">AI dla Jezusa</a> · <a href="https://adwent.pl/kontakt/zbory/" target="_blank" rel="noopener noreferrer">Katalog zborów adwent.pl</a></p>
+  </footer>
+</body>
+</html>
